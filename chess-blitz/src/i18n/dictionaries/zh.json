@@ -9,7 +9,7 @@
     "tagline": "精通你的棋艺",
     "chooseGame": "选择游戏",
     "playVsComputer": "对战电脑",
-    "playVsComputerDesc": "挑战适合你水平的Stockfish AI",
+    "playVsComputerDesc": "与电脑在您的水平上对弈",
     "tournament": "锦标赛",
     "tournamentDesc": "参加在线锦标赛",
     "comingSoon": "即将推出"
@@ -57,7 +57,7 @@
   "play": {
     "back": "返回",
     "loading": "正在加载国际象棋引擎...",
-    "stockfish": "Stockfish",
+    "stockfish": "象棋机器人",
     "you": "你",
     "yourTurn": "轮到你了",
     "resignConfirm": "确定要认输吗？"

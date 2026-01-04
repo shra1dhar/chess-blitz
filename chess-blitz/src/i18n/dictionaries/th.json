@@ -9,7 +9,7 @@
     "tagline": "ฝึกฝนเกมของคุณ",
     "chooseGame": "เลือกเกมของคุณ",
     "playVsComputer": "เล่นกับคอมพิวเตอร์",
-    "playVsComputerDesc": "ท้าทาย Stockfish AI ในระดับของคุณ",
+    "playVsComputerDesc": "เล่นกับคอมพิวเตอร์ในระดับของคุณ",
     "tournament": "ทัวร์นาเมนต์",
     "tournamentDesc": "เข้าร่วมทัวร์นาเมนต์ออนไลน์",
     "comingSoon": "เร็วๆ นี้"
@@ -57,7 +57,7 @@
   "play": {
     "back": "กลับ",
     "loading": "กำลังโหลดเอนจิ้นหมากรุก...",
-    "stockfish": "Stockfish",
+    "stockfish": "บอทหมากรุก",
     "you": "คุณ",
     "yourTurn": "ตาของคุณ",
     "resignConfirm": "คุณแน่ใจหรือว่าต้องการยอมแพ้?"

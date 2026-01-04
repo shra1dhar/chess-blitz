@@ -9,7 +9,7 @@
     "tagline": "Совершенствуй свою игру",
     "chooseGame": "Выберите игру",
     "playVsComputer": "Играть против компьютера",
-    "playVsComputerDesc": "Бросьте вызов Stockfish ИИ на вашем уровне",
+    "playVsComputerDesc": "Играйте против компьютера на вашем уровне",
     "tournament": "Турнир",
     "tournamentDesc": "Участвуйте в онлайн-турнирах",
     "comingSoon": "Скоро"
@@ -57,7 +57,7 @@
   "play": {
     "back": "Назад",
     "loading": "Загрузка шахматного движка...",
-    "stockfish": "Stockfish",
+    "stockfish": "Шахматный Бот",
     "you": "Вы",
     "yourTurn": "Ваш ход",
     "resignConfirm": "Вы уверены, что хотите сдаться?"

@@ -9,7 +9,7 @@
     "tagline": "Савладај своју игру",
     "chooseGame": "Изабери своју игру",
     "playVsComputer": "Играј против рачунара",
-    "playVsComputerDesc": "Изазови Stockfish АИ на свом нивоу",
+    "playVsComputerDesc": "Играјте против рачунара на вашем нивоу",
     "tournament": "Турнир",
     "tournamentDesc": "Учествуј у онлајн турнирима",
     "comingSoon": "Ускоро"
@@ -57,7 +57,7 @@
   "play": {
     "back": "Назад",
     "loading": "Учитавање шаховског мотора...",
-    "stockfish": "Stockfish",
+    "stockfish": "Шах Бот",
     "you": "Ти",
     "yourTurn": "Твој потез",
     "resignConfirm": "Да ли сигурно желиш да се предаш?"

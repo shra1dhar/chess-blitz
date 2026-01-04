@@ -9,7 +9,7 @@
     "tagline": "ゲームをマスターしよう",
     "chooseGame": "ゲームを選択",
     "playVsComputer": "コンピュータと対戦",
-    "playVsComputerDesc": "あなたのレベルでStockfish AIに挑戦",
+    "playVsComputerDesc": "あなたのレベルでコンピューターと対戦",
     "tournament": "トーナメント",
     "tournamentDesc": "オンライントーナメントに参加",
     "comingSoon": "近日公開"
@@ -57,7 +57,7 @@
   "play": {
     "back": "戻る",
     "loading": "チェスエンジンを読み込み中...",
-    "stockfish": "Stockfish",
+    "stockfish": "チェスボット",
     "you": "あなた",
     "yourTurn": "あなたの番",
     "resignConfirm": "本当に投了しますか？"

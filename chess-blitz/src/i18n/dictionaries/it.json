@@ -9,7 +9,7 @@
     "tagline": "Padroneggia il tuo gioco",
     "chooseGame": "Scegli la tua partita",
     "playVsComputer": "Gioca contro il computer",
-    "playVsComputerDesc": "Sfida Stockfish IA al tuo livello",
+    "playVsComputerDesc": "Gioca contro il computer al tuo livello",
     "tournament": "Torneo",
     "tournamentDesc": "Partecipa ai tornei online",
     "comingSoon": "Prossimamente"
@@ -57,7 +57,7 @@
   "play": {
     "back": "Indietro",
     "loading": "Caricamento motore scacchi...",
-    "stockfish": "Stockfish",
+    "stockfish": "Bot di Scacchi",
     "you": "Tu",
     "yourTurn": "Tocca a te",
     "resignConfirm": "Sei sicuro di voler abbandonare?"

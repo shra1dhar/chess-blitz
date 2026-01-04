@@ -2,7 +2,7 @@
 // Chess Blitz - Chess Game Hook
 // ==============================================
 
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useEffectEvent } from 'react';
 import type { Square, PieceSymbol, Color } from 'chess.js';
 import { useGameStore, selectIsBotTurn, selectIsPlayerTurn, selectIsGameOver } from '@/stores/gameStore';
 import { useSettingsStore } from '@/stores/settingsStore';
@@ -81,36 +81,39 @@ export function useChessGame(options?: UseChessGameOptions): UseChessGameReturn 
 
   const lastBotMoveRequestRef = useRef<string | null>(null);
 
-  // Handle bot's best move
-  const handleBotMove = useCallback(
-    (uciMove: string) => {
-      const { from, to, promotion } = parseUCIMove(uciMove);
-      const success = storeMakeMove(from as Square, to as Square, promotion as PieceSymbol | undefined);
+  // Play sound for a move - uses useEffectEvent so it always has latest soundEnabled
+  const playMoveSound_ = useEffectEvent((moveInfo: { flags: string; captured?: string; promotion?: string }) => {
+    if (!soundEnabled) return;
 
-      if (success && soundEnabled) {
-        const moveInfo = chess.history({ verbose: true }).slice(-1)[0];
-        if (moveInfo) {
-          // Checkmate gets special sound
-          if (chess.isCheckmate()) {
-            playCheckmateSound();
-          } else if (chess.isStalemate() || chess.isDraw()) {
-            playGameEndSound();
-          } else if (moveInfo.promotion) {
-            // Promotion sound
-            playPromoteSound();
-          } else if (moveInfo.flags.includes('k') || moveInfo.flags.includes('q')) {
-            // Castle sound (k = kingside, q = queenside)
-            playCastleSound();
-          } else if (moveInfo.captured) {
-            playCaptureSound();
-          } else {
-            playMoveSound();
-          }
-        }
+    // Checkmate gets special sound
+    if (chess.isCheckmate()) {
+      playCheckmateSound();
+    } else if (chess.isStalemate() || chess.isDraw()) {
+      playGameEndSound();
+    } else if (moveInfo.promotion) {
+      playPromoteSound();
+    } else if (moveInfo.flags.includes('k') || moveInfo.flags.includes('q')) {
+      // Castle sound (k = kingside, q = queenside)
+      playCastleSound();
+    } else if (moveInfo.captured) {
+      playCaptureSound();
+    } else {
+      playMoveSound();
+    }
+  });
+
+  // Handle bot's best move - uses useEffectEvent so it doesn't cause Stockfish re-init
+  const handleBotMove = useEffectEvent((uciMove: string) => {
+    const { from, to, promotion } = parseUCIMove(uciMove);
+    const success = storeMakeMove(from as Square, to as Square, promotion as PieceSymbol | undefined);
+
+    if (success) {
+      const moveInfo = chess.history({ verbose: true }).slice(-1)[0];
+      if (moveInfo) {
+        playMoveSound_(moveInfo);
       }
-    },
-    [storeMakeMove, soundEnabled, chess, playMoveSound, playCaptureSound, playCheckmateSound, playCastleSound, playPromoteSound, playGameEndSound]
-  );
+    }
+  });
 
   // Initialize Stockfish
   const { isReady: isEngineReady, isThinking, findBestMove, stop } = useStockfish({
@@ -137,18 +140,22 @@ export function useChessGame(options?: UseChessGameOptions): UseChessGameReturn 
     }
   }, [isBotTurn, isEngineReady, isThinking, fen, findBestMove, status]);
 
+  // Play game start sound - uses useEffectEvent for latest soundEnabled
+  const playStartSound = useEffectEvent(() => {
+    if (soundEnabled) {
+      playGameStartSound();
+    }
+  });
+
   // Start a new game
   const startGame = useCallback(
     (color: Color, difficulty: Difficulty) => {
       stop(); // Stop any ongoing calculation
       lastBotMoveRequestRef.current = null;
       newGame(color, difficulty);
-
-      if (soundEnabled) {
-        playGameStartSound();
-      }
+      playStartSound();
     },
-    [newGame, stop, soundEnabled, playGameStartSound]
+    [newGame, stop, playStartSound]
   );
 
   // Make a player move
@@ -158,36 +165,18 @@ export function useChessGame(options?: UseChessGameOptions): UseChessGameReturn 
 
       const success = storeMakeMove(from, to, promotion);
 
-      if (success && soundEnabled) {
+      if (success) {
         const moveInfo = chess.history({ verbose: true }).slice(-1)[0];
         if (moveInfo) {
-          // Checkmate gets special sound
-          if (chess.isCheckmate()) {
-            playCheckmateSound();
-          } else if (chess.isStalemate() || chess.isDraw()) {
-            playGameEndSound();
-          } else if (moveInfo.promotion) {
-            // Promotion sound
-            playPromoteSound();
-          } else if (moveInfo.flags.includes('k') || moveInfo.flags.includes('q')) {
-            // Castle sound (k = kingside, q = queenside)
-            playCastleSound();
-          } else if (moveInfo.captured) {
-            playCaptureSound();
-          } else {
-            playMoveSound();
-          }
+          playMoveSound_(moveInfo);
         }
-      }
-
-      // Reset bot move tracking for new position
-      if (success) {
+        // Reset bot move tracking for new position
         lastBotMoveRequestRef.current = null;
       }
 
       return success;
     },
-    [isPlayerTurn, storeMakeMove, soundEnabled, chess, playMoveSound, playCaptureSound, playCheckmateSound, playCastleSound, playPromoteSound, playGameEndSound]
+    [isPlayerTurn, storeMakeMove, chess, playMoveSound_]
   );
 
   // Undo move
@@ -197,14 +186,19 @@ export function useChessGame(options?: UseChessGameOptions): UseChessGameReturn 
     storeUndoMove();
   }, [storeUndoMove, stop]);
 
+  // Play game end sound - uses useEffectEvent for latest soundEnabled
+  const playEndSound = useEffectEvent(() => {
+    if (soundEnabled) {
+      playGameEndSound();
+    }
+  });
+
   // Resign
   const resign = useCallback(() => {
     stop();
     storeResign();
-    if (soundEnabled) {
-      playGameEndSound();
-    }
-  }, [storeResign, stop, soundEnabled, playGameEndSound]);
+    playEndSound();
+  }, [storeResign, stop, playEndSound]);
 
   // Format moves for display
   const formattedMoves = moves.map((move) => ({

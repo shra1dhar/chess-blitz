@@ -9,7 +9,7 @@
     "tagline": "Fejleszd a játékod",
     "chooseGame": "Válaszd ki a játékot",
     "playVsComputer": "Játék számítógép ellen",
-    "playVsComputerDesc": "Kihívás a Stockfish MI-nek a szinteden",
+    "playVsComputerDesc": "Játssz a számítógép ellen a te szinteden",
     "tournament": "Verseny",
     "tournamentDesc": "Vegyél részt online versenyeken",
     "comingSoon": "Hamarosan"
@@ -57,7 +57,7 @@
   "play": {
     "back": "Vissza",
     "loading": "Sakkmotor betöltése...",
-    "stockfish": "Stockfish",
+    "stockfish": "Sakk Bot",
     "you": "Te",
     "yourTurn": "Te jössz",
     "resignConfirm": "Biztosan fel akarod adni?"

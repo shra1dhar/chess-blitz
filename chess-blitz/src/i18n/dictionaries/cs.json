@@ -9,7 +9,7 @@
     "tagline": "Ovládni svou hru",
     "chooseGame": "Vyber si hru",
     "playVsComputer": "Hrát proti počítači",
-    "playVsComputerDesc": "Vyzvi Stockfish AI na své úrovni",
+    "playVsComputerDesc": "Hrajte proti počítači na vaší úrovni",
     "tournament": "Turnaj",
     "tournamentDesc": "Zúčastni se online turnajů",
     "comingSoon": "Již brzy"
@@ -57,7 +57,7 @@
   "play": {
     "back": "Zpět",
     "loading": "Načítání šachového enginu...",
-    "stockfish": "Stockfish",
+    "stockfish": "Šachový Bot",
     "you": "Ty",
     "yourTurn": "Tvůj tah",
     "resignConfirm": "Opravdu chceš vzdát?"

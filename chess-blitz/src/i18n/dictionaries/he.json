@@ -9,7 +9,7 @@
     "tagline": "שלוט במשחק שלך",
     "chooseGame": "בחר את המשחק שלך",
     "playVsComputer": "שחק נגד המחשב",
-    "playVsComputerDesc": "אתגר את Stockfish AI ברמה שלך",
+    "playVsComputerDesc": "שחקו נגד המחשב ברמה שלכם",
     "tournament": "טורניר",
     "tournamentDesc": "השתתף בטורנירים אונליין",
     "comingSoon": "בקרוב"
@@ -57,7 +57,7 @@
   "play": {
     "back": "חזור",
     "loading": "טוען מנוע שחמט...",
-    "stockfish": "Stockfish",
+    "stockfish": "בוט שחמט",
     "you": "אתה",
     "yourTurn": "תורך",
     "resignConfirm": "האם אתה בטוח שברצונך לוותר?"

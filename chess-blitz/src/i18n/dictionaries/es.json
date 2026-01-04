@@ -9,7 +9,7 @@
     "tagline": "Domina tu juego",
     "chooseGame": "Elige tu partida",
     "playVsComputer": "Jugar vs Computadora",
-    "playVsComputerDesc": "Desafía a Stockfish IA a tu nivel",
+    "playVsComputerDesc": "Juega contra la computadora a tu nivel",
     "tournament": "Torneo",
     "tournamentDesc": "Compite en torneos en línea",
     "comingSoon": "Próximamente"
@@ -57,7 +57,7 @@
   "play": {
     "back": "Atrás",
     "loading": "Cargando motor de ajedrez...",
-    "stockfish": "Stockfish",
+    "stockfish": "Bot de Ajedrez",
     "you": "Tú",
     "yourTurn": "Tu turno",
     "resignConfirm": "¿Seguro que quieres rendirte?"

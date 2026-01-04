@@ -9,7 +9,7 @@
     "tagline": "Oyununda ustalaş",
     "chooseGame": "Oyununu seç",
     "playVsComputer": "Bilgisayara karşı oyna",
-    "playVsComputerDesc": "Senin seviyende Stockfish AI'ya meydan oku",
+    "playVsComputerDesc": "Kendi seviyenizde bilgisayara karşı oynayın",
     "tournament": "Turnuva",
     "tournamentDesc": "Online turnuvalara katıl",
     "comingSoon": "Yakında"
@@ -57,7 +57,7 @@
   "play": {
     "back": "Geri",
     "loading": "Satranç motoru yükleniyor...",
-    "stockfish": "Stockfish",
+    "stockfish": "Satranç Botu",
     "you": "Sen",
     "yourTurn": "Senin sıran",
     "resignConfirm": "Terk etmek istediğinden emin misin?"

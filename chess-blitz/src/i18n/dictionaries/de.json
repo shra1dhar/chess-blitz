@@ -9,7 +9,7 @@
     "tagline": "Meistere dein Spiel",
     "chooseGame": "Wähle dein Spiel",
     "playVsComputer": "Gegen Computer spielen",
-    "playVsComputerDesc": "Fordere Stockfish KI auf deinem Niveau heraus",
+    "playVsComputerDesc": "Spiele gegen den Computer auf deinem Niveau",
     "tournament": "Turnier",
     "tournamentDesc": "Nimm an Online-Turnieren teil",
     "comingSoon": "Demnächst"
@@ -57,7 +57,7 @@
   "play": {
     "back": "Zurück",
     "loading": "Schach-Engine wird geladen...",
-    "stockfish": "Stockfish",
+    "stockfish": "Schach-Bot",
     "you": "Du",
     "yourTurn": "Du bist dran",
     "resignConfirm": "Möchtest du wirklich aufgeben?"

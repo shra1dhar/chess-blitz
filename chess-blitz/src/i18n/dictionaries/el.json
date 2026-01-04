@@ -9,7 +9,7 @@
     "tagline": "Κατάκτησε το παιχνίδι σου",
     "chooseGame": "Επίλεξε το παιχνίδι σου",
     "playVsComputer": "Παίξε εναντίον υπολογιστή",
-    "playVsComputerDesc": "Προκάλεσε το Stockfish AI στο επίπεδό σου",
+    "playVsComputerDesc": "Παίξτε εναντίον του υπολογιστή στο επίπεδό σας",
     "tournament": "Τουρνουά",
     "tournamentDesc": "Συμμετοχή σε online τουρνουά",
     "comingSoon": "Έρχεται σύντομα"
@@ -57,7 +57,7 @@
   "play": {
     "back": "Πίσω",
     "loading": "Φόρτωση μηχανής σκακιού...",
-    "stockfish": "Stockfish",
+    "stockfish": "Ρομπότ Σκακιού",
     "you": "Εσύ",
     "yourTurn": "Η σειρά σου",
     "resignConfirm": "Σίγουρα θέλεις να παραιτηθείς;"

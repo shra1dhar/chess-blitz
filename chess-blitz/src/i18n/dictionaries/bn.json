@@ -9,7 +9,7 @@
     "tagline": "আপনার খেলায় দক্ষতা অর্জন করুন",
     "chooseGame": "আপনার খেলা বেছে নিন",
     "playVsComputer": "কম্পিউটারের বিরুদ্ধে খেলুন",
-    "playVsComputerDesc": "আপনার স্তরে Stockfish AI কে চ্যালেঞ্জ করুন",
+    "playVsComputerDesc": "আপনার স্তরে কম্পিউটারের বিরুদ্ধে খেলুন",
     "tournament": "টুর্নামেন্ট",
     "tournamentDesc": "অনলাইন টুর্নামেন্টে অংশ নিন",
     "comingSoon": "শীঘ্রই আসছে"
@@ -57,7 +57,7 @@
   "play": {
     "back": "পিছনে",
     "loading": "দাবা ইঞ্জিন লোড হচ্ছে...",
-    "stockfish": "Stockfish",
+    "stockfish": "চেস বট",
     "you": "আপনি",
     "yourTurn": "আপনার পালা",
     "resignConfirm": "আপনি কি সত্যিই হার মানতে চান?"

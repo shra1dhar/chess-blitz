@@ -9,7 +9,7 @@
     "tagline": "Master your game",
     "chooseGame": "Choose Your Game",
     "playVsComputer": "Play vs Computer",
-    "playVsComputerDesc": "Challenge Stockfish AI at your level",
+    "playVsComputerDesc": "Play against the computer at your level",
     "tournament": "Tournament",
     "tournamentDesc": "Compete in online tournaments",
     "comingSoon": "Coming Soon"
@@ -57,7 +57,7 @@
   "play": {
     "back": "Back",
     "loading": "Loading chess engine...",
-    "stockfish": "Stockfish",
+    "stockfish": "Chess Bot",
     "you": "You",
     "yourTurn": "Your turn",
     "resignConfirm": "Are you sure you want to resign?"

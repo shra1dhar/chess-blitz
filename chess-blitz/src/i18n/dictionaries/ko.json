@@ -9,7 +9,7 @@
     "tagline": "실력을 마스터하세요",
     "chooseGame": "게임 선택",
     "playVsComputer": "컴퓨터와 대전",
-    "playVsComputerDesc": "당신의 레벨에 맞는 Stockfish AI에 도전",
+    "playVsComputerDesc": "당신의 레벨에서 컴퓨터와 대전하세요",
     "tournament": "토너먼트",
     "tournamentDesc": "온라인 토너먼트 참가",
     "comingSoon": "출시 예정"
@@ -57,7 +57,7 @@
   "play": {
     "back": "뒤로",
     "loading": "체스 엔진 로딩 중...",
-    "stockfish": "Stockfish",
+    "stockfish": "체스 봇",
     "you": "당신",
     "yourTurn": "당신 차례",
     "resignConfirm": "정말 기권하시겠습니까?"

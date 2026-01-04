@@ -9,7 +9,7 @@
     "tagline": "Hallitse pelisi",
     "chooseGame": "Valitse pelisi",
     "playVsComputer": "Pelaa tietokonetta vastaan",
-    "playVsComputerDesc": "Haasta Stockfish AI omalla tasollasi",
+    "playVsComputerDesc": "Pelaa tietokonetta vastaan omalla tasollasi",
     "tournament": "Turnaus",
     "tournamentDesc": "Osallistu verkkoturnauksiiin",
     "comingSoon": "Tulossa pian"
@@ -57,7 +57,7 @@
   "play": {
     "back": "Takaisin",
     "loading": "Ladataan shakkimoottoria...",
-    "stockfish": "Stockfish",
+    "stockfish": "Shakkibotti",
     "you": "Sinä",
     "yourTurn": "Sinun vuorosi",
     "resignConfirm": "Haluatko varmasti luovuttaa?"

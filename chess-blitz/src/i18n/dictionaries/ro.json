@@ -9,7 +9,7 @@
     "tagline": "Stăpânește-ți jocul",
     "chooseGame": "Alege jocul tău",
     "playVsComputer": "Joacă contra computerului",
-    "playVsComputerDesc": "Provoacă Stockfish AI la nivelul tău",
+    "playVsComputerDesc": "Joacă împotriva computerului la nivelul tău",
     "tournament": "Turneu",
     "tournamentDesc": "Participă la turnee online",
     "comingSoon": "În curând"
@@ -57,7 +57,7 @@
   "play": {
     "back": "Înapoi",
     "loading": "Se încarcă motorul de șah...",
-    "stockfish": "Stockfish",
+    "stockfish": "Bot de Șah",
     "you": "Tu",
     "yourTurn": "Rândul tău",
     "resignConfirm": "Ești sigur că vrei să te predai?"

@@ -9,7 +9,7 @@
     "tagline": "Kuasai permainan anda",
     "chooseGame": "Pilih Permainan",
     "playVsComputer": "Lawan Komputer",
-    "playVsComputerDesc": "Cabar Stockfish AI pada tahap anda",
+    "playVsComputerDesc": "Bermain menentang komputer pada tahap anda",
     "tournament": "Kejohanan",
     "tournamentDesc": "Sertai kejohanan dalam talian",
     "comingSoon": "Akan Datang"
@@ -57,7 +57,7 @@
   "play": {
     "back": "Kembali",
     "loading": "Memuat enjin catur...",
-    "stockfish": "Stockfish",
+    "stockfish": "Bot Catur",
     "you": "Anda",
     "yourTurn": "Giliran anda",
     "resignConfirm": "Adakah anda pasti mahu menyerah?"

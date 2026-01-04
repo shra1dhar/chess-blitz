@@ -9,7 +9,7 @@
     "tagline": "O'yiningizni mukammallashtiring",
     "chooseGame": "O'yiningizni tanlang",
     "playVsComputer": "Kompyuterga qarshi o'ynash",
-    "playVsComputerDesc": "O'z darajangizda Stockfish AI ga qarshi o'ynang",
+    "playVsComputerDesc": "O'z darajangizda kompyuterga qarshi o'ynang",
     "tournament": "Turnir",
     "tournamentDesc": "Onlayn musobaqalarda qatnashing",
     "comingSoon": "Tez kunda"
@@ -57,7 +57,7 @@
   "play": {
     "back": "Orqaga",
     "loading": "Shaxmat dvigateli yuklanmoqda...",
-    "stockfish": "Stockfish",
+    "stockfish": "Shaxmat Boti",
     "you": "Siz",
     "yourTurn": "Sizning navbatingiz",
     "resignConfirm": "Taslim bo'lishni xohlaysizmi?"

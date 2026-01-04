@@ -5,7 +5,7 @@
 // Handles multiplayer game after matchmaking navigation
 // ==============================================
 
-import { useEffect, useState, useCallback, useRef, use } from 'react';
+import { useEffect, useState, useCallback, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { Chess } from 'chess.js';
 import type { Square } from 'chess.js';
@@ -14,12 +14,17 @@ import type { Locale } from '@/i18n/config';
 import { useMultiplayer } from '@/hooks/useMultiplayer';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useMSNAudioSync } from '@/hooks/useSound';
+import { useGameClock } from '@/hooks/useGameClock';
+import { useGameOverModal, useGameOverEscapeKey } from '@/hooks/useGameOverModal';
+import { parseMovesFromPgn, getPlayerResult, getGameStatusFromReason } from '@/utils/moves';
+import { LoadingScreen, GameHeader, PlayerInfoCard, GameLayout } from '@/components/game';
 import ChessBoard from '@/components/Board/ChessBoard';
 import GameInfo from '@/components/GameInfo/GameInfo';
 import GameOverModal from '@/components/GameOver/GameOverModal';
 import { DrawOfferBanner } from '@/components/Multiplayer/DrawOfferBanner';
 import { DisconnectOverlay } from '@/components/Multiplayer/DisconnectOverlay';
-import styles from '@/styles/play.module.scss';
+import { SidebarControls } from '@/components/Multiplayer/SidebarControls';
+import { MobileGameControls } from '@/components/Multiplayer/MobileGameControls';
 
 interface MultiplayerGameClientProps {
   gameId: string;
@@ -28,7 +33,6 @@ interface MultiplayerGameClientProps {
 }
 
 export function MultiplayerGameClient({ gameId, dictPromise, locale }: MultiplayerGameClientProps) {
-  // Use React 19's use() hook to unwrap the promise - enables streaming
   const dict = use(dictPromise);
   const router = useRouter();
   const [showGameOver, setShowGameOver] = useState(false);
@@ -37,133 +41,49 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
 
   const { theme, showLegalMoves, animationSpeed } = useSettingsStore();
 
-  // Clock state - use refs to avoid re-triggering animation loop on server updates
-  const serverTimesRef = useRef({ white: 0, black: 0, lastMoveAt: 0, turn: 'w' as 'w' | 'b' });
-  const [displayTimes, setDisplayTimes] = useState({ white: 0, black: 0 });
-  const animationRef = useRef<number | null>(null);
-
   // Sync with MSN audio state
   useMSNAudioSync();
 
   // Multiplayer state from hook
-  const {
-    connectionStatus,
-    matchState,
-    gameState,
-    playerColor,
-    opponent,
-    isMyTurn,
-    result,
-    resultReason,
-    drawOffered,
-    drawOfferedByMe,
-    opponentDisconnected,
-    disconnectCountdown,
-    rematchState,
-    firstMoveWarning,
-    joinGame,
-    makeMove,
-    resign,
-    offerDraw,
-    acceptDraw,
-    declineDraw,
-    requestRematch,
-    acceptRematch,
-    declineRematch,
-    reset,
-  } = useMultiplayer();
+  const multiplayer = useMultiplayer();
+
+  // Real-time clock countdown
+  const displayTimes = useGameClock({
+    whiteTimeMs: multiplayer.gameState?.whiteTimeMs ?? 0,
+    blackTimeMs: multiplayer.gameState?.blackTimeMs ?? 0,
+    turn: multiplayer.gameState?.turn ?? 'w',
+    lastMoveAt: multiplayer.gameState?.lastMoveAt ?? 0,
+    isPlaying: multiplayer.matchState === 'playing',
+  });
 
   // Initialize game connection on mount
   useEffect(() => {
     if (!isInitialized) {
-      joinGame(gameId);
+      multiplayer.joinGame(gameId);
       setIsInitialized(true);
     }
-  }, [isInitialized, gameId, joinGame]);
+  }, [isInitialized, gameId, multiplayer.joinGame]);
 
   // Update chess instance when FEN changes
   useEffect(() => {
-    if (gameState?.fen) {
+    if (multiplayer.gameState?.fen) {
       try {
-        chess.load(gameState.fen);
+        chess.load(multiplayer.gameState.fen);
       } catch {
-        console.error('Invalid FEN:', gameState.fen);
+        console.error('Invalid FEN:', multiplayer.gameState.fen);
       }
     }
-  }, [gameState?.fen, chess]);
+  }, [multiplayer.gameState?.fen, chess]);
 
   // Show game over modal when game ends
-  useEffect(() => {
-    if (matchState === 'ended' && result) {
-      const timer = setTimeout(() => {
-        setShowGameOver(true);
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [matchState, result]);
+  useGameOverModal(
+    multiplayer.matchState === 'ended' && !!multiplayer.result,
+    true,
+    setShowGameOver
+  );
 
   // Handle Escape key to dismiss game over modal
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && showGameOver) {
-        setShowGameOver(false);
-      }
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [showGameOver]);
-
-  // Update refs when server sends new times (doesn't trigger animation restart)
-  useEffect(() => {
-    if (!gameState) return;
-    serverTimesRef.current = {
-      white: gameState.whiteTimeMs,
-      black: gameState.blackTimeMs,
-      lastMoveAt: gameState.lastMoveAt,
-      turn: gameState.turn,
-    };
-    // Also update display times for initial render
-    setDisplayTimes({ white: gameState.whiteTimeMs, black: gameState.blackTimeMs });
-  }, [gameState?.whiteTimeMs, gameState?.blackTimeMs, gameState?.lastMoveAt, gameState?.turn]);
-
-  // Real-time clock countdown - only depends on matchState (doesn't re-run on clock updates)
-  useEffect(() => {
-    const isPlaying = matchState === 'playing';
-    if (!isPlaying) {
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-      return;
-    }
-
-    const updateClock = () => {
-      const { white, black, lastMoveAt, turn } = serverTimesRef.current;
-      const elapsed = Date.now() - lastMoveAt;
-
-      if (turn === 'w') {
-        setDisplayTimes({ white: Math.max(0, white - elapsed), black });
-      } else {
-        setDisplayTimes({ white, black: Math.max(0, black - elapsed) });
-      }
-      animationRef.current = requestAnimationFrame(updateClock);
-    };
-
-    animationRef.current = requestAnimationFrame(updateClock);
-    return () => {
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-    };
-  }, [matchState]); // Only re-run when game starts/stops
-
-  // Format time for display
-  const formatTime = (ms: number): string => {
-    if (ms <= 0) return '0:00';
-    const totalSeconds = Math.floor(ms / 1000);
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
-    if (totalSeconds < 10) {
-      const tenths = Math.floor((ms % 1000) / 100);
-      return `${seconds}.${tenths}`;
-    }
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-  };
+  useGameOverEscapeKey(showGameOver, setShowGameOver);
 
   // Get legal moves for a square
   const getLegalMoves = useCallback(
@@ -181,313 +101,214 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
   // Handle move
   const handleMove = useCallback(
     (from: Square, to: Square, promotion?: string): boolean => {
-      // Check if promotion is needed
       const piece = chess.get(from);
       const isPromotion =
-        piece?.type === 'p' && ((piece.color === 'w' && to[1] === '8') || (piece.color === 'b' && to[1] === '1'));
+        piece?.type === 'p' &&
+        ((piece.color === 'w' && to[1] === '8') || (piece.color === 'b' && to[1] === '1'));
 
       if (isPromotion) {
-        // Default to queen promotion
-        makeMove(from, to, (promotion || 'q') as 'q' | 'r' | 'b' | 'n');
+        multiplayer.makeMove(from, to, (promotion || 'q') as 'q' | 'r' | 'b' | 'n');
       } else {
-        makeMove(from, to);
+        multiplayer.makeMove(from, to);
       }
       return true;
     },
-    [chess, makeMove]
+    [chess, multiplayer.makeMove]
   );
 
   // Handle resign
   const handleResign = useCallback(() => {
     if (window.confirm(dict.play.resignConfirm)) {
-      resign();
+      multiplayer.resign();
     }
-  }, [resign, dict.play.resignConfirm]);
+  }, [multiplayer.resign, dict.play.resignConfirm]);
 
   // Handle back to lobby
   const handleBackToLobby = useCallback(() => {
-    reset();
+    multiplayer.reset();
     router.push(`/${locale}`);
-  }, [reset, router, locale]);
+  }, [multiplayer.reset, router, locale]);
 
   // Handle new game (back to tournament lobby)
   const handleNewGame = useCallback(() => {
-    reset();
+    multiplayer.reset();
     router.push(`/${locale}/tournament`);
-  }, [reset, router, locale]);
+  }, [multiplayer.reset, router, locale]);
 
   // Loading state
-  if (!gameState || connectionStatus === 'connecting') {
+  if (!multiplayer.gameState || multiplayer.connectionStatus === 'connecting') {
     return (
-      <div className={styles.loading}>
-        <div className={styles.loadingContent}>
-          <div className={styles.loadingSpinner} />
-          <p className={styles.loadingText}>
-            {connectionStatus === 'connecting' ? 'Connecting to game...' : dict.play.loading}
-          </p>
-        </div>
-      </div>
+      <LoadingScreen
+        message={multiplayer.connectionStatus === 'connecting' ? 'Connecting to game...' : dict.play.loading}
+      />
     );
   }
 
   // Error state - no game data
-  if (connectionStatus === 'disconnected' && !gameState) {
+  if (multiplayer.connectionStatus === 'disconnected' && !multiplayer.gameState) {
     return (
-      <div className={styles.loading}>
-        <div className={styles.loadingContent}>
-          <p className={styles.loadingText}>Game not found or session expired</p>
-          <button onClick={handleBackToLobby} className={styles.backButton}>
-            Back to Lobby
-          </button>
-        </div>
-      </div>
+      <LoadingScreen
+        message="Game not found or session expired"
+        showBackButton
+        backLabel="Back to Lobby"
+        onBack={handleBackToLobby}
+      />
     );
   }
 
-  const isPlaying = matchState === 'playing';
+  const isPlaying = multiplayer.matchState === 'playing';
   const isCheck = chess.isCheck();
+  const parsedMoves = parseMovesFromPgn(multiplayer.gameState.pgn);
+  const gameResult = getPlayerResult(multiplayer.result, multiplayer.playerColor || 'w');
+  const gameStatus = getGameStatusFromReason(multiplayer.result, multiplayer.resultReason);
 
-  // Parse moves for GameInfo - needs { san, from, to } format
-  const parsedMoves = (() => {
-    if (!gameState.pgn) return [];
-    const moveStrings = gameState.pgn.split(/\d+\./).filter(Boolean).flatMap((m) => m.trim().split(/\s+/).filter(Boolean));
-    // Return simplified format - we don't have from/to from PGN, use empty strings
-    return moveStrings.map(san => ({ san, from: '', to: '' }));
-  })();
-
-  // Determine game result for modal (convert multiplayer format to chess.ts format)
-  const getGameResult = (): 'win' | 'loss' | 'draw' | null => {
-    if (!result) return null;
-    if (result === '1/2-1/2') return 'draw';
-    // Determine if player won based on result and player color
-    const whiteWon = result === '1-0';
-    const playerIsWhite = playerColor === 'w';
-    if ((whiteWon && playerIsWhite) || (!whiteWon && !playerIsWhite)) {
-      return 'win';
+  // Get opponent subtitle (ELO or first move warning)
+  const getOpponentSubtitle = () => {
+    if (
+      multiplayer.firstMoveWarning.active &&
+      multiplayer.firstMoveWarning.player === (multiplayer.playerColor === 'w' ? 'black' : 'white')
+    ) {
+      const label = `${dict.firstMoveWarning?.opponentMove || 'Waiting for move...'} ${
+        dict.firstMoveWarning?.autoAbort?.replace('{seconds}', String(multiplayer.firstMoveWarning.countdown)) ||
+        `0:${String(multiplayer.firstMoveWarning.countdown).padStart(2, '0')}`
+      }`;
+      return { subtitle: label, isWarning: true };
     }
-    return 'loss';
+    return { subtitle: `${multiplayer.opponent?.elo || '—'} ELO`, isWarning: false };
   };
 
-  // Determine game status for modal (convert to chess.ts GameStatus)
-  const getGameStatus = (): 'playing' | 'checkmate' | 'stalemate' | 'draw' | 'resigned' => {
-    if (!result) return 'playing';
-    if (resultReason === 'checkmate') return 'checkmate';
-    if (resultReason === 'stalemate') return 'stalemate';
-    if (resultReason === 'resignation') return 'resigned';
-    if (resultReason === 'timeout') return 'resigned'; // timeout treated as resigned for UI
-    if (result === '1/2-1/2') return 'draw';
-    return 'playing';
+  // Get player subtitle (color or first move warning)
+  const getPlayerSubtitle = () => {
+    if (
+      multiplayer.firstMoveWarning.active &&
+      multiplayer.firstMoveWarning.player === (multiplayer.playerColor === 'w' ? 'white' : 'black')
+    ) {
+      const label = `${dict.firstMoveWarning?.yourMove || 'Your move.'} ${
+        dict.firstMoveWarning?.autoAbort?.replace('{seconds}', String(multiplayer.firstMoveWarning.countdown)) ||
+        `0:${String(multiplayer.firstMoveWarning.countdown).padStart(2, '0')}`
+      }`;
+      return { subtitle: label, isWarning: true };
+    }
+    return {
+      subtitle: multiplayer.playerColor === 'w' ? dict.gameOptions.white : dict.gameOptions.black,
+      isWarning: false,
+    };
   };
+
+  const opponentSubtitle = getOpponentSubtitle();
+  const playerSubtitle = getPlayerSubtitle();
+
+  // Get opponent clock time
+  const opponentTimeMs = multiplayer.playerColor === 'w' ? displayTimes.black : displayTimes.white;
+  const playerTimeMs = multiplayer.playerColor === 'w' ? displayTimes.white : displayTimes.black;
 
   return (
-    <div className={styles.game} data-theme={theme}>
-      {/* Header */}
-      <header className={styles.header}>
-        <button className={styles.backButton} onClick={handleBackToLobby}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
-          <span>{dict.play.back}</span>
-        </button>
-        <h1 className={styles.title}>{dict.home.title}</h1>
-        <div className={styles.spacer} />
-      </header>
-
-      {/* Main game area */}
-      <main className={styles.main}>
-        <div className={styles.gameLayout}>
-          {/* Board section */}
-          <div className={styles.boardSection}>
-            {/* Opponent info */}
-            <div className={styles.playerInfo}>
-              <div className={styles.playerAvatar}>
-                {opponent?.isBot ? (
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2a2 2 0 012 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 017 7h1a1 1 0 011 1v3a1 1 0 01-1 1h-1v1a2 2 0 01-2 2H5a2 2 0 01-2-2v-1H2a1 1 0 01-1-1v-3a1 1 0 011-1h1a7 7 0 017-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 012-2z" />
-                  </svg>
-                ) : (
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                  </svg>
-                )}
-              </div>
-              <div className={styles.playerDetails}>
-                <span className={styles.playerName}>{opponent?.displayName || 'Opponent'}</span>
-                {firstMoveWarning.active && firstMoveWarning.player === (playerColor === 'w' ? 'black' : 'white') ? (
-                  <span className={styles.firstMoveWarning}>
-                    {dict.firstMoveWarning?.opponentMove || 'Waiting for move...'} {dict.firstMoveWarning?.autoAbort?.replace('{seconds}', String(firstMoveWarning.countdown)) || `0:${String(firstMoveWarning.countdown).padStart(2, '0')}`}
-                  </span>
-                ) : (
-                  <span className={styles.playerLevel}>{opponent?.elo || '—'} ELO</span>
-                )}
-              </div>
-              {/* Opponent clock */}
-              {gameState && playerColor && (
-                <div
-                  className={`${styles.clock} ${gameState.turn !== playerColor ? styles.clockActive : ''} ${(playerColor === 'w' ? displayTimes.black : displayTimes.white) < 30000 ? styles.clockLow : ''}`}
-                >
-                  {formatTime(playerColor === 'w' ? displayTimes.black : displayTimes.white)}
-                </div>
-              )}
-            </div>
-
-            {/* Chess Board */}
-            <ChessBoard
-              fen={gameState.fen}
-              playerColor={playerColor || 'w'}
-              onMove={handleMove}
-              getLegalMoves={getLegalMoves}
-              lastMove={gameState.lastMove || null}
-              isPlayerTurn={isMyTurn}
-              isCheck={isCheck}
-              showLegalMoves={showLegalMoves}
-              animationSpeed={animationSpeed}
-            />
-
-            {/* Player info */}
-            <div className={styles.playerInfo}>
-              <div className={`${styles.playerAvatar} ${styles.playerAvatarHuman}`}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                </svg>
-              </div>
-              <div className={styles.playerDetails}>
-                <span className={styles.playerName}>{dict.play.you}</span>
-                {firstMoveWarning.active && firstMoveWarning.player === (playerColor === 'w' ? 'white' : 'black') ? (
-                  <span className={styles.firstMoveWarning}>
-                    {dict.firstMoveWarning?.yourMove || 'Your move.'} {dict.firstMoveWarning?.autoAbort?.replace('{seconds}', String(firstMoveWarning.countdown)) || `0:${String(firstMoveWarning.countdown).padStart(2, '0')}`}
-                  </span>
-                ) : (
-                  <span className={styles.playerLevel}>
-                    {playerColor === 'w' ? dict.gameOptions.white : dict.gameOptions.black}
-                  </span>
-                )}
-              </div>
-              {/* Player clock */}
-              {gameState && playerColor && (
-                <div
-                  className={`${styles.clock} ${gameState.turn === playerColor ? styles.clockActive : ''} ${(playerColor === 'w' ? displayTimes.white : displayTimes.black) < 30000 ? styles.clockLow : ''}`}
-                >
-                  {formatTime(playerColor === 'w' ? displayTimes.white : displayTimes.black)}
-                </div>
-              )}
-            </div>
-
-            {/* Mobile Controls */}
-            <div className={styles.mobileControls}>
-              <div className={styles.gameControlsRow}>
-                {isPlaying && (
-                  <>
-                    <button
-                      className={`${styles.controlButton} ${styles.controlButtonDraw}`}
-                      onClick={() => offerDraw()}
-                      disabled={drawOfferedByMe}
-                      title={drawOfferedByMe ? dict.controls.drawOffered : dict.controls.offerDraw}
-                      aria-label={drawOfferedByMe ? dict.controls.drawOffered : dict.controls.offerDraw}
-                    >
-                      {/* Handshake icon - two hands meeting */}
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M11 17a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4" />
-                        <path d="M13 7a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4" />
-                        <path d="M8 12h8" />
-                        <path d="M3 12h2" />
-                        <path d="M19 12h2" />
-                      </svg>
-                    </button>
-                    <button
-                      className={`${styles.controlButton} ${styles.controlButtonResign}`}
-                      onClick={handleResign}
-                      title={dict.controls.resign}
-                      aria-label={dict.controls.resign}
-                    >
-                      {/* Flag icon - white flag for surrender */}
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
-                        <line x1="4" y1="22" x2="4" y2="15" />
-                      </svg>
-                    </button>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Sidebar */}
-          <aside className={styles.sidebar}>
-            <GameInfo
-              moves={parsedMoves}
-              turn={gameState.turn}
-              status={getGameStatus()}
-              isCheck={isCheck}
+    <GameLayout
+      theme={theme}
+      header={
+        <GameHeader title={dict.home.title} backLabel={dict.play.back} onBack={handleBackToLobby} />
+      }
+      opponentInfo={
+        <PlayerInfoCard
+          avatarType={multiplayer.opponent?.isBot ? 'bot' : 'human'}
+          name={multiplayer.opponent?.displayName || 'Opponent'}
+          subtitle={opponentSubtitle.subtitle}
+          statusIndicator={
+            opponentSubtitle.isWarning
+              ? { type: 'firstMoveWarning', countdown: multiplayer.firstMoveWarning.countdown, label: opponentSubtitle.subtitle }
+              : {
+                  type: 'clock',
+                  timeMs: opponentTimeMs,
+                  isActive: multiplayer.gameState.turn !== multiplayer.playerColor,
+                }
+          }
+        />
+      }
+      board={
+        <ChessBoard
+          fen={multiplayer.gameState.fen}
+          playerColor={multiplayer.playerColor || 'w'}
+          onMove={handleMove}
+          getLegalMoves={getLegalMoves}
+          lastMove={multiplayer.gameState.lastMove || null}
+          isPlayerTurn={multiplayer.isMyTurn}
+          isCheck={isCheck}
+          showLegalMoves={showLegalMoves}
+          animationSpeed={animationSpeed}
+        />
+      }
+      playerInfo={
+        <PlayerInfoCard
+          avatarType="human"
+          name={dict.play.you}
+          subtitle={playerSubtitle.subtitle}
+          isPlayer
+          statusIndicator={
+            playerSubtitle.isWarning
+              ? { type: 'firstMoveWarning', countdown: multiplayer.firstMoveWarning.countdown, label: playerSubtitle.subtitle }
+              : {
+                  type: 'clock',
+                  timeMs: playerTimeMs,
+                  isActive: multiplayer.gameState.turn === multiplayer.playerColor,
+                }
+          }
+        />
+      }
+      mobileControls={
+        isPlaying && (
+          <MobileGameControls
+            onOfferDraw={multiplayer.offerDraw}
+            onResign={handleResign}
+            drawOfferedByMe={multiplayer.drawOfferedByMe}
+            dict={dict}
+          />
+        )
+      }
+      sidebar={
+        <>
+          <GameInfo moves={parsedMoves} turn={multiplayer.gameState.turn} status={gameStatus} isCheck={isCheck} dict={dict} />
+          {isPlaying && (
+            <SidebarControls
+              onOfferDraw={multiplayer.offerDraw}
+              onResign={handleResign}
+              drawOfferedByMe={multiplayer.drawOfferedByMe}
               dict={dict}
             />
-            {isPlaying && (
-              <div className={styles.sidebarControls}>
-                <button
-                  className={`${styles.sidebarButton} ${styles.drawButton}`}
-                  onClick={() => offerDraw()}
-                  disabled={drawOfferedByMe}
-                >
-                  {/* Handshake icon - two hands meeting */}
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M11 17a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4" />
-                    <path d="M13 7a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4" />
-                    <path d="M8 12h8" />
-                    <path d="M3 12h2" />
-                    <path d="M19 12h2" />
-                  </svg>
-                  {drawOfferedByMe ? dict.controls.drawOffered : dict.controls.offerDraw}
-                </button>
-                <button
-                  className={`${styles.sidebarButton} ${styles.resignButton}`}
-                  onClick={handleResign}
-                >
-                  {/* Flag icon - white flag for surrender */}
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
-                    <line x1="4" y1="22" x2="4" y2="15" />
-                  </svg>
-                  {dict.controls.resign}
-                </button>
-              </div>
-            )}
-          </aside>
-        </div>
-      </main>
-
-      {/* Draw Offer Banner */}
-      <DrawOfferBanner
-        isVisible={drawOffered && !drawOfferedByMe}
-        onAccept={acceptDraw}
-        onDecline={declineDraw}
-      />
-
-      {/* Disconnect Overlay */}
-      <DisconnectOverlay
-        isVisible={opponentDisconnected}
-        countdown={disconnectCountdown}
-        opponentName={opponent?.displayName}
-      />
-
-      {/* Game Over Modal */}
-      {showGameOver && result && (
-        <GameOverModal
-          result={getGameResult()}
-          status={getGameStatus()}
-          playerColor={playerColor || 'w'}
-          onPlayAgain={handleNewGame}
-          onBackToLobby={handleBackToLobby}
-          onDismiss={() => setShowGameOver(false)}
-          dict={dict}
-          isMultiplayer={true}
-          multiplayerReason={resultReason || undefined}
-          rematchState={rematchState}
-          onRequestRematch={requestRematch}
-          onAcceptRematch={acceptRematch}
-          onDeclineRematch={declineRematch}
-        />
-      )}
-    </div>
+          )}
+        </>
+      }
+      overlays={
+        <>
+          <DrawOfferBanner
+            isVisible={multiplayer.drawOffered && !multiplayer.drawOfferedByMe}
+            onAccept={multiplayer.acceptDraw}
+            onDecline={multiplayer.declineDraw}
+          />
+          <DisconnectOverlay
+            isVisible={multiplayer.opponentDisconnected}
+            countdown={multiplayer.disconnectCountdown}
+            opponentName={multiplayer.opponent?.displayName}
+          />
+          {showGameOver && multiplayer.result && (
+            <GameOverModal
+              result={gameResult}
+              status={gameStatus}
+              playerColor={multiplayer.playerColor || 'w'}
+              onPlayAgain={handleNewGame}
+              onBackToLobby={handleBackToLobby}
+              onDismiss={() => setShowGameOver(false)}
+              dict={dict}
+              isMultiplayer={true}
+              multiplayerReason={multiplayer.resultReason || undefined}
+              rematchState={multiplayer.rematchState}
+              onRequestRematch={multiplayer.requestRematch}
+              onAcceptRematch={multiplayer.acceptRematch}
+              onDeclineRematch={multiplayer.declineRematch}
+            />
+          )}
+        </>
+      }
+    />
   );
 }
 

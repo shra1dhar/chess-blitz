@@ -9,7 +9,7 @@
     "tagline": "Bemästra ditt spel",
     "chooseGame": "Välj ditt spel",
     "playVsComputer": "Spela mot dator",
-    "playVsComputerDesc": "Utmana Stockfish AI på din nivå",
+    "playVsComputerDesc": "Spela mot datorn på din nivå",
     "tournament": "Turnering",
     "tournamentDesc": "Delta i online-turneringar",
     "comingSoon": "Kommer snart"
@@ -57,7 +57,7 @@
   "play": {
     "back": "Tillbaka",
     "loading": "Laddar schackmotor...",
-    "stockfish": "Stockfish",
+    "stockfish": "Schackbot",
     "you": "Du",
     "yourTurn": "Din tur",
     "resignConfirm": "Är du säker på att du vill ge upp?"

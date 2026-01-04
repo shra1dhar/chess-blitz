@@ -9,7 +9,7 @@
     "tagline": "Опануй свою гру",
     "chooseGame": "Оберіть гру",
     "playVsComputer": "Грати проти комп'ютера",
-    "playVsComputerDesc": "Киньте виклик Stockfish ШІ на вашому рівні",
+    "playVsComputerDesc": "Грайте проти комп'ютера на вашому рівні",
     "tournament": "Турнір",
     "tournamentDesc": "Беріть участь в онлайн-турнірах",
     "comingSoon": "Незабаром"
@@ -57,7 +57,7 @@
   "play": {
     "back": "Назад",
     "loading": "Завантаження шахового двигуна...",
-    "stockfish": "Stockfish",
+    "stockfish": "Шаховий Бот",
     "you": "Ви",
     "yourTurn": "Ваш хід",
     "resignConfirm": "Ви впевнені, що хочете здатися?"

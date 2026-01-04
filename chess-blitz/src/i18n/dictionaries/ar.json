@@ -9,7 +9,7 @@
     "tagline": "أتقن لعبتك",
     "chooseGame": "اختر لعبتك",
     "playVsComputer": "العب ضد الكمبيوتر",
-    "playVsComputerDesc": "تحدى Stockfish AI على مستواك",
+    "playVsComputerDesc": "العب ضد الحاسوب بمستواك",
     "tournament": "بطولة",
     "tournamentDesc": "شارك في البطولات عبر الإنترنت",
     "comingSoon": "قريباً"
@@ -57,7 +57,7 @@
   "play": {
     "back": "رجوع",
     "loading": "جاري تحميل محرك الشطرنج...",
-    "stockfish": "Stockfish",
+    "stockfish": "روبوت الشطرنج",
     "you": "أنت",
     "yourTurn": "دورك",
     "resignConfirm": "هل أنت متأكد أنك تريد الاستسلام؟"

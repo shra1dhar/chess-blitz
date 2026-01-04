@@ -9,7 +9,7 @@
     "tagline": "Maging eksperto sa laro mo",
     "chooseGame": "Piliin ang iyong laro",
     "playVsComputer": "Maglaro laban sa Computer",
-    "playVsComputerDesc": "Hamunin ang Stockfish AI sa iyong antas",
+    "playVsComputerDesc": "Maglaro laban sa computer sa iyong antas",
     "tournament": "Tournament",
     "tournamentDesc": "Sumali sa online tournaments",
     "comingSoon": "Malapit na"
@@ -57,7 +57,7 @@
   "play": {
     "back": "Bumalik",
     "loading": "Nilo-load ang chess engine...",
-    "stockfish": "Stockfish",
+    "stockfish": "Chess Bot",
     "you": "Ikaw",
     "yourTurn": "Iyong turn",
     "resignConfirm": "Sigurado ka bang gusto mong sumuko?"

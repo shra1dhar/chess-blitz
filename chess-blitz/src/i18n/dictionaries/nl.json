@@ -9,7 +9,7 @@
     "tagline": "Beheers je spel",
     "chooseGame": "Kies je spel",
     "playVsComputer": "Speel tegen computer",
-    "playVsComputerDesc": "Daag Stockfish AI uit op jouw niveau",
+    "playVsComputerDesc": "Speel tegen de computer op jouw niveau",
     "tournament": "Toernooi",
     "tournamentDesc": "Neem deel aan online toernooien",
     "comingSoon": "Binnenkort"
@@ -57,7 +57,7 @@
   "play": {
     "back": "Terug",
     "loading": "Schaakengine laden...",
-    "stockfish": "Stockfish",
+    "stockfish": "Schaakbot",
     "you": "Jij",
     "yourTurn": "Jouw beurt",
     "resignConfirm": "Weet je zeker dat je wilt opgeven?"
