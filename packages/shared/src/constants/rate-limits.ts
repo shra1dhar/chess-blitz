@@ -1,0 +1,7 @@
+// Rate limiting constants
+export const RATE_LIMITS = {
+  QUEUE_JOINS_PER_MINUTE: 5,
+  MESSAGES_PER_SECOND: 10,
+  DRAW_OFFER_COOLDOWN_MS: 30_000,
+  API_REQUESTS_PER_MINUTE: 60,
+} as const;

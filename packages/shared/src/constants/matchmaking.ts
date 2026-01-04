@@ -1,0 +1,18 @@
+// Matchmaking constants
+export const MATCHMAKING = {
+  INITIAL_ELO_RANGE: 100,
+  RANGE_EXPANSION_INTERVAL_MS: 5000,
+  RANGE_EXPANSION_AMOUNT: 50,
+  MAX_ELO_RANGE: 500,
+  BOT_FALLBACK_TIMEOUT_MS: 30_000,
+  MAX_QUEUE_SIZE: 500,
+  MAX_WAIT_MS: 120_000,
+  AVOID_RECENT_OPPONENTS_COUNT: 3,
+} as const;
+
+// ELO constants
+export const ELO = {
+  K_FACTOR: 32,
+  STARTING: 1200,
+  FLOOR: 100,
+} as const;

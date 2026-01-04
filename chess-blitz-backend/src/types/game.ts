@@ -5,6 +5,7 @@ import type {
   Color,
   BotDifficulty,
 } from "./constants";
+import type { RateLimitState } from "../utils/rate-limiter";
 
 // Player info for a game
 export interface GamePlayer {
@@ -124,10 +125,8 @@ export interface GameConnectionState {
   rateLimit: RateLimitState;
 }
 
-export interface RateLimitState {
-  count: number;
-  windowStart: number;
-}
+// Re-export RateLimitState from rate-limiter for backward compatibility
+export type { RateLimitState } from "../utils/rate-limiter";
 
 // Pending timeouts (persisted to storage)
 export interface PendingTimeouts {

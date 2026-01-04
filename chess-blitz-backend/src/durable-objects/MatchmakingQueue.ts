@@ -15,6 +15,7 @@ import {
   type MatchmakingConnectionState,
 } from "../types/messages";
 import { safeSend, safeClose, parseClientMessage } from "../utils/websocket";
+import { checkRateLimit, createRateLimitState, RATE_LIMIT_CONFIGS } from "../utils/rate-limiter";
 import { determineBotDifficulty, getBotElo } from "../services/elo";
 import { executeSql, queryAll } from "../utils/sqlHelper";
 
@@ -36,7 +37,9 @@ export class MatchmakingQueue extends DurableObject<Env> {
   private matchingInProgress: Set<string> = new Set();
   private tournamentType: TournamentType = "blitz";
   // In-memory cache for recent opponents (loaded from SQLite on demand)
-  private recentOpponentsCache: Map<string, string[]> = new Map();
+  // Cache entries expire after CACHE_TTL_MS to handle DO hibernation staleness
+  private static readonly RECENT_OPPONENTS_CACHE_TTL_MS = 30_000; // 30 seconds
+  private recentOpponentsCache: Map<string, { opponents: string[]; loadedAt: number }> = new Map();
   private sqlInitialized: boolean = false;
 
   constructor(ctx: DurableObjectState, env: Env) {
@@ -154,10 +157,8 @@ export class MatchmakingQueue extends DurableObject<Env> {
       elo: parseInt(eloParam || "1200", 10),
       inQueue: false,
       rateLimit: {
-        joinCount: 0,
-        joinWindowStart: Date.now(),
-        messageCount: 0,
-        messageWindowStart: Date.now(),
+        message: createRateLimitState(),
+        join: createRateLimitState(),
       },
     };
     (server as any).state = connectionState;
@@ -179,14 +180,10 @@ export class MatchmakingQueue extends DurableObject<Env> {
     }
 
     // Rate limit messages
-    const now = Date.now();
-    if (now - state.rateLimit.messageWindowStart >= 1000) {
-      state.rateLimit.messageCount = 0;
-      state.rateLimit.messageWindowStart = now;
-    }
-    state.rateLimit.messageCount++;
+    const msgResult = checkRateLimit(state.rateLimit.message, RATE_LIMIT_CONFIGS.messages);
+    state.rateLimit.message = msgResult.newState;
 
-    if (state.rateLimit.messageCount > RATE_LIMITS.MESSAGES_PER_SECOND) {
+    if (!msgResult.allowed) {
       safeSend(ws, { type: ServerMessageType.Error, code: "RATE_LIMITED", message: "Too many messages" });
       return;
     }
@@ -277,15 +274,16 @@ export class MatchmakingQueue extends DurableObject<Env> {
     }
 
     // Rate limit joins
-    const now = Date.now();
-    if (now - state.rateLimit.joinWindowStart >= 60_000) {
-      state.rateLimit.joinCount = 0;
-      state.rateLimit.joinWindowStart = now;
-    }
-    state.rateLimit.joinCount++;
+    const joinResult = checkRateLimit(state.rateLimit.join, RATE_LIMIT_CONFIGS.queueJoins);
+    state.rateLimit.join = joinResult.newState;
 
-    if (state.rateLimit.joinCount > RATE_LIMITS.QUEUE_JOINS_PER_MINUTE) {
-      safeSend(ws, { type: ServerMessageType.Error, code: "RATE_LIMITED", message: "Too many queue joins. Try again later." });
+    if (!joinResult.allowed) {
+      const waitSec = Math.ceil((joinResult.retryAfterMs || 60000) / 1000);
+      safeSend(ws, {
+        type: ServerMessageType.Error,
+        code: "RATE_LIMITED",
+        message: `Too many queue joins. Try again in ${waitSec} seconds.`,
+      });
       return;
     }
 
@@ -299,6 +297,7 @@ export class MatchmakingQueue extends DurableObject<Env> {
     const recentOpponents = await this.getRecentOpponents(state.playerId);
 
     // Add to queue
+    const now = Date.now();
     const entry: QueueEntry = {
       playerId: state.playerId,
       displayName: state.displayName,
@@ -386,13 +385,36 @@ export class MatchmakingQueue extends DurableObject<Env> {
       return true;
     } catch (error) {
       console.error("[MatchmakingQueue] Match creation failed:", error);
-      // Put players back in queue
+
+      // Clear matching state first
       this.matchingInProgress.delete(player.playerId);
       this.matchingInProgress.delete(match.playerId);
 
-      // Notify about error
-      safeSend(player.ws, { type: ServerMessageType.Error, code: "INTERNAL_ERROR", message: "Match creation failed" });
-      safeSend(match.ws, { type: ServerMessageType.Error, code: "INTERNAL_ERROR", message: "Match creation failed" });
+      // Re-add players to queue if their connections are still open
+      // They may have been removed during createMatch before the error
+      const playerState = (player.ws as any).state as MatchmakingConnectionState;
+      const matchState = (match.ws as any).state as MatchmakingConnectionState;
+
+      if (!this.queue.has(player.playerId) && player.ws.readyState === WebSocket.OPEN && playerState) {
+        this.queue.set(player.playerId, player);
+        playerState.inQueue = true;
+        safeSend(player.ws, {
+          type: ServerMessageType.Error,
+          code: "INTERNAL_ERROR",
+          message: "Match creation failed. Searching for new opponent...",
+        });
+      }
+
+      if (!this.queue.has(match.playerId) && match.ws.readyState === WebSocket.OPEN && matchState) {
+        this.queue.set(match.playerId, match);
+        matchState.inQueue = true;
+        safeSend(match.ws, {
+          type: ServerMessageType.Error,
+          code: "INTERNAL_ERROR",
+          message: "Match creation failed. Searching for new opponent...",
+        });
+      }
+
       return false;
     }
   }
@@ -709,12 +731,13 @@ export class MatchmakingQueue extends DurableObject<Env> {
 
   /**
    * Get recent opponents for a player from SQLite storage.
-   * Uses caching to avoid repeated queries within the same session.
+   * Uses TTL-based caching to avoid repeated queries while ensuring freshness.
    */
   private async getRecentOpponents(playerId: string): Promise<string[]> {
-    // Check cache first
-    if (this.recentOpponentsCache.has(playerId)) {
-      return this.recentOpponentsCache.get(playerId)!;
+    // Check cache first with TTL validation
+    const cached = this.recentOpponentsCache.get(playerId);
+    if (cached && Date.now() - cached.loadedAt < MatchmakingQueue.RECENT_OPPONENTS_CACHE_TTL_MS) {
+      return cached.opponents;
     }
 
     try {
@@ -734,8 +757,8 @@ export class MatchmakingQueue extends DurableObject<Env> {
 
       const opponents = rows.map((row) => row.opponent_id);
 
-      // Cache the result
-      this.recentOpponentsCache.set(playerId, opponents);
+      // Cache the result with timestamp
+      this.recentOpponentsCache.set(playerId, { opponents, loadedAt: Date.now() });
 
       return opponents;
     } catch (error) {

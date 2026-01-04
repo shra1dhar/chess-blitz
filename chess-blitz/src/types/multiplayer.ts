@@ -5,79 +5,25 @@
 import type { Color as ChessColor, Square, PieceSymbol } from 'chess.js';
 
 // ==============================================
-// WebSocket Message Type Enums
+// Re-export shared types from @chess-blitz/shared
 // ==============================================
 
-/**
- * Client -> Server message types
- * Use these enums instead of string literals for type safety
- */
-export enum ClientMessageType {
-  // Matchmaking
-  JoinQueue = "join_queue",
-  LeaveQueue = "leave_queue",
-  // Game actions
-  Move = "move",
-  OfferDraw = "offer_draw",
-  AcceptDraw = "accept_draw",
-  DeclineDraw = "decline_draw",
-  Resign = "resign",
-  Abort = "abort",
-  ClaimDraw = "claim_draw",
-  // Rematch
-  OfferRematch = "offer_rematch",
-  AcceptRematch = "accept_rematch",
-  DeclineRematch = "decline_rematch",
-  // Utility
-  Ping = "ping",
-}
+export {
+  ClientMessageType,
+  ServerMessageType,
+  DrawClaimReason,
+} from '@chess-blitz/shared';
 
-/**
- * Server -> Client message types
- * Use these enums instead of string literals for type safety
- */
-export enum ServerMessageType {
-  // Connection
-  Connected = "connected",
-  Error = "error",
-  Pong = "pong",
-  // Matchmaking
-  QueueJoined = "queue_joined",
-  QueuePosition = "queue_position",
-  QueueLeft = "queue_left",
-  MatchFound = "match_found",
-  // Game state
-  GameStart = "game_start",
-  GameState = "game_state",
-  MoveMade = "move_made",
-  ClockUpdate = "clock_update",
-  GameOver = "game_over",
-  // Draw handling
-  DrawOffered = "draw_offered",
-  DrawDeclined = "draw_declined",
-  DrawClaimAvailable = "draw_claim_available",
-  // Rematch
-  RematchOffered = "rematch_offered",
-  RematchDeclined = "rematch_declined",
-  RematchStarting = "rematch_starting",
-  // Disconnect handling
-  OpponentDisconnected = "opponent_disconnected",
-  OpponentReconnected = "opponent_reconnected",
-  // Warnings
-  LowTimeWarning = "low_time_warning",
-  FiftyMoveWarning = "fifty_move_warning",
-}
+// Import the enums for use in this file's type definitions
+import { ClientMessageType, ServerMessageType, DrawClaimReason } from '@chess-blitz/shared';
 
-/**
- * Draw claim reason enum
- */
-export enum DrawClaimReason {
-  FiftyMove = "fifty_move",
-  ThreefoldRepetition = "threefold_repetition",
-}
+export type { TournamentType, Color, BotDifficulty, ErrorCode, GameResult } from '@chess-blitz/shared';
+export { TIME_CONTROLS, ELO } from '@chess-blitz/shared';
+import type { TournamentType, Color, BotDifficulty, ErrorCode, GameResult } from '@chess-blitz/shared';
+import { ELO } from '@chess-blitz/shared';
 
-// Tournament types (aligned with backend)
-export type TournamentType = 'bullet' | 'blitz' | 'rapid' | 'classical';
+// Re-export ELO values for backwards compatibility
+export const DEFAULT_ELO = ELO.STARTING;
 
 export const TOURNAMENT_TIME_MS: Record<TournamentType, number> = {
   bullet: 60_000,
@@ -92,9 +38,6 @@ export const TOURNAMENT_LABELS: Record<TournamentType, string> = {
   rapid: 'Rapid',
   classical: 'Classical',
 };
-
-// Color types
-export type Color = 'white' | 'black';
 
 // Convert backend color to chess.js color
 export function toChessColor(color: Color): ChessColor {
@@ -151,13 +94,12 @@ export interface PlayerInfo {
   botLevel?: BotDifficulty;
 }
 
-export type BotDifficulty = 'easy' | 'medium' | 'hard';
-
 // ==============================================
 // Game Types
 // ==============================================
 
-export type GameResult = '1-0' | '0-1' | '1/2-1/2' | '*';
+// GameResult is re-exported from shared above
+// Define GameResultReason locally (frontend uses this name)
 export type GameResultReason =
   | 'checkmate'
   | 'timeout'
@@ -357,41 +299,7 @@ export interface GameEndResult {
   blackEloNew: number;
 }
 
-// Error codes
-export type ErrorCode =
-  // Connection errors
-  | 'INVALID_TOKEN'
-  | 'CONNECTION_CLOSED'
-  | 'RATE_LIMITED'
-  | 'MESSAGE_TOO_LARGE'
-  | 'INVALID_MESSAGE'
-  // Queue errors
-  | 'ALREADY_IN_QUEUE'
-  | 'NOT_IN_QUEUE'
-  | 'QUEUE_FULL'
-  | 'INVALID_TOURNAMENT_TYPE'
-  // Game errors
-  | 'GAME_NOT_FOUND'
-  | 'GAME_NOT_ACTIVE'
-  | 'NOT_YOUR_TURN'
-  | 'INVALID_MOVE'
-  | 'INVALID_MOVE_FORMAT'
-  | 'NOT_A_PARTICIPANT'
-  | 'GAME_ALREADY_STARTED'
-  | 'GAME_CANCELLED'
-  // Draw errors
-  | 'NO_DRAW_OFFER'
-  | 'CANNOT_ACCEPT_OWN_DRAW'
-  | 'DRAW_ALREADY_OFFERED'
-  | 'DRAW_OFFER_COOLDOWN'
-  | 'DRAW_NOT_CLAIMABLE'
-  // Abort errors
-  | 'CANNOT_ABORT'
-  // Rematch errors
-  | 'NO_REMATCH_OFFER'
-  | 'CANNOT_ACCEPT_OWN_REMATCH'
-  // Generic
-  | 'INTERNAL_ERROR';
+// ErrorCode is re-exported from @chess-blitz/shared above
 
 // ==============================================
 // Elo Types
@@ -405,23 +313,13 @@ export interface EloChanges {
 }
 
 // ==============================================
-// Constants
+// Constants (re-exported from shared + frontend-specific)
 // ==============================================
 
+// Re-export shared constants (ELO is already exported above)
+export { MATCHMAKING, GAME, RATE_LIMITS, MAX_MESSAGE_SIZE_BYTES } from '@chess-blitz/shared';
+
+// Frontend-specific aliases for convenience
 export const MATCHMAKING_TIMEOUT_MS = 30_000; // 30 seconds before bot fallback
 export const RECONNECT_TIMEOUT_MS = 30_000; // 30 seconds to reconnect
-export const REMATCH_TIMEOUT_MS = 30_000; // 30 seconds to accept/decline rematch
-export const GAME_ROOM_CLEANUP_TIMEOUT_MS = 60_000; // 60 seconds after game ends to cleanup
-export const ELO_K_FACTOR = 32;
-export const DEFAULT_ELO = 1200;
 export const ELO_MATCH_RANGE = 200; // Match players within this Elo range
-
-// Edge case handling constants
-export const MAX_QUEUE_SIZE = 500; // Maximum players in matchmaking queue
-export const MAX_WAIT_MS = 120_000; // 2 minutes max wait before auto-cancel
-export const NO_SHOW_TIMEOUT_MS = 30_000; // 30 seconds for players to connect after match
-export const DRAW_OFFER_COOLDOWN_MS = 30_000; // 30 seconds between draw offers
-export const BOTH_DISCONNECT_DRAW_MS = 60_000; // 60 seconds before draw if both disconnect
-export const MESSAGE_RATE_LIMIT_PER_SEC = 10; // Max WebSocket messages per second
-export const MAX_MESSAGE_SIZE_BYTES = 10 * 1024; // 10KB max message size
-export const JOIN_RATE_LIMIT_PER_MIN = 5; // Max queue joins per minute per player

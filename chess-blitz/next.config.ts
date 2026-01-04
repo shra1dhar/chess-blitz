@@ -6,6 +6,8 @@ const nextConfig: NextConfig = {
 	// cacheComponents: true,
 	// Disable trailing slashes to prevent double redirects
 	trailingSlash: false,
+	// Required for OpenNext/Cloudflare deployment
+	output: 'standalone',
 	// Sass configuration
 	sassOptions: {
 		silenceDeprecations: ['legacy-js-api'],

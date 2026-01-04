@@ -6,13 +6,75 @@ A real-time multiplayer chess platform with AI opponent support, built with mode
 
 Chess Blitz is a full-featured chess game platform that supports both single-player games against Stockfish AI and real-time multiplayer matches with ELO-based matchmaking. The platform supports 34 languages with RTL support and is optimized for low-latency competitive play.
 
-## Project Structure
+## Monorepo Structure
+
+This is a **pnpm workspace monorepo** with three packages:
 
 ```
 chess/
-├── chess-blitz/           # Frontend application (Next.js 15)
-└── chess-blitz-backend/   # Backend service (Cloudflare Workers)
+├── pnpm-workspace.yaml         # Workspace configuration
+├── packages/
+│   └── shared/                 # @chess-blitz/shared - Shared types & constants
+├── chess-blitz/                # Frontend (Next.js 16)
+└── chess-blitz-backend/        # Backend (Cloudflare Workers + Durable Objects)
 ```
+
+| Package | Description | Deployed URL |
+|---------|-------------|--------------|
+| `chess-blitz` | Frontend web app | https://chess-blitz.zoony.io |
+| `chess-blitz-backend` | Multiplayer backend | https://chess-blitz-backend.zoony.io |
+| `@chess-blitz/shared` | Shared library | *(bundled, not deployed)* |
+
+## Quick Start
+
+```bash
+# Install all dependencies
+pnpm install
+
+# Build shared package (required before running frontend/backend)
+cd packages/shared && pnpm build
+
+# Run frontend
+cd chess-blitz && pnpm dev
+
+# Run backend (in another terminal)
+cd chess-blitz-backend && pnpm dev
+```
+
+## Deployment
+
+Both projects deploy **independently** to Cloudflare Workers:
+
+```bash
+# Deploy frontend
+cd chess-blitz && pnpm deploy
+
+# Deploy backend
+cd chess-blitz-backend && pnpm deploy
+
+# Or using pnpm filters from root
+pnpm --filter chess-blitz deploy
+pnpm --filter chess-blitz-backend deploy
+```
+
+## Shared Package (@chess-blitz/shared)
+
+Contains TypeScript types, enums, and constants used by both frontend and backend:
+
+```typescript
+// Enums
+import { ClientMessageType, ServerMessageType, DrawClaimReason } from '@chess-blitz/shared';
+
+// Types
+import type { TournamentType, Color, GameResult, ErrorCode } from '@chess-blitz/shared';
+
+// Constants
+import { TIME_CONTROLS, ELO, MATCHMAKING, RATE_LIMITS, GAME } from '@chess-blitz/shared';
+```
+
+---
+
+## Project Structure (Detailed)
 
 ### Frontend (`chess-blitz/`)
 
@@ -82,7 +144,7 @@ src/
 ### Frontend
 | Technology | Purpose |
 |------------|---------|
-| Next.js 15 | React framework with App Router |
+| Next.js 16 | React framework with App Router |
 | React 19 | UI library |
 | Zustand 5 | State management with persistence |
 | chess.js | Move validation & game logic |

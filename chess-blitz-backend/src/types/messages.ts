@@ -2,76 +2,19 @@ import type { TournamentType, Color, ResultReason, BotDifficulty } from "./const
 import type { SerializedGameState, MoveInfo, GameEndResult } from "./game";
 
 // ============================================
-// WebSocket Message Type Enums
+// Re-export shared enums from @chess-blitz/shared
 // ============================================
 
-/**
- * Client -> Server message types
- * Use these enums instead of string literals for type safety
- */
-export enum ClientMessageType {
-  // Matchmaking
-  JoinQueue = "join_queue",
-  LeaveQueue = "leave_queue",
-  // Game actions
-  Move = "move",
-  OfferDraw = "offer_draw",
-  AcceptDraw = "accept_draw",
-  DeclineDraw = "decline_draw",
-  Resign = "resign",
-  Abort = "abort",
-  ClaimDraw = "claim_draw",
-  // Rematch
-  OfferRematch = "offer_rematch",
-  AcceptRematch = "accept_rematch",
-  DeclineRematch = "decline_rematch",
-  // Utility
-  Ping = "ping",
-}
+export {
+  ClientMessageType,
+  ServerMessageType,
+  DrawClaimReason,
+} from "@chess-blitz/shared";
 
-/**
- * Server -> Client message types
- * Use these enums instead of string literals for type safety
- */
-export enum ServerMessageType {
-  // Connection
-  Connected = "connected",
-  Error = "error",
-  Pong = "pong",
-  // Matchmaking
-  QueueJoined = "queue_joined",
-  QueuePosition = "queue_position",
-  QueueLeft = "queue_left",
-  MatchFound = "match_found",
-  // Game state
-  GameStart = "game_start",
-  GameState = "game_state",
-  MoveMade = "move_made",
-  ClockUpdate = "clock_update",
-  GameOver = "game_over",
-  // Draw handling
-  DrawOffered = "draw_offered",
-  DrawDeclined = "draw_declined",
-  DrawClaimAvailable = "draw_claim_available",
-  // Rematch
-  RematchOffered = "rematch_offered",
-  RematchDeclined = "rematch_declined",
-  RematchStarting = "rematch_starting",
-  // Disconnect handling
-  OpponentDisconnected = "opponent_disconnected",
-  OpponentReconnected = "opponent_reconnected",
-  // Warnings
-  LowTimeWarning = "low_time_warning",
-  FiftyMoveWarning = "fifty_move_warning",
-}
-
-/**
- * Draw claim reason enum
- */
-export enum DrawClaimReason {
-  FiftyMove = "fifty_move",
-  ThreefoldRepetition = "threefold_repetition",
-}
+// Import the enums and types for use in this file
+import { ClientMessageType, ServerMessageType, DrawClaimReason } from "@chess-blitz/shared";
+import type { ErrorCode } from "@chess-blitz/shared";
+export type { ErrorCode } from "@chess-blitz/shared";
 
 // ============================================
 // Client -> Server Messages
@@ -160,41 +103,7 @@ export interface ReconnectionSyncInfo {
   clockPaused: boolean;
 }
 
-// Error codes
-export type ErrorCode =
-  // Connection errors
-  | "INVALID_TOKEN"
-  | "CONNECTION_CLOSED"
-  | "RATE_LIMITED"
-  | "MESSAGE_TOO_LARGE"
-  | "INVALID_MESSAGE"
-  // Queue errors
-  | "ALREADY_IN_QUEUE"
-  | "NOT_IN_QUEUE"
-  | "QUEUE_FULL"
-  | "INVALID_TOURNAMENT_TYPE"
-  // Game errors
-  | "GAME_NOT_FOUND"
-  | "GAME_NOT_ACTIVE"
-  | "NOT_YOUR_TURN"
-  | "INVALID_MOVE"
-  | "INVALID_MOVE_FORMAT"
-  | "NOT_A_PARTICIPANT"
-  | "GAME_ALREADY_STARTED"
-  | "GAME_CANCELLED"
-  // Draw errors
-  | "NO_DRAW_OFFER"
-  | "CANNOT_ACCEPT_OWN_DRAW"
-  | "DRAW_ALREADY_OFFERED"
-  | "DRAW_OFFER_COOLDOWN"
-  | "DRAW_NOT_CLAIMABLE"
-  // Abort errors
-  | "CANNOT_ABORT"
-  // Rematch errors
-  | "NO_REMATCH_OFFER"
-  | "CANNOT_ACCEPT_OWN_REMATCH"
-  // Generic
-  | "INTERNAL_ERROR";
+// ErrorCode is re-exported from @chess-blitz/shared above
 
 // ============================================
 // Matchmaking Types
@@ -209,15 +118,15 @@ export interface QueuedPlayer {
   recentOpponents: string[];
 }
 
+import type { RateLimitState } from "../utils/rate-limiter";
+
 export interface MatchmakingConnectionState {
   playerId: string;
   displayName: string;
   elo: number;
   inQueue: boolean;
   rateLimit: {
-    joinCount: number;
-    joinWindowStart: number;
-    messageCount: number;
-    messageWindowStart: number;
+    message: RateLimitState;
+    join: RateLimitState;
   };
 }

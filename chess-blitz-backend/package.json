@@ -8,6 +8,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@chess-blitz/shared": "workspace:*",
     "@hono/zod-validator": "^0.4.0",
     "chess.js": "^1.0.0-beta.8",
     "hono": "^4.11.3",

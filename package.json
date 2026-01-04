@@ -1,0 +1,9 @@
+{
+	"name": "chess-monorepo",
+	"private": true,
+	"pnpm": {
+		"patchedDependencies": {
+			"next@16.1.1": "chess-blitz/patches/next@16.1.1.patch"
+		}
+	}
+}

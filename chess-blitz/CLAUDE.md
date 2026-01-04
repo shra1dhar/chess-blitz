@@ -3,6 +3,47 @@
 ## Project Overview
 Next.js 16 chess game with Stockfish AI, deployed to Cloudflare Workers using OpenNext.js. Uses **React 19.2** with modern hooks. Supports 34 languages with RTL support. Multiplayer functionality is handled by a separate backend service (`chess-blitz-backend`).
 
+## Monorepo Context
+
+This project is part of a **pnpm workspace monorepo**:
+
+```
+chess/                          # Monorepo root
+├── pnpm-workspace.yaml
+├── packages/
+│   └── shared/                 # @chess-blitz/shared
+├── chess-blitz/                # THIS PROJECT (frontend)
+└── chess-blitz-backend/        # Backend service
+```
+
+### Shared Package Dependency
+
+This project depends on `@chess-blitz/shared` for types, enums, and constants:
+
+```typescript
+// Enums (used in WebSocket messages)
+import { ClientMessageType, ServerMessageType, DrawClaimReason } from '@chess-blitz/shared';
+
+// Types
+import type { TournamentType, Color, GameResult, ErrorCode } from '@chess-blitz/shared';
+
+// Constants
+import { TIME_CONTROLS, ELO, MATCHMAKING, RATE_LIMITS } from '@chess-blitz/shared';
+```
+
+### Before Running/Building
+
+**Build the shared package first** (from monorepo root or packages/shared):
+
+```bash
+cd ../packages/shared && pnpm build
+```
+
+Or from monorepo root:
+```bash
+pnpm --filter @chess-blitz/shared build
+```
+
 ## Critical Rules
 
 ### OpenNext.js / Cloudflare Workers
@@ -242,15 +283,23 @@ src/
 ```bash
 pnpm dev          # Start dev server (Turbopack)
 pnpm build        # Build for production
-npx opennextjs-cloudflare build   # Build for Cloudflare
-npx wrangler deploy               # Deploy main worker
+pnpm deploy       # Build and deploy to Cloudflare
+pnpm typecheck    # Run TypeScript type checking (via tsc --noEmit)
 ```
 
 ## Deployment
 
-Two workers are deployed separately:
-1. `chess-blitz` - Main Next.js application (this project)
-2. `chess-blitz-backend` - Multiplayer backend with Durable Objects (separate project)
+This project deploys **independently** from the backend:
+
+```bash
+# Deploy frontend only
+pnpm deploy
+
+# Or from monorepo root
+pnpm --filter chess-blitz deploy
+```
+
+**Note:** The deploy script handles a monorepo quirk where Next.js creates a nested standalone structure. It automatically creates a symlink to fix this before running OpenNext.
 
 ### Backend Integration
 The frontend connects to the backend service via:
@@ -259,3 +308,7 @@ The frontend connects to the backend service via:
 - HTTP: `POST /auth/guest`, `POST /auth/refresh`, `POST /auth/update-elo`
 
 Set `NEXT_PUBLIC_BACKEND_URL` environment variable to configure the backend URL.
+
+### Related Project
+- **Backend**: `chess-blitz-backend` at `../chess-blitz-backend`
+- **Shared types**: `@chess-blitz/shared` at `../packages/shared`

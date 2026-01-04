@@ -32,9 +32,9 @@ import {
   safeSend,
   safeClose,
   broadcast,
-  checkMessageRateLimit,
   parseClientMessage,
 } from "../utils/websocket";
+import { checkRateLimit, RATE_LIMIT_CONFIGS, createRateLimitState } from "../utils/rate-limiter";
 import {
   colorHasSufficientMaterial,
   getPositionKey,
@@ -231,7 +231,7 @@ export class GameRoom extends DurableObject<Env> {
     const connectionState: GameConnectionState = {
       playerId,
       color,
-      rateLimit: { count: 0, windowStart: Date.now() },
+      rateLimit: createRateLimitState(),
     };
     (server as any).state = connectionState;
 
@@ -353,7 +353,7 @@ export class GameRoom extends DurableObject<Env> {
     }
 
     // Rate limiting
-    const rateLimitResult = checkMessageRateLimit(state.rateLimit);
+    const rateLimitResult = checkRateLimit(state.rateLimit, RATE_LIMIT_CONFIGS.messages);
     state.rateLimit = rateLimitResult.newState;
 
     if (!rateLimitResult.allowed) {
@@ -448,6 +448,8 @@ export class GameRoom extends DurableObject<Env> {
         } else {
           this.game.blackTimeMs = Math.max(0, this.game.blackTimeMs - elapsed);
         }
+        // Update lastMoveAt to prevent double-counting if updateClock runs
+        this.game.lastMoveAt = now;
         this.game.clockPausedAt = now;
         this.game.clockPausedFor = state.color;
       }
@@ -1186,8 +1188,15 @@ export class GameRoom extends DurableObject<Env> {
 
   /**
    * Process a bot move (similar to handleMove but without WebSocket).
+   * Includes retry logic with fallback to random legal move and eventual resignation.
    */
-  private async processBotMove(color: Color, from: string, to: string, promotion?: string): Promise<void> {
+  private async processBotMove(
+    color: Color,
+    from: string,
+    to: string,
+    promotion?: string,
+    retryCount: number = 0
+  ): Promise<void> {
     if (!this.game || !this.chess || this.game.status !== "active") return;
 
     const now = Date.now();
@@ -1213,7 +1222,24 @@ export class GameRoom extends DurableObject<Env> {
     const result = makeMove(this.chess, from, to, validPromotion);
 
     if (!result.success) {
-      console.error("[GameRoom] Bot made invalid move:", from, to);
+      console.error("[GameRoom] Bot made invalid move:", from, to, "retry:", retryCount);
+
+      // Retry with a random legal move (max 3 retries)
+      if (retryCount < 3) {
+        const legalMoves = this.chess.moves({ verbose: true });
+        if (legalMoves.length > 0) {
+          const randomMove = legalMoves[Math.floor(Math.random() * legalMoves.length)];
+          console.log("[GameRoom] Bot retrying with random move:", randomMove.from, randomMove.to);
+          // Reset clock elapsed time for retry to avoid double-deduction
+          this.game.lastMoveAt = Date.now();
+          await this.processBotMove(color, randomMove.from, randomMove.to, randomMove.promotion, retryCount + 1);
+          return;
+        }
+      }
+
+      // All retries failed - bot resigns
+      console.error("[GameRoom] Bot failed to make valid move after retries, resigning");
+      await this.handleResign(color);
       return;
     }
 

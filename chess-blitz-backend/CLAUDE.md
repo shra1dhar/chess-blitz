@@ -13,6 +13,49 @@
 
 ---
 
+## Monorepo Context
+
+This project is part of a **pnpm workspace monorepo**:
+
+```
+chess/                          # Monorepo root
+├── pnpm-workspace.yaml
+├── packages/
+│   └── shared/                 # @chess-blitz/shared
+├── chess-blitz/                # Frontend (Next.js)
+└── chess-blitz-backend/        # THIS PROJECT (backend)
+```
+
+### Shared Package Dependency
+
+This project depends on `@chess-blitz/shared` for types, enums, and constants:
+
+```typescript
+// Enums (used in WebSocket messages)
+import { ClientMessageType, ServerMessageType, DrawClaimReason } from '@chess-blitz/shared';
+
+// Types
+import type { TournamentType, Color, GameResult, ErrorCode } from '@chess-blitz/shared';
+
+// Constants
+import { TIME_CONTROLS, ELO, MATCHMAKING, RATE_LIMITS, GAME } from '@chess-blitz/shared';
+```
+
+### Before Running/Building
+
+**Build the shared package first** (from monorepo root or packages/shared):
+
+```bash
+cd ../packages/shared && pnpm build
+```
+
+Or from monorepo root:
+```bash
+pnpm --filter @chess-blitz/shared build
+```
+
+---
+
 ## Architecture
 
 ### Durable Objects
@@ -171,9 +214,22 @@ this.ctx.acceptWebSocket(server);  // NOT server.accept()
 
 ```bash
 pnpm install              # Install dependencies
-pnpm wrangler types       # Generate CloudflareBindings types
-pnpm run dev              # Start local dev server
-pnpm run deploy           # Deploy to Cloudflare
+pnpm dev                  # Start local dev server
+pnpm deploy               # Deploy to Cloudflare
+pnpm typecheck            # Run TypeScript type checking
+pnpm cf-typegen           # Generate CloudflareBindings types
+```
+
+## Deployment
+
+This project deploys **independently** from the frontend:
+
+```bash
+# Deploy backend only
+pnpm deploy
+
+# Or from monorepo root
+pnpm --filter chess-blitz-backend deploy
 ```
 
 ---
@@ -203,4 +259,5 @@ Use `executeSql()` and `queryAll()` from sqlHelper instead of calling SQLite met
 ## Related Projects
 
 - **Frontend**: `chess-blitz` - Next.js app at `../chess-blitz`
-- Both projects share type definitions for multiplayer messages
+- **Shared types**: `@chess-blitz/shared` at `../packages/shared`
+- Types, enums, and constants are shared via the `@chess-blitz/shared` workspace package

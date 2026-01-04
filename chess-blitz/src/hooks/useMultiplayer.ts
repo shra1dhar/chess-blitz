@@ -34,6 +34,20 @@ import {
 // Draw claim types
 export type DrawClaimType = 'none' | 'fifty_move' | 'threefold_repetition';
 
+/**
+ * Calculate client-adjusted lastMoveAt based on server time difference.
+ * This compensates for network latency by adjusting the server timestamp
+ * to the client's clock.
+ *
+ * @param serverTime - The server's timestamp when the message was sent
+ * @param lastMoveAt - The server's lastMoveAt timestamp
+ * @returns The adjusted lastMoveAt relative to client time
+ */
+function calculateAdjustedLastMoveAt(serverTime: number, lastMoveAt: number): number {
+  const clockOffset = Date.now() - serverTime;
+  return lastMoveAt + clockOffset;
+}
+
 // Error code to user-friendly message mapping
 const ERROR_MESSAGES: Record<string, string> = {
   NOT_YOUR_TURN: "It's not your turn",
@@ -111,11 +125,7 @@ interface UseMultiplayerReturn {
 
 // Convert backend game state to frontend format
 function convertGameState(backend: SerializedGameState): MultiplayerGameState {
-  // Calculate client-adjusted lastMoveAt based on server time difference
-  // This compensates for network latency
-  const clientTime = Date.now();
-  const clockOffset = clientTime - backend.serverTime;
-  const adjustedLastMoveAt = backend.lastMoveAt + clockOffset;
+  const adjustedLastMoveAt = calculateAdjustedLastMoveAt(backend.serverTime, backend.lastMoveAt);
 
   return {
     id: backend.gameId,
@@ -291,10 +301,7 @@ export function useMultiplayer(): UseMultiplayerReturn {
         break;
 
       case ServerMessageType.ClockUpdate: {
-        // Calculate client-adjusted lastMoveAt based on server time difference
-        const clientTime = Date.now();
-        const clockOffset = clientTime - message.serverTime;
-        const adjustedLastMoveAt = message.lastMoveAt + clockOffset;
+        const adjustedLastMoveAt = calculateAdjustedLastMoveAt(message.serverTime, message.lastMoveAt);
 
         setGameState((prev) =>
           prev

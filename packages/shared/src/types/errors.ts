@@ -1,0 +1,45 @@
+// Error codes used in WebSocket communication
+export type ErrorCode =
+  // Connection errors
+  | "INVALID_TOKEN"
+  | "TOKEN_EXPIRED"
+  | "CONNECTION_CLOSED"
+  | "RATE_LIMITED"
+  | "MESSAGE_TOO_LARGE"
+  | "INVALID_MESSAGE"
+  // Queue errors
+  | "ALREADY_IN_QUEUE"
+  | "NOT_IN_QUEUE"
+  | "QUEUE_FULL"
+  | "INVALID_TOURNAMENT_TYPE"
+  // Game errors
+  | "INVALID_GAME"
+  | "GAME_NOT_FOUND"
+  | "GAME_NOT_ACTIVE"
+  | "NOT_YOUR_TURN"
+  | "INVALID_MOVE"
+  | "INVALID_MOVE_FORMAT"
+  | "NOT_A_PARTICIPANT"
+  | "GAME_ALREADY_STARTED"
+  | "GAME_CANCELLED"
+  | "GAME_OVER"
+  | "ALREADY_CONNECTED"
+  | "INVALID_COLOR"
+  | "ALREADY_IN_GAME"
+  // Draw errors
+  | "NO_DRAW_OFFER"
+  | "CANNOT_ACCEPT_OWN_DRAW"
+  | "DRAW_ALREADY_OFFERED"
+  | "DRAW_OFFER_COOLDOWN"
+  | "DRAW_NOT_CLAIMABLE"
+  | "CANNOT_CLAIM_DRAW"
+  // Abort errors
+  | "CANNOT_ABORT"
+  // Rematch errors
+  | "NO_REMATCH_OFFER"
+  | "CANNOT_ACCEPT_OWN_REMATCH"
+  | "REMATCH_ALREADY_OFFERED"
+  // Bot errors
+  | "BOT_MATCH_FAILED"
+  // Generic
+  | "INTERNAL_ERROR";

@@ -7,13 +7,33 @@ import { useState, useEffect, useRef, useCallback, useEffectEvent } from 'react'
 
 export type WebSocketStatus = 'connecting' | 'connected' | 'disconnected' | 'error';
 
+// Exponential backoff configuration
+const BACKOFF_CONFIG = {
+  baseDelayMs: 1000,    // Start with 1 second
+  maxDelayMs: 30000,    // Cap at 30 seconds
+  multiplier: 1.5,      // 1.5x per retry
+  jitterFactor: 0.2,    // ±20% randomness
+};
+
+/**
+ * Calculate reconnection delay using exponential backoff with jitter.
+ * This prevents thundering herd when many clients reconnect simultaneously.
+ */
+function getReconnectDelay(attempt: number): number {
+  const exponentialDelay = BACKOFF_CONFIG.baseDelayMs * Math.pow(BACKOFF_CONFIG.multiplier, attempt);
+  const cappedDelay = Math.min(exponentialDelay, BACKOFF_CONFIG.maxDelayMs);
+
+  // Add jitter: ±jitterFactor
+  const jitter = cappedDelay * BACKOFF_CONFIG.jitterFactor * (Math.random() * 2 - 1);
+  return Math.round(cappedDelay + jitter);
+}
+
 interface UseWebSocketOptions {
   onMessage?: (data: unknown) => void;
   onOpen?: () => void;
   onClose?: (event: CloseEvent) => void;
   onError?: (error: Event) => void;
   reconnect?: boolean;
-  reconnectInterval?: number;
   maxReconnectAttempts?: number;
 }
 
@@ -35,8 +55,7 @@ export function useWebSocket(
     onClose,
     onError,
     reconnect = true,
-    reconnectInterval = 3000,
-    maxReconnectAttempts = 5,
+    maxReconnectAttempts = 10,
   } = options;
 
   const [status, setStatus] = useState<WebSocketStatus>('disconnected');
@@ -148,10 +167,11 @@ export function useWebSocket(
           event.code !== 1000 &&
           reconnectAttemptsRef.current < maxReconnectAttempts
         ) {
+          const delay = getReconnectDelay(reconnectAttemptsRef.current);
           reconnectAttemptsRef.current++;
           reconnectTimeoutRef.current = setTimeout(() => {
             connect();
-          }, reconnectInterval);
+          }, delay);
         }
       };
     } catch (error) {
@@ -159,7 +179,7 @@ export function useWebSocket(
       setStatus('error');
       console.error('WebSocket connection error:', error);
     }
-  }, [cleanup, maxReconnectAttempts, reconnectInterval]);
+  }, [cleanup, maxReconnectAttempts]);
 
   // Disconnect function
   const disconnect = useCallback(() => {

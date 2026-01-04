@@ -1,6 +1,5 @@
 import type { ServerMessage } from "../types/messages";
-import { RATE_LIMITS, MAX_MESSAGE_SIZE_BYTES } from "../types/constants";
-import type { RateLimitState } from "../types/game";
+import { MAX_MESSAGE_SIZE_BYTES } from "../types/constants";
 
 /**
  * Safely send a message to a WebSocket.
@@ -52,76 +51,8 @@ export function broadcast(sockets: WebSocket[], data: ServerMessage): void {
   }
 }
 
-/**
- * Check rate limit for messages.
- * Returns true if allowed, false if rate limited.
- */
-export function checkMessageRateLimit(state: RateLimitState): {
-  allowed: boolean;
-  newState: RateLimitState;
-} {
-  const now = Date.now();
-  const windowMs = 1000; // 1 second window
-
-  // Reset window if expired
-  if (now - state.windowStart >= windowMs) {
-    return {
-      allowed: true,
-      newState: { count: 1, windowStart: now },
-    };
-  }
-
-  // Check if under limit
-  if (state.count < RATE_LIMITS.MESSAGES_PER_SECOND) {
-    return {
-      allowed: true,
-      newState: { count: state.count + 1, windowStart: state.windowStart },
-    };
-  }
-
-  // Rate limited
-  return {
-    allowed: false,
-    newState: state,
-  };
-}
-
-/**
- * Check rate limit for queue joins.
- * Returns true if allowed, false if rate limited.
- */
-export function checkJoinRateLimit(state: {
-  count: number;
-  windowStart: number;
-}): {
-  allowed: boolean;
-  newState: { count: number; windowStart: number };
-} {
-  const now = Date.now();
-  const windowMs = 60_000; // 1 minute window
-
-  // Reset window if expired
-  if (now - state.windowStart >= windowMs) {
-    return {
-      allowed: true,
-      newState: { count: 1, windowStart: now },
-    };
-  }
-
-  // Check if under limit
-  if (state.count < RATE_LIMITS.QUEUE_JOINS_PER_MINUTE) {
-    return {
-      allowed: true,
-      newState: { count: state.count + 1, windowStart: state.windowStart },
-    };
-  }
-
-  // Rate limited
-  return {
-    allowed: false,
-    newState: state,
-  };
-}
+// Rate limiting functions have been moved to rate-limiter.ts
+// Use: import { checkRateLimit, RATE_LIMIT_CONFIGS } from "./rate-limiter";
 
 /**
  * Validate message size.
