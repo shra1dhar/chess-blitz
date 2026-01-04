@@ -70,7 +70,10 @@
     "resignGame": "Spel opgeven",
     "playAgain": "Opnieuw spelen",
     "getHint": "Hint",
-    "getHintSoon": "Hint krijgen (binnenkort)"
+    "getHintSoon": "Hint krijgen (binnenkort)",
+    "offerDraw": "Remise aanbieden",
+    "drawOffered": "Remise aangeboden",
+    "draw": "Remise"
   },
   "gameInfo": {
     "status": "Status:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Selecteer taal",
     "rememberPreference": "Onthoud mijn voorkeur"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "Schaak Arena",

@@ -70,7 +70,10 @@
     "resignGame": "Predă jocul",
     "playAgain": "Joacă din nou",
     "getHint": "Indiciu",
-    "getHintSoon": "Obține indiciu (în curând)"
+    "getHintSoon": "Obține indiciu (în curând)",
+    "offerDraw": "Oferă remiză",
+    "drawOffered": "Remiză oferită",
+    "draw": "Remiză"
   },
   "gameInfo": {
     "status": "Stare:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Selectează limba",
     "rememberPreference": "Ține minte preferința mea"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "Arena de Șah",

@@ -70,7 +70,10 @@
     "resignGame": "ยอมแพ้เกม",
     "playAgain": "เล่นอีกครั้ง",
     "getHint": "คำใบ้",
-    "getHintSoon": "รับคำใบ้ (เร็วๆ นี้)"
+    "getHintSoon": "รับคำใบ้ (เร็วๆ นี้)",
+    "offerDraw": "เสนอเสมอ",
+    "drawOffered": "เสนอเสมอแล้ว",
+    "draw": "เสมอ"
   },
   "gameInfo": {
     "status": "สถานะ:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "เลือกภาษา",
     "rememberPreference": "จำการเลือกของฉัน"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "สนามหมากรุก",

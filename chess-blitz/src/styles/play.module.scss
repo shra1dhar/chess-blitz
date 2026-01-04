@@ -12,6 +12,13 @@
   background-color: var(--ui-bg-primary);
   @include flex-column;
   overflow: hidden; // Prevent page scroll
+
+  // Allow scroll when height is constrained (Windows laptops, tablets)
+  @include constrained-height {
+    overflow-y: auto;
+    overflow-x: hidden;
+    @include custom-scrollbar;
+  }
 }
 
 // Header
@@ -25,6 +32,15 @@
 
   @include mobile {
     padding: $spacing-xs $spacing-sm;
+  }
+
+  // Compact header for constrained heights
+  @include constrained-height {
+    padding: $spacing-xs $spacing-sm;
+  }
+
+  @include short-viewport {
+    padding: 2px $spacing-xs;
   }
 }
 
@@ -104,7 +120,18 @@
 
   @include desktop {
     padding: $spacing-lg;
-    overflow: hidden; // No scroll needed on desktop
+    // Allow scroll on desktop when height is constrained
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  // Reduced padding for constrained heights
+  @include constrained-height {
+    padding: $spacing-sm;
+  }
+
+  @include short-viewport {
+    padding: $spacing-xs;
   }
 }
 
@@ -155,7 +182,7 @@
   }
 }
 
-// Player Info - compact on mobile
+// Player Info - compact on mobile and constrained heights
 .playerInfo {
   @include flex-row;
   -webkit-box-align: center;
@@ -180,6 +207,26 @@
 
     &:last-of-type {
       margin-top: $spacing-xs;
+    }
+  }
+
+  // Compact player info for constrained heights
+  @include constrained-height {
+    padding: $spacing-xs $spacing-sm;
+    margin-bottom: $spacing-xs;
+    border-radius: $radius-sm;
+
+    &:last-of-type {
+      margin-top: $spacing-xs;
+    }
+  }
+
+  @include short-viewport {
+    padding: 2px $spacing-xs;
+    margin-bottom: 2px;
+
+    &:last-of-type {
+      margin-top: 2px;
     }
   }
 }
@@ -214,6 +261,33 @@
       height: 18px;
     }
   }
+
+  // Smaller avatars for constrained heights
+  @include constrained-height {
+    width: 28px;
+    height: 28px;
+    margin-right: $spacing-xs;
+
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: $spacing-xs;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  @include short-viewport {
+    width: 24px;
+    height: 24px;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
 }
 
 .playerDetails {
@@ -244,6 +318,29 @@
   }
 }
 
+// First-move warning - replaces playerLevel when active
+.firstMoveWarning {
+  font-size: $font-size-sm;
+  color: $color-warning;
+  font-weight: $font-weight-medium;
+  -webkit-animation: firstMovePulse 1s ease-in-out infinite;
+  animation: firstMovePulse 1s ease-in-out infinite;
+
+  @include mobile {
+    font-size: $font-size-xs;
+  }
+}
+
+@-webkit-keyframes firstMovePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes firstMovePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
 // Game Clock - inline in player info
 .clock {
   padding: $spacing-xs $spacing-sm;
@@ -263,6 +360,19 @@
     font-size: $font-size-lg;
     padding: $spacing-xs;
     min-width: 60px;
+  }
+
+  // Smaller clock for constrained heights
+  @include constrained-height {
+    font-size: $font-size-base;
+    padding: 2px $spacing-xs;
+    min-width: 50px;
+  }
+
+  @include short-viewport {
+    font-size: $font-size-sm;
+    padding: 2px $spacing-xs;
+    min-width: 45px;
   }
 }
 
@@ -382,6 +492,15 @@
   @include desktop {
     display: none;
   }
+
+  // Compact spacing for constrained heights
+  @include constrained-height {
+    margin-top: $spacing-xs;
+  }
+
+  @include short-viewport {
+    margin-top: 2px;
+  }
 }
 
 // Sidebar - hidden on mobile and tablet
@@ -484,6 +603,29 @@
     width: 20px;
     height: 20px;
   }
+
+  // Smaller buttons for constrained heights
+  @include constrained-height {
+    min-width: 40px;
+    min-height: 40px;
+    padding: $spacing-xs;
+    margin: 0 2px;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  @include short-viewport {
+    min-width: 36px;
+    min-height: 36px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
 }
 
 // Sidebar Controls (desktop)
@@ -498,8 +640,17 @@
   margin-top: $spacing-md;
 }
 
-// Sidebar Button (desktop - text)
+// Sidebar Button (desktop - text with icon)
 .sidebarButton {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   width: 100%;
   padding: $spacing-sm $spacing-md;
   margin-bottom: $spacing-xs;
@@ -514,6 +665,14 @@
   transition: all $transition-fast;
   text-align: center;
 
+  svg {
+    width: 16px;
+    height: 16px;
+    margin-inline-end: $spacing-xs;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+  }
+
   &:hover:not(:disabled) {
     background: var(--ui-bg-tertiary);
     color: var(--ui-text-primary);
@@ -526,11 +685,90 @@
   }
 
   &:disabled {
-    opacity: 0.5;
+    opacity: 0.6;
     cursor: not-allowed;
   }
 
   &:last-child {
     margin-bottom: 0;
+  }
+}
+
+// Draw button - peaceful handshake theme
+.drawButton {
+  border-color: rgba($brand-secondary, 0.3);
+
+  svg {
+    color: $brand-secondary;
+  }
+
+  &:hover:not(:disabled) {
+    border-color: $brand-secondary;
+    background: rgba($brand-secondary, 0.08);
+
+    svg {
+      color: $brand-secondary;
+    }
+  }
+
+  &:disabled {
+    border-color: rgba($brand-secondary, 0.2);
+    color: var(--ui-text-muted);
+
+    svg {
+      color: var(--ui-text-muted);
+    }
+  }
+}
+
+// Resign button - surrender theme
+.resignButton {
+  border-color: rgba($color-error, 0.2);
+
+  svg {
+    color: $color-error;
+    opacity: 0.7;
+  }
+
+  &:hover:not(:disabled) {
+    border-color: $color-error;
+    background: rgba($color-error, 0.08);
+    color: $color-error;
+
+    svg {
+      opacity: 1;
+    }
+  }
+}
+
+// Mobile control button variants
+.controlButtonDraw {
+  svg {
+    color: $brand-secondary;
+  }
+
+  &:hover:not(:disabled) {
+    background: rgba($brand-secondary, 0.15);
+  }
+
+  &:disabled {
+    svg {
+      color: var(--ui-text-muted);
+    }
+  }
+}
+
+.controlButtonResign {
+  svg {
+    color: $color-error;
+    opacity: 0.7;
+  }
+
+  &:hover:not(:disabled) {
+    background: rgba($color-error, 0.15);
+
+    svg {
+      opacity: 1;
+    }
   }
 }

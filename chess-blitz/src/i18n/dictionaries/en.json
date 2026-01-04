@@ -70,7 +70,10 @@
     "resignGame": "Resign game",
     "playAgain": "Play Again",
     "getHint": "Get Hint",
-    "getHintSoon": "Get a hint (coming soon)"
+    "getHintSoon": "Get a hint (coming soon)",
+    "offerDraw": "Offer Draw",
+    "drawOffered": "Draw Offered",
+    "draw": "Draw"
   },
   "gameInfo": {
     "status": "Status:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Select Language",
     "rememberPreference": "Remember my preference"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "Chess Arena",

@@ -211,6 +211,39 @@
   }
 }
 
+// Height-based responsive queries (for vertical space constraints)
+// Use these for Windows laptops with high DPI scaling, tablets in landscape, etc.
+@mixin short-viewport {
+  @media screen and (max-height: #{$breakpoint-height-sm - 1px}) {
+    @content;
+  }
+}
+
+@mixin medium-height {
+  @media screen and (min-height: $breakpoint-height-sm) and (max-height: #{$breakpoint-height-md - 1px}) {
+    @content;
+  }
+}
+
+@mixin constrained-height {
+  @media screen and (max-height: #{$breakpoint-height-md - 1px}) {
+    @content;
+  }
+}
+
+// Combined queries for specific scenarios
+@mixin tablet-constrained {
+  @media screen and (min-width: $breakpoint-sm) and (max-width: #{$breakpoint-md - 1px}) and (max-height: #{$breakpoint-height-md - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop-constrained {
+  @media screen and (min-width: $breakpoint-md) and (max-height: #{$breakpoint-height-md - 1px}) {
+    @content;
+  }
+}
+
 // Accessibility
 @mixin visually-hidden {
   position: absolute;

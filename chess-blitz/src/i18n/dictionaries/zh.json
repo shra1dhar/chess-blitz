@@ -70,7 +70,10 @@
     "resignGame": "认输",
     "playAgain": "再玩一次",
     "getHint": "提示",
-    "getHintSoon": "获取提示（即将推出）"
+    "getHintSoon": "获取提示（即将推出）",
+    "offerDraw": "提议和棋",
+    "drawOffered": "已提议和棋",
+    "draw": "和棋"
   },
   "gameInfo": {
     "status": "状态：",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "选择语言",
     "rememberPreference": "记住我的选择"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "国际象棋竞技场",

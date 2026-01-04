@@ -70,7 +70,10 @@
     "resignGame": "Abandonner la partie",
     "playAgain": "Rejouer",
     "getHint": "Indice",
-    "getHintSoon": "Obtenir un indice (bientôt)"
+    "getHintSoon": "Obtenir un indice (bientôt)",
+    "offerDraw": "Proposer nulle",
+    "drawOffered": "Nulle proposée",
+    "draw": "Nulle"
   },
   "gameInfo": {
     "status": "Statut :",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Sélectionner la langue",
     "rememberPreference": "Mémoriser ma préférence"
+  },
+  "firstMoveWarning": {
+    "yourMove": "À vous de jouer.",
+    "opponentMove": "En attente de l'adversaire...",
+    "autoAbort": "Abandon automatique dans 0:{seconds}"
   },
   "tournament": {
     "title": "Arène d'Échecs",

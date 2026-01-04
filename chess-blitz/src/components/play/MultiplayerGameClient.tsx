@@ -60,6 +60,7 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
     opponentDisconnected,
     disconnectCountdown,
     rematchState,
+    firstMoveWarning,
     joinGame,
     makeMove,
     resign,
@@ -100,6 +101,17 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
       return () => clearTimeout(timer);
     }
   }, [matchState, result]);
+
+  // Handle Escape key to dismiss game over modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && showGameOver) {
+        setShowGameOver(false);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [showGameOver]);
 
   // Update refs when server sends new times (doesn't trigger animation restart)
   useEffect(() => {
@@ -301,7 +313,13 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
               </div>
               <div className={styles.playerDetails}>
                 <span className={styles.playerName}>{opponent?.displayName || 'Opponent'}</span>
-                <span className={styles.playerLevel}>{opponent?.elo || '—'} ELO</span>
+                {firstMoveWarning.active && firstMoveWarning.player === (playerColor === 'w' ? 'black' : 'white') ? (
+                  <span className={styles.firstMoveWarning}>
+                    {dict.firstMoveWarning?.opponentMove || 'Waiting for move...'} {dict.firstMoveWarning?.autoAbort?.replace('{seconds}', String(firstMoveWarning.countdown)) || `0:${String(firstMoveWarning.countdown).padStart(2, '0')}`}
+                  </span>
+                ) : (
+                  <span className={styles.playerLevel}>{opponent?.elo || '—'} ELO</span>
+                )}
               </div>
               {/* Opponent clock */}
               {gameState && playerColor && (
@@ -335,9 +353,15 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
               </div>
               <div className={styles.playerDetails}>
                 <span className={styles.playerName}>{dict.play.you}</span>
-                <span className={styles.playerLevel}>
-                  {playerColor === 'w' ? dict.gameOptions.white : dict.gameOptions.black}
-                </span>
+                {firstMoveWarning.active && firstMoveWarning.player === (playerColor === 'w' ? 'white' : 'black') ? (
+                  <span className={styles.firstMoveWarning}>
+                    {dict.firstMoveWarning?.yourMove || 'Your move.'} {dict.firstMoveWarning?.autoAbort?.replace('{seconds}', String(firstMoveWarning.countdown)) || `0:${String(firstMoveWarning.countdown).padStart(2, '0')}`}
+                  </span>
+                ) : (
+                  <span className={styles.playerLevel}>
+                    {playerColor === 'w' ? dict.gameOptions.white : dict.gameOptions.black}
+                  </span>
+                )}
               </div>
               {/* Player clock */}
               {gameState && playerColor && (
@@ -355,18 +379,31 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
                 {isPlaying && (
                   <>
                     <button
-                      className={styles.controlButton}
+                      className={`${styles.controlButton} ${styles.controlButtonDraw}`}
                       onClick={() => offerDraw()}
                       disabled={drawOfferedByMe}
-                      title="Offer Draw"
+                      title={drawOfferedByMe ? dict.controls.drawOffered : dict.controls.offerDraw}
+                      aria-label={drawOfferedByMe ? dict.controls.drawOffered : dict.controls.offerDraw}
                     >
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M12 8c2-2 4-3 7-3v7c0 2-1 3-2 4l-5 4" />
+                      {/* Handshake icon - two hands meeting */}
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M11 17a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4" />
+                        <path d="M13 7a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4" />
+                        <path d="M8 12h8" />
+                        <path d="M3 12h2" />
+                        <path d="M19 12h2" />
                       </svg>
                     </button>
-                    <button className={styles.controlButton} onClick={handleResign} title="Resign">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M4 4l16 16M4 20L20 4" />
+                    <button
+                      className={`${styles.controlButton} ${styles.controlButtonResign}`}
+                      onClick={handleResign}
+                      title={dict.controls.resign}
+                      aria-label={dict.controls.resign}
+                    >
+                      {/* Flag icon - white flag for surrender */}
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+                        <line x1="4" y1="22" x2="4" y2="15" />
                       </svg>
                     </button>
                   </>
@@ -387,14 +424,30 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
             {isPlaying && (
               <div className={styles.sidebarControls}>
                 <button
-                  className={styles.sidebarButton}
+                  className={`${styles.sidebarButton} ${styles.drawButton}`}
                   onClick={() => offerDraw()}
                   disabled={drawOfferedByMe}
                 >
-                  {drawOfferedByMe ? 'Draw Offered' : 'Offer Draw'}
+                  {/* Handshake icon - two hands meeting */}
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M11 17a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4" />
+                    <path d="M13 7a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4" />
+                    <path d="M8 12h8" />
+                    <path d="M3 12h2" />
+                    <path d="M19 12h2" />
+                  </svg>
+                  {drawOfferedByMe ? dict.controls.drawOffered : dict.controls.offerDraw}
                 </button>
-                <button className={styles.sidebarButton} onClick={handleResign}>
-                  Resign
+                <button
+                  className={`${styles.sidebarButton} ${styles.resignButton}`}
+                  onClick={handleResign}
+                >
+                  {/* Flag icon - white flag for surrender */}
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+                    <line x1="4" y1="22" x2="4" y2="15" />
+                  </svg>
+                  {dict.controls.resign}
                 </button>
               </div>
             )}
@@ -424,6 +477,7 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
           playerColor={playerColor || 'w'}
           onPlayAgain={handleNewGame}
           onBackToLobby={handleBackToLobby}
+          onDismiss={() => setShowGameOver(false)}
           dict={dict}
           isMultiplayer={true}
           multiplayerReason={resultReason || undefined}

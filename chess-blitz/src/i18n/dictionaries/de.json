@@ -70,7 +70,10 @@
     "resignGame": "Partie aufgeben",
     "playAgain": "Nochmal spielen",
     "getHint": "Hinweis",
-    "getHintSoon": "Hinweis erhalten (bald verfügbar)"
+    "getHintSoon": "Hinweis erhalten (bald verfügbar)",
+    "offerDraw": "Remis anbieten",
+    "drawOffered": "Remis angeboten",
+    "draw": "Remis"
   },
   "gameInfo": {
     "status": "Status:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Sprache auswählen",
     "rememberPreference": "Meine Einstellung merken"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Dein Zug.",
+    "opponentMove": "Warte auf Gegner...",
+    "autoAbort": "Automatischer Abbruch in 0:{seconds}"
   },
   "tournament": {
     "title": "Schach-Arena",

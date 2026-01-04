@@ -276,7 +276,9 @@ export type ServerMessage =
   | { type: ServerMessageType.OpponentReconnected }
   // Warnings
   | { type: ServerMessageType.LowTimeWarning; player: Color; timeMs: number }
-  | { type: ServerMessageType.FiftyMoveWarning; halfMoves: number };
+  | { type: ServerMessageType.FiftyMoveWarning; halfMoves: number }
+  // First-move timeout warning
+  | { type: ServerMessageType.FirstMoveWarning; player: Color; remainingMs: number };
 
 // ==============================================
 // Supporting Types

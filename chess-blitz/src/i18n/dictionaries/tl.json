@@ -70,7 +70,10 @@
     "resignGame": "Isuko ang laro",
     "playAgain": "Maglaro ulit",
     "getHint": "Hint",
-    "getHintSoon": "Kumuha ng hint (malapit na)"
+    "getHintSoon": "Kumuha ng hint (malapit na)",
+    "offerDraw": "Mag-alok ng Draw",
+    "drawOffered": "Draw na Inalok",
+    "draw": "Draw"
   },
   "gameInfo": {
     "status": "Status:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Piliin ang wika",
     "rememberPreference": "Tandaan ang aking kagustuhan"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "Chess Arena",

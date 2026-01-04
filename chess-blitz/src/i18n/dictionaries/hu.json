@@ -70,7 +70,10 @@
     "resignGame": "Játék feladása",
     "playAgain": "Újra játék",
     "getHint": "Tipp",
-    "getHintSoon": "Tipp kérése (hamarosan)"
+    "getHintSoon": "Tipp kérése (hamarosan)",
+    "offerDraw": "Döntetlen ajánlat",
+    "drawOffered": "Döntetlen ajánlva",
+    "draw": "Döntetlen"
   },
   "gameInfo": {
     "status": "Állapot:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Nyelv választása",
     "rememberPreference": "Beállítás megjegyzése"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "Sakk Aréna",

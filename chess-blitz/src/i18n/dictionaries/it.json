@@ -70,7 +70,10 @@
     "resignGame": "Abbandona partita",
     "playAgain": "Gioca ancora",
     "getHint": "Suggerimento",
-    "getHintSoon": "Ottieni suggerimento (presto)"
+    "getHintSoon": "Ottieni suggerimento (presto)",
+    "offerDraw": "Offri patta",
+    "drawOffered": "Patta offerta",
+    "draw": "Patta"
   },
   "gameInfo": {
     "status": "Stato:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Seleziona lingua",
     "rememberPreference": "Ricorda la mia preferenza"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "Arena di Scacchi",

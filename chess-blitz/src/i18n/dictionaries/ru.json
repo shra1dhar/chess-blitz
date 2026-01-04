@@ -70,7 +70,10 @@
     "resignGame": "Сдать партию",
     "playAgain": "Играть снова",
     "getHint": "Подсказка",
-    "getHintSoon": "Получить подсказку (скоро)"
+    "getHintSoon": "Получить подсказку (скоро)",
+    "offerDraw": "Предложить ничью",
+    "drawOffered": "Ничья предложена",
+    "draw": "Ничья"
   },
   "gameInfo": {
     "status": "Статус:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Выберите язык",
     "rememberPreference": "Запомнить выбор"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "Шахматная арена",

@@ -70,7 +70,10 @@
     "resignGame": "Ge upp spelet",
     "playAgain": "Spela igen",
     "getHint": "Tips",
-    "getHintSoon": "Få tips (kommer snart)"
+    "getHintSoon": "Få tips (kommer snart)",
+    "offerDraw": "Erbjud remi",
+    "drawOffered": "Remi erbjuden",
+    "draw": "Remi"
   },
   "gameInfo": {
     "status": "Status:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Välj språk",
     "rememberPreference": "Kom ihåg min preferens"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "Schack Arena",

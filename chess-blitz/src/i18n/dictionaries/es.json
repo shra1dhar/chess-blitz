@@ -70,7 +70,10 @@
     "resignGame": "Rendirse",
     "playAgain": "Jugar de nuevo",
     "getHint": "Pista",
-    "getHintSoon": "Obtener pista (próximamente)"
+    "getHintSoon": "Obtener pista (próximamente)",
+    "offerDraw": "Ofrecer tablas",
+    "drawOffered": "Tablas ofrecidas",
+    "draw": "Tablas"
   },
   "gameInfo": {
     "status": "Estado:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Seleccionar idioma",
     "rememberPreference": "Recordar mi preferencia"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Tu turno.",
+    "opponentMove": "Esperando al oponente...",
+    "autoAbort": "Se cancelará en 0:{seconds}"
   },
   "tournament": {
     "title": "Arena de Ajedrez",

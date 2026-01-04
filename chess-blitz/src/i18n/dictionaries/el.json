@@ -70,7 +70,10 @@
     "resignGame": "Παραίτηση από το παιχνίδι",
     "playAgain": "Παίξε ξανά",
     "getHint": "Υπόδειξη",
-    "getHintSoon": "Λάβε υπόδειξη (σύντομα)"
+    "getHintSoon": "Λάβε υπόδειξη (σύντομα)",
+    "offerDraw": "Προσφορά ισοπαλίας",
+    "drawOffered": "Ισοπαλία προσφέρθηκε",
+    "draw": "Ισοπαλία"
   },
   "gameInfo": {
     "status": "Κατάσταση:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Επιλογή γλώσσας",
     "rememberPreference": "Θυμήσου την προτίμησή μου"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Η κίνησή σου.",
+    "opponentMove": "Αναμονή για αντίπαλο...",
+    "autoAbort": "Αυτόματη ακύρωση σε 0:{seconds}"
   },
   "tournament": {
     "title": "Σκακιστική Αρένα",

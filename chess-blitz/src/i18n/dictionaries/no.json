@@ -70,7 +70,10 @@
     "resignGame": "Gi opp spillet",
     "playAgain": "Spill igjen",
     "getHint": "Hint",
-    "getHintSoon": "Få hint (kommer snart)"
+    "getHintSoon": "Få hint (kommer snart)",
+    "offerDraw": "Tilby remis",
+    "drawOffered": "Remis tilbudt",
+    "draw": "Remis"
   },
   "gameInfo": {
     "status": "Status:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Velg språk",
     "rememberPreference": "Husk min preferanse"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "Sjakk Arena",

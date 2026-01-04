@@ -70,7 +70,10 @@
     "resignGame": "गेम छोड़ें",
     "playAgain": "फिर से खेलें",
     "getHint": "संकेत",
-    "getHintSoon": "संकेत प्राप्त करें (जल्द आ रहा है)"
+    "getHintSoon": "संकेत प्राप्त करें (जल्द आ रहा है)",
+    "offerDraw": "ड्रॉ का प्रस्ताव",
+    "drawOffered": "ड्रॉ प्रस्तावित",
+    "draw": "ड्रॉ"
   },
   "gameInfo": {
     "status": "स्थिति:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "भाषा चुनें",
     "rememberPreference": "मेरी पसंद याद रखें"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "शतरंज अखाड़ा",

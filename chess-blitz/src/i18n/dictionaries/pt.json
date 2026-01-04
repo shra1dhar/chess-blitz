@@ -70,7 +70,10 @@
     "resignGame": "Desistir do jogo",
     "playAgain": "Jogar novamente",
     "getHint": "Dica",
-    "getHintSoon": "Obter dica (em breve)"
+    "getHintSoon": "Obter dica (em breve)",
+    "offerDraw": "Oferecer empate",
+    "drawOffered": "Empate oferecido",
+    "draw": "Empate"
   },
   "gameInfo": {
     "status": "Status:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Selecionar idioma",
     "rememberPreference": "Lembrar minha preferência"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "Arena de Xadrez",

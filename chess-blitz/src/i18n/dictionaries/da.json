@@ -70,7 +70,10 @@
     "resignGame": "Giv op spillet",
     "playAgain": "Spil igen",
     "getHint": "Hint",
-    "getHintSoon": "Få hint (kommer snart)"
+    "getHintSoon": "Få hint (kommer snart)",
+    "offerDraw": "Tilbyd remis",
+    "drawOffered": "Remis tilbudt",
+    "draw": "Remis"
   },
   "gameInfo": {
     "status": "Status:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Vælg sprog",
     "rememberPreference": "Husk min præference"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Dit træk.",
+    "opponentMove": "Venter på modstander...",
+    "autoAbort": "Automatisk afbrydelse om 0:{seconds}"
   },
   "tournament": {
     "title": "Skak Arena",

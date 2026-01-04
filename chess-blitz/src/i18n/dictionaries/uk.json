@@ -70,7 +70,10 @@
     "resignGame": "Здати партію",
     "playAgain": "Грати знову",
     "getHint": "Підказка",
-    "getHintSoon": "Отримати підказку (незабаром)"
+    "getHintSoon": "Отримати підказку (незабаром)",
+    "offerDraw": "Запропонувати нічию",
+    "drawOffered": "Нічию запропоновано",
+    "draw": "Нічия"
   },
   "gameInfo": {
     "status": "Статус:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Оберіть мову",
     "rememberPreference": "Запам'ятати вибір"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "Шахова арена",

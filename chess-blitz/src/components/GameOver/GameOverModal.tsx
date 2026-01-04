@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useCallback } from 'react';
 import type { Color } from 'chess.js';
 import type { GameResult, GameStatus } from '@/types/chess';
 import type { GameResultReason } from '@/types/multiplayer';
@@ -21,6 +22,8 @@ interface GameOverModalProps {
   onRequestRematch?: () => void;
   onAcceptRematch?: () => void;
   onDeclineRematch?: () => void;
+  // Dismiss functionality - allows user to view board after game ends
+  onDismiss?: () => void;
 }
 
 // Victory trophy icon with crown accent
@@ -187,6 +190,44 @@ function SpinnerIcon() {
   );
 }
 
+// Crossed swords icon for rematch - represents battle/competition
+function RematchIcon() {
+  return (
+    <svg className={styles.rematchIcon} width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Left sword */}
+      <path
+        d="M4 4l12 12M4 4v4M4 4h4"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14.5 14.5l2 2-1.5 1.5-2-2"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {/* Right sword */}
+      <path
+        d="M20 4L8 16M20 4v4M20 4h-4"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9.5 14.5l-2 2 1.5 1.5 2-2"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 // Helper function to get message for multiplayer result reasons
 function getMultiplayerReasonMessage(reason: GameResultReason | undefined): string | null {
   switch (reason) {
@@ -220,8 +261,26 @@ export default function GameOverModal({
   onRequestRematch,
   onAcceptRematch,
   onDeclineRematch,
+  onDismiss,
 }: GameOverModalProps) {
+  const [isDismissed, setIsDismissed] = useState(false);
   const t = dict.tournament;
+
+  const handleDismiss = useCallback(() => {
+    setIsDismissed(true);
+    onDismiss?.();
+  }, [onDismiss]);
+
+  const handleReopen = useCallback(() => {
+    setIsDismissed(false);
+  }, []);
+
+  const handleOverlayClick = useCallback((e: React.MouseEvent) => {
+    // Only dismiss if clicking directly on the overlay (not the modal content)
+    if (e.target === e.currentTarget) {
+      handleDismiss();
+    }
+  }, [handleDismiss]);
   // Determine title, message, and icon component
   let title = '';
   let message = '';
@@ -271,9 +330,41 @@ export default function GameOverModal({
     resultClass = styles.resultDraw;
   }
 
+  // Show floating reopen button when modal is dismissed
+  if (isDismissed) {
+    return (
+      <button
+        className={styles.reopenButton}
+        onClick={handleReopen}
+        type="button"
+        aria-label="View game result"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+        <span>View Result</span>
+      </button>
+    );
+  }
+
   return (
-    <div className={styles.overlay}>
+    <div className={styles.overlay} onClick={handleOverlayClick}>
       <div className={`${styles.modal} ${resultClass}`}>
+        {/* Close button - allows dismissing to view the board */}
+        <button
+          className={styles.closeButton}
+          onClick={handleDismiss}
+          type="button"
+          aria-label="Close and view board"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+
         <div className={styles.iconWrapper}>
           <IconComponent />
         </div>
@@ -341,10 +432,7 @@ export default function GameOverModal({
                 className={`${styles.button} ${styles.buttonRematch}`}
                 onClick={onRequestRematch}
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M1 4v6h6M23 20v-6h-6" />
-                  <path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15" />
-                </svg>
+                <RematchIcon />
                 {t.rematchRequest}
               </button>
             )}

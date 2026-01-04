@@ -56,6 +56,8 @@ export enum ServerMessageType {
   // Warnings
   LowTimeWarning = "low_time_warning",
   FiftyMoveWarning = "fifty_move_warning",
+  // First-move timeout
+  FirstMoveWarning = "first_move_warning",
 }
 
 /**

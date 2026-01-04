@@ -70,7 +70,10 @@
     "resignGame": "Vzdať hru",
     "playAgain": "Hrať znova",
     "getHint": "Nápoveda",
-    "getHintSoon": "Získať nápovedu (čoskoro)"
+    "getHintSoon": "Získať nápovedu (čoskoro)",
+    "offerDraw": "Ponúknuť remízu",
+    "drawOffered": "Remíza ponúknutá",
+    "draw": "Remíza"
   },
   "gameInfo": {
     "status": "Stav:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Vybrať jazyk",
     "rememberPreference": "Zapamätať moju voľbu"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "Šachová aréna",

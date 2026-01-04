@@ -17,7 +17,7 @@ import {
 import { safeSend, safeClose, parseClientMessage } from "../utils/websocket";
 import { checkRateLimit, createRateLimitState, RATE_LIMIT_CONFIGS } from "../utils/rate-limiter";
 import { determineBotDifficulty, getBotElo } from "../services/elo";
-import { executeSql, queryAll } from "../utils/sqlHelper";
+import { executeSql, queryAll, queryFirst } from "../utils/sqlHelper";
 
 interface QueueEntry extends QueuedPlayer {
   ws: WebSocket;
@@ -79,12 +79,39 @@ export class MatchmakingQueue extends DurableObject<Env> {
          ON recent_opponents(player_id, matched_at DESC)`
       );
 
+      // Create table for rematch intent (allows recent opponents to match again)
+      executeSql(
+        this.ctx.storage.sql,
+        `CREATE TABLE IF NOT EXISTS rematch_intent (
+          player_a TEXT NOT NULL,
+          player_b TEXT NOT NULL,
+          offered_at INTEGER NOT NULL,
+          tournament_type TEXT NOT NULL,
+          PRIMARY KEY (player_a, player_b)
+        )`
+      );
+
+      // Create index for rematch intent lookups
+      executeSql(
+        this.ctx.storage.sql,
+        `CREATE INDEX IF NOT EXISTS idx_rematch_intent_players
+         ON rematch_intent(player_a, offered_at DESC)`
+      );
+
       // Clean up old entries (older than 1 hour)
       const oneHourAgo = Date.now() - 3600000;
       executeSql(
         this.ctx.storage.sql,
         `DELETE FROM recent_opponents WHERE matched_at < ?`,
         oneHourAgo
+      );
+
+      // Clean up old rematch intent entries (older than TTL)
+      const rematchIntentCutoff = Date.now() - MATCHMAKING.REMATCH_INTENT_TTL_MS;
+      executeSql(
+        this.ctx.storage.sql,
+        `DELETE FROM rematch_intent WHERE offered_at < ?`,
+        rematchIntentCutoff
       );
 
       this.sqlInitialized = true;
@@ -120,7 +147,48 @@ export class MatchmakingQueue extends DurableObject<Env> {
       });
     }
 
+    // POST /rematch-intent - record rematch intent from GameRoom
+    if (request.method === "POST" && url.pathname === "/rematch-intent") {
+      return this.handleRematchIntent(request);
+    }
+
     return new Response("MatchmakingQueue", { status: 200 });
+  }
+
+  /**
+   * Handle rematch intent notification from GameRoom.
+   * Records that a player offered rematch, allowing them to be matched again.
+   */
+  private async handleRematchIntent(request: Request): Promise<Response> {
+    try {
+      const body = (await request.json()) as {
+        playerA: string;
+        playerB: string;
+        tournamentType: TournamentType;
+      };
+
+      const now = Date.now();
+
+      // Record the rematch intent (playerA offered rematch to playerB)
+      executeSql(
+        this.ctx.storage.sql,
+        `INSERT OR REPLACE INTO rematch_intent (player_a, player_b, offered_at, tournament_type)
+         VALUES (?, ?, ?, ?)`,
+        body.playerA,
+        body.playerB,
+        now,
+        body.tournamentType
+      );
+
+      // Clean up expired entries while we're at it
+      const cutoff = now - MATCHMAKING.REMATCH_INTENT_TTL_MS;
+      executeSql(this.ctx.storage.sql, `DELETE FROM rematch_intent WHERE offered_at < ?`, cutoff);
+
+      return Response.json({ success: true });
+    } catch (error) {
+      console.error("[MatchmakingQueue] Rematch intent recording failed:", error);
+      return Response.json({ error: "Failed to record rematch intent" }, { status: 500 });
+    }
   }
 
   /**
@@ -420,9 +488,41 @@ export class MatchmakingQueue extends DurableObject<Env> {
   }
 
   /**
+   * Check if there's a rematch intent between two players.
+   * Returns true if either player offered rematch to the other recently.
+   */
+  private hasRematchIntent(playerA: string, playerB: string): boolean {
+    const cutoff = Date.now() - MATCHMAKING.REMATCH_INTENT_TTL_MS;
+
+    interface IntentRow {
+      count: number;
+    }
+
+    // Check if either player offered rematch to the other recently
+    const result = queryFirst<IntentRow>(
+      this.ctx.storage.sql,
+      `SELECT COUNT(*) as count FROM rematch_intent
+       WHERE ((player_a = ? AND player_b = ?) OR (player_a = ? AND player_b = ?))
+       AND offered_at >= ?
+       AND tournament_type = ?`,
+      playerA,
+      playerB,
+      playerB,
+      playerA,
+      cutoff,
+      this.tournamentType
+    );
+
+    return (result?.count || 0) > 0;
+  }
+
+  /**
    * Find the best match for a player.
    */
   private findBestMatch(player: QueueEntry): QueueEntry | null {
+    // Exception 1: Allow matching with recent opponents if queue is small
+    const isSmallQueue = this.queue.size < MATCHMAKING.SMALL_QUEUE_THRESHOLD;
+
     const candidates = Array.from(this.queue.values()).filter((candidate) => {
       // Not self
       if (candidate.playerId === player.playerId) return false;
@@ -430,9 +530,24 @@ export class MatchmakingQueue extends DurableObject<Env> {
       // Not already being matched
       if (this.matchingInProgress.has(candidate.playerId)) return false;
 
-      // Not a recent opponent
-      if (player.recentOpponents.includes(candidate.playerId)) return false;
-      if (candidate.recentOpponents.includes(player.playerId)) return false;
+      // Check recent opponent filter with exceptions
+      const isRecentOpponent =
+        player.recentOpponents.includes(candidate.playerId) ||
+        candidate.recentOpponents.includes(player.playerId);
+
+      if (isRecentOpponent) {
+        // Exception 1: Small queue - allow recent opponents
+        if (isSmallQueue) {
+          // Allow match
+        }
+        // Exception 2: Rematch intent - allow if either player requested rematch
+        else if (this.hasRematchIntent(player.playerId, candidate.playerId)) {
+          // Allow match
+        } else {
+          // No exception applies - filter out this candidate
+          return false;
+        }
+      }
 
       // Within ELO range
       const eloDiff = Math.abs(player.elo - candidate.elo);

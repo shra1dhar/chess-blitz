@@ -70,7 +70,10 @@
     "resignGame": "O'yinni taslim qilish",
     "playAgain": "Yana o'ynash",
     "getHint": "Maslahat",
-    "getHintSoon": "Maslahat olish (tez kunda)"
+    "getHintSoon": "Maslahat olish (tez kunda)",
+    "offerDraw": "Durrang taklif qilish",
+    "drawOffered": "Durrang taklif qilindi",
+    "draw": "Durrang"
   },
   "gameInfo": {
     "status": "Holat:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Tilni tanlang",
     "rememberPreference": "Tanlovimni eslab qolish"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "Shaxmat Arenasi",

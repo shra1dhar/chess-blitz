@@ -70,7 +70,10 @@
     "resignGame": "Poddaj partię",
     "playAgain": "Zagraj ponownie",
     "getHint": "Podpowiedź",
-    "getHintSoon": "Uzyskaj podpowiedź (wkrótce)"
+    "getHintSoon": "Uzyskaj podpowiedź (wkrótce)",
+    "offerDraw": "Zaproponuj remis",
+    "drawOffered": "Remis zaproponowany",
+    "draw": "Remis"
   },
   "gameInfo": {
     "status": "Status:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Wybierz język",
     "rememberPreference": "Zapamiętaj moje ustawienie"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "Arena Szachowa",

@@ -101,11 +101,17 @@ $transition-fast: 150ms ease;
 $transition-normal: 250ms ease;
 $transition-slow: 400ms ease;
 
-// Breakpoints
+// Breakpoints (width)
 $breakpoint-sm: 480px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 1024px;
 $breakpoint-xl: 1280px;
+
+// Breakpoints (height) - for vertical space constraints
+// Windows laptops with high DPI scaling often have effective heights of 600-700px
+$breakpoint-height-sm: 600px;  // Very constrained (mobile landscape, small laptops)
+$breakpoint-height-md: 700px;  // Moderately constrained (Windows with 125-150% DPI)
+$breakpoint-height-lg: 800px;  // Normal height
 
 // Z-Index Scale
 $z-dropdown: 100;

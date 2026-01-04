@@ -10,6 +10,16 @@
   position: relative;
   width: 100%;
   max-width: 560px;
+
+  // Constrain board height on short viewports to prevent overflow
+  // Account for header (~45px) + player info (2×~50px) + controls (~70px) + margins
+  @include constrained-height {
+    max-width: min(560px, calc(100vh - 280px));
+  }
+
+  @include short-viewport {
+    max-width: min(100%, calc(100vh - 200px));
+  }
 }
 
 $aspect-ratio-value: string.unquote("1 / 1");

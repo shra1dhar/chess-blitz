@@ -70,7 +70,10 @@
     "resignGame": "ויתור על המשחק",
     "playAgain": "שחק שוב",
     "getHint": "רמז",
-    "getHintSoon": "קבל רמז (בקרוב)"
+    "getHintSoon": "קבל רמז (בקרוב)",
+    "offerDraw": "הצע תיקו",
+    "drawOffered": "תיקו הוצע",
+    "draw": "תיקו"
   },
   "gameInfo": {
     "status": "סטטוס:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "בחר שפה",
     "rememberPreference": "זכור את ההעדפה שלי"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "זירת השחמט",

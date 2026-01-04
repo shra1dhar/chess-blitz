@@ -70,7 +70,10 @@
     "resignGame": "খেলা ছেড়ে দিন",
     "playAgain": "আবার খেলুন",
     "getHint": "সংকেত",
-    "getHintSoon": "সংকেত পান (শীঘ্রই আসছে)"
+    "getHintSoon": "সংকেত পান (শীঘ্রই আসছে)",
+    "offerDraw": "ড্র অফার করুন",
+    "drawOffered": "ড্র অফার করা হয়েছে",
+    "draw": "ড্র"
   },
   "gameInfo": {
     "status": "অবস্থা:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "ভাষা নির্বাচন করুন",
     "rememberPreference": "আমার পছন্দ মনে রাখুন"
+  },
+  "firstMoveWarning": {
+    "yourMove": "আপনার চাল।",
+    "opponentMove": "প্রতিপক্ষের জন্য অপেক্ষা করা হচ্ছে...",
+    "autoAbort": "0:{seconds} এ স্বয়ংক্রিয়ভাবে বাতিল হবে"
   },
   "tournament": {
     "title": "দাবা এরিনা",

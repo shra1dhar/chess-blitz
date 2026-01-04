@@ -1,6 +1,6 @@
 // ==============================================
-// Chess Blitz - Disconnect Overlay
-// Shows when opponent disconnects with countdown
+// Chess Blitz - Disconnect Banner
+// Non-blocking notification when opponent disconnects
 // ==============================================
 
 'use client';
@@ -67,6 +67,24 @@ const WifiOffIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+// X icon for dismiss
+const XIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M18 6L6 18M6 6l12 12"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 export function DisconnectOverlay({
   isVisible,
   countdown,
@@ -74,11 +92,14 @@ export function DisconnectOverlay({
 }: DisconnectOverlayProps) {
   const [shouldRender, setShouldRender] = useState(isVisible);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+  const [isDismissed, setIsDismissed] = useState(false);
 
   useEffect(() => {
     if (isVisible) {
       setShouldRender(true);
       setIsAnimatingOut(false);
+      // Reset dismissed state when visibility changes
+      setIsDismissed(false);
     } else if (shouldRender) {
       setIsAnimatingOut(true);
       const timer = setTimeout(() => {
@@ -89,61 +110,67 @@ export function DisconnectOverlay({
     }
   }, [isVisible, shouldRender]);
 
-  if (!shouldRender) return null;
+  // Don't render if dismissed or shouldn't render
+  if (!shouldRender || isDismissed) return null;
 
-  // Calculate progress for visual indicator
+  // Calculate progress for visual indicator (30 second countdown)
   const progress = countdown !== null ? (countdown / 30) * 100 : 0;
+  const isUrgent = countdown !== null && countdown <= 10;
+  const circumference = 2 * Math.PI * 17; // radius = 17
+
+  const handleDismiss = () => {
+    setIsDismissed(true);
+  };
 
   return (
     <div
-      className={`${styles.overlay} ${isAnimatingOut ? styles.animateOut : styles.animateIn}`}
+      className={`${styles.banner} ${isAnimatingOut ? styles.animateOut : styles.animateIn} ${isUrgent ? styles.urgent : ''}`}
       role="alert"
       aria-live="assertive"
     >
-      <div className={styles.card}>
+      <div className={styles.content}>
         <div className={styles.iconWrapper}>
           <WifiOffIcon className={styles.icon} />
-          <svg className={styles.progressRing} viewBox="0 0 60 60">
+          <svg className={styles.progressRing} viewBox="0 0 40 40">
             <circle
               className={styles.progressBg}
-              cx="30"
-              cy="30"
-              r="26"
+              cx="20"
+              cy="20"
+              r="17"
               fill="none"
-              strokeWidth="4"
+              strokeWidth="3"
             />
             <circle
               className={styles.progressBar}
-              cx="30"
-              cy="30"
-              r="26"
+              cx="20"
+              cy="20"
+              r="17"
               fill="none"
-              strokeWidth="4"
-              strokeDasharray={`${2 * Math.PI * 26}`}
-              strokeDashoffset={`${2 * Math.PI * 26 * (1 - progress / 100)}`}
-              style={{ '--progress': `${progress}%` } as React.CSSProperties}
+              strokeWidth="3"
+              strokeDasharray={circumference}
+              strokeDashoffset={circumference * (1 - progress / 100)}
             />
           </svg>
         </div>
 
         <div className={styles.textSection}>
-          <h3 className={styles.title}>{opponentName} Disconnected</h3>
-          <p className={styles.subtitle}>Waiting for reconnection...</p>
+          <span className={styles.title}>{opponentName} Disconnected</span>
+          <span className={styles.subtitle}>
+            {countdown !== null && countdown > 0
+              ? `Auto-win in ${countdown}s`
+              : 'Waiting for reconnection...'}
+          </span>
         </div>
-
-        {countdown !== null && countdown > 0 && (
-          <div className={styles.countdownWrapper}>
-            <span className={styles.countdownNumber}>{countdown}</span>
-            <span className={styles.countdownLabel}>seconds</span>
-          </div>
-        )}
-
-        <p className={styles.forfeitText}>
-          {countdown !== null && countdown <= 10
-            ? 'Auto-forfeit imminent'
-            : 'Will forfeit if not reconnected'}
-        </p>
       </div>
+
+      <button
+        className={styles.dismissButton}
+        onClick={handleDismiss}
+        type="button"
+        aria-label="Dismiss notification"
+      >
+        <XIcon className={styles.dismissIcon} />
+      </button>
     </div>
   );
 }

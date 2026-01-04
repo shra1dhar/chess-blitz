@@ -70,7 +70,10 @@
     "resignGame": "Oyunu terk et",
     "playAgain": "Tekrar oyna",
     "getHint": "İpucu",
-    "getHintSoon": "İpucu al (yakında)"
+    "getHintSoon": "İpucu al (yakında)",
+    "offerDraw": "Beraberlik teklif et",
+    "drawOffered": "Beraberlik teklif edildi",
+    "draw": "Beraberlik"
   },
   "gameInfo": {
     "status": "Durum:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Dil seç",
     "rememberPreference": "Tercihimi hatırla"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "Satranç Arenası",

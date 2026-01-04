@@ -18,6 +18,104 @@
   backdrop-filter: blur(4px);
   z-index: $z-modal;
   @include fade-in;
+  cursor: pointer; // Indicate clickable to dismiss
+}
+
+// Close button in top-right corner of modal
+.closeButton {
+  position: absolute;
+  top: $spacing-sm;
+  inset-inline-end: $spacing-sm;
+  @include flex-center;
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  border-radius: $radius-full;
+  color: var(--ui-text-muted);
+  cursor: pointer;
+  -webkit-transition: all $transition-fast;
+  transition: all $transition-fast;
+  z-index: 1;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--ui-text-primary);
+  }
+
+  &:active {
+    -webkit-transform: scale(0.95);
+    transform: scale(0.95);
+  }
+}
+
+// Floating button to reopen modal after dismissing
+.reopenButton {
+  position: fixed;
+  bottom: $spacing-lg;
+  inset-inline-end: $spacing-lg;
+  z-index: $z-modal;
+  @include flex-center;
+  padding: $spacing-sm $spacing-md;
+  background: var(--ui-bg-secondary);
+  border: 1px solid var(--ui-border);
+  border-radius: $radius-full;
+  -webkit-box-shadow: $shadow-lg;
+  box-shadow: $shadow-lg;
+  color: var(--ui-text-primary);
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  -webkit-transition: all $transition-fast;
+  transition: all $transition-fast;
+  -webkit-animation: slideUp 0.3s ease-out;
+  animation: slideUp 0.3s ease-out;
+
+  svg {
+    margin-inline-end: $spacing-xs;
+    color: var(--ui-text-secondary);
+  }
+
+  &:hover {
+    -webkit-transform: translateY(-2px);
+    transform: translateY(-2px);
+    -webkit-box-shadow: $shadow-xl;
+    box-shadow: $shadow-xl;
+  }
+
+  &:active {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  @include mobile {
+    bottom: $spacing-md;
+    inset-inline-end: $spacing-md;
+  }
+}
+
+@-webkit-keyframes slideUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .modal {
@@ -30,6 +128,7 @@
   overflow: hidden;
   -webkit-animation: modalSlideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   animation: modalSlideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: default; // Prevent modal clicks from dismissing
 
   // Subtle top border accent
   &::before {
@@ -316,13 +415,42 @@
   background-color: var(--ui-bg-primary);
   border-radius: $radius-md;
   border: 1px solid var(--ui-border);
+  position: relative;
+  overflow: hidden;
+
+  // Subtle accent line
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, $brand-secondary, transparent);
+    opacity: 0.5;
+  }
 }
 
 .rematchText {
   font-size: $font-size-sm;
   color: var(--ui-text-primary);
   margin-bottom: $spacing-sm;
-  font-weight: $font-weight-medium;
+  font-weight: $font-weight-semibold;
+  text-align: center;
+
+  // Pulsing animation to draw attention
+  -webkit-animation: pulseText 2s ease-in-out infinite;
+  animation: pulseText 2s ease-in-out infinite;
+}
+
+@-webkit-keyframes pulseText {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes pulseText {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
 
 .rematchButtons {
@@ -353,6 +481,7 @@
   @include flex-center;
   color: var(--ui-text-secondary);
   font-size: $font-size-sm;
+  padding: $spacing-xs 0;
 
   svg {
     margin-inline-end: $spacing-sm;
@@ -361,19 +490,41 @@
 
 .rematchPending {
   color: var(--ui-text-muted);
+
+  .spinnerIcon {
+    color: $brand-secondary;
+  }
 }
 
 .rematchAccepted {
   color: $color-success;
+  font-weight: $font-weight-medium;
 }
 
-// Rematch button styles
+// Rematch button styles - prominent call-to-action
 .buttonRematch {
   background: linear-gradient(135deg, $brand-secondary 0%, color.adjust($brand-secondary, $lightness: -8%) 100%);
   color: $text-inverse;
   border: none;
   -webkit-box-shadow: 0 2px 8px rgba($brand-secondary, 0.3);
   box-shadow: 0 2px 8px rgba($brand-secondary, 0.3);
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
+
+  // Subtle shine effect
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    -webkit-transition: left 0.5s ease;
+    transition: left 0.5s ease;
+  }
 
   &:hover {
     background: linear-gradient(135deg, color.adjust($brand-secondary, $lightness: 5%) 0%, $brand-secondary 100%);
@@ -381,6 +532,55 @@
     box-shadow: 0 4px 12px rgba($brand-secondary, 0.4);
     -webkit-transform: translateY(-1px);
     transform: translateY(-1px);
+
+    &::after {
+      left: 100%;
+    }
+  }
+
+  &:hover .rematchIcon {
+    -webkit-animation: swordClash 0.6s ease-in-out;
+    animation: swordClash 0.6s ease-in-out;
+  }
+}
+
+// Rematch icon with clash animation
+.rematchIcon {
+  -webkit-transition: -webkit-transform $transition-fast;
+  transition: transform $transition-fast;
+}
+
+@-webkit-keyframes swordClash {
+  0%, 100% {
+    -webkit-transform: scale(1) rotate(0deg);
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    -webkit-transform: scale(1.15) rotate(-5deg);
+    transform: scale(1.15) rotate(-5deg);
+  }
+  50% {
+    -webkit-transform: scale(1.2) rotate(0deg);
+    transform: scale(1.2) rotate(0deg);
+  }
+  75% {
+    -webkit-transform: scale(1.15) rotate(5deg);
+    transform: scale(1.15) rotate(5deg);
+  }
+}
+
+@keyframes swordClash {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.15) rotate(-5deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(0deg);
+  }
+  75% {
+    transform: scale(1.15) rotate(5deg);
   }
 }
 
@@ -390,9 +590,12 @@
   border: none;
   -webkit-box-shadow: 0 2px 8px rgba($color-success, 0.3);
   box-shadow: 0 2px 8px rgba($color-success, 0.3);
+  font-weight: $font-weight-semibold;
 
   &:hover {
     background: linear-gradient(135deg, color.adjust($color-success, $lightness: 5%) 0%, $color-success 100%);
+    -webkit-box-shadow: 0 4px 12px rgba($color-success, 0.4);
+    box-shadow: 0 4px 12px rgba($color-success, 0.4);
     -webkit-transform: translateY(-1px);
     transform: translateY(-1px);
   }

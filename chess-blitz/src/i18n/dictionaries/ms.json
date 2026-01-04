@@ -70,7 +70,10 @@
     "resignGame": "Menyerah permainan",
     "playAgain": "Main Lagi",
     "getHint": "Petunjuk",
-    "getHintSoon": "Dapatkan petunjuk (akan datang)"
+    "getHintSoon": "Dapatkan petunjuk (akan datang)",
+    "offerDraw": "Tawarkan Seri",
+    "drawOffered": "Seri Ditawarkan",
+    "draw": "Seri"
   },
   "gameInfo": {
     "status": "Status:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Pilih Bahasa",
     "rememberPreference": "Ingat pilihan saya"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "Arena Catur",

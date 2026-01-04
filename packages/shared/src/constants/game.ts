@@ -9,6 +9,9 @@ export const GAME = {
   ABORT_BEFORE_MOVE: 2,
   FIFTY_MOVE_RULE_HALFMOVES: 100,
   SEVENTY_FIVE_MOVE_RULE_HALFMOVES: 150,
+  // First-move timeout: abort if player doesn't make first move
+  FIRST_MOVE_TIMEOUT_MS: 20_000, // 20 seconds total
+  FIRST_MOVE_WARNING_MS: 10_000, // Warning shown after 10 seconds
 } as const;
 
 // WebSocket message size limit

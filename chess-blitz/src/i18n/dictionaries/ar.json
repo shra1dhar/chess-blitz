@@ -70,7 +70,10 @@
     "resignGame": "استسلم في اللعبة",
     "playAgain": "العب مرة أخرى",
     "getHint": "تلميح",
-    "getHintSoon": "احصل على تلميح (قريباً)"
+    "getHintSoon": "احصل على تلميح (قريباً)",
+    "offerDraw": "عرض التعادل",
+    "drawOffered": "تم عرض التعادل",
+    "draw": "تعادل"
   },
   "gameInfo": {
     "status": "الحالة:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "اختر اللغة",
     "rememberPreference": "تذكر تفضيلي"
+  },
+  "firstMoveWarning": {
+    "yourMove": "دورك.",
+    "opponentMove": "في انتظار الخصم...",
+    "autoAbort": "سيتم الإلغاء تلقائياً خلال 0:{seconds}"
   },
   "tournament": {
     "title": "ساحة الشطرنج",

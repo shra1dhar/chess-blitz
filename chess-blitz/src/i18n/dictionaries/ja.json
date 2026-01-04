@@ -70,7 +70,10 @@
     "resignGame": "ゲームを投了",
     "playAgain": "もう一度プレイ",
     "getHint": "ヒント",
-    "getHintSoon": "ヒントを取得（近日公開）"
+    "getHintSoon": "ヒントを取得（近日公開）",
+    "offerDraw": "引き分けを提案",
+    "drawOffered": "引き分け提案済み",
+    "draw": "引き分け"
   },
   "gameInfo": {
     "status": "状態：",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "言語を選択",
     "rememberPreference": "設定を記憶"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "チェスアリーナ",

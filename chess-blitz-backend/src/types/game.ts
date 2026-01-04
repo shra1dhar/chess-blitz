@@ -135,6 +135,10 @@ export interface PendingTimeouts {
   cleanupDeadline: number | null;
   noShowDeadline: number | null;
   bothDisconnectedDeadline: number | null;
+  // First-move timeout tracking
+  firstMoveDeadline: number | null;
+  firstMoveWarningDeadline: number | null;
+  firstMoveWarningSent: boolean;
 }
 
 // Game initialization config

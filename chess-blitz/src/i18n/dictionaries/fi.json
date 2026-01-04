@@ -70,7 +70,10 @@
     "resignGame": "Luovuta peli",
     "playAgain": "Pelaa uudelleen",
     "getHint": "Vinkki",
-    "getHintSoon": "Hae vinkki (tulossa pian)"
+    "getHintSoon": "Hae vinkki (tulossa pian)",
+    "offerDraw": "Tarjoa tasapeli",
+    "drawOffered": "Tasapeli tarjottu",
+    "draw": "Tasapeli"
   },
   "gameInfo": {
     "status": "Tila:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Valitse kieli",
     "rememberPreference": "Muista valintani"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Sinun siirtosi.",
+    "opponentMove": "Odotetaan vastustajaa...",
+    "autoAbort": "Keskeytyy automaattisesti 0:{seconds}"
   },
   "tournament": {
     "title": "Shakkiareena",

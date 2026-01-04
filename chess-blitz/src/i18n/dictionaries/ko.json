@@ -70,7 +70,10 @@
     "resignGame": "게임 기권",
     "playAgain": "다시 플레이",
     "getHint": "힌트",
-    "getHintSoon": "힌트 받기 (출시 예정)"
+    "getHintSoon": "힌트 받기 (출시 예정)",
+    "offerDraw": "무승부 제안",
+    "drawOffered": "무승부 제안됨",
+    "draw": "무승부"
   },
   "gameInfo": {
     "status": "상태:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "언어 선택",
     "rememberPreference": "설정 기억"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Your move.",
+    "opponentMove": "Waiting for opponent...",
+    "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
     "title": "체스 아레나",

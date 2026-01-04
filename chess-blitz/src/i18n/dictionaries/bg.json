@@ -70,7 +70,10 @@
     "resignGame": "Предай играта",
     "playAgain": "Играй отново",
     "getHint": "Подсказка",
-    "getHintSoon": "Вземи подсказка (скоро)"
+    "getHintSoon": "Вземи подсказка (скоро)",
+    "offerDraw": "Предложи реми",
+    "drawOffered": "Реми предложено",
+    "draw": "Реми"
   },
   "gameInfo": {
     "status": "Състояние:",
@@ -105,6 +108,11 @@
   "language": {
     "selectLanguage": "Избери език",
     "rememberPreference": "Запомни избора ми"
+  },
+  "firstMoveWarning": {
+    "yourMove": "Твой ход.",
+    "opponentMove": "Изчакване на противника...",
+    "autoAbort": "Автоматично прекратяване след 0:{seconds}"
   },
   "tournament": {
     "title": "Шахматна арена",
