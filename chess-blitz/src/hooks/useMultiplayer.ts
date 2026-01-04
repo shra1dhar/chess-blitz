@@ -106,6 +106,13 @@ interface UseMultiplayerReturn {
   // Rematch
   rematchState: RematchState;
 
+  // First-move warning
+  firstMoveWarning: {
+    active: boolean;
+    player: Color | null;
+    countdown: number | null;
+  };
+
   // Actions
   joinQueue: (tournamentType: TournamentType) => void;
   joinGame: (gameId: string) => void;
@@ -207,6 +214,14 @@ export function useMultiplayer(): UseMultiplayerReturn {
   // Rematch state
   const [rematchState, setRematchState] = useState<RematchState>('idle');
 
+  // First-move warning state
+  const [firstMoveWarning, setFirstMoveWarning] = useState<{
+    active: boolean;
+    player: Color | null;
+    countdown: number | null;
+  }>({ active: false, player: null, countdown: null });
+  const firstMoveTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
   // Refs
   const pendingGameConnectionRef = useRef<{ gameId: string; color: Color } | null>(null);
   const isBotGameRef = useRef(false);
@@ -295,6 +310,12 @@ export function useMultiplayer(): UseMultiplayerReturn {
 
       case ServerMessageType.MoveMade:
         setGameState(convertGameState(message.gameState));
+        // Clear first-move warning on any move
+        if (firstMoveTimerRef.current) {
+          clearInterval(firstMoveTimerRef.current);
+          firstMoveTimerRef.current = null;
+        }
+        setFirstMoveWarning({ active: false, player: null, countdown: null });
         if (soundEnabled) {
           playMoveSound();
         }
@@ -332,13 +353,15 @@ export function useMultiplayer(): UseMultiplayerReturn {
         }
         break;
 
-      case ServerMessageType.DrawOffered:
+      case ServerMessageType.DrawOffered: {
         setDrawOffered(true);
-        // If offered by opponent
-        if ((playerColor === 'w' && message.by === 'black') || (playerColor === 'b' && message.by === 'white')) {
-          setDrawOfferedByMe(false);
-        }
+        // Determine if this is my offer or opponent's offer
+        const isMyOffer =
+          (playerColor === 'w' && message.by === 'white') ||
+          (playerColor === 'b' && message.by === 'black');
+        setDrawOfferedByMe(isMyOffer);
         break;
+      }
 
       case ServerMessageType.DrawDeclined:
         setDrawOffered(false);
@@ -422,11 +445,46 @@ export function useMultiplayer(): UseMultiplayerReturn {
         // Could show a warning to the user
         break;
 
-      case ServerMessageType.Error:
+      case ServerMessageType.FirstMoveWarning:
+        // Start countdown timer for first-move warning
+        const remainingSec = Math.ceil(message.remainingMs / 1000);
+        setFirstMoveWarning({
+          active: true,
+          player: message.player,
+          countdown: remainingSec,
+        });
+
+        // Clear any existing timer
+        if (firstMoveTimerRef.current) {
+          clearInterval(firstMoveTimerRef.current);
+        }
+
+        // Start countdown
+        firstMoveTimerRef.current = setInterval(() => {
+          setFirstMoveWarning((prev) => {
+            if (!prev.active || prev.countdown === null || prev.countdown <= 1) {
+              if (firstMoveTimerRef.current) {
+                clearInterval(firstMoveTimerRef.current);
+                firstMoveTimerRef.current = null;
+              }
+              return { active: false, player: null, countdown: null };
+            }
+            return { ...prev, countdown: prev.countdown - 1 };
+          });
+        }, 1000);
+        break;
+
+      case ServerMessageType.Error: {
         console.error('Multiplayer error:', message.message, message.code);
         const errorMsg = ERROR_MESSAGES[message.code] || message.message || 'An error occurred';
         toast.error(errorMsg);
+        // Reset draw state on draw-related errors (e.g., cooldown)
+        if (message.code === 'DRAW_OFFER_COOLDOWN') {
+          setDrawOfferedByMe(false);
+          setDrawOffered(false);
+        }
         break;
+      }
 
       case ServerMessageType.Pong:
         // Keep-alive response, no action needed
@@ -634,8 +692,7 @@ export function useMultiplayer(): UseMultiplayerReturn {
 
   const offerDraw = useCallback(() => {
     if (isBotGameRef.current) return;
-    setDrawOfferedByMe(true);
-    setDrawOffered(true);
+    // Don't set state optimistically - wait for server confirmation via DrawOffered message
     sendMessage({ type: ClientMessageType.OfferDraw } as ClientMessage);
   }, [sendMessage]);
 
@@ -710,12 +767,17 @@ export function useMultiplayer(): UseMultiplayerReturn {
     setDisconnectCountdown(null);
     setDrawClaimAvailable('none');
     setRematchState('idle');
+    setFirstMoveWarning({ active: false, player: null, countdown: null });
     setWsUrl(null);
     pendingGameConnectionRef.current = null;
     isBotGameRef.current = false;
     if (disconnectTimerRef.current) {
       clearInterval(disconnectTimerRef.current);
       disconnectTimerRef.current = null;
+    }
+    if (firstMoveTimerRef.current) {
+      clearInterval(firstMoveTimerRef.current);
+      firstMoveTimerRef.current = null;
     }
   }, [disconnect, stopStockfish, clearCurrentGame]);
 
@@ -726,6 +788,9 @@ export function useMultiplayer(): UseMultiplayerReturn {
       stopStockfish();
       if (disconnectTimerRef.current) {
         clearInterval(disconnectTimerRef.current);
+      }
+      if (firstMoveTimerRef.current) {
+        clearInterval(firstMoveTimerRef.current);
       }
     };
   }, [disconnect, stopStockfish]);
@@ -751,6 +816,7 @@ export function useMultiplayer(): UseMultiplayerReturn {
     disconnectCountdown,
     canAbort,
     rematchState,
+    firstMoveWarning,
     joinQueue,
     joinGame,
     leaveQueue,

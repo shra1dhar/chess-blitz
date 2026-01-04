@@ -69,6 +69,10 @@ export class GameRoom extends DurableObject<Env> {
     cleanupDeadline: null,
     noShowDeadline: null,
     bothDisconnectedDeadline: null,
+    // First-move timeout tracking
+    firstMoveDeadline: null,
+    firstMoveWarningDeadline: null,
+    firstMoveWarningSent: false,
   };
 
   constructor(ctx: DurableObjectState, env: Env) {
@@ -324,8 +328,18 @@ export class GameRoom extends DurableObject<Env> {
     if (!this.game || this.game.status !== "waiting") return;
 
     this.game.status = "active";
-    this.game.lastMoveAt = Date.now();
+    const now = Date.now();
+    this.game.lastMoveAt = now;
     this.pendingTimeouts.noShowDeadline = null;
+
+    // Set first-move timeout for white (who moves first)
+    // Skip if white is a bot
+    const currentPlayer = this.game.turn === "white" ? this.game.white : this.game.black;
+    if (!currentPlayer.isBot) {
+      this.pendingTimeouts.firstMoveWarningDeadline = now + GAME.FIRST_MOVE_WARNING_MS;
+      this.pendingTimeouts.firstMoveDeadline = now + GAME.FIRST_MOVE_TIMEOUT_MS;
+      this.pendingTimeouts.firstMoveWarningSent = false;
+    }
 
     await this.persistState();
 
@@ -335,8 +349,7 @@ export class GameRoom extends DurableObject<Env> {
     // Schedule clock alarm
     await this.scheduleNextAlarm();
 
-    // If it's bot's turn, make a move
-    const currentPlayer = this.game.turn === "white" ? this.game.white : this.game.black;
+    // If it's bot's turn, make a move (and clear first-move timeout)
     if (currentPlayer.isBot) {
       setTimeout(() => this.makeBotMove(), this.getBotThinkTime());
     }
@@ -511,6 +524,35 @@ export class GameRoom extends DurableObject<Env> {
       } else if (!blackPresent) {
         await this.endGame("white", "no_show");
       }
+      return;
+    }
+
+    // Check first-move warning deadline (send warning at 10 seconds)
+    if (
+      this.game.status === "active" &&
+      this.pendingTimeouts.firstMoveWarningDeadline &&
+      now >= this.pendingTimeouts.firstMoveWarningDeadline &&
+      !this.pendingTimeouts.firstMoveWarningSent
+    ) {
+      const remainingMs = (this.pendingTimeouts.firstMoveDeadline || 0) - now;
+      this.broadcastToPlayers({
+        type: ServerMessageType.FirstMoveWarning,
+        player: this.game.turn,
+        remainingMs: Math.max(0, remainingMs),
+      });
+      this.pendingTimeouts.firstMoveWarningSent = true;
+      this.pendingTimeouts.firstMoveWarningDeadline = null;
+      await this.persistState();
+    }
+
+    // Check first-move abort deadline (abort at 20 seconds)
+    if (
+      this.game.status === "active" &&
+      this.pendingTimeouts.firstMoveDeadline &&
+      now >= this.pendingTimeouts.firstMoveDeadline
+    ) {
+      // Abort the game - the player who didn't move loses
+      await this.endGame(null, "abort");
       return;
     }
 
@@ -718,6 +760,27 @@ export class GameRoom extends DurableObject<Env> {
 
     this.game.moveHistory.push(moveInfo);
 
+    // Handle first-move timeout:
+    // After move 1 (white's first): clear timeout, set for black (if not bot)
+    // After move 2 (black's first): clear timeout completely
+    if (this.game.moveCount === 1) {
+      // White just made first move - clear white's timeout, set for black
+      this.pendingTimeouts.firstMoveDeadline = null;
+      this.pendingTimeouts.firstMoveWarningDeadline = null;
+      this.pendingTimeouts.firstMoveWarningSent = false;
+
+      // Set timeout for black's first move (if not a bot)
+      if (!this.game.black.isBot) {
+        this.pendingTimeouts.firstMoveWarningDeadline = now + GAME.FIRST_MOVE_WARNING_MS;
+        this.pendingTimeouts.firstMoveDeadline = now + GAME.FIRST_MOVE_TIMEOUT_MS;
+      }
+    } else if (this.game.moveCount === 2) {
+      // Black just made first move - clear timeout completely
+      this.pendingTimeouts.firstMoveDeadline = null;
+      this.pendingTimeouts.firstMoveWarningDeadline = null;
+      this.pendingTimeouts.firstMoveWarningSent = false;
+    }
+
     await this.persistState();
 
     // Broadcast move
@@ -808,12 +871,14 @@ export class GameRoom extends DurableObject<Env> {
   private async handleDrawOffer(color: Color): Promise<void> {
     if (!this.game || this.game.status !== "active") return;
 
-    // Don't allow if there's already a pending offer
-    if (this.game.pendingDrawOffer) {
-      const conn = this.connections.get(color);
-      if (conn?.ws) {
-        safeSend(conn.ws, { type: ServerMessageType.Error, code: "DRAW_ALREADY_OFFERED", message: "A draw offer is already pending" });
-      }
+    // If opponent already offered, treat this as accepting - mutual draw
+    if (this.game.pendingDrawOffer && this.game.pendingDrawOffer !== color) {
+      await this.endGame("draw", "draw_agreement");
+      return;
+    }
+
+    // If player's own offer is pending, silently ignore (button should be disabled)
+    if (this.game.pendingDrawOffer === color) {
       return;
     }
 
@@ -821,13 +886,12 @@ export class GameRoom extends DurableObject<Env> {
     const now = Date.now();
     const lastOfferTime = this.game.lastDrawOfferAt?.[color];
     if (lastOfferTime && now - lastOfferTime < RATE_LIMITS.DRAW_OFFER_COOLDOWN_MS) {
-      const remainingMs = RATE_LIMITS.DRAW_OFFER_COOLDOWN_MS - (now - lastOfferTime);
       const conn = this.connections.get(color);
       if (conn?.ws) {
         safeSend(conn.ws, {
           type: ServerMessageType.Error,
           code: "DRAW_OFFER_COOLDOWN",
-          message: `Please wait ${Math.ceil(remainingMs / 1000)} seconds before offering another draw`
+          message: "Please wait before offering another draw"
         });
       }
       return;
@@ -951,10 +1015,48 @@ export class GameRoom extends DurableObject<Env> {
     this.game.pendingRematchOffer = color;
     this.pendingTimeouts.rematchDeadline = Date.now() + GAME.REMATCH_TIMEOUT_MS;
 
+    // Notify matchmaking queue about rematch intent (for future queue re-matching)
+    await this.notifyRematchIntent(color);
+
     await this.persistState();
     await this.scheduleNextAlarm();
 
     this.broadcastToPlayers({ type: ServerMessageType.RematchOffered, by: color });
+  }
+
+  /**
+   * Notify MatchmakingQueue about rematch intent.
+   * This allows players to be matched again if they both rejoin the queue.
+   */
+  private async notifyRematchIntent(offererColor: Color): Promise<void> {
+    if (!this.game) return;
+
+    const offerer = offererColor === "white" ? this.game.white : this.game.black;
+    const opponent = offererColor === "white" ? this.game.black : this.game.white;
+
+    // Don't track rematch intent for bot games
+    if (offerer.isBot || opponent.isBot) return;
+
+    try {
+      // Get the MatchmakingQueue DO for this tournament type
+      const queueId = this.env.MATCHMAKING_QUEUE.idFromName(this.game.tournamentType);
+      const queue = this.env.MATCHMAKING_QUEUE.get(queueId);
+
+      await queue.fetch(
+        new Request("https://internal/rematch-intent", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            playerA: offerer.id,
+            playerB: opponent.id,
+            tournamentType: this.game.tournamentType,
+          }),
+        })
+      );
+    } catch (error) {
+      // Non-critical - log and continue
+      console.error("[GameRoom] Failed to notify rematch intent:", error);
+    }
   }
 
   /**
@@ -1016,6 +1118,10 @@ export class GameRoom extends DurableObject<Env> {
       cleanupDeadline: null,
       noShowDeadline: now + GAME.NO_SHOW_TIMEOUT_MS,
       bothDisconnectedDeadline: null,
+      // Reset first-move timeout (will be set when game starts)
+      firstMoveDeadline: null,
+      firstMoveWarningDeadline: null,
+      firstMoveWarningSent: false,
     };
 
     await this.persistState();
@@ -1283,6 +1389,23 @@ export class GameRoom extends DurableObject<Env> {
 
     this.game.moveHistory.push(moveInfo);
 
+    // Handle first-move timeout for bot moves (same logic as handleMove)
+    if (this.game.moveCount === 1) {
+      this.pendingTimeouts.firstMoveDeadline = null;
+      this.pendingTimeouts.firstMoveWarningDeadline = null;
+      this.pendingTimeouts.firstMoveWarningSent = false;
+
+      // Set timeout for black's first move (if not a bot)
+      if (!this.game.black.isBot) {
+        this.pendingTimeouts.firstMoveWarningDeadline = now + GAME.FIRST_MOVE_WARNING_MS;
+        this.pendingTimeouts.firstMoveDeadline = now + GAME.FIRST_MOVE_TIMEOUT_MS;
+      }
+    } else if (this.game.moveCount === 2) {
+      this.pendingTimeouts.firstMoveDeadline = null;
+      this.pendingTimeouts.firstMoveWarningDeadline = null;
+      this.pendingTimeouts.firstMoveWarningSent = false;
+    }
+
     await this.persistState();
 
     this.broadcastToPlayers({ type: ServerMessageType.MoveMade, move: moveInfo, gameState: this.serializeGameState() });
@@ -1344,6 +1467,15 @@ export class GameRoom extends DurableObject<Env> {
 
     if (this.pendingTimeouts.cleanupDeadline) {
       deadlines.push(this.pendingTimeouts.cleanupDeadline);
+    }
+
+    // First-move timeout deadlines
+    if (this.pendingTimeouts.firstMoveWarningDeadline) {
+      deadlines.push(this.pendingTimeouts.firstMoveWarningDeadline);
+    }
+
+    if (this.pendingTimeouts.firstMoveDeadline) {
+      deadlines.push(this.pendingTimeouts.firstMoveDeadline);
     }
 
     if (deadlines.length > 0) {
