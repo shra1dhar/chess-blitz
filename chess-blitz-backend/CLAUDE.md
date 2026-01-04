@@ -13,6 +13,22 @@
 
 ---
 
+## Project Structure
+
+```
+src/
+├── durable-objects/       # GameRoom, MatchmakingQueue Durable Objects
+├── env.d.ts               # Environment type definitions
+├── index.ts               # Entry point, Hono app setup
+├── middleware/            # Auth, CORS middleware
+├── routes/                # API route handlers
+├── services/              # Business logic (elo.ts, etc.)
+├── types/                 # TypeScript type definitions
+└── utils/                 # Helpers (websocket, rate-limiter, sqlHelper)
+```
+
+---
+
 ## Monorepo Context
 
 This project is part of a **pnpm workspace monorepo**:
@@ -192,7 +208,8 @@ this.ctx.acceptWebSocket(server);  // NOT server.accept()
 
 - 30-second cooldown between draw offers per player (`DRAW_OFFER_COOLDOWN_MS`)
 - `lastDrawOfferAt` tracked per player in game state
-- Returns `DRAW_ALREADY_OFFERED` if offer already pending
+- Mutual draw: If both players offer draw, game ends immediately in draw
+- If player's own offer is pending, additional offers are silently ignored
 - Returns `DRAW_OFFER_COOLDOWN` if cooldown not elapsed
 
 ### Recent Opponents (Matchmaking)

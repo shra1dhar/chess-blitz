@@ -183,7 +183,7 @@ pnpm --filter @chess-blitz/shared build
 1. **Use `useEffectEvent` for event callbacks in Effects**
    - Stable in React 19.2 (released October 2025)
    - Use when a callback needs latest props/state but shouldn't trigger Effect re-runs
-   - Already implemented in: `useWebSocket.ts`, `useStockfish.ts`, `useMultiplayer.ts`
+   - Already implemented in: `useWebSocket.ts`, `useStockfish.ts`, `useMultiplayer.ts`, `useChessGame.ts`
    ```typescript
    // GOOD - useEffectEvent for callbacks
    const onMessageEvent = useEffectEvent((data: unknown) => {
@@ -202,12 +202,20 @@ pnpm --filter @chess-blitz/shared build
 2. **When to use `useEffectEvent`**
    - WebSocket message handlers that access changing state (sound settings, player color)
    - Worker callbacks (Stockfish onBestMove, onError)
+   - Sound-related callbacks that access `soundEnabled` setting (see `useChessGame.ts`)
    - Any callback passed to Effect that shouldn't trigger re-subscription
 
-3. **`use()` hook is NOT used in this project**
-   - The codebase uses Zustand for state management (not React Context)
-   - No Promise-based data fetching in components
-   - If adding Context-based features, consider `use()` for reading context
+3. **`use()` hook for Promise unwrapping**
+   - Used in `GameClient.tsx` and `MultiplayerGameClient.tsx` to unwrap dictionary promises
+   - Enables streaming: page renders while dictionary loads in parallel
+   ```typescript
+   // Server component passes promise (NOT awaited)
+   const dictPromise = getDictionary(locale);
+   return <GameClient dictPromise={dictPromise} locale={locale} />;
+
+   // Client component unwraps with use()
+   const dict = use(dictPromise);
+   ```
 
 ### macOS Development
 
@@ -261,21 +269,28 @@ src/
 │   ├── api/               # API routes (no edge runtime!)
 ├── components/
 │   ├── Board/             # ChessBoard
+│   ├── game/              # Shared game components (GameLayout, PlayerInfoCard, etc.)
 │   ├── GameControls/      # Game control buttons
 │   ├── GameInfo/          # Game state display
 │   ├── GameOver/          # Game over modal
 │   ├── home/              # Homepage (GameLobby, ModeSelector, etc.)
+│   ├── icons/             # Centralized SVG icons (GameIcons.tsx)
 │   ├── Multiplayer/       # GameClock, DisconnectOverlay, DrawOfferBanner, etc.
 │   ├── play/              # GameClient, MultiplayerGameClient
+│   ├── Settings/          # Settings modal and preferences
+│   ├── Toast/             # ToastProvider
 │   ├── Tournament/        # TournamentLobby, MatchmakingOverlay
-│   └── Toast/             # ToastProvider
-├── hooks/                 # useChessGame, useMultiplayer, useWebSocket, etc.
+│   └── UI/                # Reusable UI components
+├── hooks/                 # useChessGame, useMultiplayer, useWebSocket, useGameClock, etc.
 ├── i18n/
 │   └── dictionaries/      # 34 language JSON files
+├── middleware.ts          # Edge middleware for locale routing
+├── server/                # Server-side utilities
 ├── services/              # authService.ts, msStartSDK.ts, soundManager.ts
 ├── stores/                # gameStore, multiplayerStore, settingsStore
 ├── styles/                # Global SCSS variables and mixins
-└── types/                 # chess.ts, multiplayer.ts
+├── types/                 # chess.ts, multiplayer.ts
+└── utils/                 # Utility functions (clock.ts, moves.ts)
 ```
 
 ## Commands
