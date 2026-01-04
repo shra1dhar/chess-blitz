@@ -1,0 +1,336 @@
+// ==============================================
+// Language Selector Styles
+// ==============================================
+
+.languageSelector {
+  position: relative;
+  z-index: 1000;
+}
+
+.trigger {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+
+  // Transparent background - mild hover effect
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #5c3d2e;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(139, 90, 43, 0.08);
+  }
+
+  &:active {
+    background: rgba(139, 90, 43, 0.12);
+  }
+}
+
+.flag {
+  width: 22px;
+  height: 16px;
+  border-radius: 3px;
+  object-fit: cover;
+  -webkit-box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.currentLanguage {
+  max-width: 120px;
+  margin-inline-start: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #5c3d2e;
+
+  // Icon-only mode on smaller screens
+  @media (max-width: 640px) {
+    display: none;
+  }
+}
+
+.chevron {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.7;
+  color: #8b5a2b;
+
+  &.open {
+    transform: rotate(180deg);
+    opacity: 0.9;
+  }
+
+  // Hide chevron in icon-only mode
+  @media (max-width: 640px) {
+    display: none;
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  left: auto;
+  min-width: 480px;
+  max-height: 520px;
+  background: linear-gradient(135deg, rgba(255, 248, 240, 0.98) 0%, rgba(250, 240, 230, 0.98) 100%);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(139, 90, 43, 0.25);
+  border-radius: 12px;
+  -webkit-box-shadow:
+    0 4px 24px rgba(92, 61, 46, 0.15),
+    0 2px 8px rgba(92, 61, 46, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 4px 24px rgba(92, 61, 46, 0.15),
+    0 2px 8px rgba(92, 61, 46, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  overflow: hidden;
+  -webkit-animation: dropdownFadeIn 0.2s ease;
+  animation: dropdownFadeIn 0.2s ease;
+
+  &.closing {
+    -webkit-animation: dropdownFadeOut 0.15s ease forwards;
+    animation: dropdownFadeOut 0.15s ease forwards;
+  }
+
+  // RTL: position dropdown to extend rightward without going off-screen
+  [dir="rtl"] & {
+    right: auto;
+    left: 0;
+    // Constrain width to fit within viewport
+    max-width: calc(100vw - 2rem);
+  }
+
+  // Smaller screens: 2 columns
+  @media (max-width: 650px) {
+    min-width: 360px;
+  }
+
+  @media (max-width: 400px) {
+    min-width: 280px;
+    max-height: 400px;
+  }
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dropdownFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+}
+
+.languageList {
+  max-height: 465px;
+  overflow-y: auto;
+  padding: 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(139, 90, 43, 0.25);
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 90, 43, 0.4);
+  }
+
+  @media (max-width: 400px) {
+    max-height: 320px;
+  }
+}
+
+.option {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: calc(33.333% - 4px);
+  margin: 2px;
+  padding: 0.625rem 0.75rem;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #5c3d2e;
+  font-size: 0.875rem;
+  text-align: left;
+  cursor: pointer;
+  -webkit-transition: all 0.15s ease;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: rgba(139, 90, 43, 0.12);
+    color: #3d2518;
+  }
+
+  &.active {
+    background: rgba(139, 90, 43, 0.15);
+    color: #3d2518;
+  }
+
+  .flag {
+    margin-right: 0.5rem;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: 0.5rem;
+    }
+  }
+
+  span {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  // RTL: keep same column layout, just adjust text alignment
+  [dir="rtl"] & {
+    text-align: right;
+  }
+
+  // 2 columns for medium screens
+  @media (max-width: 650px) {
+    width: calc(50% - 4px);
+  }
+
+  // 1 column for small screens
+  @media (max-width: 400px) {
+    width: 100%;
+    margin: 2px 0;
+  }
+}
+
+.checkmark {
+  color: #769656;
+  margin-left: 0.5rem;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+
+  [dir="rtl"] & {
+    margin-left: 0;
+    margin-right: 0.5rem;
+  }
+}
+
+.rememberRow {
+  padding: 0.75rem;
+  border-top: 1px solid rgba(139, 90, 43, 0.15);
+  background: rgba(139, 90, 43, 0.06);
+}
+
+.checkboxLabel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #5c3d2e;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  &:hover {
+    color: #3d2518;
+
+    .checkboxCustom {
+      border-color: rgba(139, 90, 43, 0.5);
+    }
+  }
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkboxCustom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-right: 0.625rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(139, 90, 43, 0.3);
+  border-radius: 4px;
+  -webkit-transition: all 0.15s ease;
+  transition: all 0.15s ease;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+
+  [dir="rtl"] & {
+    margin-right: 0;
+    margin-left: 0.625rem;
+  }
+
+  .checkbox:checked + & {
+    background: #769656;
+    border-color: #769656;
+
+    svg {
+      color: #fff;
+    }
+  }
+}

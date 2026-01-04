@@ -1,0 +1,143 @@
+// ==============================================
+// Chess Blitz - Board Themes
+// ==============================================
+
+@use 'variables' as *;
+
+// Theme CSS Custom Properties
+:root {
+  // Default theme: Classic Wood
+  --board-light: #{$theme-wood-light};
+  --board-dark: #{$theme-wood-dark};
+  --board-highlight: #{$theme-wood-highlight};
+  --board-selected: #{$theme-wood-selected};
+  --board-check: rgba(255, 0, 0, 0.5);
+  --board-last-move: rgba(155, 199, 0, 0.41);
+  --board-legal-move: rgba(0, 0, 0, 0.1);
+  --board-legal-capture: rgba(0, 0, 0, 0.1);
+
+  // UI theme colors
+  --ui-bg-primary: #{$bg-primary};
+  --ui-bg-secondary: #{$bg-secondary};
+  --ui-text-primary: #{$text-primary};
+  --ui-text-secondary: #{$text-secondary};
+  --ui-border: #e0e0e0;
+}
+
+// Theme: Classic Wood (default)
+[data-theme="wood"],
+:root {
+  --board-light: #{$theme-wood-light};
+  --board-dark: #{$theme-wood-dark};
+  --board-highlight: #{$theme-wood-highlight};
+  --board-selected: #{$theme-wood-selected};
+}
+
+// Theme: Tournament Green
+[data-theme="green"] {
+  --board-light: #{$theme-green-light};
+  --board-dark: #{$theme-green-dark};
+  --board-highlight: #{$theme-green-highlight};
+  --board-selected: #{$theme-green-selected};
+}
+
+// Theme: Blue Ocean
+[data-theme="blue"] {
+  --board-light: #{$theme-blue-light};
+  --board-dark: #{$theme-blue-dark};
+  --board-highlight: #{$theme-blue-highlight};
+  --board-selected: #{$theme-blue-selected};
+}
+
+// Theme: Midnight (Dark Mode)
+[data-theme="midnight"] {
+  --board-light: #{$theme-midnight-light};
+  --board-dark: #{$theme-midnight-dark};
+  --board-highlight: #{$theme-midnight-highlight};
+  --board-selected: #{$theme-midnight-selected};
+
+  // Dark UI theme
+  --ui-bg-primary: #121212;
+  --ui-bg-secondary: #1e1e1e;
+  --ui-text-primary: #e0e0e0;
+  --ui-text-secondary: #a0a0a0;
+  --ui-border: #333333;
+}
+
+// Theme preview swatches
+.theme-swatch {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-sm;
+  overflow: hidden;
+  -webkit-box-shadow: $shadow-sm;
+  box-shadow: $shadow-sm;
+  border: 2px solid transparent;
+  cursor: pointer;
+  -webkit-transition: border-color $transition-fast;
+  transition: border-color $transition-fast;
+
+  &:hover {
+    border-color: $brand-accent;
+  }
+
+  &.active {
+    border-color: $brand-primary;
+  }
+
+  &__grid {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Generate swatch for each theme
+.theme-swatch--wood .theme-swatch__grid {
+  background: linear-gradient(135deg,
+    $theme-wood-light 25%,
+    $theme-wood-dark 25%,
+    $theme-wood-dark 50%,
+    $theme-wood-light 50%,
+    $theme-wood-light 75%,
+    $theme-wood-dark 75%
+  );
+  background-size: 20px 20px;
+}
+
+.theme-swatch--green .theme-swatch__grid {
+  background: linear-gradient(135deg,
+    $theme-green-light 25%,
+    $theme-green-dark 25%,
+    $theme-green-dark 50%,
+    $theme-green-light 50%,
+    $theme-green-light 75%,
+    $theme-green-dark 75%
+  );
+  background-size: 20px 20px;
+}
+
+.theme-swatch--blue .theme-swatch__grid {
+  background: linear-gradient(135deg,
+    $theme-blue-light 25%,
+    $theme-blue-dark 25%,
+    $theme-blue-dark 50%,
+    $theme-blue-light 50%,
+    $theme-blue-light 75%,
+    $theme-blue-dark 75%
+  );
+  background-size: 20px 20px;
+}
+
+.theme-swatch--midnight .theme-swatch__grid {
+  background: linear-gradient(135deg,
+    $theme-midnight-light 25%,
+    $theme-midnight-dark 25%,
+    $theme-midnight-dark 50%,
+    $theme-midnight-light 50%,
+    $theme-midnight-light 75%,
+    $theme-midnight-dark 75%
+  );
+  background-size: 20px 20px;
+}

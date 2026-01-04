@@ -1,0 +1,279 @@
+// ==============================================
+// Chess Blitz - Global Styles
+// ==============================================
+
+@use 'sass:color';
+@use '../styles/reset';
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+@use '../styles/themes';
+
+// Google Fonts Import (must be after @use rules in SCSS)
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+// Root element
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  color: var(--ui-text-primary);
+  background-color: var(--ui-bg-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+// App container
+#__next,
+.app-container {
+  min-height: 100vh;
+  @include flex-column;
+}
+
+// Main content area
+main {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  @include flex-column;
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  color: var(--ui-text-primary);
+}
+
+h1 {
+  font-size: $font-size-3xl;
+}
+
+h2 {
+  font-size: $font-size-2xl;
+}
+
+h3 {
+  font-size: $font-size-xl;
+}
+
+h4 {
+  font-size: $font-size-lg;
+}
+
+p {
+  line-height: $line-height-normal;
+  color: var(--ui-text-secondary);
+}
+
+// Links
+a {
+  color: $brand-primary;
+  -webkit-transition: color $transition-fast;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: color.adjust($brand-primary, $lightness: -15%);
+  }
+}
+
+// Selection
+::selection {
+  background-color: rgba($brand-primary, 0.2);
+  color: inherit;
+}
+
+// Focus styles
+:focus {
+  outline: 2px solid $brand-accent;
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid $brand-accent;
+  outline-offset: 2px;
+}
+
+// Utility classes
+.visually-hidden {
+  @include visually-hidden;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+// Container
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $spacing-md;
+  padding-right: $spacing-md;
+}
+
+// Page wrapper for game
+.page-wrapper {
+  min-height: 100vh;
+  @include flex-column;
+  background-color: var(--ui-bg-primary);
+}
+
+// Loading state
+.loading {
+  @include flex-center;
+  min-height: 200px;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--ui-border);
+  border-top-color: $brand-primary;
+  border-radius: 50%;
+  @include spin;
+}
+
+// Game layout
+.game-layout {
+  @include flex-column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: $spacing-md;
+  min-height: 100vh;
+
+  @include desktop {
+    @include flex-row;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    padding: $spacing-xl;
+  }
+}
+
+.game-main {
+  @include flex-column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  max-width: 560px;
+}
+
+.game-sidebar {
+  width: 100%;
+  max-width: 320px;
+  margin-top: $spacing-lg;
+
+  @include desktop {
+    margin-top: 0;
+    margin-left: $spacing-xl;
+  }
+}
+
+// Card component base
+.card {
+  @include card;
+  padding: $spacing-md;
+}
+
+// Divider
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--ui-border);
+  margin-top: $spacing-md;
+  margin-bottom: $spacing-md;
+}
+
+// Badge
+.badge {
+  display: inline-block;
+  padding: $spacing-xs $spacing-sm;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  border-radius: $radius-full;
+  background-color: rgba($brand-primary, 0.1);
+  color: $brand-primary;
+}
+
+.badge--success {
+  background-color: rgba($color-success, 0.1);
+  color: $color-success;
+}
+
+.badge--warning {
+  background-color: rgba($color-warning, 0.1);
+  color: $color-warning;
+}
+
+.badge--error {
+  background-color: rgba($color-error, 0.1);
+  color: $color-error;
+}
+
+// ==============================================
+// RTL (Right-to-Left) Support
+// For Arabic and Hebrew languages
+// ==============================================
+
+[dir="rtl"] {
+  // Flip directional icons and arrows
+  .backButton svg,
+  .playButton svg:last-child {
+    transform: scaleX(-1);
+  }
+
+  // Flip chevron arrows (but not when rotated for open state)
+  .chevron:not(.open) {
+    transform: scaleX(-1);
+  }
+
+  // Game sidebar layout
+  .game-sidebar {
+    @include desktop {
+      margin-left: 0;
+      margin-right: $spacing-xl;
+    }
+  }
+
+  // Move history alignment
+  .moveRow {
+    direction: ltr; // Keep chess notation LTR
+  }
+
+  // Player info layout adjustments
+  .thinkingIndicator,
+  .turnIndicator {
+    margin-left: 0;
+    margin-right: auto;
+  }
+}
+
+// Use CSS logical properties for automatic RTL support
+// These work automatically without needing [dir="rtl"] overrides
+
+// Examples of logical property usage:
+// margin-inline-start instead of margin-left
+// padding-inline-end instead of padding-right
+// border-inline-start instead of border-left
+// inset-inline-start instead of left

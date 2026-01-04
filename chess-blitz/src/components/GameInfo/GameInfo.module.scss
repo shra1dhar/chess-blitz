@@ -1,0 +1,112 @@
+// ==============================================
+// Chess Blitz - GameInfo Component Styles
+// ==============================================
+
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.gameInfo {
+  @include card;
+  padding: $spacing-md;
+
+  // Hide entirely on mobile - controls are shown inline with board
+  @include mobile {
+    display: none;
+  }
+}
+
+// Status section
+.status {
+  @include flex-row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-bottom: $spacing-md;
+  margin-bottom: $spacing-md;
+  border-bottom: 1px solid var(--ui-border);
+}
+
+.statusLabel {
+  font-size: $font-size-sm;
+  color: var(--ui-text-secondary);
+  margin-right: $spacing-sm;
+}
+
+.statusValue {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: var(--ui-text-primary);
+}
+
+// Moves section
+.movesSection {
+  @include flex-column;
+}
+
+.movesTitle {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: var(--ui-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: $spacing-sm;
+}
+
+.movesList {
+  max-height: 200px;
+  overflow-y: auto;
+  @include custom-scrollbar;
+
+  @include tablet {
+    max-height: 160px;
+  }
+}
+
+.noMoves {
+  font-size: $font-size-sm;
+  color: var(--ui-text-muted);
+  font-style: italic;
+  padding: $spacing-sm 0;
+}
+
+.moveRow {
+  @include flex-row;
+  padding: $spacing-xs 0;
+  font-size: $font-size-sm;
+  font-family: $font-family-mono;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+
+.moveRowLatest {
+  background-color: rgba($brand-primary, 0.05);
+  margin-left: -$spacing-sm;
+  margin-right: -$spacing-sm;
+  padding-left: $spacing-sm;
+  padding-right: $spacing-sm;
+  border-radius: $radius-sm;
+}
+
+.moveNumber {
+  width: 32px;
+  color: var(--ui-text-muted);
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.moveWhite {
+  width: 56px;
+  color: var(--ui-text-primary);
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.moveBlack {
+  width: 56px;
+  color: var(--ui-text-primary);
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}

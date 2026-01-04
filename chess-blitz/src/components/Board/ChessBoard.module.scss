@@ -1,0 +1,125 @@
+// ==============================================
+// Chess Blitz - ChessBoard Component Styles
+// ==============================================
+
+@use 'sass:string';
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.boardWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+}
+
+$aspect-ratio-value: string.unquote("1 / 1");
+
+.board {
+  width: 100%;
+  aspect-ratio: $aspect-ratio-value;
+
+  // Fallback for browsers without aspect-ratio
+  @supports not (aspect-ratio: $aspect-ratio-value) {
+    &::before {
+      content: '';
+      display: block;
+      padding-top: 100%;
+    }
+
+    > * {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
+}
+
+// Promotion overlay
+.promotionOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  @include flex-center;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: $radius-md;
+  z-index: $z-modal;
+  @include fade-in;
+}
+
+.promotionDialog {
+  @include card;
+  padding: $spacing-lg;
+  text-align: center;
+}
+
+.promotionTitle {
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  color: var(--ui-text-primary);
+  margin-bottom: $spacing-md;
+}
+
+.promotionOptions {
+  @include flex-row;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.promotionOption {
+  @include flex-center;
+  width: 56px;
+  height: 56px;
+  margin-right: $spacing-sm;
+  background-color: var(--board-light);
+  border: 2px solid var(--ui-border);
+  border-radius: $radius-md;
+  cursor: pointer;
+  -webkit-transition: all $transition-fast;
+  transition: all $transition-fast;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    border-color: $brand-primary;
+    background-color: rgba($brand-primary, 0.1);
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+  }
+}
+
+.pieceIcon {
+  font-size: 32px;
+  line-height: 1;
+}
+
+// Board coordinates styling (if needed)
+.coordinates {
+  position: absolute;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: var(--ui-text-muted);
+  pointer-events: none;
+}
+
+// Responsive adjustments
+@include mobile {
+  .boardWrapper {
+    max-width: 100%;
+  }
+
+  .promotionOption {
+    width: 48px;
+    height: 48px;
+  }
+
+  .pieceIcon {
+    font-size: 28px;
+  }
+}

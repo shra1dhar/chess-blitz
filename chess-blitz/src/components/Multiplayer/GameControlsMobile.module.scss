@@ -1,0 +1,237 @@
+// ==============================================
+// Chess Blitz - Mobile Game Controls Styles
+// ==============================================
+
+@use 'sass:color';
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.container {
+  display: none; // Hidden on desktop
+
+  @include mobile {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: $z-sticky;
+  }
+}
+
+.bar {
+  @include flex-row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.98);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: $spacing-sm $spacing-md;
+  padding-bottom: max($spacing-sm, env(safe-area-inset-bottom, 0px));
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.button {
+  @include flex-center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 44px;
+  min-height: 44px;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $radius-md;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  -webkit-transition: all $transition-fast;
+  transition: all $transition-fast;
+  -webkit-tap-highlight-color: transparent;
+
+  &:active {
+    -webkit-transform: scale(0.95);
+    transform: scale(0.95);
+  }
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  margin-bottom: 2px;
+}
+
+.label {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+// Abort button
+.abortButton {
+  color: $text-secondary;
+
+  &:hover, &:active {
+    background: rgba($text-secondary, 0.1);
+  }
+}
+
+// Draw button
+.drawButton {
+  color: $brand-accent;
+
+  &:hover, &:active {
+    background: rgba($brand-accent, 0.1);
+  }
+
+  &.disabled {
+    color: $text-muted;
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    &:active {
+      -webkit-transform: none;
+      transform: none;
+    }
+  }
+}
+
+// More button (center)
+.moreButton {
+  width: 48px;
+  height: 48px;
+  border-radius: $radius-full;
+  background: $bg-secondary;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: $text-secondary;
+
+  &:hover, &:active, &.active {
+    background: $brand-primary;
+    border-color: $brand-primary;
+    color: $text-inverse;
+  }
+
+  .icon {
+    margin-bottom: 0;
+  }
+}
+
+// Resign button
+.resignButton {
+  color: $text-secondary;
+
+  &:hover, &:active {
+    color: $color-error;
+    background: rgba($color-error, 0.1);
+  }
+
+  &.confirmState {
+    background: $color-error;
+    color: $text-inverse;
+
+    .label {
+      font-weight: $font-weight-semibold;
+    }
+  }
+}
+
+.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+// Dropdown menu
+.menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-modal;
+}
+
+.menuBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  -webkit-animation: fadeIn 0.2s ease;
+  animation: fadeIn 0.2s ease;
+}
+
+.menuContent {
+  position: relative;
+  background: $bg-secondary;
+  border-radius: $radius-lg $radius-lg 0 0;
+  padding: $spacing-md;
+  padding-bottom: max($spacing-md, calc(#{$spacing-md} + env(safe-area-inset-bottom, 0px)));
+  -webkit-animation: slideUp 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: slideUp 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.menuItem {
+  @include flex-row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  min-height: 48px;
+  padding: $spacing-sm $spacing-md;
+  margin-bottom: $spacing-xs;
+  border-radius: $radius-md;
+  border: none;
+  background: transparent;
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  color: $text-primary;
+  cursor: pointer;
+  -webkit-transition: background $transition-fast;
+  transition: background $transition-fast;
+  text-align: start;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover, &:active {
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@-webkit-keyframes slideUp {
+  from {
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+  }
+  to {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+  }
+  to {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}

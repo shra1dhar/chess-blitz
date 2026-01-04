@@ -1,0 +1,33 @@
+diff --git a/dist/server/node-environment-extensions/fast-set-immediate.external.js b/dist/server/node-environment-extensions/fast-set-immediate.external.js
+index 24244b34411bd449a42bb422d2dff8d18e9bf17c..e792e3ec9ea3c419dc984a42c538bb68ffee7460 100644
+--- a/dist/server/node-environment-extensions/fast-set-immediate.external.js
++++ b/dist/server/node-environment-extensions/fast-set-immediate.external.js
+@@ -48,11 +48,24 @@ function install() {
+     } else {
+         debug == null ? void 0 : debug('installing fast setImmediate patch');
+         const nodeTimers = require('node:timers');
+-        globalThis.setImmediate = nodeTimers.setImmediate = // Workaround for missing __promisify__ which is not a real property
+-        patchedSetImmediate;
+-        globalThis.clearImmediate = nodeTimers.clearImmediate = patchedClearImmediate;
++        // Patch globalThis (always works)
++        globalThis.setImmediate = patchedSetImmediate;
++        globalThis.clearImmediate = patchedClearImmediate;
++        // Try to patch node:timers module, but it may be read-only in ESM/Cloudflare Workers
++        try {
++            nodeTimers.setImmediate = patchedSetImmediate;
++            nodeTimers.clearImmediate = patchedClearImmediate;
++        } catch (e) {
++            // ESM modules have read-only exports, ignore the error
++            debug == null ? void 0 : debug('Could not patch node:timers (read-only exports)');
++        }
+         const nodeTimersPromises = require('node:timers/promises');
+-        nodeTimersPromises.setImmediate = patchedSetImmediatePromise;
++        try {
++            nodeTimersPromises.setImmediate = patchedSetImmediatePromise;
++        } catch (e) {
++            // ESM modules have read-only exports, ignore the error
++            debug == null ? void 0 : debug('Could not patch node:timers/promises (read-only exports)');
++        }
+         process.nextTick = patchedNextTick;
+     }
+ }

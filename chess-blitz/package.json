@@ -1,0 +1,42 @@
+{
+	"name": "chess-blitz",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev --turbopack",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
+		"deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+		"upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+		"preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+		"cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts"
+	},
+	"dependencies": {
+		"@formatjs/intl-localematcher": "^0.7.3",
+		"@opennextjs/cloudflare": "^1.14.7",
+		"chess.js": "^1.0.0",
+		"country-flag-icons": "^1.6.4",
+		"negotiator": "^1.0.0",
+		"next": "16.1.1",
+		"react": "19.2.3",
+		"react-chessboard": "^4.7.2",
+		"react-dom": "19.2.3",
+		"react-hot-toast": "^2.6.0",
+		"zustand": "^5.0.0"
+	},
+	"devDependencies": {
+		"@eslint/eslintrc": "^3",
+		"@types/negotiator": "^0.6.4",
+		"@types/node": "^20",
+		"@types/react": "^19",
+		"@types/react-dom": "^19",
+		"autoprefixer": "^10.4.23",
+		"eslint": "^9",
+		"eslint-config-next": "16.1.1",
+		"eslint-plugin-react-hooks": "^7.0.1",
+		"sass": "^1.83.0",
+		"typescript": "^5",
+		"wrangler": "^4.54.0"
+	}
+}

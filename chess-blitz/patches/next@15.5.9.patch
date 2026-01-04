@@ -1,0 +1,41 @@
+diff --git a/dist/build/webpack/plugins/css-minimizer-plugin.js b/dist/build/webpack/plugins/css-minimizer-plugin.js
+index 5513ccb9dbee82461ca707e770aea526d782f4e9..142d7c95de9de2d387b20d9c28adcf9e2bbadbbf 100644
+--- a/dist/build/webpack/plugins/css-minimizer-plugin.js
++++ b/dist/build/webpack/plugins/css-minimizer-plugin.js
+@@ -26,34 +26,8 @@ class CssMinimizerPlugin {
+         this.options = options;
+     }
+     optimizeAsset(file, asset) {
+-        const postcssOptions = {
+-            ...this.options.postcssOptions,
+-            to: file,
+-            from: file,
+-            // We don't actually add this parser to support Sass. It can also be used
+-            // for inline comment support. See the README:
+-            // https://github.com/postcss/postcss-scss/blob/master/README.md#2-inline-comments-for-postcss
+-            parser: _postcssscss.default
+-        };
+-        let input;
+-        if (postcssOptions.map && asset.sourceAndMap) {
+-            const { source, map } = asset.sourceAndMap();
+-            input = source;
+-            postcssOptions.map.prev = map ? map : false;
+-        } else {
+-            input = asset.source();
+-        }
+-        return (0, _postcss.default)([
+-            (0, _cssnanosimple.default)({
+-                colormin: false
+-            }, _postcss.default)
+-        ]).process(input, postcssOptions).then((res)=>{
+-            if (res.map) {
+-                return new _webpack.sources.SourceMapSource(res.css, file, res.map.toJSON());
+-            } else {
+-                return new _webpack.sources.RawSource(res.css);
+-            }
+-        });
++        // Skip CSS minification entirely to avoid parser issues
++        return Promise.resolve(asset);
+     }
+     apply(compiler) {
+         compiler.hooks.compilation.tap('CssMinimizerPlugin', (compilation)=>{

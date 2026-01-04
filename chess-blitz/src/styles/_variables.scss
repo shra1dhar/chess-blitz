@@ -1,0 +1,116 @@
+// ==============================================
+// Chess Blitz - Design Variables
+// ==============================================
+
+// Brand Colors
+$brand-primary: #b58863;
+$brand-secondary: #f0d9b5;
+$brand-accent: #769656;
+$brand-dark: #1a1a1a;
+$brand-light: #f5f5f5;
+
+// Text Colors
+$text-primary: #2c2c2c;
+$text-secondary: #666666;
+$text-muted: #999999;
+$text-inverse: #ffffff;
+
+// Background Colors
+$bg-primary: #f8f6f3;
+$bg-secondary: #ffffff;
+$bg-dark: #1e1e1e;
+$bg-overlay: rgba(0, 0, 0, 0.6);
+
+// Status Colors
+$color-success: #4caf50;
+$color-warning: #ff9800;
+$color-error: #f44336;
+$color-info: #2196f3;
+
+// Board Theme: Classic Wood (Default)
+$theme-wood-light: #f0d9b5;
+$theme-wood-dark: #b58863;
+$theme-wood-highlight: rgba(255, 255, 0, 0.4);
+$theme-wood-selected: rgba(20, 85, 30, 0.5);
+
+// Board Theme: Tournament Green
+$theme-green-light: #eeeed2;
+$theme-green-dark: #769656;
+$theme-green-highlight: rgba(255, 255, 0, 0.4);
+$theme-green-selected: rgba(20, 85, 30, 0.5);
+
+// Board Theme: Blue Ocean
+$theme-blue-light: #dee3e6;
+$theme-blue-dark: #8ca2ad;
+$theme-blue-highlight: rgba(255, 255, 0, 0.4);
+$theme-blue-selected: rgba(20, 85, 80, 0.5);
+
+// Board Theme: Midnight
+$theme-midnight-light: #4a4a4a;
+$theme-midnight-dark: #2d2d2d;
+$theme-midnight-highlight: rgba(255, 255, 0, 0.3);
+$theme-midnight-selected: rgba(100, 150, 100, 0.5);
+
+// Typography
+$font-family-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+$font-family-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+$font-family-mono: 'SF Mono', 'Monaco', 'Consolas', 'Liberation Mono', monospace;
+
+$font-size-xs: 11px;
+$font-size-sm: 13px;
+$font-size-base: 15px;
+$font-size-lg: 18px;
+$font-size-xl: 24px;
+$font-size-2xl: 32px;
+$font-size-3xl: 40px;
+
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+$line-height-tight: 1.2;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.75;
+
+// Spacing (using 4px base unit)
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-2xl: 48px;
+$spacing-3xl: 64px;
+
+// Border Radius
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-xl: 16px;
+$radius-full: 9999px;
+
+// Shadows
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+$shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+$shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+
+// Transitions
+$transition-fast: 150ms ease;
+$transition-normal: 250ms ease;
+$transition-slow: 400ms ease;
+
+// Breakpoints
+$breakpoint-sm: 480px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+
+// Z-Index Scale
+$z-dropdown: 100;
+$z-sticky: 200;
+$z-modal-backdrop: 300;
+$z-modal: 400;
+$z-tooltip: 500;
+$z-toast: 600;

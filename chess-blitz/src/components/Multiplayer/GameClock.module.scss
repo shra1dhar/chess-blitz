@@ -1,0 +1,140 @@
+// ==============================================
+// Chess Blitz - Game Clock Styles
+// ==============================================
+
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.container {
+  @include flex-column;
+  width: 100%;
+  max-width: 120px;
+  margin: 0 auto;
+
+  @include mobile {
+    @include flex-row;
+    max-width: 100%;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+  }
+}
+
+.clock {
+  @include flex-column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-md;
+  -webkit-transition: all $transition-fast;
+  transition: all $transition-fast;
+  margin-bottom: $spacing-sm;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  @include mobile {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    margin-bottom: 0;
+    margin-right: $spacing-sm;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: $spacing-sm;
+
+      &:last-child {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.white {
+  background-color: #f8f6f3;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: $text-primary;
+}
+
+.black {
+  background-color: #2d2d2d;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: $text-inverse;
+}
+
+.active {
+  -webkit-box-shadow: 0 0 0 2px $brand-accent, $shadow-md;
+  box-shadow: 0 0 0 2px $brand-accent, $shadow-md;
+
+  &.white {
+    background-color: #fff;
+  }
+
+  &.black {
+    background-color: #1a1a1a;
+  }
+}
+
+.low {
+  .time {
+    color: $color-warning;
+  }
+}
+
+.critical {
+  -webkit-animation: pulse 0.5s infinite;
+  animation: pulse 0.5s infinite;
+
+  .time {
+    color: $color-error;
+  }
+}
+
+.label {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+  margin-bottom: 2px;
+}
+
+.time {
+  font-family: $font-family-mono;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  letter-spacing: 0.02em;
+  line-height: 1;
+
+  @include mobile {
+    font-size: $font-size-lg;
+  }
+}
+
+@-webkit-keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}

@@ -1,0 +1,383 @@
+// ==============================================
+// Chess Blitz - Tournament Lobby Styles
+// Chess club elegant aesthetic
+// ==============================================
+
+@use 'sass:color';
+@use 'sass:math';
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.lobby {
+  @include flex-column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 100vh;
+  height: 100dvh;
+  padding: $spacing-md;
+  overflow: hidden;
+  background: linear-gradient(135deg, $bg-primary 0%, color.adjust($bg-primary, $lightness: -3%) 100%);
+
+  @include mobile {
+    padding: $spacing-sm;
+  }
+}
+
+// Header
+.header {
+  text-align: center;
+  margin-bottom: $spacing-md;
+}
+
+.title {
+  font-family: $font-family-display;
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  color: $brand-dark;
+  margin: 0 0 $spacing-xs;
+  letter-spacing: -0.02em;
+
+  @include mobile {
+    font-size: $font-size-2xl;
+  }
+}
+
+.subtitle {
+  font-size: $font-size-lg;
+  color: $text-secondary;
+  margin: 0;
+
+  @include mobile {
+    font-size: $font-size-base;
+  }
+}
+
+// Tournament Cards
+.tournaments {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto $spacing-md;
+}
+
+.tournamentCard {
+  @include flex-column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: calc(25% - #{$spacing-md});
+  margin: math.div($spacing-sm, 2);
+  padding: $spacing-md $spacing-sm;
+  background: $bg-secondary;
+  border: 2px solid transparent;
+  border-radius: $radius-lg;
+  -webkit-box-shadow: $shadow-md;
+  box-shadow: $shadow-md;
+  cursor: pointer;
+  -webkit-transition: all $transition-normal;
+  transition: all $transition-normal;
+  text-align: center;
+
+  &:hover:not(:disabled) {
+    -webkit-transform: translateY(-4px);
+    transform: translateY(-4px);
+    -webkit-box-shadow: $shadow-lg;
+    box-shadow: $shadow-lg;
+    border-color: rgba($brand-primary, 0.3);
+  }
+
+  &:active:not(:disabled) {
+    -webkit-transform: translateY(-2px);
+    transform: translateY(-2px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &.queued {
+    border-color: $brand-accent;
+    background: linear-gradient(135deg, $bg-secondary 0%, rgba($brand-accent, 0.05) 100%);
+  }
+
+  &.initializing {
+    opacity: 0.7;
+
+    .playButton {
+      background: $text-muted;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+  }
+
+  @include tablet {
+    width: calc(50% - #{$spacing-sm});
+    margin: math.div($spacing-xs, 2);
+  }
+
+  @include mobile {
+    width: calc(50% - #{$spacing-sm});
+    margin: math.div($spacing-xs, 2);
+    padding: $spacing-sm;
+  }
+}
+
+.cardHeader {
+  @include flex-row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: $spacing-sm;
+}
+
+.cardIcon {
+  @include flex-center;
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, rgba($brand-primary, 0.1) 0%, rgba($brand-primary, 0.2) 100%);
+  color: $brand-primary;
+  border-radius: $radius-md;
+  margin-right: $spacing-sm;
+
+  [dir="rtl"] & {
+    margin-right: 0;
+    margin-left: $spacing-sm;
+  }
+}
+
+.cardLabel {
+  font-family: $font-family-display;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $text-primary;
+
+  @include mobile {
+    font-size: $font-size-base;
+  }
+}
+
+.cardTime {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $brand-primary;
+  margin-bottom: $spacing-sm;
+}
+
+.cardDescription {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+  margin: 0 0 $spacing-md;
+  line-height: $line-height-normal;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+
+  @media (max-width: 650px) {
+    display: none;
+  }
+}
+
+.playButton {
+  @include flex-row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  background: linear-gradient(135deg, $brand-primary 0%, color.adjust($brand-primary, $lightness: -10%) 100%);
+  color: $text-inverse;
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  border-radius: $radius-md;
+  -webkit-box-shadow: 0 4px 12px rgba($brand-primary, 0.3);
+  box-shadow: 0 4px 12px rgba($brand-primary, 0.3);
+
+  svg {
+    width: 16px;
+    height: 16px;
+    margin-right: $spacing-xs;
+
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: $spacing-xs;
+    }
+  }
+
+  .tournamentCard:hover:not(:disabled) & {
+    background: linear-gradient(135deg, color.adjust($brand-primary, $lightness: 5%) 0%, $brand-primary 100%);
+  }
+}
+
+// Queue Status
+.queueStatus {
+  @include flex-column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  padding: $spacing-sm;
+  background: rgba($brand-accent, 0.1);
+  border-radius: $radius-md;
+  color: color.adjust($brand-accent, $lightness: -10%);
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+}
+
+.queueSpinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba($brand-accent, 0.3);
+  border-top-color: $brand-accent;
+  border-radius: 50%;
+  margin-bottom: $spacing-xs;
+  @include spin;
+}
+
+.queuePosition {
+  font-size: $font-size-xs;
+  color: $text-secondary;
+  margin-top: $spacing-xs;
+}
+
+// Cancel Button
+.cancelButton {
+  @include flex-row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: $spacing-sm $spacing-lg;
+  background: transparent;
+  border: 1px solid rgba($color-error, 0.3);
+  border-radius: $radius-md;
+  color: $color-error;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  -webkit-transition: all $transition-fast;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: rgba($color-error, 0.1);
+    border-color: $color-error;
+  }
+
+  svg {
+    margin-right: $spacing-xs;
+
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: $spacing-xs;
+    }
+  }
+}
+
+// Match Found
+.matchFound {
+  @include flex-row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: $spacing-md $spacing-lg;
+  background: linear-gradient(135deg, rgba($color-success, 0.1) 0%, rgba($color-success, 0.2) 100%);
+  border: 1px solid rgba($color-success, 0.3);
+  border-radius: $radius-lg;
+  color: color.adjust($color-success, $lightness: -10%);
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  -webkit-animation: pulse 1.5s infinite;
+  animation: pulse 1.5s infinite;
+}
+
+.matchFoundIcon {
+  @include flex-center;
+  width: 32px;
+  height: 32px;
+  background: $color-success;
+  color: $text-inverse;
+  border-radius: $radius-full;
+  margin-right: $spacing-sm;
+
+  [dir="rtl"] & {
+    margin-right: 0;
+    margin-left: $spacing-sm;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+// Footer
+.footer {
+  margin-top: $spacing-sm;
+  text-align: center;
+}
+
+.statusOnline {
+  color: $color-success;
+  font-size: $font-size-sm;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: $color-success;
+    border-radius: 50%;
+    margin-right: $spacing-xs;
+  }
+}
+
+.statusConnecting {
+  color: $color-warning;
+  font-size: $font-size-sm;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: $color-warning;
+    border-radius: 50%;
+    margin-right: $spacing-xs;
+    -webkit-animation: pulse 1s infinite;
+    animation: pulse 1s infinite;
+  }
+}
+
+.statusOffline {
+  color: $text-muted;
+  font-size: $font-size-sm;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: $text-muted;
+    border-radius: 50%;
+    margin-right: $spacing-xs;
+  }
+}

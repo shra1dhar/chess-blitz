@@ -1,0 +1,66 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "chess-blitz-backend",
+  "main": "src/index.ts",
+  "routes": [
+    { "pattern": "chess-blitz-backend.zoony.io", "custom_domain": true }
+  ],
+  "compatibility_date": "2026-01-01",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./public"
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "MATCHMAKING_QUEUE",
+        "class_name": "MatchmakingQueue"
+      },
+      {
+        "name": "GAME_ROOM",
+        "class_name": "GameRoom"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "MatchmakingQueue",
+        "GameRoom"
+      ]
+    }
+  ],
+  "vars": {
+    "ENVIRONMENT": "production",
+    "CORS_ORIGIN": "https://chess-blitz.zoony.io"
+  },
+  // Development environment (use with: wrangler dev --env dev)
+  "env": {
+    "dev": {
+      "vars": {
+        "ENVIRONMENT": "development",
+        "CORS_ORIGIN": "http://localhost:3000"
+      },
+      "durable_objects": {
+        "bindings": [
+          {
+            "name": "MATCHMAKING_QUEUE",
+            "class_name": "MatchmakingQueue"
+          },
+          {
+            "name": "GAME_ROOM",
+            "class_name": "GameRoom"
+          }
+        ]
+      }
+    }
+  }
+}

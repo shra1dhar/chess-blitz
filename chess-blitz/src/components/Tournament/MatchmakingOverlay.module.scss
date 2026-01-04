@@ -1,0 +1,581 @@
+// ==============================================
+// Chess Blitz - Matchmaking Overlay Styles
+// Premium chess club aesthetic with warm wood tones
+// ==============================================
+
+@use 'sass:color';
+
+// Design tokens - Luxury chess club palette
+$color-backdrop: rgba(15, 12, 10, 0.92);
+$color-surface: #1a1612;
+$color-surface-elevated: #252018;
+$color-gold: #d4a853;
+$color-gold-bright: #f0c96a;
+$color-gold-dim: #a07830;
+$color-cream: #f5f0e6;
+$color-cream-muted: rgba(245, 240, 230, 0.7);
+$color-success: #7cb342;
+$color-knight: #f5f0e6;
+
+// Animation timing
+$ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+$ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+$ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+// Overlay container
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $color-backdrop;
+  backdrop-filter: blur(20px) saturate(1.2);
+  animation: overlayIn 0.5s $ease-out-expo;
+  overflow: hidden;
+
+  // Subtle grain texture
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+  }
+}
+
+@keyframes overlayIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0) saturate(1);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(20px) saturate(1.2);
+  }
+}
+
+// Fade out state
+.fadeOut {
+  animation: overlayOut 0.5s $ease-out-expo forwards;
+}
+
+@keyframes overlayOut {
+  from {
+    opacity: 1;
+    backdrop-filter: blur(20px) saturate(1.2);
+  }
+  to {
+    opacity: 0;
+    backdrop-filter: blur(0) saturate(1);
+  }
+}
+
+// Decorative corner elements - Art Deco inspired
+.cornerTL,
+.cornerTR,
+.cornerBL,
+.cornerBR {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  opacity: 0.4;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    background: linear-gradient(135deg, $color-gold 0%, transparent 60%);
+  }
+
+  &::before {
+    width: 40px;
+    height: 2px;
+  }
+
+  &::after {
+    width: 2px;
+    height: 40px;
+  }
+}
+
+.cornerTL {
+  top: 24px;
+  inset-inline-start: 24px;
+
+  &::before { top: 0; inset-inline-start: 0; }
+  &::after { top: 0; inset-inline-start: 0; }
+}
+
+.cornerTR {
+  top: 24px;
+  inset-inline-end: 24px;
+  transform: scaleX(-1);
+
+  [dir="rtl"] & { transform: scaleX(1); }
+
+  &::before { top: 0; inset-inline-start: 0; }
+  &::after { top: 0; inset-inline-start: 0; }
+}
+
+.cornerBL {
+  bottom: 24px;
+  inset-inline-start: 24px;
+  transform: scaleY(-1);
+
+  &::before { top: 0; inset-inline-start: 0; }
+  &::after { top: 0; inset-inline-start: 0; }
+}
+
+.cornerBR {
+  bottom: 24px;
+  inset-inline-end: 24px;
+  transform: scale(-1);
+
+  [dir="rtl"] & { transform: scale(-1, -1); }
+
+  &::before { top: 0; inset-inline-start: 0; }
+  &::after { top: 0; inset-inline-start: 0; }
+}
+
+// Content container
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 32px;
+  text-align: center;
+  animation: contentIn 0.6s $ease-out-expo 0.1s both;
+}
+
+@keyframes contentIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Knight piece container
+.pieceContainer {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-block-end: 32px;
+}
+
+// Glow rings
+.glowRing,
+.glowRingInner {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid transparent;
+}
+
+.glowRing {
+  width: 140px;
+  height: 140px;
+  border-color: rgba($color-gold, 0.3);
+  animation: ringPulse 3s ease-in-out infinite;
+}
+
+.glowRingInner {
+  width: 100px;
+  height: 100px;
+  border-color: rgba($color-gold, 0.2);
+  animation: ringPulse 3s ease-in-out infinite 0.5s;
+}
+
+@keyframes ringPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+// Knight wrapper with float animation
+.knightWrapper {
+  position: relative;
+  animation: knightFloat 4s $ease-in-out-expo infinite;
+}
+
+@keyframes knightFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(-5deg);
+  }
+  25% {
+    transform: translateY(-8px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(5deg);
+  }
+  75% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+.knight {
+  width: 72px;
+  height: 72px;
+  color: $color-knight;
+  filter: drop-shadow(0 8px 24px rgba($color-gold, 0.3));
+  transition: all 0.4s $ease-out-expo;
+
+  --knight-eye: #{$color-surface};
+}
+
+// Matched state
+.pieceContainer.matched {
+  .glowRing,
+  .glowRingInner {
+    animation: ringSuccess 0.5s $ease-out-expo forwards;
+    border-color: rgba($color-success, 0.5);
+  }
+
+  .knightWrapper {
+    animation: none;
+  }
+
+  .knight {
+    animation: knightExit 0.3s $ease-out-expo forwards;
+  }
+}
+
+@keyframes ringSuccess {
+  to {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes knightExit {
+  to {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+// Checkmark wrapper
+.checkmarkWrapper {
+  animation: checkmarkIn 0.5s $ease-spring;
+}
+
+@keyframes checkmarkIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.checkmark {
+  width: 64px;
+  height: 64px;
+  color: $color-success;
+  filter: drop-shadow(0 4px 16px rgba($color-success, 0.4));
+}
+
+// Status section
+.statusSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-family: 'Crimson Pro', 'Playfair Display', 'Georgia', serif;
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: $color-cream;
+  letter-spacing: 0.02em;
+  margin: 0;
+  margin-block-end: 12px;
+}
+
+.ellipsis {
+  display: inline-block;
+  width: 24px;
+  text-align: start;
+  font-family: inherit;
+  color: $color-gold;
+}
+
+.queuePosition {
+  font-family: 'Inter', 'SF Pro Text', system-ui, sans-serif;
+  font-size: 0.875rem;
+  color: $color-cream-muted;
+  margin: 0;
+  margin-block-end: 8px;
+}
+
+.positionNumber {
+  font-weight: 600;
+  color: $color-gold;
+}
+
+.hint {
+  font-family: 'Inter', 'SF Pro Text', system-ui, sans-serif;
+  font-size: 0.8125rem;
+  color: rgba($color-cream, 0.5);
+  margin: 0;
+  margin-block-end: 32px;
+  max-width: 280px;
+}
+
+// Opponent info (when matched)
+.opponentInfo {
+  animation: opponentIn 0.4s $ease-out-expo 0.2s both;
+}
+
+@keyframes opponentIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.opponentCard {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  background: $color-surface-elevated;
+  border: 1px solid rgba($color-gold, 0.2);
+  border-radius: 12px;
+  margin-block-end: 12px;
+}
+
+.crownIcon {
+  width: 18px;
+  height: 18px;
+  color: $color-gold;
+  margin-inline-end: 10px;
+  flex-shrink: 0;
+}
+
+.opponentName {
+  font-family: 'Crimson Pro', 'Playfair Display', 'Georgia', serif;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: $color-cream;
+  margin-inline-end: 12px;
+}
+
+.opponentElo {
+  font-family: 'JetBrains Mono', 'SF Mono', monospace;
+  font-size: 0.8125rem;
+  color: $color-gold-dim;
+  background: rgba($color-gold, 0.1);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.colorAssignment {
+  font-family: 'Inter', 'SF Pro Text', system-ui, sans-serif;
+  font-size: 0.875rem;
+  color: $color-cream-muted;
+  margin: 0;
+  margin-block-end: 8px;
+}
+
+.preparingText {
+  font-family: 'Inter', 'SF Pro Text', system-ui, sans-serif;
+  font-size: 0.8125rem;
+  color: rgba($color-cream, 0.5);
+  margin: 0;
+  margin-block-start: 16px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+// Cancel button
+.cancelButton {
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: transparent;
+  border: 1px solid rgba($color-cream, 0.2);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s $ease-out-expo;
+  margin-block-start: 8px;
+
+  &:hover {
+    background: rgba($color-cream, 0.05);
+    border-color: rgba($color-cream, 0.3);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-gold;
+    outline-offset: 2px;
+  }
+}
+
+.cancelText {
+  font-family: 'Inter', 'SF Pro Text', system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $color-cream-muted;
+  margin-inline-end: 12px;
+}
+
+.escHint {
+  font-family: 'JetBrains Mono', 'SF Mono', monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: rgba($color-cream, 0.4);
+  background: rgba($color-cream, 0.08);
+  padding: 3px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+  .content {
+    padding: 32px 24px;
+  }
+
+  .pieceContainer {
+    width: 120px;
+    height: 120px;
+    margin-block-end: 24px;
+  }
+
+  .glowRing {
+    width: 120px;
+    height: 120px;
+  }
+
+  .glowRingInner {
+    width: 84px;
+    height: 84px;
+  }
+
+  .knight {
+    width: 60px;
+    height: 60px;
+  }
+
+  .checkmark {
+    width: 52px;
+    height: 52px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .cornerTL,
+  .cornerTR,
+  .cornerBL,
+  .cornerBR {
+    width: 60px;
+    height: 60px;
+
+    &::before { width: 30px; }
+    &::after { height: 30px; }
+  }
+
+  .cornerTL { top: 16px; inset-inline-start: 16px; }
+  .cornerTR { top: 16px; inset-inline-end: 16px; }
+  .cornerBL { bottom: 16px; inset-inline-start: 16px; }
+  .cornerBR { bottom: 16px; inset-inline-end: 16px; }
+}
+
+// Tablet
+@media (min-width: 481px) and (max-width: 768px) {
+  .content {
+    padding: 40px 32px;
+  }
+}
+
+// Large screens
+@media (min-width: 1200px) {
+  .pieceContainer {
+    width: 160px;
+    height: 160px;
+  }
+
+  .glowRing {
+    width: 160px;
+    height: 160px;
+  }
+
+  .glowRingInner {
+    width: 116px;
+    height: 116px;
+  }
+
+  .knight {
+    width: 84px;
+    height: 84px;
+  }
+
+  .checkmark {
+    width: 72px;
+    height: 72px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+}
+
+// Reduced motion preference
+@media (prefers-reduced-motion: reduce) {
+  .overlay {
+    animation: none;
+  }
+
+  .content {
+    animation: none;
+  }
+
+  .glowRing,
+  .glowRingInner {
+    animation: none;
+  }
+
+  .knightWrapper {
+    animation: none;
+  }
+
+  .preparingText {
+    animation: none;
+    opacity: 0.7;
+  }
+
+  .fadeOut {
+    animation: none;
+    opacity: 0;
+  }
+}
