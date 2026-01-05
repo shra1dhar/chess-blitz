@@ -1,11 +1,14 @@
 // ==============================================
 // Chess Blitz - Draw Claim Banner
 // Banner for claiming draws (50-move or threefold)
+// Uses React Activity for state preservation
 // ==============================================
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { Activity } from 'react';
+import { useActivityAnimation } from '@/hooks/useActivityAnimation';
 import type { DrawClaimType } from '@/hooks/useMultiplayer';
 import styles from './DrawClaimBanner.module.scss';
 
@@ -143,75 +146,70 @@ const CLAIM_INFO = {
 };
 
 export function DrawClaimBanner({ claimType, onClaim }: DrawClaimBannerProps) {
-  const [shouldRender, setShouldRender] = useState(claimType !== 'none');
-  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+  const isVisible = claimType !== 'none';
+  const { activityMode, isAnimatingOut, hasBeenVisible } = useActivityAnimation({ isVisible });
   const [showTooltip, setShowTooltip] = useState(false);
 
-  useEffect(() => {
-    if (claimType !== 'none') {
-      setShouldRender(true);
-      setIsAnimatingOut(false);
-    } else if (shouldRender) {
-      setIsAnimatingOut(true);
-      const timer = setTimeout(() => {
-        setShouldRender(false);
-        setIsAnimatingOut(false);
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [claimType, shouldRender]);
-
-  if (!shouldRender || claimType === 'none') return null;
-
-  const info = CLAIM_INFO[claimType];
+  // Use current claimType if visible, otherwise use default for hidden content
+  const currentClaimType = claimType !== 'none' ? claimType : 'fifty_move';
+  const info = CLAIM_INFO[currentClaimType];
   const Icon = info.Icon;
 
   const handleClaim = () => {
-    onClaim(claimType as 'fifty_move' | 'threefold_repetition');
+    if (claimType !== 'none') {
+      onClaim(claimType);
+    }
   };
 
-  return (
-    <div
-      className={`${styles.banner} ${isAnimatingOut ? styles.animateOut : styles.animateIn}`}
-      role="alert"
-      aria-live="polite"
-    >
-      <div className={styles.content}>
-        <div className={styles.iconWrapper}>
-          <Icon className={styles.icon} />
-        </div>
-        <div className={styles.textSection}>
-          <div className={styles.titleRow}>
-            <span className={styles.title}>{info.title}</span>
-            <button
-              className={styles.infoButton}
-              onClick={() => setShowTooltip(!showTooltip)}
-              onMouseEnter={() => setShowTooltip(true)}
-              onMouseLeave={() => setShowTooltip(false)}
-              type="button"
-              aria-label="More information"
-            >
-              <InfoIcon className={styles.infoIcon} />
-            </button>
-            {showTooltip && (
-              <div className={styles.tooltip} role="tooltip">
-                {info.tooltip}
-              </div>
-            )}
-          </div>
-          <span className={styles.subtitle}>{info.subtitle}</span>
-        </div>
-      </div>
+  // Don't render anything until first shown (avoid rendering hidden placeholder)
+  if (!hasBeenVisible && !isVisible) {
+    return null;
+  }
 
-      <button
-        className={styles.claimButton}
-        onClick={handleClaim}
-        type="button"
+  return (
+    <Activity mode={activityMode}>
+      <div
+        className={`${styles.banner} ${isAnimatingOut ? styles.animateOut : styles.animateIn}`}
+        role="alert"
+        aria-live="polite"
       >
-        <ClaimIcon className={styles.claimIcon} />
-        <span>Claim Draw</span>
-      </button>
-    </div>
+        <div className={styles.content}>
+          <div className={styles.iconWrapper}>
+            <Icon className={styles.icon} />
+          </div>
+          <div className={styles.textSection}>
+            <div className={styles.titleRow}>
+              <span className={styles.title}>{info.title}</span>
+              <button
+                className={styles.infoButton}
+                onClick={() => setShowTooltip(!showTooltip)}
+                onMouseEnter={() => setShowTooltip(true)}
+                onMouseLeave={() => setShowTooltip(false)}
+                type="button"
+                aria-label="More information"
+              >
+                <InfoIcon className={styles.infoIcon} />
+              </button>
+              {showTooltip && (
+                <div className={styles.tooltip} role="tooltip">
+                  {info.tooltip}
+                </div>
+              )}
+            </div>
+            <span className={styles.subtitle}>{info.subtitle}</span>
+          </div>
+        </div>
+
+        <button
+          className={styles.claimButton}
+          onClick={handleClaim}
+          type="button"
+        >
+          <ClaimIcon className={styles.claimIcon} />
+          <span>Claim Draw</span>
+        </button>
+      </div>
+    </Activity>
   );
 }
 

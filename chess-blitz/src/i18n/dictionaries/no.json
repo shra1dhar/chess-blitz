@@ -57,6 +57,7 @@
   "play": {
     "back": "Tilbake",
     "loading": "Laster sjakkmotor...",
+    "connectingToGame": "Kobler til spillet...",
     "stockfish": "Sjakkbot",
     "you": "Du",
     "yourTurn": "Din tur",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "Ditt remistilbud ble avslått",
+    "offered": "Remis tilbudt",
+    "opponentOffers": "Motstanderen din tilbyr remis",
+    "accept": "Godta",
+    "decline": "Avslå"
   }
 }

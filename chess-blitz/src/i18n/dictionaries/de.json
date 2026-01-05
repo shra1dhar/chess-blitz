@@ -57,6 +57,7 @@
   "play": {
     "back": "Zurück",
     "loading": "Schach-Engine wird geladen...",
+    "connectingToGame": "Verbindung zum Spiel wird hergestellt...",
     "stockfish": "Schach-Bot",
     "you": "Du",
     "yourTurn": "Du bist dran",
@@ -152,5 +153,12 @@
     "accept": "Akzeptieren",
     "decline": "Ablehnen",
     "waitingForOpponent": "Warte auf Gegner..."
+  },
+  "draw": {
+    "offerDeclined": "Dein Remisangebot wurde abgelehnt",
+    "offered": "Remis angeboten",
+    "opponentOffers": "Dein Gegner bietet Remis an",
+    "accept": "Annehmen",
+    "decline": "Ablehnen"
   }
 }

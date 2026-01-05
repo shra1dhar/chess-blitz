@@ -57,6 +57,7 @@
   "play": {
     "back": "Indietro",
     "loading": "Caricamento motore scacchi...",
+    "connectingToGame": "Connessione al gioco...",
     "stockfish": "Bot di Scacchi",
     "you": "Tu",
     "yourTurn": "Tocca a te",
@@ -152,5 +153,12 @@
     "accept": "Accetta",
     "decline": "Rifiuta",
     "waitingForOpponent": "In attesa dell'avversario..."
+  },
+  "draw": {
+    "offerDeclined": "La tua offerta di patta è stata rifiutata",
+    "offered": "Patta offerta",
+    "opponentOffers": "Il tuo avversario offre la patta",
+    "accept": "Accetta",
+    "decline": "Rifiuta"
   }
 }

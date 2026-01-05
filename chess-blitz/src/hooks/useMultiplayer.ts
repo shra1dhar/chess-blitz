@@ -179,7 +179,13 @@ function getBackendWsUrl(): string {
   return 'ws://localhost:8787';
 }
 
-export function useMultiplayer(): UseMultiplayerReturn {
+interface UseMultiplayerOptions {
+  /** Dictionary for localized notifications (optional) */
+  dict?: { offerDeclined: string };
+}
+
+export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultiplayerReturn {
+  const { dict } = options;
   // Get auth and game state from store - use useShallow for object selectors to avoid infinite loops
   const token = useMultiplayerStore(selectToken);
   const currentGame = useMultiplayerStore(
@@ -225,6 +231,7 @@ export function useMultiplayer(): UseMultiplayerReturn {
   // Refs
   const pendingGameConnectionRef = useRef<{ gameId: string; color: Color } | null>(null);
   const isBotGameRef = useRef(false);
+  const drawOfferedByMeRef = useRef(false);
 
   // Settings
   const { soundEnabled } = useSettingsStore();
@@ -360,12 +367,18 @@ export function useMultiplayer(): UseMultiplayerReturn {
           (playerColor === 'w' && message.by === 'white') ||
           (playerColor === 'b' && message.by === 'black');
         setDrawOfferedByMe(isMyOffer);
+        drawOfferedByMeRef.current = isMyOffer;
         break;
       }
 
       case ServerMessageType.DrawDeclined:
+        // Show notification if my draw offer was declined
+        if (drawOfferedByMeRef.current && dict) {
+          toast(dict.offerDeclined, { icon: '🤝' });
+        }
         setDrawOffered(false);
         setDrawOfferedByMe(false);
+        drawOfferedByMeRef.current = false;
         break;
 
       case ServerMessageType.DrawClaimAvailable:

@@ -57,6 +57,7 @@
   "play": {
     "back": "Orqaga",
     "loading": "Shaxmat dvigateli yuklanmoqda...",
+    "connectingToGame": "O'yinga ulanmoqda...",
     "stockfish": "Shaxmat Boti",
     "you": "Siz",
     "yourTurn": "Sizning navbatingiz",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "Durang taklifingiz rad etildi",
+    "offered": "Durang taklif qilindi",
+    "opponentOffers": "Raqibingiz durang taklif qilmoqda",
+    "accept": "Qabul qilish",
+    "decline": "Rad etish"
   }
 }

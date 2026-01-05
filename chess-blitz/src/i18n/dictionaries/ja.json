@@ -57,6 +57,7 @@
   "play": {
     "back": "戻る",
     "loading": "チェスエンジンを読み込み中...",
+    "connectingToGame": "ゲームに接続中...",
     "stockfish": "チェスボット",
     "you": "あなた",
     "yourTurn": "あなたの番",
@@ -152,5 +153,12 @@
     "accept": "承諾",
     "decline": "拒否",
     "waitingForOpponent": "相手を待っています..."
+  },
+  "draw": {
+    "offerDeclined": "ドローの申し出は拒否されました",
+    "offered": "ドローの申し出",
+    "opponentOffers": "相手がドローを申し出ています",
+    "accept": "承諾",
+    "decline": "拒否"
   }
 }

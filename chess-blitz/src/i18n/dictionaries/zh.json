@@ -57,6 +57,7 @@
   "play": {
     "back": "返回",
     "loading": "正在加载国际象棋引擎...",
+    "connectingToGame": "正在连接游戏...",
     "stockfish": "象棋机器人",
     "you": "你",
     "yourTurn": "轮到你了",
@@ -152,5 +153,12 @@
     "accept": "接受",
     "decline": "拒绝",
     "waitingForOpponent": "等待对手..."
+  },
+  "draw": {
+    "offerDeclined": "您的和棋提议被拒绝",
+    "offered": "提议和棋",
+    "opponentOffers": "对手提议和棋",
+    "accept": "接受",
+    "decline": "拒绝"
   }
 }

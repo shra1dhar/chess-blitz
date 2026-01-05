@@ -57,6 +57,7 @@
   "play": {
     "back": "Назад",
     "loading": "Зареждане на шахматния двигател...",
+    "connectingToGame": "Свързване към играта...",
     "stockfish": "Шах Бот",
     "you": "Ти",
     "yourTurn": "Твой ход",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "Вашето предложение за реми беше отхвърлено",
+    "offered": "Предложено реми",
+    "opponentOffers": "Противникът ви предлага реми",
+    "accept": "Приемам",
+    "decline": "Отказвам"
   }
 }

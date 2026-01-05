@@ -57,6 +57,7 @@
   "play": {
     "back": "Vissza",
     "loading": "Sakkmotor betöltése...",
+    "connectingToGame": "Csatlakozás a játékhoz...",
     "stockfish": "Sakk Bot",
     "you": "Te",
     "yourTurn": "Te jössz",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "Döntetlen ajánlatodat elutasították",
+    "offered": "Döntetlen ajánlva",
+    "opponentOffers": "Ellenfeled döntetlent ajánl",
+    "accept": "Elfogad",
+    "decline": "Elutasít"
   }
 }

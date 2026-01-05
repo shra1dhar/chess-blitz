@@ -57,6 +57,7 @@
   "play": {
     "back": "Back",
     "loading": "Loading chess engine...",
+    "connectingToGame": "Connecting to game...",
     "stockfish": "Chess Bot",
     "you": "You",
     "yourTurn": "Your turn",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "Your draw offer was declined",
+    "offered": "Draw Offered",
+    "opponentOffers": "Your opponent offers a draw",
+    "accept": "Accept",
+    "decline": "Decline"
   }
 }

@@ -57,6 +57,7 @@
   "play": {
     "back": "Kembali",
     "loading": "Memuat mesin catur...",
+    "connectingToGame": "Menghubungkan ke permainan...",
     "stockfish": "Bot Catur",
     "you": "Kamu",
     "yourTurn": "Giliranmu",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "Tawaran seri Anda ditolak",
+    "offered": "Seri ditawarkan",
+    "opponentOffers": "Lawan Anda menawarkan seri",
+    "accept": "Terima",
+    "decline": "Tolak"
   }
 }

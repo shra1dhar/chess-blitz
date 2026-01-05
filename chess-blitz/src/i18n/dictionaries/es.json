@@ -57,6 +57,7 @@
   "play": {
     "back": "Atrás",
     "loading": "Cargando motor de ajedrez...",
+    "connectingToGame": "Conectando al juego...",
     "stockfish": "Bot de Ajedrez",
     "you": "Tú",
     "yourTurn": "Tu turno",
@@ -152,5 +153,12 @@
     "accept": "Aceptar",
     "decline": "Rechazar",
     "waitingForOpponent": "Esperando al oponente..."
+  },
+  "draw": {
+    "offerDeclined": "Tu oferta de tablas fue rechazada",
+    "offered": "Tablas ofrecidas",
+    "opponentOffers": "Tu oponente ofrece tablas",
+    "accept": "Aceptar",
+    "decline": "Rechazar"
   }
 }

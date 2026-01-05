@@ -13,6 +13,7 @@ import type { Dictionary } from '@/i18n/dictionaries';
 import type { Locale } from '@/i18n/config';
 import { useMultiplayer } from '@/hooks/useMultiplayer';
 import { useSettingsStore } from '@/stores/settingsStore';
+import { useMultiplayerStore } from '@/stores/multiplayerStore';
 import { useMSNAudioSync } from '@/hooks/useSound';
 import { useGameClock } from '@/hooks/useGameClock';
 import { useGameOverModal, useGameOverEscapeKey } from '@/hooks/useGameOverModal';
@@ -41,11 +42,16 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
 
   const { theme, showLegalMoves, animationSpeed } = useSettingsStore();
 
+  // Get auth state from store - needed for reconnection after page refresh
+  const token = useMultiplayerStore((s) => s.token);
+  const currentGameId = useMultiplayerStore((s) => s.currentGameId);
+  const initializeSession = useMultiplayerStore((s) => s.initializeSession);
+
   // Sync with MSN audio state
   useMSNAudioSync();
 
   // Multiplayer state from hook
-  const multiplayer = useMultiplayer();
+  const multiplayer = useMultiplayer({ dict: dict.draw });
 
   // Real-time clock countdown
   const displayTimes = useGameClock({
@@ -56,13 +62,19 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
     isPlaying: multiplayer.matchState === 'playing',
   });
 
-  // Initialize game connection on mount
+  // Initialize session on mount - restores token from localStorage for reconnection
   useEffect(() => {
-    if (!isInitialized) {
+    initializeSession();
+  }, [initializeSession]);
+
+  // Initialize game connection after session is ready
+  // Wait for token AND matching game data (restored from localStorage after page refresh)
+  useEffect(() => {
+    if (!isInitialized && token && currentGameId === gameId) {
       multiplayer.joinGame(gameId);
       setIsInitialized(true);
     }
-  }, [isInitialized, gameId, multiplayer.joinGame]);
+  }, [isInitialized, token, currentGameId, gameId, multiplayer.joinGame]);
 
   // Update chess instance when FEN changes
   useEffect(() => {
@@ -139,7 +151,7 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
   if (!multiplayer.gameState || multiplayer.connectionStatus === 'connecting') {
     return (
       <LoadingScreen
-        message={multiplayer.connectionStatus === 'connecting' ? 'Connecting to game...' : dict.play.loading}
+        message={multiplayer.connectionStatus === 'connecting' ? dict.play.connectingToGame : dict.play.loading}
       />
     );
   }
@@ -283,6 +295,7 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
             isVisible={multiplayer.drawOffered && !multiplayer.drawOfferedByMe}
             onAccept={multiplayer.acceptDraw}
             onDecline={multiplayer.declineDraw}
+            dict={dict.draw}
           />
           <DisconnectOverlay
             isVisible={multiplayer.opponentDisconnected}

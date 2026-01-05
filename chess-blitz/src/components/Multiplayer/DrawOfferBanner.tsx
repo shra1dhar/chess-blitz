@@ -1,17 +1,21 @@
 // ==============================================
 // Chess Blitz - Draw Offer Banner
 // Non-blocking notification when opponent offers draw
+// Uses React Activity for state preservation
 // ==============================================
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Activity } from 'react';
+import { useActivityAnimation } from '@/hooks/useActivityAnimation';
+import type { Dictionary } from '@/i18n/dictionaries';
 import styles from './DrawOfferBanner.module.scss';
 
 interface DrawOfferBannerProps {
   isVisible: boolean;
   onAccept: () => void;
   onDecline: () => void;
+  dict: Dictionary['draw'];
 }
 
 // Handshake icon
@@ -79,39 +83,24 @@ export function DrawOfferBanner({
   isVisible,
   onAccept,
   onDecline,
+  dict,
 }: DrawOfferBannerProps) {
-  const [shouldRender, setShouldRender] = useState(isVisible);
-  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
-
-  useEffect(() => {
-    if (isVisible) {
-      setShouldRender(true);
-      setIsAnimatingOut(false);
-    } else if (shouldRender) {
-      setIsAnimatingOut(true);
-      const timer = setTimeout(() => {
-        setShouldRender(false);
-        setIsAnimatingOut(false);
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [isVisible, shouldRender]);
-
-  if (!shouldRender) return null;
+  const { activityMode, isAnimatingOut } = useActivityAnimation({ isVisible });
 
   return (
-    <div
-      className={`${styles.banner} ${isAnimatingOut ? styles.animateOut : styles.animateIn}`}
-      role="alert"
-      aria-live="polite"
-    >
+    <Activity mode={activityMode}>
+      <div
+        className={`${styles.banner} ${isAnimatingOut ? styles.animateOut : styles.animateIn}`}
+        role="alert"
+        aria-live="polite"
+      >
       <div className={styles.content}>
         <div className={styles.iconWrapper}>
           <HandshakeIcon className={styles.icon} />
         </div>
         <div className={styles.textSection}>
-          <span className={styles.title}>Draw Offered</span>
-          <span className={styles.subtitle}>Your opponent offers a draw</span>
+          <span className={styles.title}>{dict.offered}</span>
+          <span className={styles.subtitle}>{dict.opponentOffers}</span>
         </div>
       </div>
 
@@ -120,22 +109,23 @@ export function DrawOfferBanner({
           className={`${styles.button} ${styles.acceptButton}`}
           onClick={onAccept}
           type="button"
-          aria-label="Accept draw"
+          aria-label={dict.accept}
         >
           <CheckIcon className={styles.buttonIcon} />
-          <span>Accept</span>
+          <span>{dict.accept}</span>
         </button>
         <button
           className={`${styles.button} ${styles.declineButton}`}
           onClick={onDecline}
           type="button"
-          aria-label="Decline draw"
+          aria-label={dict.decline}
         >
           <XIcon className={styles.buttonIcon} />
-          <span>Decline</span>
+          <span>{dict.decline}</span>
         </button>
       </div>
-    </div>
+      </div>
+    </Activity>
   );
 }
 

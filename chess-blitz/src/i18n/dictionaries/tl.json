@@ -57,6 +57,7 @@
   "play": {
     "back": "Bumalik",
     "loading": "Nilo-load ang chess engine...",
+    "connectingToGame": "Kumokonekta sa laro...",
     "stockfish": "Chess Bot",
     "you": "Ikaw",
     "yourTurn": "Iyong turn",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "Tinanggihan ang iyong alok ng draw",
+    "offered": "Draw Inaalok",
+    "opponentOffers": "Nag-aalok ng draw ang iyong kalaban",
+    "accept": "Tanggapin",
+    "decline": "Tanggihan"
   }
 }

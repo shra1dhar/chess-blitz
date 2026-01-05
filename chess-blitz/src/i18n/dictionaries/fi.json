@@ -57,6 +57,7 @@
   "play": {
     "back": "Takaisin",
     "loading": "Ladataan shakkimoottoria...",
+    "connectingToGame": "Yhdistetään peliin...",
     "stockfish": "Shakkibotti",
     "you": "Sinä",
     "yourTurn": "Sinun vuorosi",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "Tasapelitarjouksesi hylättiin",
+    "offered": "Tasapeli tarjottu",
+    "opponentOffers": "Vastustajasi tarjoaa tasapeliä",
+    "accept": "Hyväksy",
+    "decline": "Hylkää"
   }
 }

@@ -57,6 +57,7 @@
   "play": {
     "back": "Tillbaka",
     "loading": "Laddar schackmotor...",
+    "connectingToGame": "Ansluter till spelet...",
     "stockfish": "Schackbot",
     "you": "Du",
     "yourTurn": "Din tur",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "Ditt remierbjudande avslogs",
+    "offered": "Remi erbjudet",
+    "opponentOffers": "Din motståndare erbjuder remi",
+    "accept": "Acceptera",
+    "decline": "Avböj"
   }
 }

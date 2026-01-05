@@ -57,6 +57,7 @@
   "play": {
     "back": "Späť",
     "loading": "Načítava sa šachový engine...",
+    "connectingToGame": "Pripájanie k hre...",
     "stockfish": "Šachový Bot",
     "you": "Ty",
     "yourTurn": "Si na ťahu",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "Vaša ponuka remízy bola odmietnutá",
+    "offered": "Ponúknutá remíza",
+    "opponentOffers": "Súper ponúka remízu",
+    "accept": "Prijať",
+    "decline": "Odmietnuť"
   }
 }

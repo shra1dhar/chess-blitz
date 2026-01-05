@@ -57,6 +57,7 @@
   "play": {
     "back": "পিছনে",
     "loading": "দাবা ইঞ্জিন লোড হচ্ছে...",
+    "connectingToGame": "গেমে সংযোগ করা হচ্ছে...",
     "stockfish": "চেস বট",
     "you": "আপনি",
     "yourTurn": "আপনার পালা",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "আপনার ড্র অফার প্রত্যাখ্যান করা হয়েছে",
+    "offered": "ড্র অফার করা হয়েছে",
+    "opponentOffers": "আপনার প্রতিপক্ষ ড্র অফার করেছে",
+    "accept": "গ্রহণ করুন",
+    "decline": "প্রত্যাখ্যান করুন"
   }
 }

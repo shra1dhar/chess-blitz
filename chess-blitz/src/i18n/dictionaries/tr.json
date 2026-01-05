@@ -57,6 +57,7 @@
   "play": {
     "back": "Geri",
     "loading": "Satranç motoru yükleniyor...",
+    "connectingToGame": "Oyuna bağlanıyor...",
     "stockfish": "Satranç Botu",
     "you": "Sen",
     "yourTurn": "Senin sıran",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "Beraberlik teklifiniz reddedildi",
+    "offered": "Beraberlik teklif edildi",
+    "opponentOffers": "Rakibiniz beraberlik teklif ediyor",
+    "accept": "Kabul et",
+    "decline": "Reddet"
   }
 }

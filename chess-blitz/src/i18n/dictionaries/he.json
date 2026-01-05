@@ -57,6 +57,7 @@
   "play": {
     "back": "חזור",
     "loading": "טוען מנוע שחמט...",
+    "connectingToGame": "מתחבר למשחק...",
     "stockfish": "בוט שחמט",
     "you": "אתה",
     "yourTurn": "תורך",
@@ -152,5 +153,12 @@
     "accept": "קבל",
     "decline": "דחה",
     "waitingForOpponent": "ממתין ליריב..."
+  },
+  "draw": {
+    "offerDeclined": "הצעת התיקו שלך נדחתה",
+    "offered": "הוצע תיקו",
+    "opponentOffers": "היריב שלך מציע תיקו",
+    "accept": "קבל",
+    "decline": "דחה"
   }
 }

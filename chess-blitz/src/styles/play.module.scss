@@ -568,17 +568,18 @@
   align-items: center;
 }
 
-// Control Button (mobile - icon only)
+// Control Button (mobile - icon + text)
 .controlButton {
   @include flex-center;
-  min-width: 44px;
   min-height: 44px;
-  padding: $spacing-sm;
+  padding: $spacing-sm $spacing-md;
   margin: 0 $spacing-xs;
-  border: none;
+  border: 1px solid var(--ui-border);
   border-radius: $radius-md;
   background: var(--ui-bg-secondary);
   color: var(--ui-text-secondary);
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
   cursor: pointer;
   -webkit-transition: all $transition-fast;
   transition: all $transition-fast;
@@ -587,6 +588,7 @@
   &:hover:not(:disabled) {
     background: var(--ui-bg-tertiary);
     color: var(--ui-text-primary);
+    border-color: var(--ui-text-muted);
   }
 
   &:active:not(:disabled) {
@@ -600,30 +602,32 @@
   }
 
   svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
+    margin-inline-end: $spacing-xs;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
   }
 
-  // Smaller buttons for constrained heights
+  // Slightly smaller buttons for constrained heights
   @include constrained-height {
-    min-width: 40px;
     min-height: 40px;
-    padding: $spacing-xs;
+    padding: $spacing-xs $spacing-sm;
     margin: 0 2px;
-
-    svg {
-      width: 18px;
-      height: 18px;
-    }
-  }
-
-  @include short-viewport {
-    min-width: 36px;
-    min-height: 36px;
+    font-size: $font-size-xs;
 
     svg {
       width: 16px;
       height: 16px;
+    }
+  }
+
+  @include short-viewport {
+    min-height: 36px;
+
+    svg {
+      width: 14px;
+      height: 14px;
     }
   }
 }
@@ -743,15 +747,25 @@
 
 // Mobile control button variants
 .controlButtonDraw {
+  border-color: rgba($brand-secondary, 0.3);
+
   svg {
     color: $brand-secondary;
   }
 
   &:hover:not(:disabled) {
-    background: rgba($brand-secondary, 0.15);
+    border-color: $brand-secondary;
+    background: rgba($brand-secondary, 0.08);
+
+    svg {
+      color: $brand-secondary;
+    }
   }
 
   &:disabled {
+    border-color: rgba($brand-secondary, 0.2);
+    color: var(--ui-text-muted);
+
     svg {
       color: var(--ui-text-muted);
     }
@@ -759,13 +773,17 @@
 }
 
 .controlButtonResign {
+  border-color: rgba($color-error, 0.2);
+
   svg {
     color: $color-error;
     opacity: 0.7;
   }
 
   &:hover:not(:disabled) {
-    background: rgba($color-error, 0.15);
+    border-color: $color-error;
+    background: rgba($color-error, 0.08);
+    color: $color-error;
 
     svg {
       opacity: 1;

@@ -217,6 +217,57 @@ pnpm --filter @chess-blitz/shared build
    const dict = use(dictPromise);
    ```
 
+4. **React Activity for state-preserving visibility**
+   - Use `Activity` component (React 19+) for toggling visibility while preserving state
+   - Unlike conditional rendering, Activity keeps DOM and state intact when hidden
+   - Effects are cleaned up when hidden, re-mounted when visible
+   - Already implemented in: `HomeInteractive`, `GameOverModal`, `MatchmakingOverlay`, `DrawOfferBanner`, `DisconnectOverlay`, `DrawClaimBanner`
+   ```typescript
+   import { Activity } from 'react';
+
+   // Basic usage - preserves MyComponent state when hidden
+   <Activity mode={isVisible ? 'visible' : 'hidden'}>
+     <MyComponent />
+   </Activity>
+
+   // Dual Activity pattern (modal + reopen button)
+   <>
+     <Activity mode={isDismissed ? 'hidden' : 'visible'}>
+       <Modal />
+     </Activity>
+     <Activity mode={isDismissed ? 'visible' : 'hidden'}>
+       <ReopenButton />
+     </Activity>
+   </>
+   ```
+
+5. **`useActivityAnimation` hook for animated Activity transitions**
+   - Located in `src/hooks/useActivityAnimation.ts`
+   - Keeps Activity visible during CSS exit animations (Activity uses `display: none` immediately)
+   - Use when components have slide-out or fade-out animations
+   ```typescript
+   import { Activity } from 'react';
+   import { useActivityAnimation } from '@/hooks/useActivityAnimation';
+
+   function AnimatedOverlay({ isVisible }) {
+     const { activityMode, isAnimatingOut, hasBeenVisible } = useActivityAnimation({
+       isVisible,
+       animationDuration: 300
+     });
+
+     // Don't render until first shown (lazy initial render)
+     if (!hasBeenVisible && !isVisible) return null;
+
+     return (
+       <Activity mode={activityMode}>
+         <div className={isAnimatingOut ? styles.animateOut : styles.animateIn}>
+           {/* content */}
+         </div>
+       </Activity>
+     );
+   }
+   ```
+
 ### macOS Development
 
 1. **`timeout` command doesn't exist on macOS**
@@ -281,7 +332,7 @@ src/
 │   ├── Toast/             # ToastProvider
 │   ├── Tournament/        # TournamentLobby, MatchmakingOverlay
 │   └── UI/                # Reusable UI components
-├── hooks/                 # useChessGame, useMultiplayer, useWebSocket, useGameClock, etc.
+├── hooks/                 # useChessGame, useMultiplayer, useWebSocket, useGameClock, useActivityAnimation, etc.
 ├── i18n/
 │   └── dictionaries/      # 34 language JSON files
 ├── middleware.ts          # Edge middleware for locale routing

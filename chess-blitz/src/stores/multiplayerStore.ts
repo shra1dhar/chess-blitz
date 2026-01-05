@@ -296,6 +296,11 @@ export const useMultiplayerStore = create<MultiplayerState>()(
         wins: state.wins,
         losses: state.losses,
         draws: state.draws,
+        // Persist game data for reconnection support (e.g., page refresh during game)
+        currentGameId: state.currentGameId,
+        currentPlayerColor: state.currentPlayerColor,
+        currentOpponent: state.currentOpponent,
+        currentTournamentType: state.currentTournamentType,
       }),
       // Skip hydration to prevent SSR mismatch - rehydrate manually on client
       skipHydration: true,

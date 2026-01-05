@@ -3,9 +3,11 @@
 // ==============================================
 // Chess Blitz - Home Interactive Component
 // Client-side interactions for homepage
+// Uses React Activity for state preservation
 // ==============================================
 
 import { useState, useEffect } from 'react';
+import { Activity } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import type { Dictionary } from '@/i18n/dictionaries';
 import type { Locale } from '@/i18n/config';
@@ -90,24 +92,25 @@ export function HomeInteractive({ dict }: HomeInteractiveProps) {
       </div>
 
       <div className={styles.container}>
-        {/* Mode Selection - shown when no mode selected */}
-        {gameMode === null && (
+        {/* Mode Selection - always rendered, visibility controlled by Activity */}
+        <Activity mode={gameMode === null ? 'visible' : 'hidden'}>
           <ModeSelector
             onSelect={handleModeSelect}
             isHidden={isTransitioning}
             dict={dict}
           />
-        )}
+        </Activity>
 
-        {/* Game Options - shown when AI mode selected */}
-        {gameMode === 'ai' && (
+        {/* Game Options - always rendered, visibility controlled by Activity */}
+        {/* State (color/difficulty selections) is preserved when switching back */}
+        <Activity mode={gameMode === 'ai' ? 'visible' : 'hidden'}>
           <GameOptionsPanel
             onBack={handleBack}
             isHidden={isTransitioning}
             dict={dict}
             hideBackButton
           />
-        )}
+        </Activity>
       </div>
     </>
   );

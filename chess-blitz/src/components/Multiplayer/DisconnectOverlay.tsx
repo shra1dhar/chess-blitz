@@ -1,11 +1,14 @@
 // ==============================================
 // Chess Blitz - Disconnect Banner
 // Non-blocking notification when opponent disconnects
+// Uses React Activity for state preservation
 // ==============================================
 
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Activity } from 'react';
+import { useActivityAnimation } from '@/hooks/useActivityAnimation';
 import styles from './DisconnectOverlay.module.scss';
 
 interface DisconnectOverlayProps {
@@ -90,28 +93,20 @@ export function DisconnectOverlay({
   countdown,
   opponentName = 'Opponent',
 }: DisconnectOverlayProps) {
-  const [shouldRender, setShouldRender] = useState(isVisible);
-  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
 
+  // Combine visibility with dismiss state for the Activity
+  const effectiveVisibility = isVisible && !isDismissed;
+  const { activityMode, isAnimatingOut, hasBeenVisible } = useActivityAnimation({
+    isVisible: effectiveVisibility,
+  });
+
+  // Reset dismissed state when parent visibility changes to true
   useEffect(() => {
     if (isVisible) {
-      setShouldRender(true);
-      setIsAnimatingOut(false);
-      // Reset dismissed state when visibility changes
       setIsDismissed(false);
-    } else if (shouldRender) {
-      setIsAnimatingOut(true);
-      const timer = setTimeout(() => {
-        setShouldRender(false);
-        setIsAnimatingOut(false);
-      }, 300);
-      return () => clearTimeout(timer);
     }
-  }, [isVisible, shouldRender]);
-
-  // Don't render if dismissed or shouldn't render
-  if (!shouldRender || isDismissed) return null;
+  }, [isVisible]);
 
   // Calculate progress for visual indicator (30 second countdown)
   const progress = countdown !== null ? (countdown / 30) * 100 : 0;
@@ -122,12 +117,18 @@ export function DisconnectOverlay({
     setIsDismissed(true);
   };
 
+  // Don't render anything until first shown
+  if (!hasBeenVisible && !effectiveVisibility) {
+    return null;
+  }
+
   return (
-    <div
-      className={`${styles.banner} ${isAnimatingOut ? styles.animateOut : styles.animateIn} ${isUrgent ? styles.urgent : ''}`}
-      role="alert"
-      aria-live="assertive"
-    >
+    <Activity mode={activityMode}>
+      <div
+        className={`${styles.banner} ${isAnimatingOut ? styles.animateOut : styles.animateIn} ${isUrgent ? styles.urgent : ''}`}
+        role="alert"
+        aria-live="assertive"
+      >
       <div className={styles.content}>
         <div className={styles.iconWrapper}>
           <WifiOffIcon className={styles.icon} />
@@ -171,7 +172,8 @@ export function DisconnectOverlay({
       >
         <XIcon className={styles.dismissIcon} />
       </button>
-    </div>
+      </div>
+    </Activity>
   );
 }
 

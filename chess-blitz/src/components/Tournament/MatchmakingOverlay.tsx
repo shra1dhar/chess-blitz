@@ -1,11 +1,14 @@
 // ==============================================
 // Chess Blitz - Matchmaking Overlay
 // Premium chess-themed matchmaking experience
+// Uses React Activity for state preservation
 // ==============================================
 
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
+import { Activity } from 'react';
+import { useActivityAnimation } from '@/hooks/useActivityAnimation';
 import type { Color } from 'chess.js';
 import type { MatchState, PlayerInfo } from '@/types/multiplayer';
 import type { Dictionary } from '@/i18n/dictionaries';
@@ -91,16 +94,21 @@ export function MatchmakingOverlay({
   onCancel,
   dict,
 }: MatchmakingOverlayProps) {
-  const [isVisible, setIsVisible] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [ellipsis, setEllipsis] = useState('');
 
   const t = dict.tournament;
 
-  // Show overlay when queued or matched
+  // Overlay is visible when queued or matched (and not fading out)
+  const isActive = matchState === 'queued' || matchState === 'matched';
+  const { activityMode, hasBeenVisible } = useActivityAnimation({
+    isVisible: isActive && !isFadingOut,
+    animationDuration: 500, // Longer fade-out for this overlay
+  });
+
+  // Reset fading state when entering queue
   useEffect(() => {
-    if (matchState === 'queued' || matchState === 'matched') {
-      setIsVisible(true);
+    if (matchState === 'queued') {
       setIsFadingOut(false);
     }
   }, [matchState]);
@@ -142,18 +150,22 @@ export function MatchmakingOverlay({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleKeyDown]);
 
-  if (!isVisible) return null;
+  // Don't render anything until first shown
+  if (!hasBeenVisible && !isActive) {
+    return null;
+  }
 
   const isMatched = matchState === 'matched';
   const showQueuePosition = queuePosition && queuePosition > 1 && !isMatched;
 
   return (
-    <div
-      className={`${styles.overlay} ${isFadingOut ? styles.fadeOut : ''}`}
-      role="dialog"
-      aria-modal="true"
-      aria-label={isMatched ? t.matchFound : t.findingOpponent}
-    >
+    <Activity mode={activityMode}>
+      <div
+        className={`${styles.overlay} ${isFadingOut ? styles.fadeOut : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label={isMatched ? t.matchFound : t.findingOpponent}
+      >
       {/* Decorative corner elements */}
       <div className={styles.cornerTL} aria-hidden="true" />
       <div className={styles.cornerTR} aria-hidden="true" />
@@ -227,8 +239,9 @@ export function MatchmakingOverlay({
             <span className={styles.escHint}>ESC</span>
           </button>
         )}
+        </div>
       </div>
-    </div>
+    </Activity>
   );
 }
 

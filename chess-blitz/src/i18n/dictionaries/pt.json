@@ -57,6 +57,7 @@
   "play": {
     "back": "Voltar",
     "loading": "Carregando motor de xadrez...",
+    "connectingToGame": "Conectando ao jogo...",
     "stockfish": "Bot de Xadrez",
     "you": "Você",
     "yourTurn": "Sua vez",
@@ -152,5 +153,12 @@
     "accept": "Aceitar",
     "decline": "Recusar",
     "waitingForOpponent": "Aguardando oponente..."
+  },
+  "draw": {
+    "offerDeclined": "Sua oferta de empate foi recusada",
+    "offered": "Empate oferecido",
+    "opponentOffers": "Seu oponente oferece empate",
+    "accept": "Aceitar",
+    "decline": "Recusar"
   }
 }

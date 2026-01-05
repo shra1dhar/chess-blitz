@@ -57,6 +57,7 @@
   "play": {
     "back": "Назад",
     "loading": "Завантаження шахового двигуна...",
+    "connectingToGame": "Підключення до гри...",
     "stockfish": "Шаховий Бот",
     "you": "Ви",
     "yourTurn": "Ваш хід",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "Вашу пропозицію нічиєї відхилено",
+    "offered": "Запропоновано нічию",
+    "opponentOffers": "Ваш суперник пропонує нічию",
+    "accept": "Прийняти",
+    "decline": "Відхилити"
   }
 }

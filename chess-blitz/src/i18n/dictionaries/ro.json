@@ -57,6 +57,7 @@
   "play": {
     "back": "Înapoi",
     "loading": "Se încarcă motorul de șah...",
+    "connectingToGame": "Se conectează la joc...",
     "stockfish": "Bot de Șah",
     "you": "Tu",
     "yourTurn": "Rândul tău",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "Oferta ta de remiză a fost refuzată",
+    "offered": "Remiză oferită",
+    "opponentOffers": "Adversarul tău oferă remiză",
+    "accept": "Acceptă",
+    "decline": "Refuză"
   }
 }

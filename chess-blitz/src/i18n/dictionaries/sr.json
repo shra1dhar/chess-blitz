@@ -57,6 +57,7 @@
   "play": {
     "back": "Назад",
     "loading": "Учитавање шаховског мотора...",
+    "connectingToGame": "Повезивање са игром...",
     "stockfish": "Шах Бот",
     "you": "Ти",
     "yourTurn": "Твој потез",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "Ваша понуда за реми је одбијена",
+    "offered": "Понуђен реми",
+    "opponentOffers": "Противник нуди реми",
+    "accept": "Прихвати",
+    "decline": "Одбиј"
   }
 }

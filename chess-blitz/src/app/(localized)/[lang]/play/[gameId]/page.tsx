@@ -20,12 +20,13 @@ export function generateStaticParams() {
 }
 
 // Loading skeleton becomes part of the static shell
+// Note: This renders BEFORE dictionary loads, so we use a spinner-only fallback
+// The localized "Connecting to game..." message appears once MultiplayerGameClient mounts
 function GameLoading() {
   return (
     <div className={styles.loading}>
       <div className={styles.loadingContent}>
         <div className={styles.loadingSpinner} />
-        <p className={styles.loadingText}>Connecting to game...</p>
       </div>
     </div>
   );

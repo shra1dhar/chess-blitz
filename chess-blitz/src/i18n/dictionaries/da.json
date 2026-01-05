@@ -57,6 +57,7 @@
   "play": {
     "back": "Tilbage",
     "loading": "Indlæser skakmotor...",
+    "connectingToGame": "Opretter forbindelse til spillet...",
     "stockfish": "Skak Bot",
     "you": "Dig",
     "yourTurn": "Din tur",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "Dit tilbud om remis blev afvist",
+    "offered": "Remis tilbudt",
+    "opponentOffers": "Din modstander tilbyder remis",
+    "accept": "Accepter",
+    "decline": "Afvis"
   }
 }

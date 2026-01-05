@@ -57,6 +57,7 @@
   "play": {
     "back": "뒤로",
     "loading": "체스 엔진 로딩 중...",
+    "connectingToGame": "게임에 연결 중...",
     "stockfish": "체스 봇",
     "you": "당신",
     "yourTurn": "당신 차례",
@@ -152,5 +153,12 @@
     "accept": "수락",
     "decline": "거절",
     "waitingForOpponent": "상대 대기 중..."
+  },
+  "draw": {
+    "offerDeclined": "무승부 제안이 거절되었습니다",
+    "offered": "무승부 제안됨",
+    "opponentOffers": "상대방이 무승부를 제안합니다",
+    "accept": "수락",
+    "decline": "거절"
   }
 }

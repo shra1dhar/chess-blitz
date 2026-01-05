@@ -57,6 +57,7 @@
   "play": {
     "back": "رجوع",
     "loading": "جاري تحميل محرك الشطرنج...",
+    "connectingToGame": "جارٍ الاتصال باللعبة...",
     "stockfish": "روبوت الشطرنج",
     "you": "أنت",
     "yourTurn": "دورك",
@@ -152,5 +153,12 @@
     "accept": "قبول",
     "decline": "رفض",
     "waitingForOpponent": "في انتظار الخصم..."
+  },
+  "draw": {
+    "offerDeclined": "تم رفض عرض التعادل",
+    "offered": "عرض التعادل",
+    "opponentOffers": "خصمك يعرض التعادل",
+    "accept": "قبول",
+    "decline": "رفض"
   }
 }

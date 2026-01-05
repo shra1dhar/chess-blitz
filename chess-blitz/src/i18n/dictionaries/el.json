@@ -57,6 +57,7 @@
   "play": {
     "back": "Πίσω",
     "loading": "Φόρτωση μηχανής σκακιού...",
+    "connectingToGame": "Σύνδεση στο παιχνίδι...",
     "stockfish": "Ρομπότ Σκακιού",
     "you": "Εσύ",
     "yourTurn": "Η σειρά σου",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "Η πρόταση ισοπαλίας απορρίφθηκε",
+    "offered": "Πρόταση ισοπαλίας",
+    "opponentOffers": "Ο αντίπαλός σας προτείνει ισοπαλία",
+    "accept": "Αποδοχή",
+    "decline": "Απόρριψη"
   }
 }

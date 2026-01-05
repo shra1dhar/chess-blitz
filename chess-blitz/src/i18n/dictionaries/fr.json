@@ -57,6 +57,7 @@
   "play": {
     "back": "Retour",
     "loading": "Chargement du moteur d'échecs...",
+    "connectingToGame": "Connexion au jeu...",
     "stockfish": "Bot d'échecs",
     "you": "Vous",
     "yourTurn": "Votre tour",
@@ -152,5 +153,12 @@
     "accept": "Accepter",
     "decline": "Refuser",
     "waitingForOpponent": "En attente de l'adversaire..."
+  },
+  "draw": {
+    "offerDeclined": "Votre offre de nulle a été refusée",
+    "offered": "Nulle proposée",
+    "opponentOffers": "Votre adversaire propose la nulle",
+    "accept": "Accepter",
+    "decline": "Refuser"
   }
 }

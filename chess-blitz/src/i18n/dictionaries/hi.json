@@ -57,6 +57,7 @@
   "play": {
     "back": "वापस",
     "loading": "शतरंज इंजन लोड हो रहा है...",
+    "connectingToGame": "गेम से कनेक्ट हो रहा है...",
     "stockfish": "चेस बॉट",
     "you": "आप",
     "yourTurn": "आपकी बारी",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "आपका ड्रॉ ऑफर अस्वीकार कर दिया गया",
+    "offered": "ड्रॉ ऑफर किया गया",
+    "opponentOffers": "आपके प्रतिद्वंद्वी ने ड्रॉ ऑफर किया है",
+    "accept": "स्वीकार करें",
+    "decline": "अस्वीकार करें"
   }
 }

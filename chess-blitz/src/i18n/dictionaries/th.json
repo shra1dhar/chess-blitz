@@ -57,6 +57,7 @@
   "play": {
     "back": "กลับ",
     "loading": "กำลังโหลดเอนจิ้นหมากรุก...",
+    "connectingToGame": "กำลังเชื่อมต่อกับเกม...",
     "stockfish": "บอทหมากรุก",
     "you": "คุณ",
     "yourTurn": "ตาของคุณ",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "ข้อเสนอเสมอของคุณถูกปฏิเสธ",
+    "offered": "เสนอเสมอ",
+    "opponentOffers": "คู่ต่อสู้เสนอเสมอ",
+    "accept": "ยอมรับ",
+    "decline": "ปฏิเสธ"
   }
 }

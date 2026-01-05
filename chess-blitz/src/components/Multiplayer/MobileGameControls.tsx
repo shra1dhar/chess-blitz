@@ -32,6 +32,7 @@ export function MobileGameControls({
         aria-label={drawOfferedByMe ? dict.controls.drawOffered : dict.controls.offerDraw}
       >
         <HandshakeIcon />
+        <span>{drawOfferedByMe ? dict.controls.drawOffered : dict.controls.offerDraw}</span>
       </button>
       <button
         className={`${styles.controlButton} ${styles.controlButtonResign}`}
@@ -40,6 +41,7 @@ export function MobileGameControls({
         aria-label={dict.controls.resign}
       >
         <FlagIcon />
+        <span>{dict.controls.resign}</span>
       </button>
     </div>
   );

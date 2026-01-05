@@ -16,8 +16,13 @@ export interface ParsedMove {
 export function parseMovesFromPgn(pgn: string | undefined): ParsedMove[] {
   if (!pgn) return [];
 
+  // Strip PGN headers (lines like [Event "?"], [Site "?"], etc.)
+  const withoutHeaders = pgn.replace(/\[[^\]]*\]\s*/g, '').trim();
+
+  if (!withoutHeaders) return [];
+
   // Split by move numbers (e.g., "1.", "2.", etc.) and extract individual moves
-  const moveStrings = pgn
+  const moveStrings = withoutHeaders
     .split(/\d+\./)
     .filter(Boolean)
     .flatMap((m) => m.trim().split(/\s+/).filter(Boolean));

@@ -57,6 +57,7 @@
   "play": {
     "back": "Terug",
     "loading": "Schaakengine laden...",
+    "connectingToGame": "Verbinden met spel...",
     "stockfish": "Schaakbot",
     "you": "Jij",
     "yourTurn": "Jouw beurt",
@@ -152,5 +153,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "waitingForOpponent": "Waiting for opponent..."
+  },
+  "draw": {
+    "offerDeclined": "Je remise-aanbod is afgewezen",
+    "offered": "Remise aangeboden",
+    "opponentOffers": "Je tegenstander biedt remise aan",
+    "accept": "Accepteren",
+    "decline": "Weigeren"
   }
 }
