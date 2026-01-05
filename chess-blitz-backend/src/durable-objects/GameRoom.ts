@@ -603,57 +603,28 @@ export class GameRoom extends DurableObject<Env> {
   }
 
   /**
-   * Update clock and check for timeout.
+   * Check for timeout. Called by alarm at exact timeout time.
+   * No broadcasting - client interpolates clock locally between moves.
    */
   private async updateClock(): Promise<void> {
     if (!this.game || this.game.status !== "active") return;
 
-    // Skip clock update if paused due to disconnect
-    if (this.game.clockPausedAt) {
-      // Still broadcast current time so clients stay in sync
-      this.broadcastToPlayers({
-        type: ServerMessageType.ClockUpdate,
-        white: this.game.whiteTimeMs,
-        black: this.game.blackTimeMs,
-        serverTime: Date.now(),
-        turn: this.game.turn,
-        lastMoveAt: this.game.lastMoveAt,
-        paused: true,
-      });
-      return;
-    }
+    // Skip timeout check if clock is paused due to disconnect
+    if (this.game.clockPausedAt) return;
 
     const now = Date.now();
     const elapsed = now - this.game.lastMoveAt;
 
-    // Deduct time from current player
+    // Check for timeout (no state mutation, no broadcast)
     if (this.game.turn === "white") {
-      this.game.whiteTimeMs = Math.max(0, this.game.whiteTimeMs - elapsed);
-      if (this.game.whiteTimeMs <= 0) {
+      if (this.game.whiteTimeMs - elapsed <= 0) {
         await this.handleTimeout("white");
-        return;
       }
     } else {
-      this.game.blackTimeMs = Math.max(0, this.game.blackTimeMs - elapsed);
-      if (this.game.blackTimeMs <= 0) {
+      if (this.game.blackTimeMs - elapsed <= 0) {
         await this.handleTimeout("black");
-        return;
       }
     }
-
-    this.game.lastMoveAt = now;
-
-    // Broadcast clock update with serverTime for client sync
-    this.broadcastToPlayers({
-      type: ServerMessageType.ClockUpdate,
-      white: this.game.whiteTimeMs,
-      black: this.game.blackTimeMs,
-      serverTime: now,
-      turn: this.game.turn,
-      lastMoveAt: this.game.lastMoveAt,
-    });
-
-    await this.persistState();
   }
 
   /**
@@ -1444,9 +1415,13 @@ export class GameRoom extends DurableObject<Env> {
     // Find earliest deadline
     const deadlines: number[] = [];
 
-    if (this.game?.status === "active") {
-      // Clock update every 100ms
-      deadlines.push(now + GAME.CLOCK_TICK_MS);
+    if (this.game?.status === "active" && !this.game.clockPausedAt) {
+      // Schedule alarm at exact timeout time (no polling)
+      const currentPlayerTime = this.game.turn === "white"
+        ? this.game.whiteTimeMs
+        : this.game.blackTimeMs;
+      const timeoutAt = this.game.lastMoveAt + currentPlayerTime;
+      deadlines.push(timeoutAt);
     }
 
     if (this.pendingTimeouts.noShowDeadline) {
