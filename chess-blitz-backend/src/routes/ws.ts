@@ -1,8 +1,9 @@
 import { Hono } from "hono";
-import { verify } from "hono/jwt";
 import type { Env } from "../env.d";
 import { TOURNAMENT_TYPES, TournamentType, ELO } from "../types/constants";
-import type { AuthPayload } from "../types/player";
+import { verifyToken, TokenError, type TokenPayload } from "@chess-blitz/shared";
+import { fetchWithRetry } from "../utils/do-helper";
+
 
 const wsRoutes = new Hono<{ Bindings: Env }>();
 
@@ -22,15 +23,13 @@ wsRoutes.get("/queue/:tournamentType", async (c) => {
     return c.json({ error: "Token required" }, 401);
   }
 
-  let payload: AuthPayload;
+  let payload: TokenPayload;
   try {
-    payload = (await verify(token, c.env.JWT_SECRET)) as unknown as AuthPayload;
-
-    // Check expiration
-    if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) {
-      return c.json({ error: "Token expired" }, 401);
-    }
+    payload = await verifyToken(token);
   } catch (error) {
+    if (error instanceof TokenError) {
+      return c.json({ error: error.message }, 401);
+    }
     return c.json({ error: "Invalid token" }, 401);
   }
 
@@ -44,7 +43,11 @@ wsRoutes.get("/queue/:tournamentType", async (c) => {
 
   // Get matchmaking queue DO
   const queueId = c.env.MATCHMAKING_QUEUE.idFromName(`queue-${tournamentType}`);
-  const queue = c.env.MATCHMAKING_QUEUE.get(queueId);
+
+
+  // Use fetchWithRetry helper
+  const getStub = () => c.env.MATCHMAKING_QUEUE.get(queueId);
+
 
   // Build URL with player info
   const url = new URL(c.req.url);
@@ -53,8 +56,9 @@ wsRoutes.get("/queue/:tournamentType", async (c) => {
   url.searchParams.set("elo", playerElo.toString());
   url.searchParams.set("tournament", tournamentType);
 
-  // Forward to DO
-  return queue.fetch(
+  // Forward to DO with retry logic
+  return fetchWithRetry(
+    getStub,
     new Request(url.toString(), {
       headers: c.req.raw.headers,
     })
@@ -79,14 +83,13 @@ wsRoutes.get("/game/:gameId", async (c) => {
     return c.json({ error: "Token required" }, 401);
   }
 
-  let payload: AuthPayload;
+  let payload: TokenPayload;
   try {
-    payload = (await verify(token, c.env.JWT_SECRET)) as unknown as AuthPayload;
-
-    if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) {
-      return c.json({ error: "Token expired" }, 401);
-    }
+    payload = await verifyToken(token);
   } catch (error) {
+    if (error instanceof TokenError) {
+      return c.json({ error: error.message }, 401);
+    }
     return c.json({ error: "Invalid token" }, 401);
   }
 
@@ -103,15 +106,18 @@ wsRoutes.get("/game/:gameId", async (c) => {
 
   // Get game room DO
   const gameRoomId = c.env.GAME_ROOM.idFromName(gameId);
-  const gameRoom = c.env.GAME_ROOM.get(gameRoomId);
+
+  const getStub = () => c.env.GAME_ROOM.get(gameRoomId);
+
 
   // Build URL with player info
   const url = new URL(c.req.url);
   url.searchParams.set("playerId", payload.playerId);
   url.searchParams.set("color", color);
 
-  // Forward to DO
-  return gameRoom.fetch(
+  // Forward to DO with retry logic
+  return fetchWithRetry(
+    getStub,
     new Request(url.toString(), {
       headers: c.req.raw.headers,
     })
@@ -132,9 +138,10 @@ wsRoutes.get("/queue/:tournamentType/status", async (c) => {
 
   // Get queue status
   const queueId = c.env.MATCHMAKING_QUEUE.idFromName(`queue-${tournamentType}`);
-  const queue = c.env.MATCHMAKING_QUEUE.get(queueId);
 
-  const response = await queue.fetch(new Request("https://internal/status"));
+  const getStub = () => c.env.MATCHMAKING_QUEUE.get(queueId);
+
+  const response = await fetchWithRetry(getStub, new Request("https://internal/status"));
   return response;
 });
 
@@ -153,9 +160,10 @@ wsRoutes.get("/game/:gameId/state", async (c) => {
 
   // Get game state
   const gameRoomId = c.env.GAME_ROOM.idFromName(gameId);
-  const gameRoom = c.env.GAME_ROOM.get(gameRoomId);
 
-  const response = await gameRoom.fetch(new Request("https://internal/state"));
+  const getStub = () => c.env.GAME_ROOM.get(gameRoomId);
+
+  const response = await fetchWithRetry(getStub, new Request("https://internal/state"));
   return response;
 });
 

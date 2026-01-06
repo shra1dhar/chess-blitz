@@ -9,9 +9,6 @@ export interface Env {
   // Static assets
   ASSETS: Fetcher;
 
-  // Secrets (set via wrangler secret put)
-  JWT_SECRET: string;
-
   // Environment variables
   ENVIRONMENT: string;
   CORS_ORIGIN: string;

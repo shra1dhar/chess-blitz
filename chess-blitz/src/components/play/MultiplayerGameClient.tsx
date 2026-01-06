@@ -180,10 +180,9 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
       multiplayer.firstMoveWarning.active &&
       multiplayer.firstMoveWarning.player === (multiplayer.playerColor === 'w' ? 'black' : 'white')
     ) {
-      const label = `${dict.firstMoveWarning?.opponentMove || 'Waiting for move...'} ${
-        dict.firstMoveWarning?.autoAbort?.replace('{seconds}', String(multiplayer.firstMoveWarning.countdown)) ||
+      const label = `${dict.firstMoveWarning?.opponentMove || 'Waiting for move...'} ${dict.firstMoveWarning?.autoAbort?.replace('{seconds}', String(multiplayer.firstMoveWarning.countdown)) ||
         `0:${String(multiplayer.firstMoveWarning.countdown).padStart(2, '0')}`
-      }`;
+        }`;
       return { subtitle: label, isWarning: true };
     }
     return { subtitle: `${multiplayer.opponent?.elo || '—'} ELO`, isWarning: false };
@@ -195,10 +194,9 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
       multiplayer.firstMoveWarning.active &&
       multiplayer.firstMoveWarning.player === (multiplayer.playerColor === 'w' ? 'white' : 'black')
     ) {
-      const label = `${dict.firstMoveWarning?.yourMove || 'Your move.'} ${
-        dict.firstMoveWarning?.autoAbort?.replace('{seconds}', String(multiplayer.firstMoveWarning.countdown)) ||
+      const label = `${dict.firstMoveWarning?.yourMove || 'Your move.'} ${dict.firstMoveWarning?.autoAbort?.replace('{seconds}', String(multiplayer.firstMoveWarning.countdown)) ||
         `0:${String(multiplayer.firstMoveWarning.countdown).padStart(2, '0')}`
-      }`;
+        }`;
       return { subtitle: label, isWarning: true };
     }
     return {
@@ -229,10 +227,10 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
             opponentSubtitle.isWarning
               ? { type: 'firstMoveWarning', countdown: multiplayer.firstMoveWarning.countdown, label: opponentSubtitle.subtitle }
               : {
-                  type: 'clock',
-                  timeMs: opponentTimeMs,
-                  isActive: multiplayer.gameState.turn !== multiplayer.playerColor,
-                }
+                type: 'clock',
+                timeMs: opponentTimeMs,
+                isActive: multiplayer.gameState.turn !== multiplayer.playerColor,
+              }
           }
         />
       }
@@ -259,10 +257,10 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
             playerSubtitle.isWarning
               ? { type: 'firstMoveWarning', countdown: multiplayer.firstMoveWarning.countdown, label: playerSubtitle.subtitle }
               : {
-                  type: 'clock',
-                  timeMs: playerTimeMs,
-                  isActive: multiplayer.gameState.turn === multiplayer.playerColor,
-                }
+                type: 'clock',
+                timeMs: playerTimeMs,
+                isActive: multiplayer.gameState.turn === multiplayer.playerColor,
+              }
           }
         />
       }
@@ -307,7 +305,26 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
               result={gameResult}
               status={gameStatus}
               playerColor={multiplayer.playerColor || 'w'}
-              onPlayAgain={handleNewGame}
+              eloChanges={
+                multiplayer.eloChanges
+                  ? {
+                    white: multiplayer.eloChanges.whiteEloChange,
+                    black: multiplayer.eloChanges.blackEloChange,
+                    whiteNew: multiplayer.eloChanges.whiteEloNew,
+                    blackNew: multiplayer.eloChanges.blackEloNew,
+                  }
+                  : undefined
+              }
+              tournamentType={multiplayer.tournamentType || undefined}
+              onPlayAgain={() => {
+                // Re-queue instantly for the same tournament type
+                if (multiplayer.tournamentType) {
+                  setShowGameOver(false);
+                  multiplayer.joinQueue(multiplayer.tournamentType);
+                } else {
+                  handleNewGame(); // Fallback to lobby if type lost
+                }
+              }}
               onBackToLobby={handleBackToLobby}
               onDismiss={() => setShowGameOver(false)}
               dict={dict}

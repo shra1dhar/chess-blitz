@@ -20,6 +20,10 @@
     "./constants": {
       "types": "./dist/constants/index.d.ts",
       "import": "./dist/constants/index.js"
+    },
+    "./auth": {
+      "types": "./dist/auth/index.d.ts",
+      "import": "./dist/auth/index.js"
     }
   },
   "files": [

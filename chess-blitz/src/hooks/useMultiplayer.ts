@@ -27,6 +27,7 @@ import {
   type GameResultReason,
   type Color,
   type SerializedGameState,
+  type LiteSerializedGameState,
   RECONNECT_TIMEOUT_MS,
   toChessColor,
 } from '@/types/multiplayer';
@@ -131,7 +132,7 @@ interface UseMultiplayerReturn {
 }
 
 // Convert backend game state to frontend format
-function convertGameState(backend: SerializedGameState): MultiplayerGameState {
+function convertGameState(backend: SerializedGameState | LiteSerializedGameState): MultiplayerGameState {
   const adjustedLastMoveAt = calculateAdjustedLastMoveAt(backend.serverTime, backend.lastMoveAt);
 
   return {
@@ -334,13 +335,13 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
         setGameState((prev) =>
           prev
             ? {
-                ...prev,
-                whiteTimeMs: message.white,
-                blackTimeMs: message.black,
-                turn: toChessColor(message.turn),
-                lastMoveAt: adjustedLastMoveAt,
-                serverTime: message.serverTime,
-              }
+              ...prev,
+              whiteTimeMs: message.white,
+              blackTimeMs: message.black,
+              turn: toChessColor(message.turn),
+              lastMoveAt: adjustedLastMoveAt,
+              serverTime: message.serverTime,
+            }
             : null
         );
         break;
@@ -351,6 +352,8 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
         setResult(convertResult(message.result.winner));
         setResultReason(message.result.reason);
         setEloChanges(message.result);
+        setDrawOffered(false);
+        setDrawOfferedByMe(false);
         if (soundEnabled) {
           if (message.result.reason === 'checkmate') {
             playCheckmateSound();
@@ -518,6 +521,13 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
         sendMessage({ type: ClientMessageType.JoinQueue, tournamentType: pendingJoinQueueRef.current });
         pendingJoinQueueRef.current = null;
       }
+      // CRITICAL FIX: If we reconnect while queued, we MUST re-send JoinQueue
+      // because the backend treats a new WebSocket connection as a new session (not in queue)
+      // unless we explicitly tell it to put us back in.
+      else if (matchState === 'queued' && joinQueueTournamentRef.current) {
+        console.log('[Multiplayer] Reconnected while queued, re-sending JoinQueue');
+        sendMessage({ type: ClientMessageType.JoinQueue, tournamentType: joinQueueTournamentRef.current });
+      }
     },
     onClose: () => {
       // If we got matched and need to switch to game room
@@ -541,7 +551,7 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
         }
       }
     },
-    reconnect: matchState === 'playing' || matchState === 'queued',
+    reconnect: matchState === 'playing' || matchState === 'queued' || matchState === 'ended',
   });
 
   // Bot game handling with Stockfish
@@ -757,8 +767,8 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
     if (rematchState !== 'received') return;
     sendMessage({ type: ClientMessageType.DeclineRematch } as ClientMessage);
     setRematchState('idle');
-    disconnect();
-  }, [rematchState, sendMessage, disconnect]);
+    // Note: Don't disconnect here - let the message reach the backend first
+  }, [rematchState, sendMessage]);
 
   const reset = useCallback(() => {
     disconnect();

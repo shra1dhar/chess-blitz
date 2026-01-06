@@ -185,6 +185,16 @@ export async function initializeAuth(): Promise<AuthResponse> {
 
   if (storedAuth) {
     try {
+      // Check if token is expiring soon (less than 24 hours remaining)
+      // Since tokens last 7 days, this avoids refreshing on every page load
+      const bufferMs = 24 * 60 * 60 * 1000;
+      const timeLeft = storedAuth.expiresAt - Date.now();
+
+      if (timeLeft > bufferMs) {
+        // Token is still fresh enough, return stored auth without refreshing
+        return storedAuth;
+      }
+
       // Try to refresh the token to extend expiry
       return await refreshToken(storedAuth.token);
     } catch {

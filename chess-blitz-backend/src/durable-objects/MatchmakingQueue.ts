@@ -24,6 +24,20 @@ interface QueueEntry extends QueuedPlayer {
 }
 
 /**
+ * Data persisted to WebSocket attachment (survives hibernation).
+ * Limited to 2048 bytes.
+ */
+interface MatchmakingAttachment {
+  playerId: string;
+  displayName: string;
+  elo: number;
+  inQueue: boolean;
+  joinedAt?: number;
+  currentEloRange?: number;
+  recentOpponents?: string[];
+}
+
+/**
  * MatchmakingQueue Durable Object
  *
  * One instance per tournament type (bullet, blitz, rapid, classical).
@@ -51,7 +65,54 @@ export class MatchmakingQueue extends DurableObject<Env> {
     // Initialize SQLite on first wake
     this.ctx.blockConcurrencyWhile(async () => {
       await this.initializeSql();
+      // Restore state from hibernation involves iterating connected sockets
+      // and checking their attachments to rebuild the in-memory queue.
+      this.restoreState();
     });
+  }
+
+  /**
+   * Restore queue state from hibernated WebSockets.
+   * This is critical because `this.queue` is reset on DO wake.
+   */
+  private restoreState(): void {
+    const websockets = this.ctx.getWebSockets();
+    for (const ws of websockets) {
+      try {
+        const attachment = ws.deserializeAttachment() as MatchmakingAttachment | null;
+        if (attachment) {
+          // Restore rate limit state (reset to fresh start on wake to be safe)
+          const state: MatchmakingConnectionState = {
+            playerId: attachment.playerId,
+            displayName: attachment.displayName,
+            elo: attachment.elo,
+            inQueue: attachment.inQueue, // Critical: Restore valid queue status
+            rateLimit: {
+              message: createRateLimitState(),
+              join: createRateLimitState(),
+            },
+          };
+          (ws as any).state = state;
+
+          // If they were in queue, add them back to the active map
+          if (attachment.inQueue) {
+            const entry: QueueEntry = {
+              playerId: attachment.playerId,
+              displayName: attachment.displayName,
+              elo: attachment.elo,
+              joinedAt: attachment.joinedAt || Date.now(), // Fallback if missing
+              currentEloRange: attachment.currentEloRange || MATCHMAKING.INITIAL_ELO_RANGE,
+              recentOpponents: attachment.recentOpponents || [],
+              ws,
+            };
+            this.queue.set(attachment.playerId, entry);
+          }
+        }
+      } catch (err) {
+        console.error("[MatchmakingQueue] Failed to restore socket state", err);
+        safeClose(ws, 1011, "State restoration failed");
+      }
+    }
   }
 
   /**
@@ -115,6 +176,10 @@ export class MatchmakingQueue extends DurableObject<Env> {
       );
 
       this.sqlInitialized = true;
+
+      // Optimize database after schema changes
+      executeSql(this.ctx.storage.sql, "PRAGMA optimize");
+
     } catch (error) {
       console.error("[MatchmakingQueue] SQL init failed:", error);
     }
@@ -217,6 +282,15 @@ export class MatchmakingQueue extends DurableObject<Env> {
 
     // Accept with hibernation API
     this.ctx.acceptWebSocket(server, [playerId]);
+
+    // Create attachment for hibernation
+    const attachment: MatchmakingAttachment = {
+      playerId,
+      displayName,
+      elo: parseInt(eloParam || "1200", 10),
+      inQueue: false,
+    };
+    server.serializeAttachment(attachment);
 
     // Attach state to WebSocket
     const connectionState: MatchmakingConnectionState = {
@@ -379,6 +453,14 @@ export class MatchmakingQueue extends DurableObject<Env> {
     this.queue.set(state.playerId, entry);
     state.inQueue = true;
 
+    // Update attachment to persist "inQueue" state
+    this.updateAttachment(ws, {
+      inQueue: true,
+      joinedAt: now,
+      currentEloRange: entry.currentEloRange,
+      recentOpponents: entry.recentOpponents
+    });
+
     // Calculate position
     const position = this.getQueuePosition(state.playerId);
 
@@ -401,6 +483,20 @@ export class MatchmakingQueue extends DurableObject<Env> {
   }
 
   /**
+   * Helper to update WebSocket attachment + merge with existing
+   */
+  private updateAttachment(ws: WebSocket, partial: Partial<MatchmakingAttachment>): void {
+    try {
+      const current = ws.deserializeAttachment() as MatchmakingAttachment | null;
+      if (current) {
+        ws.serializeAttachment({ ...current, ...partial });
+      }
+    } catch (err) {
+      console.error("[MatchmakingQueue] Failed to update attachment", err);
+    }
+  }
+
+  /**
    * Handle player leaving the queue.
    */
   private async handleLeaveQueue(ws: WebSocket, state: MatchmakingConnectionState): Promise<void> {
@@ -411,6 +507,9 @@ export class MatchmakingQueue extends DurableObject<Env> {
 
     this.queue.delete(state.playerId);
     state.inQueue = false;
+
+    // Update attachment
+    this.updateAttachment(ws, { inQueue: false });
 
     safeSend(ws, { type: ServerMessageType.QueueLeft });
   }
@@ -624,7 +723,33 @@ export class MatchmakingQueue extends DurableObject<Env> {
       color: "black",
     });
 
-    // Record recent opponents in memory
+    // Record recent opponents in memory and storage (atomic transaction)
+    this.ctx.storage.transactionSync(() => {
+      // 1. Record recent opponents in SQLite
+      executeSql(
+        this.ctx.storage.sql,
+        `INSERT OR REPLACE INTO recent_opponents (player_id, opponent_id, matched_at) VALUES (?, ?, ?)`,
+        white.playerId,
+        black.playerId,
+        Date.now()
+      );
+      executeSql(
+        this.ctx.storage.sql,
+        `INSERT OR REPLACE INTO recent_opponents (player_id, opponent_id, matched_at) VALUES (?, ?, ?)`,
+        black.playerId,
+        white.playerId,
+        Date.now()
+      );
+
+      // 2. Clear rematch intent if exists
+      executeSql(
+        this.ctx.storage.sql,
+        `DELETE FROM rematch_intent WHERE (player_a = ? AND player_b = ?) OR (player_a = ? AND player_b = ?)`,
+        white.playerId, black.playerId, black.playerId, white.playerId
+      );
+    });
+
+    // Update in-memory cache
     this.recordRecentOpponent(white.playerId, black.playerId);
     this.recordRecentOpponent(black.playerId, white.playerId);
 
@@ -637,8 +762,14 @@ export class MatchmakingQueue extends DurableObject<Env> {
     // Update connection state
     const whiteState = (white.ws as any).state as MatchmakingConnectionState;
     const blackState = (black.ws as any).state as MatchmakingConnectionState;
-    if (whiteState) whiteState.inQueue = false;
-    if (blackState) blackState.inQueue = false;
+    if (whiteState) {
+      whiteState.inQueue = false;
+      this.updateAttachment(white.ws, { inQueue: false });
+    }
+    if (blackState) {
+      blackState.inQueue = false;
+      this.updateAttachment(black.ws, { inQueue: false });
+    }
   }
 
   /**
@@ -704,7 +835,10 @@ export class MatchmakingQueue extends DurableObject<Env> {
     this.matchingInProgress.delete(player.playerId);
 
     const state = (player.ws as any).state as MatchmakingConnectionState;
-    if (state) state.inQueue = false;
+    if (state) {
+      state.inQueue = false;
+      this.updateAttachment(player.ws, { inQueue: false });
+    }
   }
 
   /**
@@ -764,7 +898,10 @@ export class MatchmakingQueue extends DurableObject<Env> {
         this.queue.delete(player.playerId);
 
         const state = (player.ws as any).state as MatchmakingConnectionState;
-        if (state) state.inQueue = false;
+        if (state) {
+          state.inQueue = false;
+          this.updateAttachment(player.ws, { inQueue: false });
+        }
       }
     }
   }

@@ -16,6 +16,7 @@ import type {
   GamePlayer,
   MoveInfo,
   SerializedGameState,
+  LiteSerializedGameState,
   GameEndResult,
   GameConnectionState,
   PendingTimeouts,
@@ -52,6 +53,15 @@ interface PlayerConnection {
 }
 
 /**
+ * Data persisted to WebSocket attachment (survives hibernation).
+ * Limited to 2048 bytes by Cloudflare.
+ */
+interface WebSocketAttachment {
+  playerId: string;
+  color: Color;
+}
+
+/**
  * GameRoom Durable Object
  *
  * One instance per active game.
@@ -78,12 +88,14 @@ export class GameRoom extends DurableObject<Env> {
   constructor(ctx: DurableObjectState, env: Env) {
     super(ctx, env);
 
-    // Restore state on wake
+    // Restore state on wake (runs every time DO wakes from hibernation)
     this.ctx.blockConcurrencyWhile(async () => {
       await this.restoreState();
+      // Restore all hibernated WebSocket connections
+      this.restoreAllConnections();
     });
 
-    // Set up auto ping/pong
+    // Auto ping/pong that doesn't wake DO
     this.ctx.setWebSocketAutoResponse(new WebSocketRequestResponsePair("ping", "pong"));
   }
 
@@ -119,6 +131,32 @@ export class GameRoom extends DurableObject<Env> {
       },
       pendingTimeouts: this.pendingTimeouts,
     });
+  }
+
+  /**
+   * Restore all hibernated WebSocket connections.
+   * Called in constructor after hibernation wake.
+   * Uses serializeAttachment/deserializeAttachment per Cloudflare best practices.
+   */
+  private restoreAllConnections(): void {
+    for (const ws of this.ctx.getWebSockets()) {
+      // Get persisted attachment (survives hibernation)
+      const attachment = ws.deserializeAttachment() as WebSocketAttachment | null;
+      if (!attachment?.playerId || !attachment?.color) continue;
+
+      // Restore in-memory connection state on WebSocket
+      const connectionState: GameConnectionState = {
+        playerId: attachment.playerId,
+        color: attachment.color,
+        rateLimit: createRateLimitState(),
+      };
+      (ws as any).state = connectionState;
+
+      // Restore to connections Map
+      if (!this.connections.has(attachment.color)) {
+        this.connections.set(attachment.color, { ws, connected: true });
+      }
+    }
   }
 
   /**
@@ -228,10 +266,14 @@ export class GameRoom extends DurableObject<Env> {
     // Create WebSocket pair
     const [client, server] = Object.values(new WebSocketPair());
 
-    // Accept with hibernation API
+    // Accept with hibernation API (tags for filtering by playerId/color)
     this.ctx.acceptWebSocket(server, [playerId, color]);
 
-    // Attach state
+    // IMPORTANT: Serialize attachment to persist across hibernation
+    // This data survives DO hibernation (up to 2048 bytes)
+    server.serializeAttachment({ playerId, color } as WebSocketAttachment);
+
+    // Set up in-memory state (for current session, recreated after hibernation)
     const connectionState: GameConnectionState = {
       playerId,
       color,
@@ -302,8 +344,9 @@ export class GameRoom extends DurableObject<Env> {
       safeSend(ws, { type: ServerMessageType.RematchOffered, by: this.game.pendingRematchOffer });
     }
 
-    // Notify opponent of reconnection
-    if (opponentConn?.connected && opponentConn.ws) {
+    // Notify opponent of reconnection (only if game has already started)
+    // We don't want to send this during initial matchmaking (waiting state)
+    if (this.game.status !== "waiting" && opponentConn?.connected && opponentConn.ws) {
       safeSend(opponentConn.ws, { type: ServerMessageType.OpponentReconnected });
     }
 
@@ -357,9 +400,12 @@ export class GameRoom extends DurableObject<Env> {
 
   /**
    * Handle WebSocket messages.
+   * Note: State restoration happens in constructor via restoreAllConnections()
    */
   async webSocketMessage(ws: WebSocket, message: string | ArrayBuffer): Promise<void> {
+    // Connection state should already be restored by constructor
     const state = (ws as any).state as GameConnectionState;
+
     if (!state || !this.game) {
       safeSend(ws, { type: ServerMessageType.Error, code: "INTERNAL_ERROR", message: "Invalid state" });
       return;
@@ -755,7 +801,7 @@ export class GameRoom extends DurableObject<Env> {
     await this.persistState();
 
     // Broadcast move
-    this.broadcastToPlayers({ type: ServerMessageType.MoveMade, move: moveInfo, gameState: this.serializeGameState() });
+    this.broadcastToPlayers({ type: ServerMessageType.MoveMade, move: moveInfo, gameState: this.serializeGameState(true) });
 
     // Check game end conditions
     const gameEnded = await this.checkGameEndConditions();
@@ -1379,7 +1425,7 @@ export class GameRoom extends DurableObject<Env> {
 
     await this.persistState();
 
-    this.broadcastToPlayers({ type: ServerMessageType.MoveMade, move: moveInfo, gameState: this.serializeGameState() });
+    this.broadcastToPlayers({ type: ServerMessageType.MoveMade, move: moveInfo, gameState: this.serializeGameState(true) });
 
     const gameEnded = await this.checkGameEndConditions();
 
@@ -1478,17 +1524,21 @@ export class GameRoom extends DurableObject<Env> {
 
     // Clear state
     await this.ctx.storage.deleteAll();
+    this.game = null;
   }
 
   /**
    * Serialize game state for client.
+   * @param lite If true, omit history and PGN to reduce payload size.
    */
-  private serializeGameState(): SerializedGameState {
+  private serializeGameState(lite: true): LiteSerializedGameState;
+  private serializeGameState(lite?: false): SerializedGameState;
+  private serializeGameState(lite: boolean = false): SerializedGameState | LiteSerializedGameState {
     if (!this.game) {
       throw new Error("No game state");
     }
 
-    return {
+    const baseState = {
       gameId: this.game.gameId,
       tournamentType: this.game.tournamentType,
       fen: this.game.fen,
@@ -1500,13 +1550,12 @@ export class GameRoom extends DurableObject<Env> {
       serverTime: Date.now(), // Server timestamp for clock sync
       status: this.game.status,
       moveCount: this.game.moveCount,
-      moveHistory: this.game.moveHistory,
       lastMove:
         this.game.moveHistory.length > 0
           ? {
-              from: this.game.moveHistory[this.game.moveHistory.length - 1].from,
-              to: this.game.moveHistory[this.game.moveHistory.length - 1].to,
-            }
+            from: this.game.moveHistory[this.game.moveHistory.length - 1].from,
+            to: this.game.moveHistory[this.game.moveHistory.length - 1].to,
+          }
           : undefined,
       pendingDrawOffer: this.game.pendingDrawOffer,
       white: {
@@ -1521,6 +1570,15 @@ export class GameRoom extends DurableObject<Env> {
         elo: this.game.black.elo,
         isBot: this.game.black.isBot,
       },
+    };
+
+    if (lite) {
+      return baseState;
+    }
+
+    return {
+      ...baseState,
+      moveHistory: this.game.moveHistory,
     };
   }
 

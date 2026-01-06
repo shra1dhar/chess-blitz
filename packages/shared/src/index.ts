@@ -14,3 +14,16 @@ export type { ErrorCode } from "./types";
 export { RATE_LIMITS } from "./constants";
 export { MATCHMAKING, ELO } from "./constants";
 export { GAME, MAX_MESSAGE_SIZE_BYTES } from "./constants";
+
+// Auth
+export {
+  createToken,
+  verifyToken,
+  refreshToken,
+  decodePayload,
+  isTokenExpired,
+  shouldRefreshToken,
+  TokenError,
+  TOKEN_CONFIG,
+} from "./auth";
+export type { TokenPayload, EloRatings, TokenErrorCode } from "./auth";

@@ -1,5 +1,5 @@
 import type { TournamentType, Color, ResultReason, BotDifficulty } from "./constants";
-import type { SerializedGameState, MoveInfo, GameEndResult } from "./game";
+import type { SerializedGameState, LiteSerializedGameState, MoveInfo, GameEndResult } from "./game";
 
 // ============================================
 // Re-export shared enums from @chess-blitz/shared
@@ -50,23 +50,23 @@ export type ServerMessage =
   | { type: ServerMessageType.Pong }
   // Matchmaking
   | {
-      type: ServerMessageType.QueueJoined;
-      tournamentType: TournamentType;
-      position: number;
-      estimatedWaitMs: number;
-    }
+    type: ServerMessageType.QueueJoined;
+    tournamentType: TournamentType;
+    position: number;
+    estimatedWaitMs: number;
+  }
   | { type: ServerMessageType.QueuePosition; position: number; estimatedWaitMs: number }
   | { type: ServerMessageType.QueueLeft }
   | {
-      type: ServerMessageType.MatchFound;
-      gameId: string;
-      opponent: OpponentInfo;
-      color: Color;
-    }
+    type: ServerMessageType.MatchFound;
+    gameId: string;
+    opponent: OpponentInfo;
+    color: Color;
+  }
   // Game state
   | { type: ServerMessageType.GameStart; gameState: SerializedGameState }
   | { type: ServerMessageType.GameState; gameState: SerializedGameState; syncInfo?: ReconnectionSyncInfo }
-  | { type: ServerMessageType.MoveMade; move: MoveInfo; gameState: SerializedGameState }
+  | { type: ServerMessageType.MoveMade; move: MoveInfo; gameState: LiteSerializedGameState }
   | { type: ServerMessageType.ClockUpdate; white: number; black: number; serverTime: number; turn: Color; lastMoveAt: number; paused?: boolean }
   | { type: ServerMessageType.GameOver; result: GameEndResult }
   // Draw handling

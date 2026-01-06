@@ -1,10 +1,9 @@
 import { createMiddleware } from "hono/factory";
-import { verify } from "hono/jwt";
+import { verifyToken, TokenError } from "@chess-blitz/shared";
 import type { Env } from "../env.d";
-import type { AuthPayload } from "../types/player";
 
 /**
- * JWT authentication middleware.
+ * Token authentication middleware.
  * Verifies the Authorization header and sets auth context.
  */
 export const authMiddleware = createMiddleware<{ Bindings: Env }>(async (c, next) => {
@@ -17,12 +16,7 @@ export const authMiddleware = createMiddleware<{ Bindings: Env }>(async (c, next
   const token = authHeader.slice(7);
 
   try {
-    const payload = (await verify(token, c.env.JWT_SECRET)) as unknown as AuthPayload;
-
-    // Check if token is expired
-    if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) {
-      return c.json({ error: "Token expired" }, 401);
-    }
+    const payload = await verifyToken(token);
 
     // Set auth context (guest-only mode)
     c.set("auth", {
@@ -32,6 +26,9 @@ export const authMiddleware = createMiddleware<{ Bindings: Env }>(async (c, next
 
     await next();
   } catch (error) {
+    if (error instanceof TokenError) {
+      return c.json({ error: error.message }, 401);
+    }
     return c.json({ error: "Invalid token" }, 401);
   }
 });
@@ -47,14 +44,11 @@ export const optionalAuthMiddleware = createMiddleware<{ Bindings: Env }>(async 
     const token = authHeader.slice(7);
 
     try {
-      const payload = (await verify(token, c.env.JWT_SECRET)) as unknown as AuthPayload;
-
-      if (!payload.exp || payload.exp >= Math.floor(Date.now() / 1000)) {
-        c.set("auth", {
-          playerId: payload.playerId,
-          displayName: payload.displayName,
-        });
-      }
+      const payload = await verifyToken(token);
+      c.set("auth", {
+        playerId: payload.playerId,
+        displayName: payload.displayName,
+      });
     } catch {
       // Invalid token - continue without auth
     }

@@ -503,7 +503,7 @@
   }
 }
 
-// Sidebar - hidden on mobile and tablet
+// Sidebar - hidden on narrow screens (below 900px)
 .sidebar {
   display: none;
   width: 100%;
@@ -512,7 +512,8 @@
   flex-shrink: 0;
   overflow-y: auto;
 
-  @include desktop {
+  // Show sidebar only on wider screens (900px+)
+  @media screen and (min-width: 900px) {
     display: block;
     margin-top: 0;
     margin-left: $spacing-xl;

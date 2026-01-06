@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import '../globals.scss';
 import { AppInitializer } from '@/components/AppInitializer';
+import OfflineIndicator from '@/components/OfflineIndicator/OfflineIndicator';
 import { getDictionary } from '@/i18n/dictionaries';
 
 // Generate metadata for English
@@ -39,6 +40,7 @@ export default function EnglishLayout({
       </head>
       <body>
         <AppInitializer />
+        <OfflineIndicator />
         <div className="app-container">
           {children}
         </div>

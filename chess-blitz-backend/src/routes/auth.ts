@@ -1,10 +1,14 @@
 import { Hono } from "hono";
-import { sign, verify } from "hono/jwt";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import type { Env } from "../env.d";
 import { ELO, TOURNAMENT_TYPES } from "../types/constants";
-import type { AuthPayload, EloRatings } from "../types/player";
+import {
+  createToken,
+  verifyToken,
+  TokenError,
+  type EloRatings,
+} from "@chess-blitz/shared";
 
 // Zod schema for /update-elo endpoint
 const updateEloSchema = z.object({
@@ -24,36 +28,28 @@ const DEFAULT_ELO: EloRatings = {
 
 /**
  * POST /auth/guest
- * Create a guest player session with ELO stored in JWT
+ * Create a guest player session with ELO stored in token
  */
 authRoutes.post("/guest", async (c) => {
   try {
-    // Check if JWT_SECRET is configured
-    if (!c.env.JWT_SECRET) {
-      console.error("[Auth] JWT_SECRET is not configured. Create a .dev.vars file with JWT_SECRET=your-secret");
-      return c.json({ error: "Server configuration error: JWT_SECRET missing" }, 500);
-    }
-
     const playerId = crypto.randomUUID();
     const displayName = `Guest_${playerId.slice(0, 8)}`;
-    const now = Math.floor(Date.now() / 1000);
-    const expiresAt = now + 7 * 24 * 60 * 60; // 7 days
+    const elo = { ...DEFAULT_ELO };
 
-    const payload: AuthPayload = {
+    const token = await createToken({
       playerId,
       displayName,
-      elo: { ...DEFAULT_ELO },
-      exp: expiresAt,
-      iat: now,
-    };
+      elo,
+    });
 
-    const token = await sign(payload as unknown as Record<string, unknown>, c.env.JWT_SECRET);
+    // Calculate expiresAt (10 days from now)
+    const expiresAt = Math.floor(Date.now() / 1000) + 10 * 24 * 60 * 60;
 
     return c.json({
       token,
       playerId,
       displayName,
-      elo: payload.elo,
+      elo,
       expiresAt: expiresAt * 1000,
     });
   } catch (error) {
@@ -75,32 +71,31 @@ authRoutes.post("/refresh", async (c) => {
 
   try {
     const oldToken = authHeader.slice(7);
-    const oldPayload = (await verify(oldToken, c.env.JWT_SECRET)) as unknown as AuthPayload;
-
-    const now = Math.floor(Date.now() / 1000);
-    const expiresAt = now + 7 * 24 * 60 * 60; // 7 days
+    const oldPayload = await verifyToken(oldToken);
 
     // Preserve ELO from old token, or use default if missing
     const elo = oldPayload.elo || { ...DEFAULT_ELO };
 
-    const newPayload: AuthPayload = {
+    const token = await createToken({
       playerId: oldPayload.playerId,
       displayName: oldPayload.displayName,
       elo,
-      exp: expiresAt,
-      iat: now,
-    };
+    });
 
-    const token = await sign(newPayload as unknown as Record<string, unknown>, c.env.JWT_SECRET);
+    // Calculate expiresAt (10 days from now)
+    const expiresAt = Math.floor(Date.now() / 1000) + 10 * 24 * 60 * 60;
 
     return c.json({
       token,
-      playerId: newPayload.playerId,
-      displayName: newPayload.displayName,
-      elo: newPayload.elo,
+      playerId: oldPayload.playerId,
+      displayName: oldPayload.displayName,
+      elo,
       expiresAt: expiresAt * 1000,
     });
-  } catch {
+  } catch (error) {
+    if (error instanceof TokenError) {
+      return c.json({ error: error.message }, 401);
+    }
     return c.json({ error: "Invalid token" }, 401);
   }
 });
@@ -108,7 +103,7 @@ authRoutes.post("/refresh", async (c) => {
 /**
  * POST /auth/update-elo
  * Update ELO in token after a game (called by client with game result)
- * This allows ELO to persist across sessions in the JWT
+ * This allows ELO to persist across sessions in the token
  */
 authRoutes.post("/update-elo", zValidator("json", updateEloSchema), async (c) => {
   const authHeader = c.req.header("Authorization");
@@ -119,32 +114,28 @@ authRoutes.post("/update-elo", zValidator("json", updateEloSchema), async (c) =>
 
   try {
     const oldToken = authHeader.slice(7);
-    const oldPayload = (await verify(oldToken, c.env.JWT_SECRET)) as unknown as AuthPayload;
+    const oldPayload = await verifyToken(oldToken);
 
     const { tournamentType, newElo } = c.req.valid("json");
-
-    const now = Math.floor(Date.now() / 1000);
-    const expiresAt = now + 7 * 24 * 60 * 60;
 
     // Update ELO for the specific tournament type
     const elo = oldPayload.elo || { ...DEFAULT_ELO };
     elo[tournamentType] = newElo;
 
-    const newPayload: AuthPayload = {
+    const token = await createToken({
       playerId: oldPayload.playerId,
       displayName: oldPayload.displayName,
       elo,
-      exp: expiresAt,
-      iat: now,
-    };
-
-    const token = await sign(newPayload as unknown as Record<string, unknown>, c.env.JWT_SECRET);
+    });
 
     return c.json({
       token,
-      elo: newPayload.elo,
+      elo,
     });
-  } catch {
+  } catch (error) {
+    if (error instanceof TokenError) {
+      return c.json({ error: error.message }, 401);
+    }
     return c.json({ error: "Invalid token" }, 401);
   }
 });

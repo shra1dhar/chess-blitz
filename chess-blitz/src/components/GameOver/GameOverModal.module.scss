@@ -13,39 +13,34 @@
   right: 0;
   bottom: 0;
   @include flex-center;
-  background-color: rgba(0, 0, 0, 0.75);
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
+  background-color: rgba(0, 0, 0, 0.85);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   z-index: $z-modal;
   @include fade-in;
-  cursor: pointer; // Indicate clickable to dismiss
 }
 
 // Close button in top-right corner of modal
 .closeButton {
   position: absolute;
-  top: $spacing-sm;
-  inset-inline-end: $spacing-sm;
+  top: $spacing-md;
+  inset-inline-end: $spacing-md;
   @include flex-center;
   width: 32px;
   height: 32px;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.1);
   border: none;
   border-radius: $radius-full;
   color: var(--ui-text-muted);
   cursor: pointer;
   -webkit-transition: all $transition-fast;
   transition: all $transition-fast;
-  z-index: 1;
+  z-index: 10;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.2);
     color: var(--ui-text-primary);
-  }
-
-  &:active {
-    -webkit-transform: scale(0.95);
-    transform: scale(0.95);
+    transform: rotate(90deg);
   }
 }
 
@@ -83,27 +78,9 @@
     box-shadow: $shadow-xl;
   }
 
-  &:active {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
-
   @include mobile {
     bottom: $spacing-md;
     inset-inline-end: $spacing-md;
-  }
-}
-
-@-webkit-keyframes slideUp {
-  from {
-    opacity: 0;
-    -webkit-transform: translateY(10px);
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
   }
 }
 
@@ -112,6 +89,7 @@
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -122,99 +100,109 @@
   @include card;
   position: relative;
   width: 90%;
-  max-width: 360px;
-  padding: $spacing-xl $spacing-lg;
+  max-width: 400px;
+  padding: $spacing-2xl $spacing-lg;
   text-align: center;
   overflow: hidden;
-  -webkit-animation: modalSlideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  animation: modalSlideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  cursor: default; // Prevent modal clicks from dismissing
+  animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 
-  // Subtle top border accent
+  // Background glow effect based on result
   &::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--ui-border), transparent);
+    height: 6px;
   }
 }
 
-// Result-specific modal styling
-.resultWin {
-  &::before {
-    background: linear-gradient(90deg, transparent, #d4a534, #f4d03f, #d4a534, transparent);
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
   }
 
-  .iconWrapper {
-    -webkit-filter: drop-shadow(0 0 20px rgba(212, 165, 52, 0.4));
-    filter: drop-shadow(0 0 20px rgba(212, 165, 52, 0.4));
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Result-specific styling
+.resultWin {
+  background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+  border-color: rgba(#d4a534, 0.3);
+
+  &::before {
+    background: linear-gradient(90deg, #d4a534, #f4d03f, #d4a534);
   }
 
   .title {
-    color: #d4a534;
-    text-shadow: 0 0 20px rgba(212, 165, 52, 0.3);
+    color: #f4d03f;
+    text-shadow: 0 2px 10px rgba(#f4d03f, 0.2);
+  }
+
+  .message {
+    color: rgba(255, 255, 255, 0.8);
   }
 }
 
 .resultLoss {
-  &::before {
-    background: linear-gradient(90deg, transparent, #6a6a6a, transparent);
-  }
+  background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+  border-color: rgba($color-error, 0.3);
 
-  .iconWrapper {
-    opacity: 0.9;
+  &::before {
+    background: linear-gradient(90deg, #8b0000, $color-error, #8b0000);
   }
 
   .title {
-    color: var(--ui-text-secondary);
+    color: $color-error;
+  }
+
+  .message {
+    color: rgba(255, 255, 255, 0.7);
   }
 }
 
 .resultDraw {
+  background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+  border-color: rgba($brand-secondary, 0.3);
+
   &::before {
-    background: linear-gradient(90deg, transparent, $brand-secondary, transparent);
+    background: linear-gradient(90deg, #b58863, $brand-secondary, #b58863);
   }
 
   .title {
-    color: var(--ui-text-primary);
+    color: $brand-secondary;
+  }
+
+  .message {
+    color: rgba(255, 255, 255, 0.7);
   }
 }
 
-@-webkit-keyframes modalSlideIn {
-  from {
-    opacity: 0;
-    -webkit-transform: translateY(-20px) scale(0.9);
-    transform: translateY(-20px) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    -webkit-transform: translateY(0) scale(1);
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes modalSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-// Icon wrapper with animation
 .iconWrapper {
   @include flex-center;
-  width: 80px;
-  height: 80px;
-  margin: 0 auto $spacing-md;
-  -webkit-animation: iconBounce 0.5s ease 0.2s both;
-  animation: iconBounce 0.5s ease 0.2s both;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto $spacing-lg;
+  animation: iconDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes iconDrop {
+  from {
+    transform: translateY(-20px) scale(0.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
 .iconSvg {
@@ -222,413 +210,161 @@
   height: 100%;
 }
 
-@-webkit-keyframes iconBounce {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(0.5);
-    transform: scale(0.5);
-  }
-  60% {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-    transform: scale(1);
-  }
-}
-
-@keyframes iconBounce {
-  0% {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  60% {
-    transform: scale(1.1);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 .title {
-  font-size: $font-size-2xl;
-  font-weight: $font-weight-bold;
-  color: var(--ui-text-primary);
+  font-size: 2rem;
+  font-weight: 800;
   margin-bottom: $spacing-xs;
-  letter-spacing: 0.5px;
+  font-family: $font-family-display;
+  letter-spacing: -0.5px;
 }
 
 .message {
   font-size: $font-size-base;
-  color: var(--ui-text-secondary);
-  margin-bottom: $spacing-lg;
+  margin-bottom: $spacing-xl;
   line-height: 1.5;
+  font-weight: 500;
 }
 
-// Stats
-.stats {
+// Stats & Elo
+.statsContainer {
   @include flex-row;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  margin-bottom: $spacing-lg;
-  padding: $spacing-md;
-  background-color: var(--ui-bg-primary);
-  border-radius: $radius-md;
-  border: 1px solid var(--ui-border);
+  gap: $spacing-xl;
+  margin-bottom: $spacing-2xl;
 }
 
-.stat {
+.playerStat {
   @include flex-column;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  padding: 0 $spacing-lg;
-  -webkit-box-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
+}
 
-  &:first-child {
-    border-right: 1px solid var(--ui-border);
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: $radius-lg;
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: $spacing-xs;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.playerName {
+  font-size: $font-size-sm;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.eloChange {
+  font-size: $font-size-sm;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: $radius-full;
+  background: rgba(255, 255, 255, 0.1);
+
+  &.positive {
+    color: #4caf50;
+    background: rgba(76, 175, 80, 0.15);
+  }
+
+  &.negative {
+    color: #f44336;
+    background: rgba(244, 67, 54, 0.15);
+  }
+
+  &.neutral {
+    color: #9e9e9e;
   }
 }
 
-.statLabel {
-  font-size: $font-size-xs;
-  color: var(--ui-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: $spacing-xs;
-}
-
-.statValue {
-  @include flex-center;
-  font-size: $font-size-lg;
-  font-weight: $font-weight-semibold;
-  color: var(--ui-text-primary);
-}
-
-// Piece indicators
-.pieceWhite,
-.pieceBlack {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  margin-right: $spacing-xs;
-  border: 1.5px solid var(--ui-border);
-}
-
-.pieceWhite {
-  background: linear-gradient(135deg, #fff 0%, #e8e8e8 100%);
-}
-
-.pieceBlack {
-  background: linear-gradient(135deg, #4a4a4a 0%, #2a2a2a 100%);
-}
-
-// Result text colors
-.resultWinText {
-  color: $color-success;
-}
-
-.resultLossText {
-  color: $color-error;
-}
-
-.resultDrawText {
-  color: $color-warning;
-}
-
-// Actions
+// Action Buttons
 .actions {
   @include flex-column;
+  gap: $spacing-md;
+  width: 100%;
 }
 
 .button {
-  @include flex-center;
   width: 100%;
-  padding: $spacing-md;
-  font-size: $font-size-base;
-  font-weight: $font-weight-semibold;
+  height: 56px;
+  @include flex-center;
+  border-radius: $radius-xl;
   border: none;
-  border-radius: $radius-md;
+  font-family: $font-family-primary;
+  font-size: $font-size-lg;
+  font-weight: 700;
   cursor: pointer;
-  -webkit-transition: all $transition-fast;
-  transition: all $transition-fast;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 
   svg {
     margin-right: $spacing-sm;
-    -webkit-transition: -webkit-transform $transition-fast;
-    transition: transform $transition-fast;
-  }
-
-  &:not(:last-child) {
-    margin-bottom: $spacing-sm;
-  }
-
-  &:hover svg {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-  }
-}
-
-.buttonPrimary {
-  background: linear-gradient(135deg, $brand-primary 0%, color.adjust($brand-primary, $lightness: -8%) 100%);
-  color: $text-inverse;
-  -webkit-box-shadow: 0 2px 8px rgba($brand-primary, 0.3);
-  box-shadow: 0 2px 8px rgba($brand-primary, 0.3);
-
-  &:hover {
-    background: linear-gradient(135deg, color.adjust($brand-primary, $lightness: 5%) 0%, $brand-primary 100%);
-    -webkit-box-shadow: 0 4px 12px rgba($brand-primary, 0.4);
-    box-shadow: 0 4px 12px rgba($brand-primary, 0.4);
-    -webkit-transform: translateY(-1px);
-    transform: translateY(-1px);
+    transition: transform 0.2s;
   }
 
   &:active {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
+    transform: scale(0.98);
   }
 }
 
-.buttonSecondary {
-  background-color: transparent;
-  color: var(--ui-text-secondary);
-  border: 1px solid var(--ui-border);
+// Primary: "New Game" - Green & Prominent
+.buttonNewGame {
+  background: linear-gradient(135deg, #81b64c 0%, #45a049 100%);
+  color: white;
+  box-shadow: 0 4px 0 #2e6b32, 0 8px 20px rgba(76, 175, 80, 0.4);
 
   &:hover {
-    background-color: var(--ui-bg-primary);
-    color: var(--ui-text-primary);
-    border-color: var(--ui-text-muted);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #2e6b32, 0 12px 24px rgba(76, 175, 80, 0.5);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 0 0 #2e6b32, inset 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 }
 
-// Rematch section
-.rematchSection {
-  margin-bottom: $spacing-md;
-  padding: $spacing-md;
-  background-color: var(--ui-bg-primary);
-  border-radius: $radius-md;
-  border: 1px solid var(--ui-border);
-  position: relative;
-  overflow: hidden;
+// Secondary: "Rematch" - Dark but interactive
+.buttonRematch {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 
-  // Subtle accent line
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, $brand-secondary, transparent);
-    opacity: 0.5;
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
   }
 }
 
-.rematchText {
-  font-size: $font-size-sm;
-  color: var(--ui-text-primary);
-  margin-bottom: $spacing-sm;
-  font-weight: $font-weight-semibold;
-  text-align: center;
+// Tertiary: "Game Review" - Ghost
+.buttonReview {
+  height: 44px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: $font-size-base;
+  font-weight: 600;
 
-  // Pulsing animation to draw attention
-  -webkit-animation: pulseText 2s ease-in-out infinite;
-  animation: pulseText 2s ease-in-out infinite;
-}
-
-@-webkit-keyframes pulseText {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
-}
-
-@keyframes pulseText {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
-}
-
-.rematchButtons {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
-.rematchButtons .button {
-  -webkit-box-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  padding: $spacing-sm $spacing-md;
-  font-size: $font-size-sm;
-
-  &:first-child {
-    margin-inline-end: $spacing-sm;
-    margin-bottom: 0;
+  &:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.05);
   }
 }
 
-.rematchPending,
-.rematchAccepted {
+// Rematch States
+.rematchPending {
   @include flex-center;
-  color: var(--ui-text-secondary);
-  font-size: $font-size-sm;
-  padding: $spacing-xs 0;
+  padding: $spacing-md;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: $radius-xl;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  gap: $spacing-sm;
 
   svg {
-    margin-inline-end: $spacing-sm;
-  }
-}
-
-.rematchPending {
-  color: var(--ui-text-muted);
-
-  .spinnerIcon {
-    color: $brand-secondary;
-  }
-}
-
-.rematchAccepted {
-  color: $color-success;
-  font-weight: $font-weight-medium;
-}
-
-// Rematch button styles - prominent call-to-action
-.buttonRematch {
-  background: linear-gradient(135deg, $brand-secondary 0%, color.adjust($brand-secondary, $lightness: -8%) 100%);
-  color: $text-inverse;
-  border: none;
-  -webkit-box-shadow: 0 2px 8px rgba($brand-secondary, 0.3);
-  box-shadow: 0 2px 8px rgba($brand-secondary, 0.3);
-  font-weight: $font-weight-semibold;
-  letter-spacing: 0.3px;
-  position: relative;
-  overflow: hidden;
-
-  // Subtle shine effect
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    -webkit-transition: left 0.5s ease;
-    transition: left 0.5s ease;
-  }
-
-  &:hover {
-    background: linear-gradient(135deg, color.adjust($brand-secondary, $lightness: 5%) 0%, $brand-secondary 100%);
-    -webkit-box-shadow: 0 4px 12px rgba($brand-secondary, 0.4);
-    box-shadow: 0 4px 12px rgba($brand-secondary, 0.4);
-    -webkit-transform: translateY(-1px);
-    transform: translateY(-1px);
-
-    &::after {
-      left: 100%;
-    }
-  }
-
-  &:hover .rematchIcon {
-    -webkit-animation: swordClash 0.6s ease-in-out;
-    animation: swordClash 0.6s ease-in-out;
-  }
-}
-
-// Rematch icon with clash animation
-.rematchIcon {
-  -webkit-transition: -webkit-transform $transition-fast;
-  transition: transform $transition-fast;
-}
-
-@-webkit-keyframes swordClash {
-  0%, 100% {
-    -webkit-transform: scale(1) rotate(0deg);
-    transform: scale(1) rotate(0deg);
-  }
-  25% {
-    -webkit-transform: scale(1.15) rotate(-5deg);
-    transform: scale(1.15) rotate(-5deg);
-  }
-  50% {
-    -webkit-transform: scale(1.2) rotate(0deg);
-    transform: scale(1.2) rotate(0deg);
-  }
-  75% {
-    -webkit-transform: scale(1.15) rotate(5deg);
-    transform: scale(1.15) rotate(5deg);
-  }
-}
-
-@keyframes swordClash {
-  0%, 100% {
-    transform: scale(1) rotate(0deg);
-  }
-  25% {
-    transform: scale(1.15) rotate(-5deg);
-  }
-  50% {
-    transform: scale(1.2) rotate(0deg);
-  }
-  75% {
-    transform: scale(1.15) rotate(5deg);
-  }
-}
-
-.buttonRematchAccept {
-  background: linear-gradient(135deg, $color-success 0%, color.adjust($color-success, $lightness: -8%) 100%);
-  color: $text-inverse;
-  border: none;
-  -webkit-box-shadow: 0 2px 8px rgba($color-success, 0.3);
-  box-shadow: 0 2px 8px rgba($color-success, 0.3);
-  font-weight: $font-weight-semibold;
-
-  &:hover {
-    background: linear-gradient(135deg, color.adjust($color-success, $lightness: 5%) 0%, $color-success 100%);
-    -webkit-box-shadow: 0 4px 12px rgba($color-success, 0.4);
-    box-shadow: 0 4px 12px rgba($color-success, 0.4);
-    -webkit-transform: translateY(-1px);
-    transform: translateY(-1px);
-  }
-}
-
-.buttonRematchDecline {
-  background-color: transparent;
-  color: var(--ui-text-secondary);
-  border: 1px solid var(--ui-border);
-
-  &:hover {
-    background-color: rgba($color-error, 0.1);
-    color: $color-error;
-    border-color: $color-error;
-  }
-}
-
-// Spinner animation
-.spinnerIcon {
-  width: 18px;
-  height: 18px;
-  -webkit-animation: spin 1s linear infinite;
-  animation: spin 1s linear infinite;
-}
-
-@-webkit-keyframes spin {
-  from {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
+    animation: spin 1s linear infinite;
   }
 }
 
@@ -636,6 +372,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

@@ -148,3 +148,6 @@ export interface GameInitConfig {
   white: GamePlayer;
   black: GamePlayer;
 }
+
+// Lite version of SerializedGameState for frequent updates (omits heavy history)
+export type LiteSerializedGameState = Omit<SerializedGameState, "moveHistory">;
