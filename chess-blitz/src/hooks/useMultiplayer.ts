@@ -6,7 +6,6 @@
 import { useState, useCallback, useEffect, useRef, useEffectEvent } from 'react';
 import type { Square, PieceSymbol, Color as ChessColor } from 'chess.js';
 import { useWebSocket, type WebSocketStatus } from './useWebSocket';
-import { useStockfish } from './useStockfish';
 import { useSound } from './useSound';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useMultiplayerStore, selectToken } from '@/stores/multiplayerStore';
@@ -16,8 +15,10 @@ import {
   ClientMessageType,
   ServerMessageType,
   DrawClaimReason,
+  MatchState,
+  RematchState,
+  DrawClaimType,
   type TournamentType,
-  type MatchState,
   type PlayerInfo,
   type MultiplayerGameState,
   type ServerMessage,
@@ -32,8 +33,8 @@ import {
   toChessColor,
 } from '@/types/multiplayer';
 
-// Draw claim types
-export type DrawClaimType = 'none' | 'fifty_move' | 'threefold_repetition';
+// Re-export types for backwards compatibility
+export { MatchState, RematchState, DrawClaimType };
 
 /**
  * Calculate client-adjusted lastMoveAt based on server time difference.
@@ -65,8 +66,7 @@ const ERROR_MESSAGES: Record<string, string> = {
   INVALID_TOURNAMENT_TYPE: 'Invalid tournament type',
 };
 
-// Rematch state type
-export type RematchState = 'idle' | 'requested' | 'received' | 'accepted';
+// RematchState is now imported from @chess-blitz/shared via @/types/multiplayer
 
 interface UseMultiplayerReturn {
   // Connection state
@@ -83,7 +83,6 @@ interface UseMultiplayerReturn {
   opponent: PlayerInfo | null;
   gameState: MultiplayerGameState | null;
   isMyTurn: boolean;
-  isThinking: boolean;
 
   // Result
   result: GameResult | null;
@@ -201,7 +200,7 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
   const clearCurrentGame = useMultiplayerStore((state) => state.clearCurrentGame);
 
   // State
-  const [matchState, setMatchState] = useState<MatchState>('idle');
+  const [matchState, setMatchState] = useState<MatchState>(MatchState.Idle);
   const [queuePosition, setQueuePosition] = useState<number | null>(null);
   const [tournamentType, setTournamentType] = useState<TournamentType | null>(null);
   const [gameId, setGameId] = useState<string | null>(null);
@@ -215,11 +214,11 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
   const [drawOfferedByMe, setDrawOfferedByMe] = useState(false);
   const [opponentDisconnected, setOpponentDisconnected] = useState(false);
   const [disconnectCountdown, setDisconnectCountdown] = useState<number | null>(null);
-  const [drawClaimAvailable, setDrawClaimAvailable] = useState<DrawClaimType>('none');
+  const [drawClaimAvailable, setDrawClaimAvailable] = useState<DrawClaimType>(DrawClaimType.None);
   const disconnectTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Rematch state
-  const [rematchState, setRematchState] = useState<RematchState>('idle');
+  const [rematchState, setRematchState] = useState<RematchState>(RematchState.Idle);
 
   // First-move warning state
   const [firstMoveWarning, setFirstMoveWarning] = useState<{
@@ -270,7 +269,7 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
         break;
 
       case ServerMessageType.QueueJoined:
-        setMatchState('queued');
+        setMatchState(MatchState.Queued);
         setQueuePosition(message.position);
         setTournamentType(message.tournamentType);
         connectionErrorCountRef.current = 0;
@@ -281,12 +280,12 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
         break;
 
       case ServerMessageType.QueueLeft:
-        setMatchState('idle');
+        setMatchState(MatchState.Idle);
         setQueuePosition(null);
         break;
 
       case ServerMessageType.MatchFound:
-        setMatchState('matched');
+        setMatchState(MatchState.Matched);
         setGameId(message.gameId);
         setPlayerColor(toChessColor(message.color));
         setOpponent(message.opponent);
@@ -312,7 +311,7 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
 
       case ServerMessageType.GameStart:
       case ServerMessageType.GameState:
-        setMatchState('playing');
+        setMatchState(MatchState.Playing);
         setGameState(convertGameState(message.gameState));
         break;
 
@@ -348,7 +347,7 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
       }
 
       case ServerMessageType.GameOver:
-        setMatchState('ended');
+        setMatchState(MatchState.Ended);
         setResult(convertResult(message.result.winner));
         setResultReason(message.result.reason);
         setEloChanges(message.result);
@@ -385,7 +384,7 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
         break;
 
       case ServerMessageType.DrawClaimAvailable:
-        setDrawClaimAvailable(message.reason === DrawClaimReason.FiftyMove ? 'fifty_move' : 'threefold_repetition');
+        setDrawClaimAvailable(message.reason === DrawClaimReason.FiftyMove ? DrawClaimType.FiftyMove : DrawClaimType.ThreefoldRepetition);
         const claimMsg =
           message.reason === DrawClaimReason.FiftyMove
             ? '50-move rule reached - you can claim a draw'
@@ -427,29 +426,53 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
       case ServerMessageType.RematchOffered:
         // If offered by opponent
         if ((playerColor === 'w' && message.by === 'black') || (playerColor === 'b' && message.by === 'white')) {
-          setRematchState('received');
-          toast('Opponent wants a rematch!');
+          // If we already requested, auto-accept (mutual rematch)
+          if (rematchState === RematchState.Requested) {
+            setRematchState(RematchState.Accepted);
+            sendMessage({ type: ClientMessageType.AcceptRematch } as ClientMessage);
+            toast.success('Mutual rematch - starting game!');
+          } else {
+            // Only show UI if we didn't already request
+            setRematchState(RematchState.Received);
+            toast('Opponent wants a rematch!');
+          }
         }
         break;
 
-      case ServerMessageType.RematchStarting:
-        setRematchState('accepted');
+      case ServerMessageType.RematchStarting: {
+        const newColor = toChessColor(message.yourColor);
+
+        setRematchState(RematchState.Accepted);
         setResult(null);
         setResultReason(null);
         setEloChanges(null);
         setDrawOffered(false);
         setDrawOfferedByMe(false);
         setGameId(message.gameId);
-        setPlayerColor(toChessColor(message.yourColor));
-        setMatchState('playing');
+        setPlayerColor(newColor);
+        setMatchState(MatchState.Playing);
+
+        // Update the persistent store with new game data (colors swap on rematch)
+        if (opponent && tournamentType) {
+          setCurrentGame(message.gameId, message.yourColor, opponent, tournamentType);
+        }
+
         toast.success('Rematch starting!');
         if (soundEnabled) {
           playGameStartSound();
         }
+
+        // CRITICAL: Reconnect WebSocket with new game ID and new color
+        // The URL contains color param that server uses to identify player
+        const newGameUrl = getGameUrl(message.gameId, message.yourColor);
+        if (newGameUrl) {
+          setWsUrl(newGameUrl);
+        }
         break;
+      }
 
       case ServerMessageType.RematchDeclined:
-        setRematchState('idle');
+        setRematchState(RematchState.Idle);
         toast.error('Rematch declined');
         break;
 
@@ -524,7 +547,7 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
       // CRITICAL FIX: If we reconnect while queued, we MUST re-send JoinQueue
       // because the backend treats a new WebSocket connection as a new session (not in queue)
       // unless we explicitly tell it to put us back in.
-      else if (matchState === 'queued' && joinQueueTournamentRef.current) {
+      else if (matchState === MatchState.Queued && joinQueueTournamentRef.current) {
         console.log('[Multiplayer] Reconnected while queued, re-sending JoinQueue');
         sendMessage({ type: ClientMessageType.JoinQueue, tournamentType: joinQueueTournamentRef.current });
       }
@@ -542,7 +565,7 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
     },
     onError: () => {
       // On error during queue, increment error count
-      if (matchState === 'queued') {
+      if (matchState === MatchState.Queued) {
         connectionErrorCountRef.current++;
         if (connectionErrorCountRef.current >= 10 && joinQueueTournamentRef.current) {
           console.log('[Multiplayer] WebSocket connection failed, falling back to bot');
@@ -551,35 +574,15 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
         }
       }
     },
-    reconnect: matchState === 'playing' || matchState === 'queued' || matchState === 'ended',
-  });
-
-  // Bot game handling with Stockfish
-  const handleBotMove = useCallback(
-    (uciMove: string) => {
-      if (!gameState || matchState !== 'playing') return;
-
-      // For bot games, update would be handled locally
-      if (soundEnabled) {
-        playMoveSound();
-      }
-    },
-    [gameState, matchState, soundEnabled, playMoveSound]
-  );
-
-  // Stockfish for bot games
-  const { isThinking, stop: stopStockfish } = useStockfish({
-    difficulty: 'medium',
-    onBestMove: handleBotMove,
-    onError: (error) => console.error('Stockfish error:', error),
+    reconnect: matchState === MatchState.Playing || matchState === MatchState.Queued || matchState === MatchState.Ended,
   });
 
   // Computed values
-  const isMyTurn = Boolean(gameState && matchState === 'playing' && playerColor && gameState.turn === playerColor);
+  const isMyTurn = Boolean(gameState && matchState === MatchState.Playing && playerColor && gameState.turn === playerColor);
 
   // Can abort only if no moves have been made
   const canAbort = Boolean(
-    matchState === 'playing' && gameState && gameState.fen === 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+    matchState === MatchState.Playing && gameState && gameState.fen === 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
   );
 
   // Create a local bot match (fallback for when backend is unavailable)
@@ -589,12 +592,12 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
       const botName = botNames[Math.floor(Math.random() * botNames.length)];
       const color: ChessColor = Math.random() > 0.5 ? 'w' : 'b';
 
-      setMatchState('queued');
+      setMatchState(MatchState.Queued);
       setTournamentType(tournament);
       setQueuePosition(1);
 
       setTimeout(() => {
-        setMatchState('matched');
+        setMatchState(MatchState.Matched);
         setGameId(`bot-${Date.now()}`);
         setPlayerColor(color);
         setOpponent({
@@ -624,7 +627,7 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
         return;
       }
 
-      setMatchState('queued');
+      setMatchState(MatchState.Queued);
       setTournamentType(tournament);
       joinQueueTournamentRef.current = tournament;
       connectionErrorCountRef.current = 0;
@@ -661,7 +664,7 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
       setPlayerColor(toChessColor(storedColor));
       setOpponent(storedOpponent);
       setTournamentType(storedTournament);
-      setMatchState('playing');
+      setMatchState(MatchState.Playing);
       isBotGameRef.current = Boolean(storedOpponent.isBot);
 
       // Connect to game room WebSocket
@@ -676,7 +679,7 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
   const leaveQueue = useCallback(() => {
     sendMessage({ type: ClientMessageType.LeaveQueue } as ClientMessage);
     disconnect();
-    setMatchState('idle');
+    setMatchState(MatchState.Idle);
     setQueuePosition(null);
     setTournamentType(null);
     setWsUrl(null);
@@ -702,7 +705,7 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
 
   const resign = useCallback(() => {
     if (isBotGameRef.current) {
-      setMatchState('ended');
+      setMatchState(MatchState.Ended);
       setResult(playerColor === 'w' ? '0-1' : '1-0');
       setResultReason('resignation');
       if (soundEnabled) {
@@ -740,41 +743,40 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
       if (drawClaimAvailable !== reason) return;
       const drawReason = reason === 'fifty_move' ? DrawClaimReason.FiftyMove : DrawClaimReason.ThreefoldRepetition;
       sendMessage({ type: ClientMessageType.ClaimDraw, reason: drawReason } as ClientMessage);
-      setDrawClaimAvailable('none');
+      setDrawClaimAvailable(DrawClaimType.None);
     },
     [sendMessage, drawClaimAvailable]
   );
 
   // Rematch actions
   const requestRematch = useCallback(() => {
-    if (matchState !== 'ended') return;
+    if (matchState !== MatchState.Ended) return;
     if (isBotGameRef.current) {
       toast('Start a new game to play again');
       return;
     }
-    setRematchState('requested');
+    setRematchState(RematchState.Requested);
     sendMessage({ type: ClientMessageType.OfferRematch } as ClientMessage);
     toast('Rematch request sent!');
   }, [matchState, sendMessage]);
 
   const acceptRematch = useCallback(() => {
-    if (rematchState !== 'received') return;
-    setRematchState('accepted');
+    if (rematchState !== RematchState.Received) return;
+    setRematchState(RematchState.Accepted);
     sendMessage({ type: ClientMessageType.AcceptRematch } as ClientMessage);
   }, [rematchState, sendMessage]);
 
   const declineRematch = useCallback(() => {
-    if (rematchState !== 'received') return;
+    if (rematchState !== RematchState.Received) return;
     sendMessage({ type: ClientMessageType.DeclineRematch } as ClientMessage);
-    setRematchState('idle');
+    setRematchState(RematchState.Idle);
     // Note: Don't disconnect here - let the message reach the backend first
   }, [rematchState, sendMessage]);
 
   const reset = useCallback(() => {
     disconnect();
-    stopStockfish();
     clearCurrentGame();
-    setMatchState('idle');
+    setMatchState(MatchState.Idle);
     setQueuePosition(null);
     setTournamentType(null);
     setGameId(null);
@@ -788,8 +790,8 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
     setDrawOfferedByMe(false);
     setOpponentDisconnected(false);
     setDisconnectCountdown(null);
-    setDrawClaimAvailable('none');
-    setRematchState('idle');
+    setDrawClaimAvailable(DrawClaimType.None);
+    setRematchState(RematchState.Idle);
     setFirstMoveWarning({ active: false, player: null, countdown: null });
     setWsUrl(null);
     pendingGameConnectionRef.current = null;
@@ -802,13 +804,12 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
       clearInterval(firstMoveTimerRef.current);
       firstMoveTimerRef.current = null;
     }
-  }, [disconnect, stopStockfish, clearCurrentGame]);
+  }, [disconnect, clearCurrentGame]);
 
   // Cleanup on unmount
   useEffect(() => {
     return () => {
       disconnect();
-      stopStockfish();
       if (disconnectTimerRef.current) {
         clearInterval(disconnectTimerRef.current);
       }
@@ -816,7 +817,7 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
         clearInterval(firstMoveTimerRef.current);
       }
     };
-  }, [disconnect, stopStockfish]);
+  }, [disconnect]);
 
   return {
     connectionStatus,
@@ -828,7 +829,6 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
     opponent,
     gameState,
     isMyTurn,
-    isThinking,
     result,
     resultReason,
     eloChanges,
