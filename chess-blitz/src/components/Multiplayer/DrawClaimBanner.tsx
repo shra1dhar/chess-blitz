@@ -10,11 +10,13 @@ import { useState } from 'react';
 import { Activity } from 'react';
 import { useActivityAnimation } from '@/hooks/useActivityAnimation';
 import type { DrawClaimType } from '@/hooks/useMultiplayer';
+import type { Dictionary } from '@/i18n/dictionaries';
 import styles from './DrawClaimBanner.module.scss';
 
 interface DrawClaimBannerProps {
   claimType: DrawClaimType;
   onClaim: (reason: 'fifty_move' | 'threefold_repetition') => void;
+  dict: Dictionary;
 }
 
 // Repeat/cycle icon for threefold
@@ -130,30 +132,19 @@ const ClaimIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const CLAIM_INFO = {
-  fifty_move: {
-    title: '50-Move Rule',
-    subtitle: 'No captures or pawn moves in 50 moves',
-    tooltip: 'The game can be declared a draw if the last 50 moves by each player have been made without any pawn movement or capture.',
-    Icon: CounterIcon,
-  },
-  threefold_repetition: {
-    title: 'Threefold Repetition',
-    subtitle: 'Position repeated 3 times',
-    tooltip: 'The game can be declared a draw when the same position occurs three times with the same player to move.',
-    Icon: RepeatIcon,
-  },
-};
-
-export function DrawClaimBanner({ claimType, onClaim }: DrawClaimBannerProps) {
+export function DrawClaimBanner({ claimType, onClaim, dict }: DrawClaimBannerProps) {
   const isVisible = claimType !== 'none';
   const { activityMode, isAnimatingOut, hasBeenVisible } = useActivityAnimation({ isVisible });
   const [showTooltip, setShowTooltip] = useState(false);
+  const t = dict.drawClaim;
 
   // Use current claimType if visible, otherwise use default for hidden content
   const currentClaimType = claimType !== 'none' ? claimType : 'fifty_move';
-  const info = CLAIM_INFO[currentClaimType];
-  const Icon = info.Icon;
+  const isFiftyMove = currentClaimType === 'fifty_move';
+  const Icon = isFiftyMove ? CounterIcon : RepeatIcon;
+  const title = isFiftyMove ? t.fiftyMoveTitle : t.threefoldTitle;
+  const subtitle = isFiftyMove ? t.fiftyMoveSubtitle : t.threefoldSubtitle;
+  const tooltip = isFiftyMove ? t.fiftyMoveTooltip : t.threefoldTooltip;
 
   const handleClaim = () => {
     if (claimType !== 'none') {
@@ -179,7 +170,7 @@ export function DrawClaimBanner({ claimType, onClaim }: DrawClaimBannerProps) {
           </div>
           <div className={styles.textSection}>
             <div className={styles.titleRow}>
-              <span className={styles.title}>{info.title}</span>
+              <span className={styles.title}>{title}</span>
               <button
                 className={styles.infoButton}
                 onClick={() => setShowTooltip(!showTooltip)}
@@ -192,11 +183,11 @@ export function DrawClaimBanner({ claimType, onClaim }: DrawClaimBannerProps) {
               </button>
               {showTooltip && (
                 <div className={styles.tooltip} role="tooltip">
-                  {info.tooltip}
+                  {tooltip}
                 </div>
               )}
             </div>
-            <span className={styles.subtitle}>{info.subtitle}</span>
+            <span className={styles.subtitle}>{subtitle}</span>
           </div>
         </div>
 
@@ -206,7 +197,7 @@ export function DrawClaimBanner({ claimType, onClaim }: DrawClaimBannerProps) {
           type="button"
         >
           <ClaimIcon className={styles.claimIcon} />
-          <span>Claim Draw</span>
+          <span>{t.claimDraw}</span>
         </button>
       </div>
     </Activity>

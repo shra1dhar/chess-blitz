@@ -16,8 +16,8 @@ import { useSettingsStore } from '@/stores/settingsStore';
 import { useMSNAudioSync } from '@/hooks/useSound';
 import { useGameOverModal } from '@/hooks/useGameOverModal';
 import { LoadingScreen, GameHeader, PlayerInfoCard, GameLayout } from '@/components/game';
-import ChessBoard from '@/components/Board/ChessBoard';
 import GameControls from '@/components/GameControls/GameControls';
+import ChessBoard from '@/components/Board/ChessBoard';
 import GameInfo from '@/components/GameInfo/GameInfo';
 import GameOverModal from '@/components/GameOver/GameOverModal';
 
@@ -71,9 +71,17 @@ export function GameClient({ dictPromise, locale }: GameClientProps) {
     }
   };
 
-  // Loading state
+  // Loading state - show chess-themed screen while Stockfish loads
   if (!game.isEngineReady) {
-    return <LoadingScreen message={dict.play.loading} />;
+    return (
+      <LoadingScreen
+        message={dict.play.engineLoading || 'Preparing your opponent...'}
+        variant="engine"
+        showBackButton
+        backLabel={dict.play.back}
+        onBack={() => router.push(`/${locale}`)}
+      />
+    );
   }
 
   return (

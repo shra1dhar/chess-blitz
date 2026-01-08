@@ -61,7 +61,8 @@
     "stockfish": "Шах Бот",
     "you": "Ти",
     "yourTurn": "Твой ход",
-    "resignConfirm": "Сигурен ли си, че искаш да се предадеш?"
+    "resignConfirm": "Сигурен ли си, че искаш да се предадеш?",
+    "engineLoading": "Подготвяне на вашия противник..."
   },
   "controls": {
     "controls": "Контроли",
@@ -116,6 +117,7 @@
     "autoAbort": "Автоматично прекратяване след 0:{seconds}"
   },
   "tournament": {
+    "back": "Назад",
     "title": "Шахматна арена",
     "subtitle": "Избери битката си. Намери противника си.",
     "rating": "Рейтинг",
@@ -130,7 +132,7 @@
     "classicalDesc": "Повече време за мислене. По-дълбока тактика. 10 минути.",
     "min": "мин",
     "play": "Играй",
-    "findingOpponent": "Finding opponent",
+    "findingOpponent": "Търсене на противник",
     "position": "Позиция",
     "cancelSearch": "Отказ от търсене",
     "matchFound": "Match Found!",
@@ -140,7 +142,7 @@
     "preparingGame": "Preparing your game...",
     "playingAsWhite": "Playing as White",
     "playingAsBlack": "Playing as Black",
-    "matchmakingHint": "Matching you with a player of similar skill",
+    "matchmakingHint": "Намираме играч с подобно ниво",
     "cancel": "Cancel",
     "rematchRequest": "Rematch?",
     "rematchSent": "Rematch request sent",
@@ -160,5 +162,62 @@
     "opponentOffers": "Противникът ви предлага реми",
     "accept": "Приемам",
     "decline": "Отказвам"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Победихте!",
+      "defeat": "Загубихте",
+      "draw": "Реми",
+      "aborted": "Прекратена"
+    },
+    "reasons": {
+      "checkmate": "Мат!",
+      "opponentResigned": "Противникът се предаде",
+      "wonOnTime": "Спечелихте по време",
+      "timeRanOut": "Времето изтече",
+      "youResigned": "Вие се предадохте",
+      "stalemate": "Пат",
+      "insufficientMaterial": "Недостатъчен материал",
+      "drawAgreed": "Реми по съгласие",
+      "gameCancelled": "Играта е отменена",
+      "fiftyMoveRule": "Правило за 50 хода",
+      "seventyFiveMoveRule": "Правило за 75 хода",
+      "threefoldRepetition": "Тройно повторение",
+      "fivefoldRepetition": "Петкратно повторение",
+      "timeoutVsInsufficient": "Изтекло време срещу недостатъчен материал",
+      "opponentDisconnected": "Противникът се разкачи",
+      "noShow": "Противникът не се появи"
+    },
+    "actions": {
+      "newGame": "Нова {time}",
+      "rematch": "Реванш",
+      "requestSent": "Заявката е изпратена",
+      "acceptRematch": "Приемам реванш",
+      "decline": "Отказвам",
+      "viewBoard": "Виж дъската"
+    },
+    "stats": {
+      "you": "Вие",
+      "opponent": "Противник"
+    }
+  },
+  "disconnect": {
+    "title": "{name} се разкачи",
+    "autoWinIn": "Автоматична победа след {seconds}с",
+    "waiting": "Изчакване за повторно свързване..."
+  },
+  "reconnecting": {
+    "title": "Връзката е прекъсната",
+    "subtitle": "Повторно свързване...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "Правило за 50 хода",
+    "fiftyMoveSubtitle": "Няма взимания или ходове с пешки в последните 50 хода",
+    "fiftyMoveTooltip": "Играта може да бъде обявена за реми, ако последните 50 хода на всеки играч са направени без движение на пешка или взимане.",
+    "threefoldTitle": "Тройно повторение",
+    "threefoldSubtitle": "Позицията се повтори 3 пъти",
+    "threefoldTooltip": "Играта може да бъде обявена за реми, когато една и съща позиция се появи три пъти с един и същ играч на ход.",
+    "claimDraw": "Искам реми"
   }
 }

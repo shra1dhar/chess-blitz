@@ -61,7 +61,8 @@
     "stockfish": "Šachový Bot",
     "you": "Ty",
     "yourTurn": "Tvůj tah",
-    "resignConfirm": "Opravdu chceš vzdát?"
+    "resignConfirm": "Opravdu chceš vzdát?",
+    "engineLoading": "Připravuji vašeho soupeře..."
   },
   "controls": {
     "controls": "Ovládání",
@@ -116,6 +117,7 @@
     "autoAbort": "Automatické zrušení za 0:{seconds}"
   },
   "tournament": {
+    "back": "Zpět",
     "title": "Šachová aréna",
     "subtitle": "Vyber si bitvu. Najdi soupeře.",
     "rating": "Hodnocení",
@@ -130,7 +132,7 @@
     "classicalDesc": "Více času na přemýšlení. Hlubší taktika. 10 minut.",
     "min": "min",
     "play": "Hrát",
-    "findingOpponent": "Finding opponent",
+    "findingOpponent": "Hledání soupeře",
     "position": "Pozice",
     "cancelSearch": "Zrušit hledání",
     "matchFound": "Match Found!",
@@ -140,7 +142,7 @@
     "preparingGame": "Preparing your game...",
     "playingAsWhite": "Playing as White",
     "playingAsBlack": "Playing as Black",
-    "matchmakingHint": "Matching you with a player of similar skill",
+    "matchmakingHint": "Hledáme hráče podobné úrovně",
     "cancel": "Cancel",
     "rematchRequest": "Rematch?",
     "rematchSent": "Rematch request sent",
@@ -160,5 +162,62 @@
     "opponentOffers": "Soupeř nabízí remízu",
     "accept": "Přijmout",
     "decline": "Odmítnout"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Vyhrál jsi!",
+      "defeat": "Prohrál jsi",
+      "draw": "Remíza",
+      "aborted": "Zrušeno"
+    },
+    "reasons": {
+      "checkmate": "Šachmat!",
+      "opponentResigned": "Soupeř vzdal",
+      "wonOnTime": "Vyhrál jsi na čas",
+      "timeRanOut": "Čas vypršel",
+      "youResigned": "Vzdal jsi",
+      "stalemate": "Pat",
+      "insufficientMaterial": "Nedostatek materiálu",
+      "drawAgreed": "Remíza dohodnuta",
+      "gameCancelled": "Hra zrušena",
+      "fiftyMoveRule": "Pravidlo 50 tahů",
+      "seventyFiveMoveRule": "Pravidlo 75 tahů",
+      "threefoldRepetition": "Trojí opakování pozice",
+      "fivefoldRepetition": "Pětinásobné opakování pozice",
+      "timeoutVsInsufficient": "Vypršel čas vs nedostatek materiálu",
+      "opponentDisconnected": "Soupeř se odpojil",
+      "noShow": "Soupeř se nedostavil"
+    },
+    "actions": {
+      "newGame": "Nová {time}",
+      "rematch": "Odveta",
+      "requestSent": "Žádost odeslána",
+      "acceptRematch": "Přijmout odvetu",
+      "decline": "Odmítnout",
+      "viewBoard": "Zobrazit šachovnici"
+    },
+    "stats": {
+      "you": "Ty",
+      "opponent": "Soupeř"
+    }
+  },
+  "disconnect": {
+    "title": "{name} se odpojil",
+    "autoWinIn": "Automatická výhra za {seconds}s",
+    "waiting": "Čekání na opětovné připojení..."
+  },
+  "reconnecting": {
+    "title": "Spojení ztraceno",
+    "subtitle": "Připojuji se...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "Pravidlo 50 tahů",
+    "fiftyMoveSubtitle": "Žádné braní ani tahy pěšcem za 50 tahů",
+    "fiftyMoveTooltip": "Hra může být prohlášena za remízu, pokud posledních 50 tahů každého hráče bylo provedeno bez jakéhokoli pohybu pěšce nebo braní.",
+    "threefoldTitle": "Trojí opakování pozice",
+    "threefoldSubtitle": "Pozice se opakovala 3krát",
+    "threefoldTooltip": "Hra může být prohlášena za remízu, když se stejná pozice vyskytne třikrát se stejným hráčem na tahu.",
+    "claimDraw": "Reklamovat remízu"
   }
 }

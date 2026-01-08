@@ -6,14 +6,17 @@ import type { AuthResponse, TournamentType } from '@/types/multiplayer';
 
 const AUTH_STORAGE_KEY = 'chess-blitz-auth';
 
-// Get backend URL from environment
+// Get backend URL for WebSocket connections (game/matchmaking)
 function getBackendUrl(): string {
   if (typeof window !== 'undefined') {
-    // Client-side
     return process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8787';
   }
-  // Server-side fallback
   return process.env.BACKEND_URL || 'http://localhost:8787';
+}
+
+// Auth API is now on the same server (no CORS overhead)
+function getAuthApiUrl(): string {
+  return '/api/auth';
 }
 
 // ==============================================
@@ -86,9 +89,9 @@ export function clearAuth(): void {
  * Create a new guest session
  */
 export async function createGuestSession(): Promise<AuthResponse> {
-  const backendUrl = getBackendUrl();
+  const authUrl = getAuthApiUrl();
 
-  const response = await fetch(`${backendUrl}/auth/guest`, {
+  const response = await fetch(`${authUrl}/guest`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -109,9 +112,9 @@ export async function createGuestSession(): Promise<AuthResponse> {
  * Refresh an existing token
  */
 export async function refreshToken(token: string): Promise<AuthResponse> {
-  const backendUrl = getBackendUrl();
+  const authUrl = getAuthApiUrl();
 
-  const response = await fetch(`${backendUrl}/auth/refresh`, {
+  const response = await fetch(`${authUrl}/refresh`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

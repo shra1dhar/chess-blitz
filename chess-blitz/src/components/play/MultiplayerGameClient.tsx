@@ -11,7 +11,7 @@ import { Chess } from 'chess.js';
 import type { Square } from 'chess.js';
 import type { Dictionary } from '@/i18n/dictionaries';
 import type { Locale } from '@/i18n/config';
-import { useMultiplayer } from '@/hooks/useMultiplayer';
+import { useMultiplayer, MatchState } from '@/hooks/useMultiplayer';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useMultiplayerStore } from '@/stores/multiplayerStore';
 import { useMSNAudioSync } from '@/hooks/useSound';
@@ -19,13 +19,16 @@ import { useGameClock } from '@/hooks/useGameClock';
 import { useGameOverModal, useGameOverEscapeKey } from '@/hooks/useGameOverModal';
 import { parseMovesFromPgn, getPlayerResult, getGameStatusFromReason } from '@/utils/moves';
 import { LoadingScreen, GameHeader, PlayerInfoCard, GameLayout } from '@/components/game';
-import ChessBoard from '@/components/Board/ChessBoard';
 import GameInfo from '@/components/GameInfo/GameInfo';
+import ChessBoard from '@/components/Board/ChessBoard';
 import GameOverModal from '@/components/GameOver/GameOverModal';
 import { DrawOfferBanner } from '@/components/Multiplayer/DrawOfferBanner';
 import { DisconnectOverlay } from '@/components/Multiplayer/DisconnectOverlay';
+import { DrawClaimBanner } from '@/components/Multiplayer/DrawClaimBanner';
+import { ReconnectingOverlay } from '@/components/Multiplayer/ReconnectingOverlay';
 import { SidebarControls } from '@/components/Multiplayer/SidebarControls';
 import { MobileGameControls } from '@/components/Multiplayer/MobileGameControls';
+import { MatchmakingOverlay } from '@/components/Tournament/MatchmakingOverlay';
 
 interface MultiplayerGameClientProps {
   gameId: string;
@@ -59,7 +62,7 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
     blackTimeMs: multiplayer.gameState?.blackTimeMs ?? 0,
     turn: multiplayer.gameState?.turn ?? 'w',
     lastMoveAt: multiplayer.gameState?.lastMoveAt ?? 0,
-    isPlaying: multiplayer.matchState === 'playing',
+    isPlaying: multiplayer.matchState === MatchState.Playing,
   });
 
   // Initialize session on mount - restores token from localStorage for reconnection
@@ -89,13 +92,28 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
 
   // Show game over modal when game ends
   useGameOverModal(
-    multiplayer.matchState === 'ended' && !!multiplayer.result,
+    multiplayer.matchState === MatchState.Ended && !!multiplayer.result,
     true,
     setShowGameOver
   );
 
   // Handle Escape key to dismiss game over modal
   useGameOverEscapeKey(showGameOver, setShowGameOver);
+
+  // Navigate to new game when matched (during re-queue from game page)
+  useEffect(() => {
+    if (
+      multiplayer.matchState === MatchState.Matched &&
+      multiplayer.gameId &&
+      multiplayer.gameId !== gameId
+    ) {
+      // Short delay to allow MatchFound animation to show
+      const timer = setTimeout(() => {
+        router.push(`/${locale}/play/${multiplayer.gameId}`);
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [multiplayer.matchState, multiplayer.gameId, gameId, router, locale]);
 
   // Get legal moves for a square
   const getLegalMoves = useCallback(
@@ -168,7 +186,7 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
     );
   }
 
-  const isPlaying = multiplayer.matchState === 'playing';
+  const isPlaying = multiplayer.matchState === MatchState.Playing;
   const isCheck = chess.isCheck();
   const parsedMoves = parseMovesFromPgn(multiplayer.gameState.pgn);
   const gameResult = getPlayerResult(multiplayer.result, multiplayer.playerColor || 'w');
@@ -295,10 +313,28 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
             onDecline={multiplayer.declineDraw}
             dict={dict.draw}
           />
+          <DrawClaimBanner
+            claimType={multiplayer.drawClaimAvailable}
+            onClaim={multiplayer.claimDraw}
+            dict={dict}
+          />
           <DisconnectOverlay
             isVisible={multiplayer.opponentDisconnected}
             countdown={multiplayer.disconnectCountdown}
             opponentName={multiplayer.opponent?.displayName}
+            dict={dict}
+          />
+          <ReconnectingOverlay
+            isVisible={multiplayer.connectionStatus === 'disconnected' && isPlaying}
+            dict={dict}
+          />
+          <MatchmakingOverlay
+            matchState={multiplayer.matchState}
+            queuePosition={multiplayer.queuePosition}
+            opponent={multiplayer.opponent}
+            playerColor={multiplayer.playerColor}
+            onCancel={multiplayer.leaveQueue}
+            dict={dict}
           />
           {showGameOver && multiplayer.result && (
             <GameOverModal
@@ -318,11 +354,13 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
               tournamentType={multiplayer.tournamentType || undefined}
               onPlayAgain={() => {
                 // Re-queue instantly for the same tournament type
-                if (multiplayer.tournamentType) {
+                const tournamentType = multiplayer.tournamentType;
+                if (tournamentType) {
+                  multiplayer.reset(); // Clear all state first
                   setShowGameOver(false);
-                  multiplayer.joinQueue(multiplayer.tournamentType);
+                  multiplayer.joinQueue(tournamentType); // Re-queue with clean state
                 } else {
-                  handleNewGame(); // Fallback to lobby if type lost
+                  handleNewGame(); // Fallback to lobby if type lost (already calls reset)
                 }
               }}
               onBackToLobby={handleBackToLobby}

@@ -61,7 +61,8 @@
     "stockfish": "Chess Bot",
     "you": "Ikaw",
     "yourTurn": "Iyong turn",
-    "resignConfirm": "Sigurado ka bang gusto mong sumuko?"
+    "resignConfirm": "Sigurado ka bang gusto mong sumuko?",
+    "engineLoading": "Inihahanda ang iyong kalaban..."
   },
   "controls": {
     "controls": "Mga Kontrol",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "Bumalik",
     "title": "Chess Arena",
     "subtitle": "Piliin ang iyong laban. Hanapin ang iyong kalaban.",
     "rating": "Rating",
@@ -160,5 +162,62 @@
     "opponentOffers": "Nag-aalok ng draw ang iyong kalaban",
     "accept": "Tanggapin",
     "decline": "Tanggihan"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Nanalo Ka!",
+      "defeat": "Natalo Ka",
+      "draw": "Draw",
+      "aborted": "Nakansela"
+    },
+    "reasons": {
+      "checkmate": "Checkmate!",
+      "opponentResigned": "Sumuko ang kalaban",
+      "wonOnTime": "Nanalo ka sa oras",
+      "timeRanOut": "Naubos ang oras",
+      "youResigned": "Sumuko ka",
+      "stalemate": "Stalemate",
+      "insufficientMaterial": "Hindi sapat na piraso",
+      "drawAgreed": "Draw na napagkasunduan",
+      "gameCancelled": "Nakansela ang laro",
+      "fiftyMoveRule": "Panuntunan ng 50 galaw",
+      "seventyFiveMoveRule": "Panuntunan ng 75 galaw",
+      "threefoldRepetition": "Tatlong beses na pag-uulit",
+      "fivefoldRepetition": "Limang beses na pag-uulit",
+      "timeoutVsInsufficient": "Naubos ang oras vs hindi sapat na piraso",
+      "opponentDisconnected": "Nadiskonekta ang kalaban",
+      "noShow": "Hindi nagpakita ang kalaban"
+    },
+    "actions": {
+      "newGame": "Bagong {time}",
+      "rematch": "Rematch",
+      "requestSent": "Naipadala ang Kahilingan",
+      "acceptRematch": "Tanggapin ang Rematch",
+      "decline": "Tanggihan",
+      "viewBoard": "Tingnan ang Board"
+    },
+    "stats": {
+      "you": "Ikaw",
+      "opponent": "Kalaban"
+    }
+  },
+  "disconnect": {
+    "title": "Nadiskonekta si {name}",
+    "autoWinIn": "Auto-panalo sa {seconds}s",
+    "waiting": "Naghihintay ng muling koneksyon..."
+  },
+  "reconnecting": {
+    "title": "Nawala ang Koneksyon",
+    "subtitle": "Muling kumokonekta...",
+    "hint": "Mangyaring suriin ang iyong koneksyon sa internet"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "Panuntunan ng 50 Galaw",
+    "fiftyMoveSubtitle": "Walang pagkuha o galaw ng peon sa 50 galaw",
+    "fiftyMoveTooltip": "Maaaring ideklara ang laro bilang draw kung ang huling 50 galaw ng bawat manlalaro ay ginawa nang walang anumang paggalaw ng peon o pagkuha.",
+    "threefoldTitle": "Tatlong Beses na Pag-uulit",
+    "threefoldSubtitle": "Inulit ang posisyon ng 3 beses",
+    "threefoldTooltip": "Maaaring ideklara ang laro bilang draw kapag ang parehong posisyon ay lumitaw ng tatlong beses na may parehong manlalaro na gagalaw.",
+    "claimDraw": "Mag-claim ng Draw"
   }
 }

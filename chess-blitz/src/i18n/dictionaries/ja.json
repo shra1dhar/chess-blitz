@@ -61,7 +61,8 @@
     "stockfish": "チェスボット",
     "you": "あなた",
     "yourTurn": "あなたの番",
-    "resignConfirm": "本当に投了しますか？"
+    "resignConfirm": "本当に投了しますか？",
+    "engineLoading": "対戦相手を準備中..."
   },
   "controls": {
     "controls": "コントロール",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "戻る",
     "title": "チェスアリーナ",
     "subtitle": "対戦を選択。対戦相手を見つけよう。",
     "rating": "レーティング",
@@ -160,5 +162,62 @@
     "opponentOffers": "相手がドローを申し出ています",
     "accept": "承諾",
     "decline": "拒否"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "勝利！",
+      "defeat": "敗北",
+      "draw": "引き分け",
+      "aborted": "中断"
+    },
+    "reasons": {
+      "checkmate": "チェックメイト！",
+      "opponentResigned": "相手が投了",
+      "wonOnTime": "時間切れで勝利",
+      "timeRanOut": "時間切れ",
+      "youResigned": "投了しました",
+      "stalemate": "ステイルメイト",
+      "insufficientMaterial": "駒不足",
+      "drawAgreed": "合意による引き分け",
+      "gameCancelled": "対局中断",
+      "fiftyMoveRule": "50手ルール",
+      "seventyFiveMoveRule": "75手ルール",
+      "threefoldRepetition": "三回繰り返し",
+      "fivefoldRepetition": "五回繰り返し",
+      "timeoutVsInsufficient": "時間切れ対駒不足",
+      "opponentDisconnected": "相手が切断",
+      "noShow": "相手が不参加"
+    },
+    "actions": {
+      "newGame": "新しい{time}",
+      "rematch": "再戦",
+      "requestSent": "リクエスト送信済み",
+      "acceptRematch": "再戦を承諾",
+      "decline": "拒否",
+      "viewBoard": "盤面を見る"
+    },
+    "stats": {
+      "you": "あなた",
+      "opponent": "相手"
+    }
+  },
+  "disconnect": {
+    "title": "{name}が切断",
+    "autoWinIn": "{seconds}秒後に自動勝利",
+    "waiting": "再接続を待っています..."
+  },
+  "reconnecting": {
+    "title": "接続が切断されました",
+    "subtitle": "再接続中...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "50手ルール",
+    "fiftyMoveSubtitle": "50手の間、駒取りもポーン移動もなし",
+    "fiftyMoveTooltip": "各プレイヤーの最後の50手がポーンの移動や駒取りなしで行われた場合、引き分けを宣言できます。",
+    "threefoldTitle": "三回繰り返し",
+    "threefoldSubtitle": "同じ局面が3回",
+    "threefoldTooltip": "同じ局面が同じプレイヤーの手番で3回発生した場合、引き分けを宣言できます。",
+    "claimDraw": "引き分けを主張"
   }
 }

@@ -61,7 +61,8 @@
     "stockfish": "Bot de Ajedrez",
     "you": "Tú",
     "yourTurn": "Tu turno",
-    "resignConfirm": "¿Seguro que quieres rendirte?"
+    "resignConfirm": "¿Seguro que quieres rendirte?",
+    "engineLoading": "Preparando a tu oponente..."
   },
   "controls": {
     "controls": "Controles",
@@ -116,6 +117,7 @@
     "autoAbort": "Se cancelará en 0:{seconds}"
   },
   "tournament": {
+    "back": "Volver",
     "title": "Arena de Ajedrez",
     "subtitle": "Elige tu batalla. Encuentra tu oponente.",
     "rating": "Puntuación",
@@ -160,5 +162,62 @@
     "opponentOffers": "Tu oponente ofrece tablas",
     "accept": "Aceptar",
     "decline": "Rechazar"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "¡Ganaste!",
+      "defeat": "Perdiste",
+      "draw": "Tablas",
+      "aborted": "Cancelado"
+    },
+    "reasons": {
+      "checkmate": "¡Jaque mate!",
+      "opponentResigned": "El oponente se rindió",
+      "wonOnTime": "Ganaste por tiempo",
+      "timeRanOut": "Se acabó el tiempo",
+      "youResigned": "Te rendiste",
+      "stalemate": "Tablas por ahogado",
+      "insufficientMaterial": "Material insuficiente",
+      "drawAgreed": "Tablas acordadas",
+      "gameCancelled": "Partida cancelada",
+      "fiftyMoveRule": "Regla de 50 movimientos",
+      "seventyFiveMoveRule": "Regla de 75 movimientos",
+      "threefoldRepetition": "Triple repetición",
+      "fivefoldRepetition": "Quíntuple repetición",
+      "timeoutVsInsufficient": "Tiempo vs material insuficiente",
+      "opponentDisconnected": "Oponente desconectado",
+      "noShow": "El oponente no apareció"
+    },
+    "actions": {
+      "newGame": "Nueva {time}",
+      "rematch": "Revancha",
+      "requestSent": "Solicitud enviada",
+      "acceptRematch": "Aceptar revancha",
+      "decline": "Rechazar",
+      "viewBoard": "Ver tablero"
+    },
+    "stats": {
+      "you": "Tú",
+      "opponent": "Oponente"
+    }
+  },
+  "disconnect": {
+    "title": "{name} desconectado",
+    "autoWinIn": "Victoria automática en {seconds}s",
+    "waiting": "Esperando reconexión..."
+  },
+  "reconnecting": {
+    "title": "Conexión perdida",
+    "subtitle": "Reconectando...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "Regla de 50 movimientos",
+    "fiftyMoveSubtitle": "Sin capturas ni movimientos de peón en 50 jugadas",
+    "fiftyMoveTooltip": "La partida puede declararse tablas si los últimos 50 movimientos de cada jugador se realizaron sin mover peones ni capturar.",
+    "threefoldTitle": "Triple repetición",
+    "threefoldSubtitle": "Posición repetida 3 veces",
+    "threefoldTooltip": "La partida puede declararse tablas cuando la misma posición ocurre tres veces con el mismo jugador para mover.",
+    "claimDraw": "Reclamar tablas"
   }
 }

@@ -61,7 +61,8 @@
     "stockfish": "Sjakkbot",
     "you": "Du",
     "yourTurn": "Din tur",
-    "resignConfirm": "Er du sikker på at du vil gi opp?"
+    "resignConfirm": "Er du sikker på at du vil gi opp?",
+    "engineLoading": "Forbereder motstanderen din..."
   },
   "controls": {
     "controls": "Kontroller",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "Tilbake",
     "title": "Sjakk Arena",
     "subtitle": "Velg din kamp. Finn din motstander.",
     "rating": "Rating",
@@ -160,5 +162,62 @@
     "opponentOffers": "Motstanderen din tilbyr remis",
     "accept": "Godta",
     "decline": "Avslå"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Du vant!",
+      "defeat": "Du tapte",
+      "draw": "Remis",
+      "aborted": "Avbrutt"
+    },
+    "reasons": {
+      "checkmate": "Sjakkmatt!",
+      "opponentResigned": "Motstanderen ga opp",
+      "wonOnTime": "Du vant på tid",
+      "timeRanOut": "Tiden gikk ut",
+      "youResigned": "Du ga opp",
+      "stalemate": "Patt",
+      "insufficientMaterial": "Utilstrekkelig materiale",
+      "drawAgreed": "Remis avtalt",
+      "gameCancelled": "Spill avbrutt",
+      "fiftyMoveRule": "50-trekk regelen",
+      "seventyFiveMoveRule": "75-trekk regelen",
+      "threefoldRepetition": "Trefoldig repetisjon",
+      "fivefoldRepetition": "Femfoldig repetisjon",
+      "timeoutVsInsufficient": "Tidsavbrudd mot utilstrekkelig materiale",
+      "opponentDisconnected": "Motstanderen mistet tilkoblingen",
+      "noShow": "Motstanderen møtte ikke opp"
+    },
+    "actions": {
+      "newGame": "Nytt {time}",
+      "rematch": "Omkamp",
+      "requestSent": "Forespørsel sendt",
+      "acceptRematch": "Godta omkamp",
+      "decline": "Avslå",
+      "viewBoard": "Se brettet"
+    },
+    "stats": {
+      "you": "Du",
+      "opponent": "Motstander"
+    }
+  },
+  "disconnect": {
+    "title": "{name} mistet tilkoblingen",
+    "autoWinIn": "Automatisk seier om {seconds}s",
+    "waiting": "Venter på gjenoppkobling..."
+  },
+  "reconnecting": {
+    "title": "Tilkobling tapt",
+    "subtitle": "Kobler til på nytt...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "50-trekk regelen",
+    "fiftyMoveSubtitle": "Ingen slag eller bondetrekk på 50 trekk",
+    "fiftyMoveTooltip": "Spillet kan erklæres remis hvis de siste 50 trekkene av hver spiller er gjort uten noen bondebevegelse eller slag.",
+    "threefoldTitle": "Trefoldig repetisjon",
+    "threefoldSubtitle": "Stillingen gjentatt 3 ganger",
+    "threefoldTooltip": "Spillet kan erklæres remis når samme stilling forekommer tre ganger med samme spiller til å trekke.",
+    "claimDraw": "Krev remis"
   }
 }

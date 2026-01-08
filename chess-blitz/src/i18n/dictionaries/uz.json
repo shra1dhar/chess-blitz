@@ -61,7 +61,8 @@
     "stockfish": "Shaxmat Boti",
     "you": "Siz",
     "yourTurn": "Sizning navbatingiz",
-    "resignConfirm": "Taslim bo'lishni xohlaysizmi?"
+    "resignConfirm": "Taslim bo'lishni xohlaysizmi?",
+    "engineLoading": "Raqibingiz tayyorlanmoqda..."
   },
   "controls": {
     "controls": "Boshqaruv",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "Orqaga",
     "title": "Shaxmat Arenasi",
     "subtitle": "Jangingizni tanlang. Raqibingizni toping.",
     "rating": "Reyting",
@@ -160,5 +162,62 @@
     "opponentOffers": "Raqibingiz durang taklif qilmoqda",
     "accept": "Qabul qilish",
     "decline": "Rad etish"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Siz yutdingiz!",
+      "defeat": "Siz yutqazdingiz",
+      "draw": "Durrang",
+      "aborted": "Bekor qilindi"
+    },
+    "reasons": {
+      "checkmate": "Shah va mat!",
+      "opponentResigned": "Raqib taslim bo'ldi",
+      "wonOnTime": "Vaqt bo'yicha g'alaba",
+      "timeRanOut": "Vaqt tugadi",
+      "youResigned": "Siz taslim bo'ldingiz",
+      "stalemate": "Pat",
+      "insufficientMaterial": "Material yetarli emas",
+      "drawAgreed": "Durrang kelishildi",
+      "gameCancelled": "O'yin bekor qilindi",
+      "fiftyMoveRule": "50 ta yurish qoidasi",
+      "seventyFiveMoveRule": "75 ta yurish qoidasi",
+      "threefoldRepetition": "Uch marta takrorlanish",
+      "fivefoldRepetition": "Besh marta takrorlanish",
+      "timeoutVsInsufficient": "Vaqt tugashi materialga qarshi",
+      "opponentDisconnected": "Raqib uzildi",
+      "noShow": "Raqib kelmadi"
+    },
+    "actions": {
+      "newGame": "Yangi {time}",
+      "rematch": "Qayta o'yin",
+      "requestSent": "So'rov yuborildi",
+      "acceptRematch": "Qayta o'yinni qabul qilish",
+      "decline": "Rad etish",
+      "viewBoard": "Taxtani ko'rish"
+    },
+    "stats": {
+      "you": "Siz",
+      "opponent": "Raqib"
+    }
+  },
+  "disconnect": {
+    "title": "{name} uzildi",
+    "autoWinIn": "{seconds}s da avtomatik g'alaba",
+    "waiting": "Qayta ulanish kutilmoqda..."
+  },
+  "reconnecting": {
+    "title": "Aloqa uzildi",
+    "subtitle": "Qayta ulanmoqda...",
+    "hint": "Iltimos, internet aloqangizni tekshiring"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "50 ta yurish qoidasi",
+    "fiftyMoveSubtitle": "50 ta yurishda hech qanday olish yoki piyoda yurishi yo'q",
+    "fiftyMoveTooltip": "O'yin durrang deb e'lon qilinishi mumkin, agar har bir o'yinchining oxirgi 50 ta yurishi hech qanday piyoda harakati yoki olishsiz amalga oshirilgan bo'lsa.",
+    "threefoldTitle": "Uch marta takrorlanish",
+    "threefoldSubtitle": "Pozitsiya 3 marta takrorlandi",
+    "threefoldTooltip": "O'yin durrang deb e'lon qilinishi mumkin, agar bir xil pozitsiya bir xil o'yinchi yurishi bilan uch marta takrorlansa.",
+    "claimDraw": "Durrang talab qilish"
   }
 }

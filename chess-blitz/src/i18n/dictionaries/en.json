@@ -57,6 +57,7 @@
   "play": {
     "back": "Back",
     "loading": "Loading chess engine...",
+    "engineLoading": "Preparing your opponent...",
     "connectingToGame": "Connecting to game...",
     "stockfish": "Chess Bot",
     "you": "You",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "Back",
     "title": "Chess Arena",
     "subtitle": "Choose your battle. Find your opponent.",
     "rating": "Rating",
@@ -160,5 +162,62 @@
     "opponentOffers": "Your opponent offers a draw",
     "accept": "Accept",
     "decline": "Decline"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "You Won!",
+      "defeat": "You Lost",
+      "draw": "Draw",
+      "aborted": "Aborted"
+    },
+    "reasons": {
+      "checkmate": "Checkmate!",
+      "opponentResigned": "Opponent resigned",
+      "wonOnTime": "You won on time",
+      "timeRanOut": "Time ran out",
+      "youResigned": "You resigned",
+      "stalemate": "Stalemate",
+      "insufficientMaterial": "Insufficient material",
+      "drawAgreed": "Draw agreed",
+      "gameCancelled": "Game cancelled",
+      "fiftyMoveRule": "50-move rule",
+      "seventyFiveMoveRule": "75-move rule",
+      "threefoldRepetition": "Threefold repetition",
+      "fivefoldRepetition": "Fivefold repetition",
+      "timeoutVsInsufficient": "Timeout vs insufficient material",
+      "opponentDisconnected": "Opponent disconnected",
+      "noShow": "Opponent did not show"
+    },
+    "actions": {
+      "newGame": "New {time}",
+      "rematch": "Rematch",
+      "requestSent": "Request Sent",
+      "acceptRematch": "Accept Rematch",
+      "decline": "Decline",
+      "viewBoard": "View Board"
+    },
+    "stats": {
+      "you": "You",
+      "opponent": "Opponent"
+    }
+  },
+  "disconnect": {
+    "title": "{name} Disconnected",
+    "autoWinIn": "Auto-win in {seconds}s",
+    "waiting": "Waiting for reconnection..."
+  },
+  "reconnecting": {
+    "title": "Connection Lost",
+    "subtitle": "Reconnecting...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "50-Move Rule",
+    "fiftyMoveSubtitle": "No captures or pawn moves in 50 moves",
+    "fiftyMoveTooltip": "The game can be declared a draw if the last 50 moves by each player have been made without any pawn movement or capture.",
+    "threefoldTitle": "Threefold Repetition",
+    "threefoldSubtitle": "Position repeated 3 times",
+    "threefoldTooltip": "The game can be declared a draw when the same position occurs three times with the same player to move.",
+    "claimDraw": "Claim Draw"
   }
 }

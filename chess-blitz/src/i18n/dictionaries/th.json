@@ -61,7 +61,8 @@
     "stockfish": "บอทหมากรุก",
     "you": "คุณ",
     "yourTurn": "ตาของคุณ",
-    "resignConfirm": "คุณแน่ใจหรือว่าต้องการยอมแพ้?"
+    "resignConfirm": "คุณแน่ใจหรือว่าต้องการยอมแพ้?",
+    "engineLoading": "กำลังเตรียมคู่ต่อสู้ของคุณ..."
   },
   "controls": {
     "controls": "การควบคุม",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "กลับ",
     "title": "สนามหมากรุก",
     "subtitle": "เลือกการต่อสู้ของคุณ ค้นหาคู่ต่อสู้",
     "rating": "เรตติ้ง",
@@ -160,5 +162,62 @@
     "opponentOffers": "คู่ต่อสู้เสนอเสมอ",
     "accept": "ยอมรับ",
     "decline": "ปฏิเสธ"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "คุณชนะ!",
+      "defeat": "คุณแพ้",
+      "draw": "เสมอ",
+      "aborted": "ยกเลิก"
+    },
+    "reasons": {
+      "checkmate": "รุกฆาต!",
+      "opponentResigned": "คู่ต่อสู้ยอมแพ้",
+      "wonOnTime": "ชนะโดยเวลา",
+      "timeRanOut": "หมดเวลา",
+      "youResigned": "คุณยอมแพ้",
+      "stalemate": "อับหมาก",
+      "insufficientMaterial": "ตัวหมากไม่พอ",
+      "drawAgreed": "ตกลงเสมอ",
+      "gameCancelled": "เกมถูกยกเลิก",
+      "fiftyMoveRule": "กฎ 50 ตา",
+      "seventyFiveMoveRule": "กฎ 75 ตา",
+      "threefoldRepetition": "ซ้ำตำแหน่ง 3 ครั้ง",
+      "fivefoldRepetition": "ซ้ำตำแหน่ง 5 ครั้ง",
+      "timeoutVsInsufficient": "หมดเวลา vs ตัวหมากไม่พอ",
+      "opponentDisconnected": "คู่ต่อสู้หลุดการเชื่อมต่อ",
+      "noShow": "คู่ต่อสู้ไม่มา"
+    },
+    "actions": {
+      "newGame": "เกม{time}ใหม่",
+      "rematch": "แข่งใหม่",
+      "requestSent": "ส่งคำขอแล้ว",
+      "acceptRematch": "ยอมรับแข่งใหม่",
+      "decline": "ปฏิเสธ",
+      "viewBoard": "ดูกระดาน"
+    },
+    "stats": {
+      "you": "คุณ",
+      "opponent": "คู่ต่อสู้"
+    }
+  },
+  "disconnect": {
+    "title": "{name} หลุดการเชื่อมต่อ",
+    "autoWinIn": "ชนะอัตโนมัติใน {seconds}วินาที",
+    "waiting": "รอการเชื่อมต่อใหม่..."
+  },
+  "reconnecting": {
+    "title": "การเชื่อมต่อหลุด",
+    "subtitle": "กำลังเชื่อมต่อใหม่...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "กฎ 50 ตา",
+    "fiftyMoveSubtitle": "ไม่มีการกินหรือเดินเบี้ยใน 50 ตา",
+    "fiftyMoveTooltip": "เกมสามารถประกาศเสมอได้หาก 50 ตาสุดท้ายของผู้เล่นแต่ละคนทำโดยไม่มีการเดินเบี้ยหรือกินตัว",
+    "threefoldTitle": "ซ้ำตำแหน่ง 3 ครั้ง",
+    "threefoldSubtitle": "ตำแหน่งซ้ำ 3 ครั้ง",
+    "threefoldTooltip": "เกมสามารถประกาศเสมอได้เมื่อตำแหน่งเดียวกันเกิดขึ้นสามครั้งกับผู้เล่นคนเดียวกันที่ต้องเดิน",
+    "claimDraw": "เรียกร้องเสมอ"
   }
 }

@@ -11,16 +11,17 @@ import {
   ResultReason,
   GameResult,
 } from "../types/constants";
-import type {
-  GameState,
-  GamePlayer,
-  MoveInfo,
-  SerializedGameState,
-  LiteSerializedGameState,
-  GameEndResult,
-  GameConnectionState,
-  PendingTimeouts,
-  GameInitConfig,
+import {
+  GameRoomStatus,
+  type GameState,
+  type GamePlayer,
+  type MoveInfo,
+  type SerializedGameState,
+  type LiteSerializedGameState,
+  type GameEndResult,
+  type GameConnectionState,
+  type PendingTimeouts,
+  type GameInitConfig,
 } from "../types/game";
 import {
   ClientMessageType,
@@ -220,7 +221,7 @@ export class GameRoom extends DurableObject<Env> {
         blackTimeMs: timeControl.initial,
         lastMoveAt: now,
         increment: timeControl.increment,
-        status: "waiting",
+        status: GameRoomStatus.Waiting,
         turn: "white",
         moveCount: 0,
         positionHistory: new Map([[getPositionKey(this.chess.fen()), 1]]),
@@ -368,9 +369,9 @@ export class GameRoom extends DurableObject<Env> {
    * Start the game.
    */
   private async startGame(): Promise<void> {
-    if (!this.game || this.game.status !== "waiting") return;
+    if (!this.game || this.game.status !== GameRoomStatus.Waiting) return;
 
-    this.game.status = "active";
+    this.game.status = GameRoomStatus.Active;
     const now = Date.now();
     this.game.lastMoveAt = now;
     this.pendingTimeouts.noShowDeadline = null;
@@ -1121,7 +1122,7 @@ export class GameRoom extends DurableObject<Env> {
       blackTimeMs: timeControl.initial,
       lastMoveAt: now,
       increment: timeControl.increment,
-      status: "waiting",
+      status: GameRoomStatus.Waiting,
       turn: "white",
       moveCount: 0,
       positionHistory: new Map([[getPositionKey(this.chess.fen()), 1]]),
@@ -1197,7 +1198,7 @@ export class GameRoom extends DurableObject<Env> {
   private async endGame(winner: Color | "draw" | null, reason: ResultReason): Promise<void> {
     if (!this.game) return;
 
-    this.game.status = "finished";
+    this.game.status = GameRoomStatus.Finished;
     this.game.endedAt = Date.now();
 
     // Calculate ELO changes (skip for bots or aborts)

@@ -8,8 +8,10 @@ import { useCallback, useEffect, useState, useRef, use } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useMultiplayerStore } from '@/stores/multiplayerStore';
-import { useMultiplayer } from '@/hooks/useMultiplayer';
+import { useMultiplayer, MatchState } from '@/hooks/useMultiplayer';
+import { WebSocketStatus } from '@/hooks/useWebSocket';
 import { MatchmakingOverlay } from './MatchmakingOverlay';
+import { BackArrowIcon } from '@/components/icons/GameIcons';
 import type { TournamentType } from '@/types/multiplayer';
 import { TOURNAMENT_TIME_MS } from '@/types/multiplayer';
 import type { Dictionary } from '@/i18n/dictionaries';
@@ -150,7 +152,7 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
 
   // Handle game start - wait for overlay fade-out animation
   useEffect(() => {
-    if (matchState === 'matched' && gameId && !navigationPendingRef.current) {
+    if (matchState === MatchState.Matched && gameId && !navigationPendingRef.current) {
       navigationPendingRef.current = true;
 
       // Wait for overlay fade-out animation (1500ms show + 500ms fade)
@@ -172,7 +174,7 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
 
   // Handle tournament selection
   const handleSelectTournament = useCallback((type: TournamentType) => {
-    if (matchState === 'queued' && currentTournament === type) {
+    if (matchState === MatchState.Queued && currentTournament === type) {
       // Already in this queue - leave it
       leaveQueue();
     } else {
@@ -190,10 +192,20 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
 
   // Is queued for a specific tournament
   const isQueuedFor = (type: TournamentType) =>
-    matchState === 'queued' && currentTournament === type;
+    matchState === MatchState.Queued && currentTournament === type;
+
+  // Handle back navigation
+  const handleBack = useCallback(() => {
+    router.push(`/${locale}`);
+  }, [router, locale]);
 
   return (
     <div className={styles.lobby}>
+      <button className={styles.backButton} onClick={handleBack}>
+        <BackArrowIcon size={20} />
+        <span>{t.back}</span>
+      </button>
+
       <div className={styles.header}>
         <h1 className={styles.title}>{t.title}</h1>
         <p className={styles.subtitle}>{t.subtitle}</p>
@@ -205,7 +217,7 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
             key={type}
             className={`${styles.tournamentCard} ${isQueuedFor(type) ? styles.queued : ''} ${isInitializing ? styles.initializing : ''}`}
             onClick={() => handleSelectTournament(type)}
-            disabled={matchState === 'matched' || isInitializing}
+            disabled={matchState === MatchState.Matched || isInitializing}
           >
             <div className={styles.cardHeader}>
               <span className={styles.cardIcon}>{icon}</span>
@@ -238,14 +250,14 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
         ))}
       </div>
 
-      {matchState === 'queued' && (
+      {matchState === MatchState.Queued && (
         <button className={styles.cancelButton} onClick={leaveQueue}>
           <XIcon />
           <span>{t.cancelSearch}</span>
         </button>
       )}
 
-      {matchState === 'matched' && (
+      {matchState === MatchState.Matched && (
         <div className={styles.matchFound}>
           <div className={styles.matchFoundIcon}>
             <PlayIcon />
@@ -256,9 +268,9 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
 
       <div className={styles.footer}>
         <p>
-          {connectionStatus === 'connected' ? (
+          {connectionStatus === WebSocketStatus.Connected ? (
             <span className={styles.statusOnline}>{t.connected}</span>
-          ) : connectionStatus === 'connecting' ? (
+          ) : connectionStatus === WebSocketStatus.Connecting ? (
             <span className={styles.statusConnecting}>{t.connecting}</span>
           ) : (
             <span className={styles.statusOffline}>{t.offline}</span>
@@ -267,7 +279,7 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
       </div>
 
       {/* Matchmaking overlay - shown when queued or matched */}
-      {(matchState === 'queued' || matchState === 'matched') && (
+      {(matchState === MatchState.Queued || matchState === MatchState.Matched) && (
         <MatchmakingOverlay
           matchState={matchState}
           queuePosition={queuePosition}

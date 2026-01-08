@@ -1,5 +1,6 @@
 // ==============================================
 // Chess Blitz - Stockfish AI Hook
+// Simplified implementation following Lichess pattern
 // ==============================================
 
 import { useCallback, useEffect, useRef, useState, useEffectEvent } from 'react';
@@ -15,12 +16,53 @@ interface UseStockfishOptions {
 interface UseStockfishReturn {
   isReady: boolean;
   isThinking: boolean;
+  engineVersion: 'wasm' | 'asm' | null;
   findBestMove: (fen: string) => void;
   stop: () => void;
 }
 
-// Stockfish.js CDN URL (lightweight version)
-const STOCKFISH_URL = 'https://cdn.jsdelivr.net/npm/stockfish.js@10.0.2/stockfish.js';
+// Stockfish paths
+const STOCKFISH_WASM_URL = '/stockfish/stockfish-17-wasm.js';
+const STOCKFISH_ASM_URL = '/stockfish/stockfish-10-asm.js';
+
+/**
+ * Check if browser supports WebAssembly (Lichess pattern)
+ */
+function hasWasmSupport(): boolean {
+  try {
+    return typeof WebAssembly === 'object' &&
+      WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Create message handler for Stockfish worker
+ */
+function createMessageHandler(
+  onReady: () => void,
+  onMove: (move: string) => void,
+  version: 'wasm' | 'asm'
+) {
+  return (event: MessageEvent) => {
+    const msg = event.data;
+    if (typeof msg !== 'string') return;
+
+    if (msg === 'uciok') {
+      console.log(`[Stockfish] Engine ready (${version})`);
+      onReady();
+    }
+
+    if (msg.startsWith('bestmove')) {
+      const move = msg.split(' ')[1];
+      if (move && move !== '(none)') {
+        console.log('[Stockfish] Best move:', move);
+        onMove(move);
+      }
+    }
+  };
+}
 
 export function useStockfish({
   difficulty,
@@ -30,96 +72,65 @@ export function useStockfish({
   const workerRef = useRef<Worker | null>(null);
   const [isReady, setIsReady] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
+  const [engineVersion, setEngineVersion] = useState<'wasm' | 'asm' | null>(null);
   const pendingMoveRef = useRef<string | null>(null);
-  const thinkingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const thinkingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Use useEffectEvent to access latest callbacks without triggering Effect re-runs
-  const onBestMoveEvent = useEffectEvent((move: string) => {
-    onBestMove(move);
-  });
-
-  const onErrorEvent = useEffectEvent((error: string) => {
-    onError?.(error);
-  });
+  // Stable callbacks via useEffectEvent
+  const onBestMoveEvent = useEffectEvent((move: string) => onBestMove(move));
+  const onErrorEvent = useEffectEvent((error: string) => onError?.(error));
 
   // Initialize Stockfish worker
   useEffect(() => {
     let mounted = true;
+    const useWasm = hasWasmSupport();
+    const version: 'wasm' | 'asm' = useWasm ? 'wasm' : 'asm';
 
-    // Reset ready state on mount
-    setIsReady(false);
+    console.log(`[Stockfish] Loading ${version} version`);
 
-    const initWorker = async () => {
-      try {
-        // Create a blob URL for the worker
-        const response = await fetch(STOCKFISH_URL);
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
+    const initWorker = (url: string, ver: 'wasm' | 'asm', isFallback = false) => {
+      const worker = new Worker(url);
 
-        const worker = new Worker(url);
-
-        worker.onmessage = (event) => {
-          const message = event.data;
-
-          if (typeof message === 'string') {
-            // Debug logging
-            if (message === 'uciok' || message.startsWith('bestmove')) {
-              console.log('[Stockfish]', message);
-            }
-
-            // Check for UCI OK (ready)
-            if (message === 'uciok') {
-              if (mounted) {
-                console.log('[Stockfish] Engine ready');
-                setIsReady(true);
-              }
-            }
-
-            // Check for bestmove
-            if (message.startsWith('bestmove')) {
-              const parts = message.split(' ');
-              const move = parts[1];
-
-              if (move && move !== '(none)') {
-                console.log('[Stockfish] Best move:', move);
-                pendingMoveRef.current = move;
-              }
-            }
+      worker.onmessage = createMessageHandler(
+        () => {
+          if (mounted) {
+            setIsReady(true);
+            setEngineVersion(ver);
           }
-        };
+        },
+        (move) => {
+          pendingMoveRef.current = move;
+        },
+        ver
+      );
 
-        worker.onerror = (error) => {
-          console.error('Stockfish worker error:', error);
-          onErrorEvent('Failed to initialize chess engine');
-        };
+      worker.onerror = (error) => {
+        console.error(`Stockfish ${ver} error:`, error);
 
-        // Initialize UCI
-        worker.postMessage('uci');
+        // If WASM failed and not already a fallback, try asm.js
+        if (ver === 'wasm' && !isFallback && mounted) {
+          console.log('[Stockfish] WASM failed, falling back to asm.js');
+          workerRef.current?.terminate();
+          initWorker(STOCKFISH_ASM_URL, 'asm', true);
+          return;
+        }
 
-        workerRef.current = worker;
+        onErrorEvent('Failed to initialize chess engine');
+      };
 
-        // Cleanup URL after worker is created
-        URL.revokeObjectURL(url);
-      } catch (error) {
-        console.error('Failed to load Stockfish:', error);
-        onErrorEvent('Failed to load chess engine');
-      }
+      worker.postMessage('uci');
+      workerRef.current = worker;
     };
 
-    initWorker();
+    initWorker(useWasm ? STOCKFISH_WASM_URL : STOCKFISH_ASM_URL, version);
 
     return () => {
       mounted = false;
-      setIsReady(false);
-      if (thinkingTimeoutRef.current) {
-        clearTimeout(thinkingTimeoutRef.current);
-      }
-      if (workerRef.current) {
-        workerRef.current.terminate();
-        workerRef.current = null;
-      }
+      if (thinkingTimeoutRef.current) clearTimeout(thinkingTimeoutRef.current);
+      workerRef.current?.terminate();
+      workerRef.current = null;
     };
-  }, []); // No dependencies - only run once on mount
+  }, []);
 
   // Update skill level when difficulty changes
   useEffect(() => {
@@ -132,10 +143,8 @@ export function useStockfish({
   // Find best move
   const findBestMove = useCallback(
     (fen: string) => {
-      console.log('[Stockfish] findBestMove called', { isReady, hasWorker: !!workerRef.current, fen });
-
       if (!workerRef.current || !isReady) {
-        console.warn('[Stockfish] Not ready - worker:', !!workerRef.current, 'isReady:', isReady);
+        console.warn('[Stockfish] Not ready');
         return;
       }
 
@@ -143,35 +152,32 @@ export function useStockfish({
       pendingMoveRef.current = null;
 
       const config = DIFFICULTY_CONFIGS[difficulty];
-      console.log('[Stockfish] Sending position and go command', { depth: config.depth });
 
-      // Set position
+      // Send position and start calculation
       workerRef.current.postMessage(`position fen ${fen}`);
-
-      // Start calculating
       workerRef.current.postMessage(`go depth ${config.depth}`);
 
-      // Add artificial thinking time for better UX
+      // Wait for thinkingTime, then deliver move (or wait up to 10s if not ready)
       thinkingTimeoutRef.current = setTimeout(() => {
-        if (pendingMoveRef.current) {
+        const deliverMove = () => {
           const move = pendingMoveRef.current;
           pendingMoveRef.current = null;
           setIsThinking(false);
-          onBestMoveEvent(move);
+          if (move) onBestMoveEvent(move);
+        };
+
+        if (pendingMoveRef.current) {
+          deliverMove();
         } else {
-          // If no move yet, wait a bit more with polling
-          let attempts = 0;
-          const maxAttempts = 100; // 10 seconds max
-          const checkInterval = setInterval(() => {
-            attempts++;
+          // Poll briefly if move not ready yet (max 10s)
+          let waited = 0;
+          const poll = setInterval(() => {
+            waited += 100;
             if (pendingMoveRef.current) {
-              clearInterval(checkInterval);
-              const move = pendingMoveRef.current;
-              pendingMoveRef.current = null;
-              setIsThinking(false);
-              onBestMoveEvent(move);
-            } else if (attempts >= maxAttempts) {
-              clearInterval(checkInterval);
+              clearInterval(poll);
+              deliverMove();
+            } else if (waited >= 10000) {
+              clearInterval(poll);
               setIsThinking(false);
               onErrorEvent('Engine timeout - please try again');
             }
@@ -184,29 +190,20 @@ export function useStockfish({
 
   // Stop calculation
   const stop = useCallback(() => {
-    if (workerRef.current) {
-      workerRef.current.postMessage('stop');
-    }
-    if (thinkingTimeoutRef.current) {
-      clearTimeout(thinkingTimeoutRef.current);
-    }
+    workerRef.current?.postMessage('stop');
+    if (thinkingTimeoutRef.current) clearTimeout(thinkingTimeoutRef.current);
     setIsThinking(false);
     pendingMoveRef.current = null;
   }, []);
 
-  return {
-    isReady,
-    isThinking,
-    findBestMove,
-    stop,
-  };
+  return { isReady, isThinking, engineVersion, findBestMove, stop };
 }
 
 // Parse UCI move format (e.g., "e2e4" or "e7e8q" for promotion)
 export function parseUCIMove(uciMove: string): { from: string; to: string; promotion?: string } {
-  const from = uciMove.slice(0, 2);
-  const to = uciMove.slice(2, 4);
-  const promotion = uciMove.length > 4 ? uciMove[4] : undefined;
-
-  return { from, to, promotion };
+  return {
+    from: uciMove.slice(0, 2),
+    to: uciMove.slice(2, 4),
+    promotion: uciMove.length > 4 ? uciMove[4] : undefined,
+  };
 }

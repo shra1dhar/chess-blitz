@@ -61,7 +61,8 @@
     "stockfish": "Šachový Bot",
     "you": "Ty",
     "yourTurn": "Si na ťahu",
-    "resignConfirm": "Naozaj sa chceš vzdať?"
+    "resignConfirm": "Naozaj sa chceš vzdať?",
+    "engineLoading": "Pripravujem vášho súpera..."
   },
   "controls": {
     "controls": "Ovládanie",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "Späť",
     "title": "Šachová aréna",
     "subtitle": "Vyber si svoju bitku. Nájdi súpera.",
     "rating": "Hodnotenie",
@@ -130,7 +132,7 @@
     "classicalDesc": "Viac času na premýšľanie. Hlbšia taktika. 10 minút.",
     "min": "min",
     "play": "Hrať",
-    "findingOpponent": "Finding opponent",
+    "findingOpponent": "Hľadanie súpera",
     "position": "Pozícia",
     "cancelSearch": "Zrušiť hľadanie",
     "matchFound": "Match Found!",
@@ -140,7 +142,7 @@
     "preparingGame": "Preparing your game...",
     "playingAsWhite": "Playing as White",
     "playingAsBlack": "Playing as Black",
-    "matchmakingHint": "Matching you with a player of similar skill",
+    "matchmakingHint": "Hľadáme hráča podobnej úrovne",
     "cancel": "Cancel",
     "rematchRequest": "Rematch?",
     "rematchSent": "Rematch request sent",
@@ -160,5 +162,62 @@
     "opponentOffers": "Súper ponúka remízu",
     "accept": "Prijať",
     "decline": "Odmietnuť"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Vyhral si!",
+      "defeat": "Prehral si",
+      "draw": "Remíza",
+      "aborted": "Zrušené"
+    },
+    "reasons": {
+      "checkmate": "Šach mat!",
+      "opponentResigned": "Súper vzdal",
+      "wonOnTime": "Vyhral si na čas",
+      "timeRanOut": "Čas vypršal",
+      "youResigned": "Vzdal si",
+      "stalemate": "Pat",
+      "insufficientMaterial": "Nedostatok materiálu",
+      "drawAgreed": "Remíza dohodnutá",
+      "gameCancelled": "Hra zrušená",
+      "fiftyMoveRule": "Pravidlo 50 ťahov",
+      "seventyFiveMoveRule": "Pravidlo 75 ťahov",
+      "threefoldRepetition": "Trojnásobné opakovanie pozície",
+      "fivefoldRepetition": "Päťnásobné opakovanie pozície",
+      "timeoutVsInsufficient": "Vypršal čas vs nedostatok materiálu",
+      "opponentDisconnected": "Súper sa odpojil",
+      "noShow": "Súper sa nedostavil"
+    },
+    "actions": {
+      "newGame": "Nová {time}",
+      "rematch": "Odveta",
+      "requestSent": "Žiadosť odoslaná",
+      "acceptRematch": "Prijať odvetu",
+      "decline": "Odmietnuť",
+      "viewBoard": "Zobraziť šachovnicu"
+    },
+    "stats": {
+      "you": "Ty",
+      "opponent": "Súper"
+    }
+  },
+  "disconnect": {
+    "title": "{name} sa odpojil",
+    "autoWinIn": "Automatická výhra za {seconds}s",
+    "waiting": "Čakanie na opätovné pripojenie..."
+  },
+  "reconnecting": {
+    "title": "Spojenie stratené",
+    "subtitle": "Pripájam...",
+    "hint": "Prosím, skontrolujte svoje internetové pripojenie"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "Pravidlo 50 ťahov",
+    "fiftyMoveSubtitle": "Žiadne branie ani ťahy pešiakom za 50 ťahov",
+    "fiftyMoveTooltip": "Hra môže byť vyhlásená za remízu, ak posledných 50 ťahov každého hráča bolo vykonaných bez akéhokoľvek pohybu pešiaka alebo brania.",
+    "threefoldTitle": "Trojnásobné opakovanie pozície",
+    "threefoldSubtitle": "Pozícia sa opakovala 3-krát",
+    "threefoldTooltip": "Hra môže byť vyhlásená za remízu, keď sa rovnaká pozícia vyskytne trikrát s rovnakým hráčom na ťahu.",
+    "claimDraw": "Reklamovať remízu"
   }
 }

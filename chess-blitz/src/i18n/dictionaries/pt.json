@@ -61,7 +61,8 @@
     "stockfish": "Bot de Xadrez",
     "you": "Você",
     "yourTurn": "Sua vez",
-    "resignConfirm": "Tem certeza que quer desistir?"
+    "resignConfirm": "Tem certeza que quer desistir?",
+    "engineLoading": "Preparando seu oponente..."
   },
   "controls": {
     "controls": "Controles",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "Voltar",
     "title": "Arena de Xadrez",
     "subtitle": "Escolha sua batalha. Encontre seu oponente.",
     "rating": "Pontuação",
@@ -160,5 +162,62 @@
     "opponentOffers": "Seu oponente oferece empate",
     "accept": "Aceitar",
     "decline": "Recusar"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Você venceu!",
+      "defeat": "Você perdeu",
+      "draw": "Empate",
+      "aborted": "Cancelado"
+    },
+    "reasons": {
+      "checkmate": "Xeque-mate!",
+      "opponentResigned": "Oponente desistiu",
+      "wonOnTime": "Vitória por tempo",
+      "timeRanOut": "Tempo esgotado",
+      "youResigned": "Você desistiu",
+      "stalemate": "Afogamento",
+      "insufficientMaterial": "Material insuficiente",
+      "drawAgreed": "Empate acordado",
+      "gameCancelled": "Partida cancelada",
+      "fiftyMoveRule": "Regra dos 50 movimentos",
+      "seventyFiveMoveRule": "Regra dos 75 movimentos",
+      "threefoldRepetition": "Tripla repetição",
+      "fivefoldRepetition": "Quíntupla repetição",
+      "timeoutVsInsufficient": "Tempo vs material insuficiente",
+      "opponentDisconnected": "Oponente desconectado",
+      "noShow": "Oponente não apareceu"
+    },
+    "actions": {
+      "newGame": "Nova {time}",
+      "rematch": "Revanche",
+      "requestSent": "Pedido enviado",
+      "acceptRematch": "Aceitar revanche",
+      "decline": "Recusar",
+      "viewBoard": "Ver tabuleiro"
+    },
+    "stats": {
+      "you": "Você",
+      "opponent": "Oponente"
+    }
+  },
+  "disconnect": {
+    "title": "{name} desconectado",
+    "autoWinIn": "Vitória automática em {seconds}s",
+    "waiting": "Aguardando reconexão..."
+  },
+  "reconnecting": {
+    "title": "Conexão perdida",
+    "subtitle": "Reconectando...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "Regra dos 50 movimentos",
+    "fiftyMoveSubtitle": "Sem capturas ou movimentos de peão em 50 jogadas",
+    "fiftyMoveTooltip": "A partida pode ser declarada empate se os últimos 50 movimentos de cada jogador foram feitos sem movimento de peão ou captura.",
+    "threefoldTitle": "Tripla repetição",
+    "threefoldSubtitle": "Posição repetida 3 vezes",
+    "threefoldTooltip": "A partida pode ser declarada empate quando a mesma posição ocorre três vezes com o mesmo jogador para mover.",
+    "claimDraw": "Reivindicar empate"
   }
 }

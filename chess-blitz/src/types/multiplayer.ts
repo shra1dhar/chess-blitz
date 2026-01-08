@@ -12,10 +12,22 @@ export {
   ClientMessageType,
   ServerMessageType,
   DrawClaimReason,
+  MatchState,
+  RematchState,
+  WebSocketStatus,
+  DrawClaimType,
 } from '@chess-blitz/shared';
 
 // Import the enums for use in this file's type definitions
-import { ClientMessageType, ServerMessageType, DrawClaimReason } from '@chess-blitz/shared';
+import {
+  ClientMessageType,
+  ServerMessageType,
+  DrawClaimReason,
+  MatchState,
+  RematchState,
+  WebSocketStatus,
+  DrawClaimType,
+} from '@chess-blitz/shared';
 
 export type { TournamentType, Color, BotDifficulty, ErrorCode, GameResult } from '@chess-blitz/shared';
 export { TIME_CONTROLS, ELO } from '@chess-blitz/shared';
@@ -200,7 +212,8 @@ export interface GameHistoryEntry {
 // Matchmaking Types
 // ==============================================
 
-export type MatchState = 'idle' | 'queued' | 'matched' | 'playing' | 'ended';
+// MatchState is now imported from @chess-blitz/shared (see exports above)
+// Available values: MatchState.Idle, MatchState.Queued, MatchState.Matched, MatchState.Playing, MatchState.Ended
 
 export interface QueueStatus {
   position: number;

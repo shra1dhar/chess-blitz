@@ -61,7 +61,8 @@
     "stockfish": "Schackbot",
     "you": "Du",
     "yourTurn": "Din tur",
-    "resignConfirm": "Är du säker på att du vill ge upp?"
+    "resignConfirm": "Är du säker på att du vill ge upp?",
+    "engineLoading": "Förbereder din motståndare..."
   },
   "controls": {
     "controls": "Kontroller",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "Tillbaka",
     "title": "Schack Arena",
     "subtitle": "Välj din strid. Hitta din motståndare.",
     "rating": "Rating",
@@ -160,5 +162,62 @@
     "opponentOffers": "Din motståndare erbjuder remi",
     "accept": "Acceptera",
     "decline": "Avböj"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Du vann!",
+      "defeat": "Du förlorade",
+      "draw": "Remi",
+      "aborted": "Avbruten"
+    },
+    "reasons": {
+      "checkmate": "Schackmatt!",
+      "opponentResigned": "Motståndaren gav upp",
+      "wonOnTime": "Du vann på tid",
+      "timeRanOut": "Tiden tog slut",
+      "youResigned": "Du gav upp",
+      "stalemate": "Patt",
+      "insufficientMaterial": "Otillräckligt material",
+      "drawAgreed": "Remi överenskommet",
+      "gameCancelled": "Spel avbrutet",
+      "fiftyMoveRule": "50-dragsregeln",
+      "seventyFiveMoveRule": "75-dragsregeln",
+      "threefoldRepetition": "Trefaldig upprepning",
+      "fivefoldRepetition": "Femfaldig upprepning",
+      "timeoutVsInsufficient": "Timeout mot otillräckligt material",
+      "opponentDisconnected": "Motståndaren tappade anslutningen",
+      "noShow": "Motståndaren dök inte upp"
+    },
+    "actions": {
+      "newGame": "Nytt {time}",
+      "rematch": "Returmatch",
+      "requestSent": "Förfrågan skickad",
+      "acceptRematch": "Acceptera returmatch",
+      "decline": "Avböj",
+      "viewBoard": "Visa brädet"
+    },
+    "stats": {
+      "you": "Du",
+      "opponent": "Motståndare"
+    }
+  },
+  "disconnect": {
+    "title": "{name} tappade anslutningen",
+    "autoWinIn": "Automatisk vinst om {seconds}s",
+    "waiting": "Väntar på återanslutning..."
+  },
+  "reconnecting": {
+    "title": "Anslutning förlorad",
+    "subtitle": "Återansluter...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "50-dragsregeln",
+    "fiftyMoveSubtitle": "Inga slag eller bonddrag på 50 drag",
+    "fiftyMoveTooltip": "Spelet kan förklaras remi om de senaste 50 dragen av varje spelare har gjorts utan någon bondrörelse eller slag.",
+    "threefoldTitle": "Trefaldig upprepning",
+    "threefoldSubtitle": "Ställningen upprepades 3 gånger",
+    "threefoldTooltip": "Spelet kan förklaras remi när samma ställning uppstår tre gånger med samma spelare att dra.",
+    "claimDraw": "Begär remi"
   }
 }

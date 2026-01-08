@@ -61,7 +61,8 @@
     "stockfish": "Шах Бот",
     "you": "Ти",
     "yourTurn": "Твој потез",
-    "resignConfirm": "Да ли сигурно желиш да се предаш?"
+    "resignConfirm": "Да ли сигурно желиш да се предаш?",
+    "engineLoading": "Припремам вашег противника..."
   },
   "controls": {
     "controls": "Контроле",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "Назад",
     "title": "Шаховска арена",
     "subtitle": "Изабери своју битку. Пронађи противника.",
     "rating": "Рејтинг",
@@ -160,5 +162,62 @@
     "opponentOffers": "Противник нуди реми",
     "accept": "Прихвати",
     "decline": "Одбиј"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Победио си!",
+      "defeat": "Изгубио си",
+      "draw": "Реми",
+      "aborted": "Прекинуто"
+    },
+    "reasons": {
+      "checkmate": "Шах мат!",
+      "opponentResigned": "Противник се предао",
+      "wonOnTime": "Победио си на време",
+      "timeRanOut": "Време је истекло",
+      "youResigned": "Предао си се",
+      "stalemate": "Пат",
+      "insufficientMaterial": "Недовољан материјал",
+      "drawAgreed": "Реми договорен",
+      "gameCancelled": "Игра отказана",
+      "fiftyMoveRule": "Правило 50 потеза",
+      "seventyFiveMoveRule": "Правило 75 потеза",
+      "threefoldRepetition": "Троструко понављање",
+      "fivefoldRepetition": "Петоструко понављање",
+      "timeoutVsInsufficient": "Истек времена против недовољног материјала",
+      "opponentDisconnected": "Противник се искључио",
+      "noShow": "Противник се није појавио"
+    },
+    "actions": {
+      "newGame": "Нова {time}",
+      "rematch": "Реванш",
+      "requestSent": "Захтев послат",
+      "acceptRematch": "Прихвати реванш",
+      "decline": "Одбиј",
+      "viewBoard": "Погледај таблу"
+    },
+    "stats": {
+      "you": "Ти",
+      "opponent": "Противник"
+    }
+  },
+  "disconnect": {
+    "title": "{name} се искључио",
+    "autoWinIn": "Аутоматска победа за {seconds}с",
+    "waiting": "Чекање на поновно повезивање..."
+  },
+  "reconnecting": {
+    "title": "Веза прекинута",
+    "subtitle": "Поновно повезивање...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "Правило 50 потеза",
+    "fiftyMoveSubtitle": "Нема узимања или потеза пешака у 50 потеза",
+    "fiftyMoveTooltip": "Игра може бити проглашена ремијем ако је последних 50 потеза сваког играча направљено без померања пешака или узимања.",
+    "threefoldTitle": "Троструко понављање",
+    "threefoldSubtitle": "Позиција поновљена 3 пута",
+    "threefoldTooltip": "Игра може бити проглашена ремијем када се иста позиција појави три пута са истим играчем на потезу.",
+    "claimDraw": "Затражи реми"
   }
 }

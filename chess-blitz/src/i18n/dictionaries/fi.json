@@ -61,7 +61,8 @@
     "stockfish": "Shakkibotti",
     "you": "Sinä",
     "yourTurn": "Sinun vuorosi",
-    "resignConfirm": "Haluatko varmasti luovuttaa?"
+    "resignConfirm": "Haluatko varmasti luovuttaa?",
+    "engineLoading": "Valmistellaan vastustajaasi..."
   },
   "controls": {
     "controls": "Ohjaimet",
@@ -116,6 +117,7 @@
     "autoAbort": "Keskeytyy automaattisesti 0:{seconds}"
   },
   "tournament": {
+    "back": "Takaisin",
     "title": "Shakkiareena",
     "subtitle": "Valitse taistelusi. Löydä vastustajasi.",
     "rating": "Luokitus",
@@ -130,7 +132,7 @@
     "classicalDesc": "Enemmän aikaa ajatella. Syvempää taktiikkaa. 10 minuuttia.",
     "min": "min",
     "play": "Pelaa",
-    "findingOpponent": "Finding opponent",
+    "findingOpponent": "Etsitään vastustajaa",
     "position": "Sijoitus",
     "cancelSearch": "Peruuta haku",
     "matchFound": "Match Found!",
@@ -140,7 +142,7 @@
     "preparingGame": "Preparing your game...",
     "playingAsWhite": "Playing as White",
     "playingAsBlack": "Playing as Black",
-    "matchmakingHint": "Matching you with a player of similar skill",
+    "matchmakingHint": "Etsitään samantyylinen pelaaja",
     "cancel": "Cancel",
     "rematchRequest": "Rematch?",
     "rematchSent": "Rematch request sent",
@@ -160,5 +162,62 @@
     "opponentOffers": "Vastustajasi tarjoaa tasapeliä",
     "accept": "Hyväksy",
     "decline": "Hylkää"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Voitit!",
+      "defeat": "Hävisit",
+      "draw": "Tasapeli",
+      "aborted": "Keskeytetty"
+    },
+    "reasons": {
+      "checkmate": "Shakkimatti!",
+      "opponentResigned": "Vastustaja luovutti",
+      "wonOnTime": "Voitit ajalla",
+      "timeRanOut": "Aika loppui",
+      "youResigned": "Luovutit",
+      "stalemate": "Patti",
+      "insufficientMaterial": "Riittämätön materiaali",
+      "drawAgreed": "Tasapeli sovittu",
+      "gameCancelled": "Peli peruutettu",
+      "fiftyMoveRule": "50 siirron sääntö",
+      "seventyFiveMoveRule": "75 siirron sääntö",
+      "threefoldRepetition": "Kolminkertainen toisto",
+      "fivefoldRepetition": "Viisinkertainen toisto",
+      "timeoutVsInsufficient": "Aikakatko vastaan riittämätön materiaali",
+      "opponentDisconnected": "Vastustajan yhteys katkesi",
+      "noShow": "Vastustaja ei ilmestynyt"
+    },
+    "actions": {
+      "newGame": "Uusi {time}",
+      "rematch": "Uusintaottelu",
+      "requestSent": "Pyyntö lähetetty",
+      "acceptRematch": "Hyväksy uusintaottelu",
+      "decline": "Hylkää",
+      "viewBoard": "Näytä lauta"
+    },
+    "stats": {
+      "you": "Sinä",
+      "opponent": "Vastustaja"
+    }
+  },
+  "disconnect": {
+    "title": "{name} katkaisi yhteyden",
+    "autoWinIn": "Automaattinen voitto {seconds}s:ssa",
+    "waiting": "Odotetaan uudelleenyhdistämistä..."
+  },
+  "reconnecting": {
+    "title": "Yhteys katkennut",
+    "subtitle": "Yhdistetään uudelleen...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "50 siirron sääntö",
+    "fiftyMoveSubtitle": "Ei syöntejä tai sotilassiirtoja 50 siirrossa",
+    "fiftyMoveTooltip": "Peli voidaan julistaa tasapeliksi, jos kummankin pelaajan viimeiset 50 siirtoa on tehty ilman sotilassiirtoa tai syöntiä.",
+    "threefoldTitle": "Kolminkertainen toisto",
+    "threefoldSubtitle": "Asema toistettu 3 kertaa",
+    "threefoldTooltip": "Peli voidaan julistaa tasapeliksi, kun sama asema esiintyy kolme kertaa saman pelaajan ollessa siirtovuorossa.",
+    "claimDraw": "Vaadi tasapeli"
   }
 }

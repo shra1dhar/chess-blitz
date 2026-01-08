@@ -61,7 +61,8 @@
     "stockfish": "Bot Catur",
     "you": "Kamu",
     "yourTurn": "Giliranmu",
-    "resignConfirm": "Yakin ingin menyerah?"
+    "resignConfirm": "Yakin ingin menyerah?",
+    "engineLoading": "Mempersiapkan lawan Anda..."
   },
   "controls": {
     "controls": "Kontrol",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "Kembali",
     "title": "Arena Catur",
     "subtitle": "Pilih pertarunganmu. Temukan lawanmu.",
     "rating": "Peringkat",
@@ -130,7 +132,7 @@
     "classicalDesc": "Lebih banyak waktu untuk berpikir. Taktik lebih dalam. 10 menit.",
     "min": "menit",
     "play": "Main",
-    "findingOpponent": "Finding opponent",
+    "findingOpponent": "Mencari lawan",
     "position": "Posisi",
     "cancelSearch": "Batalkan pencarian",
     "matchFound": "Match Found!",
@@ -140,7 +142,7 @@
     "preparingGame": "Preparing your game...",
     "playingAsWhite": "Playing as White",
     "playingAsBlack": "Playing as Black",
-    "matchmakingHint": "Matching you with a player of similar skill",
+    "matchmakingHint": "Mencocokkan dengan pemain dengan level serupa",
     "cancel": "Cancel",
     "rematchRequest": "Rematch?",
     "rematchSent": "Rematch request sent",
@@ -160,5 +162,62 @@
     "opponentOffers": "Lawan Anda menawarkan seri",
     "accept": "Terima",
     "decline": "Tolak"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Kamu Menang!",
+      "defeat": "Kamu Kalah",
+      "draw": "Seri",
+      "aborted": "Dibatalkan"
+    },
+    "reasons": {
+      "checkmate": "Skakmat!",
+      "opponentResigned": "Lawan menyerah",
+      "wonOnTime": "Kamu menang karena waktu",
+      "timeRanOut": "Waktu habis",
+      "youResigned": "Kamu menyerah",
+      "stalemate": "Pat",
+      "insufficientMaterial": "Material tidak cukup",
+      "drawAgreed": "Seri disepakati",
+      "gameCancelled": "Permainan dibatalkan",
+      "fiftyMoveRule": "Aturan 50 langkah",
+      "seventyFiveMoveRule": "Aturan 75 langkah",
+      "threefoldRepetition": "Pengulangan tiga kali",
+      "fivefoldRepetition": "Pengulangan lima kali",
+      "timeoutVsInsufficient": "Waktu habis vs material tidak cukup",
+      "opponentDisconnected": "Lawan terputus",
+      "noShow": "Lawan tidak muncul"
+    },
+    "actions": {
+      "newGame": "{time} Baru",
+      "rematch": "Tanding Ulang",
+      "requestSent": "Permintaan Terkirim",
+      "acceptRematch": "Terima Tanding Ulang",
+      "decline": "Tolak",
+      "viewBoard": "Lihat Papan"
+    },
+    "stats": {
+      "you": "Kamu",
+      "opponent": "Lawan"
+    }
+  },
+  "disconnect": {
+    "title": "{name} Terputus",
+    "autoWinIn": "Menang otomatis dalam {seconds}d",
+    "waiting": "Menunggu koneksi ulang..."
+  },
+  "reconnecting": {
+    "title": "Koneksi Terputus",
+    "subtitle": "Menghubungkan kembali...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "Aturan 50 Langkah",
+    "fiftyMoveSubtitle": "Tidak ada tangkapan atau gerakan pion dalam 50 langkah",
+    "fiftyMoveTooltip": "Permainan dapat dinyatakan seri jika 50 langkah terakhir oleh setiap pemain dilakukan tanpa gerakan pion atau tangkapan.",
+    "threefoldTitle": "Pengulangan Tiga Kali",
+    "threefoldSubtitle": "Posisi terulang 3 kali",
+    "threefoldTooltip": "Permainan dapat dinyatakan seri ketika posisi yang sama terjadi tiga kali dengan pemain yang sama untuk bergerak.",
+    "claimDraw": "Klaim Seri"
   }
 }

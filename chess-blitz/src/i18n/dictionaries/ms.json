@@ -61,7 +61,8 @@
     "stockfish": "Bot Catur",
     "you": "Anda",
     "yourTurn": "Giliran anda",
-    "resignConfirm": "Adakah anda pasti mahu menyerah?"
+    "resignConfirm": "Adakah anda pasti mahu menyerah?",
+    "engineLoading": "Menyediakan lawan anda..."
   },
   "controls": {
     "controls": "Kawalan",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "Kembali",
     "title": "Arena Catur",
     "subtitle": "Pilih pertempuran anda. Cari lawan anda.",
     "rating": "Penilaian",
@@ -130,7 +132,7 @@
     "classicalDesc": "Lebih masa untuk berfikir. Taktik lebih dalam. 10 minit.",
     "min": "min",
     "play": "Main",
-    "findingOpponent": "Finding opponent",
+    "findingOpponent": "Mencari lawan",
     "position": "Kedudukan",
     "cancelSearch": "Batal carian",
     "matchFound": "Match Found!",
@@ -140,7 +142,7 @@
     "preparingGame": "Preparing your game...",
     "playingAsWhite": "Playing as White",
     "playingAsBlack": "Playing as Black",
-    "matchmakingHint": "Matching you with a player of similar skill",
+    "matchmakingHint": "Memadankan anda dengan pemain tahap yang sama",
     "cancel": "Cancel",
     "rematchRequest": "Rematch?",
     "rematchSent": "Rematch request sent",
@@ -160,5 +162,62 @@
     "opponentOffers": "Lawan anda menawarkan seri",
     "accept": "Terima",
     "decline": "Tolak"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Anda Menang!",
+      "defeat": "Anda Kalah",
+      "draw": "Seri",
+      "aborted": "Dibatalkan"
+    },
+    "reasons": {
+      "checkmate": "Syahmat!",
+      "opponentResigned": "Lawan menyerah",
+      "wonOnTime": "Anda menang atas masa",
+      "timeRanOut": "Masa tamat",
+      "youResigned": "Anda menyerah",
+      "stalemate": "Pat",
+      "insufficientMaterial": "Material tidak mencukupi",
+      "drawAgreed": "Seri dipersetujui",
+      "gameCancelled": "Permainan dibatalkan",
+      "fiftyMoveRule": "Peraturan 50 langkah",
+      "seventyFiveMoveRule": "Peraturan 75 langkah",
+      "threefoldRepetition": "Pengulangan tiga kali",
+      "fivefoldRepetition": "Pengulangan lima kali",
+      "timeoutVsInsufficient": "Tamat masa vs material tidak mencukupi",
+      "opponentDisconnected": "Lawan terputus",
+      "noShow": "Lawan tidak hadir"
+    },
+    "actions": {
+      "newGame": "{time} Baru",
+      "rematch": "Perlawanan Semula",
+      "requestSent": "Permintaan Dihantar",
+      "acceptRematch": "Terima Perlawanan Semula",
+      "decline": "Tolak",
+      "viewBoard": "Lihat Papan"
+    },
+    "stats": {
+      "you": "Anda",
+      "opponent": "Lawan"
+    }
+  },
+  "disconnect": {
+    "title": "{name} Terputus",
+    "autoWinIn": "Menang automatik dalam {seconds}s",
+    "waiting": "Menunggu penyambungan semula..."
+  },
+  "reconnecting": {
+    "title": "Sambungan Terputus",
+    "subtitle": "Menyambung semula...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "Peraturan 50 Langkah",
+    "fiftyMoveSubtitle": "Tiada tangkapan atau pergerakan bidak dalam 50 langkah",
+    "fiftyMoveTooltip": "Permainan boleh diisytiharkan seri jika 50 langkah terakhir oleh setiap pemain dibuat tanpa sebarang pergerakan bidak atau tangkapan.",
+    "threefoldTitle": "Pengulangan Tiga Kali",
+    "threefoldSubtitle": "Kedudukan berulang 3 kali",
+    "threefoldTooltip": "Permainan boleh diisytiharkan seri apabila kedudukan yang sama berlaku tiga kali dengan pemain yang sama untuk bergerak.",
+    "claimDraw": "Tuntut Seri"
   }
 }

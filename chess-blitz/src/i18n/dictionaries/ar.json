@@ -61,7 +61,8 @@
     "stockfish": "روبوت الشطرنج",
     "you": "أنت",
     "yourTurn": "دورك",
-    "resignConfirm": "هل أنت متأكد أنك تريد الاستسلام؟"
+    "resignConfirm": "هل أنت متأكد أنك تريد الاستسلام؟",
+    "engineLoading": "جارٍ تحضير خصمك..."
   },
   "controls": {
     "controls": "التحكم",
@@ -116,6 +117,7 @@
     "autoAbort": "سيتم الإلغاء تلقائياً خلال 0:{seconds}"
   },
   "tournament": {
+    "back": "رجوع",
     "title": "ساحة الشطرنج",
     "subtitle": "اختر معركتك. ابحث عن خصمك.",
     "rating": "التصنيف",
@@ -160,5 +162,62 @@
     "opponentOffers": "خصمك يعرض التعادل",
     "accept": "قبول",
     "decline": "رفض"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "فزت!",
+      "defeat": "خسرت",
+      "draw": "تعادل",
+      "aborted": "ملغاة"
+    },
+    "reasons": {
+      "checkmate": "كش ملك!",
+      "opponentResigned": "استسلم الخصم",
+      "wonOnTime": "فزت بانتهاء الوقت",
+      "timeRanOut": "انتهى الوقت",
+      "youResigned": "استسلمت",
+      "stalemate": "تعادل بالحصار",
+      "insufficientMaterial": "قطع غير كافية",
+      "drawAgreed": "تعادل متفق عليه",
+      "gameCancelled": "اللعبة ملغاة",
+      "fiftyMoveRule": "قاعدة الـ50 نقلة",
+      "seventyFiveMoveRule": "قاعدة الـ75 نقلة",
+      "threefoldRepetition": "تكرار ثلاثي",
+      "fivefoldRepetition": "تكرار خماسي",
+      "timeoutVsInsufficient": "انتهاء الوقت ضد قطع غير كافية",
+      "opponentDisconnected": "انقطع اتصال الخصم",
+      "noShow": "الخصم لم يحضر"
+    },
+    "actions": {
+      "newGame": "لعبة {time} جديدة",
+      "rematch": "إعادة المباراة",
+      "requestSent": "تم إرسال الطلب",
+      "acceptRematch": "قبول الإعادة",
+      "decline": "رفض",
+      "viewBoard": "عرض الرقعة"
+    },
+    "stats": {
+      "you": "أنت",
+      "opponent": "الخصم"
+    }
+  },
+  "disconnect": {
+    "title": "انقطع اتصال {name}",
+    "autoWinIn": "فوز تلقائي خلال {seconds}ث",
+    "waiting": "في انتظار إعادة الاتصال..."
+  },
+  "reconnecting": {
+    "title": "انقطع الاتصال",
+    "subtitle": "جاري إعادة الاتصال...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "قاعدة الـ50 نقلة",
+    "fiftyMoveSubtitle": "لا أكل أو تحريك بيادق في 50 نقلة",
+    "fiftyMoveTooltip": "يمكن إعلان التعادل إذا تمت آخر 50 نقلة لكل لاعب بدون تحريك بيدق أو أكل قطعة.",
+    "threefoldTitle": "التكرار الثلاثي",
+    "threefoldSubtitle": "تكرار الوضعية 3 مرات",
+    "threefoldTooltip": "يمكن إعلان التعادل عندما تتكرر نفس الوضعية ثلاث مرات مع نفس اللاعب للتحريك.",
+    "claimDraw": "المطالبة بالتعادل"
   }
 }

@@ -61,7 +61,8 @@
     "stockfish": "Bot de Șah",
     "you": "Tu",
     "yourTurn": "Rândul tău",
-    "resignConfirm": "Ești sigur că vrei să te predai?"
+    "resignConfirm": "Ești sigur că vrei să te predai?",
+    "engineLoading": "Se pregătește adversarul..."
   },
   "controls": {
     "controls": "Controale",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "Înapoi",
     "title": "Arena de Șah",
     "subtitle": "Alege-ți bătălia. Găsește-ți adversarul.",
     "rating": "Rating",
@@ -160,5 +162,62 @@
     "opponentOffers": "Adversarul tău oferă remiză",
     "accept": "Acceptă",
     "decline": "Refuză"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Ai câștigat!",
+      "defeat": "Ai pierdut",
+      "draw": "Remiză",
+      "aborted": "Anulat"
+    },
+    "reasons": {
+      "checkmate": "Șah mat!",
+      "opponentResigned": "Adversarul s-a predat",
+      "wonOnTime": "Ai câștigat pe timp",
+      "timeRanOut": "Timpul a expirat",
+      "youResigned": "Te-ai predat",
+      "stalemate": "Pat",
+      "insufficientMaterial": "Material insuficient",
+      "drawAgreed": "Remiză prin acord",
+      "gameCancelled": "Joc anulat",
+      "fiftyMoveRule": "Regula celor 50 de mutări",
+      "seventyFiveMoveRule": "Regula celor 75 de mutări",
+      "threefoldRepetition": "Repetiție triplă",
+      "fivefoldRepetition": "Repetiție de cinci ori",
+      "timeoutVsInsufficient": "Timp expirat vs material insuficient",
+      "opponentDisconnected": "Adversarul s-a deconectat",
+      "noShow": "Adversarul nu s-a prezentat"
+    },
+    "actions": {
+      "newGame": "{time} Nou",
+      "rematch": "Revanșă",
+      "requestSent": "Cerere trimisă",
+      "acceptRematch": "Acceptă revanșa",
+      "decline": "Refuză",
+      "viewBoard": "Vezi tabla"
+    },
+    "stats": {
+      "you": "Tu",
+      "opponent": "Adversar"
+    }
+  },
+  "disconnect": {
+    "title": "{name} s-a deconectat",
+    "autoWinIn": "Victorie automată în {seconds}s",
+    "waiting": "Se așteaptă reconectarea..."
+  },
+  "reconnecting": {
+    "title": "Conexiune pierdută",
+    "subtitle": "Se reconectează...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "Regula celor 50 de mutări",
+    "fiftyMoveSubtitle": "Fără capturi sau mișcări de pion în 50 de mutări",
+    "fiftyMoveTooltip": "Jocul poate fi declarat remiză dacă ultimele 50 de mutări ale fiecărui jucător au fost făcute fără nicio mișcare de pion sau captură.",
+    "threefoldTitle": "Repetiție triplă",
+    "threefoldSubtitle": "Poziția s-a repetat de 3 ori",
+    "threefoldTooltip": "Jocul poate fi declarat remiză când aceeași poziție apare de trei ori cu același jucător la mutare.",
+    "claimDraw": "Revendică remiză"
   }
 }

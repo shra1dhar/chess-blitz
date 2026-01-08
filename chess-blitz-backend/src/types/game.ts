@@ -5,7 +5,12 @@ import type {
   Color,
   BotDifficulty,
 } from "./constants";
+import { GameRoomStatus } from "@chess-blitz/shared";
 import type { RateLimitState } from "../utils/rate-limiter";
+
+// Re-export GameRoomStatus as GameStatus for backwards compatibility
+export { GameRoomStatus };
+export type GameStatus = GameRoomStatus;
 
 // Player info for a game
 export interface GamePlayer {
@@ -63,7 +68,7 @@ export interface GameState {
   endedAt?: number;
 }
 
-export type GameStatus = "waiting" | "active" | "paused" | "finished";
+// GameStatus is now imported from @chess-blitz/shared and re-exported above
 
 // Move info
 export interface MoveInfo {

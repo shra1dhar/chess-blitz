@@ -10,7 +10,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { Activity } from 'react';
 import { useActivityAnimation } from '@/hooks/useActivityAnimation';
 import type { Color } from 'chess.js';
-import type { MatchState, PlayerInfo } from '@/types/multiplayer';
+import { MatchState, type PlayerInfo } from '@/types/multiplayer';
 import type { Dictionary } from '@/i18n/dictionaries';
 import styles from './MatchmakingOverlay.module.scss';
 
@@ -100,7 +100,7 @@ export function MatchmakingOverlay({
   const t = dict.tournament;
 
   // Overlay is visible when queued or matched (and not fading out)
-  const isActive = matchState === 'queued' || matchState === 'matched';
+  const isActive = matchState === MatchState.Queued || matchState === MatchState.Matched;
   const { activityMode, hasBeenVisible } = useActivityAnimation({
     isVisible: isActive && !isFadingOut,
     animationDuration: 500, // Longer fade-out for this overlay
@@ -108,14 +108,14 @@ export function MatchmakingOverlay({
 
   // Reset fading state when entering queue
   useEffect(() => {
-    if (matchState === 'queued') {
+    if (matchState === MatchState.Queued) {
       setIsFadingOut(false);
     }
   }, [matchState]);
 
   // Animate ellipsis for "Finding opponent..."
   useEffect(() => {
-    if (matchState !== 'queued') return;
+    if (matchState !== MatchState.Queued) return;
 
     const interval = setInterval(() => {
       setEllipsis((prev) => (prev.length >= 3 ? '' : prev + '.'));
@@ -126,7 +126,7 @@ export function MatchmakingOverlay({
 
   // Fade out when matched (after showing opponent info briefly)
   useEffect(() => {
-    if (matchState === 'matched' && opponent) {
+    if (matchState === MatchState.Matched && opponent) {
       const timer = setTimeout(() => {
         setIsFadingOut(true);
       }, 1500);
@@ -138,7 +138,7 @@ export function MatchmakingOverlay({
   // Handle cancel with escape key
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && matchState === 'queued') {
+      if (e.key === 'Escape' && matchState === MatchState.Queued) {
         onCancel();
       }
     },
@@ -155,7 +155,7 @@ export function MatchmakingOverlay({
     return null;
   }
 
-  const isMatched = matchState === 'matched';
+  const isMatched = matchState === MatchState.Matched;
   const showQueuePosition = queuePosition && queuePosition > 1 && !isMatched;
 
   return (
@@ -229,7 +229,7 @@ export function MatchmakingOverlay({
         </div>
 
         {/* Cancel button - only shown when queued */}
-        {matchState === 'queued' && (
+        {matchState === MatchState.Queued && (
           <button
             className={styles.cancelButton}
             onClick={onCancel}

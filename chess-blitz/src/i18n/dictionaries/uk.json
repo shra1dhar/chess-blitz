@@ -61,7 +61,8 @@
     "stockfish": "Шаховий Бот",
     "you": "Ви",
     "yourTurn": "Ваш хід",
-    "resignConfirm": "Ви впевнені, що хочете здатися?"
+    "resignConfirm": "Ви впевнені, що хочете здатися?",
+    "engineLoading": "Підготовка вашого суперника..."
   },
   "controls": {
     "controls": "Керування",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "Назад",
     "title": "Шахова арена",
     "subtitle": "Обери свій бій. Знайди суперника.",
     "rating": "Рейтинг",
@@ -160,5 +162,62 @@
     "opponentOffers": "Ваш суперник пропонує нічию",
     "accept": "Прийняти",
     "decline": "Відхилити"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Ви виграли!",
+      "defeat": "Ви програли",
+      "draw": "Нічия",
+      "aborted": "Скасовано"
+    },
+    "reasons": {
+      "checkmate": "Мат!",
+      "opponentResigned": "Суперник здався",
+      "wonOnTime": "Ви виграли за часом",
+      "timeRanOut": "Час вичерпано",
+      "youResigned": "Ви здалися",
+      "stalemate": "Пат",
+      "insufficientMaterial": "Недостатньо матеріалу",
+      "drawAgreed": "Нічия за згодою",
+      "gameCancelled": "Гру скасовано",
+      "fiftyMoveRule": "Правило 50 ходів",
+      "seventyFiveMoveRule": "Правило 75 ходів",
+      "threefoldRepetition": "Триразове повторення",
+      "fivefoldRepetition": "П'ятиразове повторення",
+      "timeoutVsInsufficient": "Час вичерпано проти недостатнього матеріалу",
+      "opponentDisconnected": "Суперник від'єднався",
+      "noShow": "Суперник не з'явився"
+    },
+    "actions": {
+      "newGame": "Нова {time}",
+      "rematch": "Реванш",
+      "requestSent": "Запит надіслано",
+      "acceptRematch": "Прийняти реванш",
+      "decline": "Відхилити",
+      "viewBoard": "Переглянути дошку"
+    },
+    "stats": {
+      "you": "Ви",
+      "opponent": "Суперник"
+    }
+  },
+  "disconnect": {
+    "title": "{name} від'єднався",
+    "autoWinIn": "Автоматична перемога через {seconds}с",
+    "waiting": "Очікування на повторне підключення..."
+  },
+  "reconnecting": {
+    "title": "З'єднання втрачено",
+    "subtitle": "Повторне підключення...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "Правило 50 ходів",
+    "fiftyMoveSubtitle": "Немає взяттів або ходів пішаком за 50 ходів",
+    "fiftyMoveTooltip": "Гру можна оголосити нічиєю, якщо останні 50 ходів кожного гравця зроблено без жодного руху пішака або взяття.",
+    "threefoldTitle": "Триразове повторення",
+    "threefoldSubtitle": "Позиція повторилася 3 рази",
+    "threefoldTooltip": "Гру можна оголосити нічиєю, коли та сама позиція виникає тричі з тим самим гравцем на ході.",
+    "claimDraw": "Вимагати нічию"
   }
 }

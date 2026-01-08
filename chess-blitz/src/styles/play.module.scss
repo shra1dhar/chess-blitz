@@ -3,6 +3,7 @@
 // Fully responsive: mobile, tablet, desktop
 // ==============================================
 
+@use 'sass:color';
 @use './variables' as *;
 @use './mixins' as *;
 
@@ -789,5 +790,230 @@
     svg {
       opacity: 1;
     }
+  }
+}
+
+// ==============================================
+// Engine Loading Screen - Chess-themed
+// Shown while Stockfish AI loads (~7.3MB WASM)
+// ==============================================
+
+.engineLoading {
+  position: relative;
+  @include flex-center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  background: linear-gradient(
+    145deg,
+    color.adjust($brand-dark, $lightness: -3%) 0%,
+    $brand-dark 50%,
+    color.adjust($brand-dark, $lightness: -5%) 100%
+  );
+  overflow: hidden;
+}
+
+.checkerboardBg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image:
+    linear-gradient(45deg, $brand-secondary 25%, transparent 25%),
+    linear-gradient(-45deg, $brand-secondary 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, $brand-secondary 75%),
+    linear-gradient(-45deg, transparent 75%, $brand-secondary 75%);
+  background-size: 60px 60px;
+  background-position: 0 0, 0 30px, 30px -30px, -30px 0px;
+  -webkit-animation: checkerFade 2s ease-out forwards;
+  animation: checkerFade 2s ease-out forwards;
+}
+
+@-webkit-keyframes checkerFade {
+  from { opacity: 0; }
+  to { opacity: 0.03; }
+}
+
+@keyframes checkerFade {
+  from { opacity: 0; }
+  to { opacity: 0.03; }
+}
+
+.engineLoadingContent {
+  position: relative;
+  z-index: 1;
+  @include flex-column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-animation: contentFadeIn 0.6s ease-out forwards;
+  animation: contentFadeIn 0.6s ease-out forwards;
+}
+
+@-webkit-keyframes contentFadeIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes contentFadeIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+.knightContainer {
+  position: relative;
+  margin-bottom: $spacing-lg;
+}
+
+.knightIcon {
+  width: 80px;
+  height: 80px;
+  color: $brand-primary;
+  -webkit-filter: drop-shadow(0 0 20px rgba($brand-primary, 0.4));
+  filter: drop-shadow(0 0 20px rgba($brand-primary, 0.4));
+  -webkit-animation: knightPulse 2s ease-in-out infinite;
+  animation: knightPulse 2s ease-in-out infinite;
+
+  @include mobile {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+@-webkit-keyframes knightPulse {
+  0%, 100% {
+    -webkit-filter: drop-shadow(0 0 20px rgba($brand-primary, 0.3));
+    filter: drop-shadow(0 0 20px rgba($brand-primary, 0.3));
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    -webkit-filter: drop-shadow(0 0 30px rgba($brand-primary, 0.6));
+    filter: drop-shadow(0 0 30px rgba($brand-primary, 0.6));
+    -webkit-transform: scale(1.02);
+    transform: scale(1.02);
+  }
+}
+
+@keyframes knightPulse {
+  0%, 100% {
+    -webkit-filter: drop-shadow(0 0 20px rgba($brand-primary, 0.3));
+    filter: drop-shadow(0 0 20px rgba($brand-primary, 0.3));
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    -webkit-filter: drop-shadow(0 0 30px rgba($brand-primary, 0.6));
+    filter: drop-shadow(0 0 30px rgba($brand-primary, 0.6));
+    -webkit-transform: scale(1.02);
+    transform: scale(1.02);
+  }
+}
+
+.engineMessage {
+  font-family: $font-family-display;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-medium;
+  color: $brand-secondary;
+  letter-spacing: 0.02em;
+  margin-bottom: $spacing-md;
+
+  @include mobile {
+    font-size: $font-size-base;
+  }
+}
+
+.engineDots {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  span {
+    width: 8px;
+    height: 8px;
+    margin: 0 3px;
+    background-color: $brand-primary;
+    border-radius: 50%;
+    -webkit-animation: dotBounce 1.4s ease-in-out infinite;
+    animation: dotBounce 1.4s ease-in-out infinite;
+
+    &:nth-child(2) {
+      -webkit-animation-delay: 0.16s;
+      animation-delay: 0.16s;
+    }
+
+    &:nth-child(3) {
+      -webkit-animation-delay: 0.32s;
+      animation-delay: 0.32s;
+    }
+  }
+}
+
+@-webkit-keyframes dotBounce {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0.6);
+    transform: scale(0.6);
+    opacity: 0.4;
+  }
+  40% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes dotBounce {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0.6);
+    transform: scale(0.6);
+    opacity: 0.4;
+  }
+  40% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.engineBackButton {
+  position: absolute;
+  top: $spacing-lg;
+  left: $spacing-lg;
+  padding: $spacing-xs $spacing-sm;
+  color: rgba($brand-secondary, 0.6);
+  background: transparent;
+  border: 1px solid rgba($brand-secondary, 0.2);
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  cursor: pointer;
+  -webkit-transition: all $transition-fast;
+  transition: all $transition-fast;
+
+  [dir="rtl"] & {
+    left: auto;
+    right: $spacing-lg;
+  }
+
+  &:hover {
+    color: $brand-secondary;
+    border-color: rgba($brand-secondary, 0.4);
   }
 }

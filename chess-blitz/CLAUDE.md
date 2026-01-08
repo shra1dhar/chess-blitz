@@ -44,6 +44,42 @@ Or from monorepo root:
 pnpm --filter @chess-blitz/shared build
 ```
 
+### Shared State Enums (IMPORTANT)
+
+**Always use enums from `@chess-blitz/shared` instead of hardcoded strings for state comparisons.**
+
+Available enums:
+
+| Enum | Values | Usage |
+|------|--------|-------|
+| `MatchState` | `Idle`, `Queued`, `Matched`, `Playing`, `Ended` | Matchmaking lifecycle |
+| `RematchState` | `Idle`, `Requested`, `Received`, `Accepted` | Rematch flow after game |
+| `WebSocketStatus` | `Connecting`, `Connected`, `Disconnected`, `Error` | Connection status |
+| `DrawClaimType` | `None`, `FiftyMove`, `ThreefoldRepetition` | Draw claim availability |
+| `ClientMessageType` | Various | WebSocket messages client -> server |
+| `ServerMessageType` | Various | WebSocket messages server -> client |
+| `DrawClaimReason` | `FiftyMove`, `ThreefoldRepetition` | Draw claim reasons |
+
+**Usage Example:**
+
+```typescript
+// GOOD - Use enum values
+import { MatchState, RematchState, WebSocketStatus } from '@chess-blitz/shared';
+
+if (matchState === MatchState.Matched) { ... }
+setRematchState(RematchState.Requested);
+if (connectionStatus === WebSocketStatus.Connected) { ... }
+
+// BAD - Hardcoded strings (avoid this!)
+if (matchState === 'matched') { ... }
+setRematchState('requested');
+```
+
+**Import locations:**
+- Direct from shared: `import { MatchState } from '@chess-blitz/shared'`
+- Via hooks: `import { MatchState, RematchState } from '@/hooks/useMultiplayer'`
+- Via types: `import { MatchState } from '@/types/multiplayer'`
+
 ## Critical Rules
 
 ### OpenNext.js / Cloudflare Workers
@@ -163,6 +199,35 @@ pnpm --filter @chess-blitz/shared build
    - `src/i18n/dictionaries/*.json` - Add translations for all 34 languages
    - Backend service - Update tournament types there too
 
+### Stockfish Chess Engine
+
+1. **WASM with asm.js Fallback**
+   - Stockfish 17 (WASM) for modern browsers - faster and stronger
+   - Stockfish 10 (asm.js) fallback for older browsers without WASM
+   - Automatic detection and fallback in `useStockfish.ts`
+
+2. **Self-hosted files** in `public/stockfish/`:
+   ```
+   stockfish-17-wasm.js              # WASM loader (21KB)
+   stockfish-17.1-lite-single-*.wasm # WASM binary (7.3MB)
+   stockfish-10-asm.js               # asm.js fallback (1.6MB)
+   ```
+
+3. **Browser compatibility**:
+   | Browser | Engine |
+   |---------|--------|
+   | Edge (Chromium) 79+ | WASM (Stockfish 17) |
+   | Chrome 57+ | WASM (Stockfish 17) |
+   | Firefox 52+ | WASM (Stockfish 17) |
+   | Safari 11+ | WASM (Stockfish 17) |
+   | IE 11, old mobile | asm.js (Stockfish 10) |
+
+4. **Hook returns `engineVersion`** to indicate which engine loaded:
+   ```typescript
+   const { isReady, engineVersion } = useStockfish({ ... });
+   // engineVersion: 'wasm' | 'asm' | null
+   ```
+
 ### Backend Configuration
 
 1. **Environment Variables**
@@ -170,9 +235,11 @@ pnpm --filter @chess-blitz/shared build
    - Set in `.env.local` for development, `.env.production` for production
 
 2. **Authentication**
-   - JWT-based guest sessions
+   - JWT-based guest sessions using `@chess-blitz/shared` auth module
+   - Auth API routes are **local** (`/api/auth/guest`, `/api/auth/refresh`) - no CORS overhead
    - Token stored in localStorage via `authService.ts`
    - ELO ratings stored in JWT payload (no database required on frontend)
+   - Auth initializes in `AppInitializer` on any page load (background)
 
 3. **WebSocket Messages**
    - All messages use snake_case (e.g., `join_queue`, `match_found`, `game_over`)
@@ -268,6 +335,20 @@ pnpm --filter @chess-blitz/shared build
    }
    ```
 
+### Code Splitting
+
+1. **ChessBoard uses dynamic import** for better initial load:
+   ```typescript
+   const ChessBoard = dynamic(() => import('@/components/Board/ChessBoard'), {
+     ssr: false,
+     loading: () => <div className="board-loading" />,
+   });
+   ```
+
+2. **Sound lazy loading** - Only `move.wav` preloads (used for CTA buttons)
+   - `capture.wav`, `illegal_move.wav` lazy load on first use
+   - Configured in `soundManager.ts`
+
 ### macOS Development
 
 1. **`timeout` command doesn't exist on macOS**
@@ -318,6 +399,9 @@ src/
 │   │       │   └── [gameId]/ # Multiplayer game page
 │   │       └── tournament/
 │   ├── api/               # API routes (no edge runtime!)
+│   │   └── auth/          # Local auth API (no CORS)
+│   │       ├── guest/     # POST - Create guest session
+│   │       └── refresh/   # POST - Refresh token
 ├── components/
 │   ├── Board/             # ChessBoard
 │   ├── game/              # Shared game components (GameLayout, PlayerInfoCard, etc.)

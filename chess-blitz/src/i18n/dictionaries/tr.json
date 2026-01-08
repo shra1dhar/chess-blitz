@@ -61,7 +61,8 @@
     "stockfish": "Satranç Botu",
     "you": "Sen",
     "yourTurn": "Senin sıran",
-    "resignConfirm": "Terk etmek istediğinden emin misin?"
+    "resignConfirm": "Terk etmek istediğinden emin misin?",
+    "engineLoading": "Rakibiniz hazırlanıyor..."
   },
   "controls": {
     "controls": "Kontroller",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "Geri",
     "title": "Satranç Arenası",
     "subtitle": "Savaşını seç. Rakibini bul.",
     "rating": "Puan",
@@ -160,5 +162,62 @@
     "opponentOffers": "Rakibiniz beraberlik teklif ediyor",
     "accept": "Kabul et",
     "decline": "Reddet"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Kazandın!",
+      "defeat": "Kaybettin",
+      "draw": "Beraberlik",
+      "aborted": "İptal edildi"
+    },
+    "reasons": {
+      "checkmate": "Şah mat!",
+      "opponentResigned": "Rakip teslim oldu",
+      "wonOnTime": "Süre ile kazandın",
+      "timeRanOut": "Süre doldu",
+      "youResigned": "Teslim oldun",
+      "stalemate": "Pat",
+      "insufficientMaterial": "Yetersiz malzeme",
+      "drawAgreed": "Beraberlik kabul edildi",
+      "gameCancelled": "Oyun iptal edildi",
+      "fiftyMoveRule": "50 hamle kuralı",
+      "seventyFiveMoveRule": "75 hamle kuralı",
+      "threefoldRepetition": "Üç tekrar",
+      "fivefoldRepetition": "Beş tekrar",
+      "timeoutVsInsufficient": "Süre doldu vs yetersiz malzeme",
+      "opponentDisconnected": "Rakip bağlantısı kesildi",
+      "noShow": "Rakip gelmedi"
+    },
+    "actions": {
+      "newGame": "Yeni {time}",
+      "rematch": "Rövanş",
+      "requestSent": "İstek gönderildi",
+      "acceptRematch": "Rövanşı kabul et",
+      "decline": "Reddet",
+      "viewBoard": "Tahtayı gör"
+    },
+    "stats": {
+      "you": "Sen",
+      "opponent": "Rakip"
+    }
+  },
+  "disconnect": {
+    "title": "{name} bağlantısı kesildi",
+    "autoWinIn": "{seconds}s içinde otomatik galibiyet",
+    "waiting": "Yeniden bağlanma bekleniyor..."
+  },
+  "reconnecting": {
+    "title": "Bağlantı kesildi",
+    "subtitle": "Yeniden bağlanılıyor...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "50 hamle kuralı",
+    "fiftyMoveSubtitle": "50 hamlede yeme veya piyon hareketi yok",
+    "fiftyMoveTooltip": "Her oyuncunun son 50 hamlesi piyon hareketi veya yeme olmadan yapılmışsa oyun berabere ilan edilebilir.",
+    "threefoldTitle": "Üç tekrar",
+    "threefoldSubtitle": "Pozisyon 3 kez tekrarlandı",
+    "threefoldTooltip": "Aynı pozisyon aynı oyuncunun hamle sırası ile üç kez oluştuğunda oyun berabere ilan edilebilir.",
+    "claimDraw": "Beraberlik talep et"
   }
 }

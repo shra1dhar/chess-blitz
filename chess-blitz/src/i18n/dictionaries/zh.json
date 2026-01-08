@@ -61,7 +61,8 @@
     "stockfish": "象棋机器人",
     "you": "你",
     "yourTurn": "轮到你了",
-    "resignConfirm": "确定要认输吗？"
+    "resignConfirm": "确定要认输吗？",
+    "engineLoading": "正在准备您的对手..."
   },
   "controls": {
     "controls": "控制",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "返回",
     "title": "国际象棋竞技场",
     "subtitle": "选择你的战斗。找到你的对手。",
     "rating": "等级分",
@@ -160,5 +162,62 @@
     "opponentOffers": "对手提议和棋",
     "accept": "接受",
     "decline": "拒绝"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "你赢了！",
+      "defeat": "你输了",
+      "draw": "和棋",
+      "aborted": "已取消"
+    },
+    "reasons": {
+      "checkmate": "将死！",
+      "opponentResigned": "对手认输",
+      "wonOnTime": "超时获胜",
+      "timeRanOut": "时间耗尽",
+      "youResigned": "你认输了",
+      "stalemate": "逼和",
+      "insufficientMaterial": "子力不足",
+      "drawAgreed": "协议和棋",
+      "gameCancelled": "对局取消",
+      "fiftyMoveRule": "50回合规则",
+      "seventyFiveMoveRule": "75回合规则",
+      "threefoldRepetition": "三次重复",
+      "fivefoldRepetition": "五次重复",
+      "timeoutVsInsufficient": "超时对子力不足",
+      "opponentDisconnected": "对手断开连接",
+      "noShow": "对手未出现"
+    },
+    "actions": {
+      "newGame": "新{time}",
+      "rematch": "再来一局",
+      "requestSent": "请求已发送",
+      "acceptRematch": "接受再战",
+      "decline": "拒绝",
+      "viewBoard": "查看棋盘"
+    },
+    "stats": {
+      "you": "你",
+      "opponent": "对手"
+    }
+  },
+  "disconnect": {
+    "title": "{name}已断开",
+    "autoWinIn": "{seconds}秒后自动获胜",
+    "waiting": "等待重新连接..."
+  },
+  "reconnecting": {
+    "title": "连接丢失",
+    "subtitle": "重新连接中...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "50回合规则",
+    "fiftyMoveSubtitle": "50步内无吃子或兵移动",
+    "fiftyMoveTooltip": "如果双方各走了50步而没有移动兵或吃子，可以宣布和棋。",
+    "threefoldTitle": "三次重复",
+    "threefoldSubtitle": "局面重复3次",
+    "threefoldTooltip": "当相同局面在同一方走棋时出现三次，可以宣布和棋。",
+    "claimDraw": "宣布和棋"
   }
 }

@@ -61,7 +61,8 @@
     "stockfish": "চেস বট",
     "you": "আপনি",
     "yourTurn": "আপনার পালা",
-    "resignConfirm": "আপনি কি সত্যিই হার মানতে চান?"
+    "resignConfirm": "আপনি কি সত্যিই হার মানতে চান?",
+    "engineLoading": "আপনার প্রতিপক্ষ প্রস্তুত করা হচ্ছে..."
   },
   "controls": {
     "controls": "নিয়ন্ত্রণ",
@@ -116,6 +117,7 @@
     "autoAbort": "0:{seconds} এ স্বয়ংক্রিয়ভাবে বাতিল হবে"
   },
   "tournament": {
+    "back": "পিছনে",
     "title": "দাবা এরিনা",
     "subtitle": "আপনার যুদ্ধ বেছে নিন। প্রতিপক্ষ খুঁজুন।",
     "rating": "রেটিং",
@@ -130,7 +132,7 @@
     "classicalDesc": "চিন্তার জন্য আরও সময়। গভীর কৌশল। ১০ মিনিট।",
     "min": "মিনিট",
     "play": "খেলুন",
-    "findingOpponent": "Finding opponent",
+    "findingOpponent": "প্রতিপক্ষ খুঁজছি",
     "position": "অবস্থান",
     "cancelSearch": "অনুসন্ধান বাতিল",
     "matchFound": "Match Found!",
@@ -140,7 +142,7 @@
     "preparingGame": "Preparing your game...",
     "playingAsWhite": "Playing as White",
     "playingAsBlack": "Playing as Black",
-    "matchmakingHint": "Matching you with a player of similar skill",
+    "matchmakingHint": "আপনার সমান দক্ষতার খেলোয়াড়ের সাথে ম্যাচ করা হচ্ছে",
     "cancel": "Cancel",
     "rematchRequest": "Rematch?",
     "rematchSent": "Rematch request sent",
@@ -160,5 +162,62 @@
     "opponentOffers": "আপনার প্রতিপক্ষ ড্র অফার করেছে",
     "accept": "গ্রহণ করুন",
     "decline": "প্রত্যাখ্যান করুন"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "আপনি জিতেছেন!",
+      "defeat": "আপনি হেরেছেন",
+      "draw": "ড্র",
+      "aborted": "বাতিল"
+    },
+    "reasons": {
+      "checkmate": "চেকমেট!",
+      "opponentResigned": "প্রতিপক্ষ হার মেনেছে",
+      "wonOnTime": "আপনি সময়ে জিতেছেন",
+      "timeRanOut": "সময় শেষ",
+      "youResigned": "আপনি হার মেনেছেন",
+      "stalemate": "স্টেলমেট",
+      "insufficientMaterial": "অপর্যাপ্ত ঘুঁটি",
+      "drawAgreed": "ড্র সম্মত",
+      "gameCancelled": "খেলা বাতিল",
+      "fiftyMoveRule": "৫০-চাল নিয়ম",
+      "seventyFiveMoveRule": "৭৫-চাল নিয়ম",
+      "threefoldRepetition": "তিনবার পুনরাবৃত্তি",
+      "fivefoldRepetition": "পাঁচবার পুনরাবৃত্তি",
+      "timeoutVsInsufficient": "সময় শেষ বনাম অপর্যাপ্ত ঘুঁটি",
+      "opponentDisconnected": "প্রতিপক্ষ সংযোগ বিচ্ছিন্ন",
+      "noShow": "প্রতিপক্ষ উপস্থিত হয়নি"
+    },
+    "actions": {
+      "newGame": "নতুন {time}",
+      "rematch": "রিম্যাচ",
+      "requestSent": "অনুরোধ পাঠানো হয়েছে",
+      "acceptRematch": "রিম্যাচ গ্রহণ করুন",
+      "decline": "প্রত্যাখ্যান করুন",
+      "viewBoard": "বোর্ড দেখুন"
+    },
+    "stats": {
+      "you": "আপনি",
+      "opponent": "প্রতিপক্ষ"
+    }
+  },
+  "disconnect": {
+    "title": "{name} সংযোগ বিচ্ছিন্ন",
+    "autoWinIn": "{seconds}সে-এ স্বয়ংক্রিয় জয়",
+    "waiting": "পুনরায় সংযোগের জন্য অপেক্ষা করা হচ্ছে..."
+  },
+  "reconnecting": {
+    "title": "সংযোগ বিচ্ছিন্ন",
+    "subtitle": "পুনরায় সংযোগ করা হচ্ছে...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "৫০-চাল নিয়ম",
+    "fiftyMoveSubtitle": "৫০ চালে কোনো ঘুঁটি খাওয়া বা বোড়ের চাল নেই",
+    "fiftyMoveTooltip": "খেলাটি ড্র ঘোষণা করা যেতে পারে যদি প্রতিটি খেলোয়াড়ের শেষ ৫০টি চাল কোনো বোড়ের চাল বা ঘুঁটি খাওয়া ছাড়াই করা হয়।",
+    "threefoldTitle": "তিনবার পুনরাবৃত্তি",
+    "threefoldSubtitle": "অবস্থান ৩ বার পুনরাবৃত্তি হয়েছে",
+    "threefoldTooltip": "খেলাটি ড্র ঘোষণা করা যেতে পারে যখন একই অবস্থান একই খেলোয়াড়ের চালসহ তিনবার ঘটে।",
+    "claimDraw": "ড্র দাবি করুন"
   }
 }

@@ -22,10 +22,11 @@ interface SoundConfig {
 
 // Sound configuration with correct file paths
 const SOUND_CONFIG: Record<SoundName, SoundConfig> = {
-  // Critical sounds - preload immediately
+  // Critical sounds - preload immediately (move is used for CTA buttons)
   move: { src: '/sounds/move.wav', volume: 0.5, preload: true },
-  capture: { src: '/sounds/capture.wav', volume: 0.6, preload: true },
-  illegal: { src: '/sounds/illegal_move.wav', volume: 0.4, preload: true },
+  // Lazy load game sounds - only needed during gameplay
+  capture: { src: '/sounds/capture.wav', volume: 0.6, preload: false },
+  illegal: { src: '/sounds/illegal_move.wav', volume: 0.4, preload: false },
 
   // Aliased sounds - reuse existing files
   castle: { src: '/sounds/move.wav', volume: 0.5, preload: false },

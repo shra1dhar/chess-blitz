@@ -61,7 +61,8 @@
     "stockfish": "Bot Szachowy",
     "you": "Ty",
     "yourTurn": "Twój ruch",
-    "resignConfirm": "Czy na pewno chcesz się poddać?"
+    "resignConfirm": "Czy na pewno chcesz się poddać?",
+    "engineLoading": "Przygotowuję twojego przeciwnika..."
   },
   "controls": {
     "controls": "Sterowanie",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "Wstecz",
     "title": "Arena Szachowa",
     "subtitle": "Wybierz swoją bitwę. Znajdź przeciwnika.",
     "rating": "Ranking",
@@ -130,7 +132,7 @@
     "classicalDesc": "Więcej czasu na myślenie. Głębsza taktyka. 10 minut.",
     "min": "min",
     "play": "Graj",
-    "findingOpponent": "Finding opponent",
+    "findingOpponent": "Szukanie przeciwnika",
     "position": "Pozycja",
     "cancelSearch": "Anuluj wyszukiwanie",
     "matchFound": "Match Found!",
@@ -140,7 +142,7 @@
     "preparingGame": "Preparing your game...",
     "playingAsWhite": "Playing as White",
     "playingAsBlack": "Playing as Black",
-    "matchmakingHint": "Matching you with a player of similar skill",
+    "matchmakingHint": "Dopasowywanie gracza o podobnym poziomie",
     "cancel": "Cancel",
     "rematchRequest": "Rematch?",
     "rematchSent": "Rematch request sent",
@@ -160,5 +162,62 @@
     "opponentOffers": "Twój przeciwnik proponuje remis",
     "accept": "Akceptuj",
     "decline": "Odrzuć"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Wygrałeś!",
+      "defeat": "Przegrałeś",
+      "draw": "Remis",
+      "aborted": "Przerwano"
+    },
+    "reasons": {
+      "checkmate": "Mat!",
+      "opponentResigned": "Przeciwnik poddał się",
+      "wonOnTime": "Wygrana czasem",
+      "timeRanOut": "Czas minął",
+      "youResigned": "Poddałeś się",
+      "stalemate": "Pat",
+      "insufficientMaterial": "Niewystarczający materiał",
+      "drawAgreed": "Remis uzgodniony",
+      "gameCancelled": "Gra anulowana",
+      "fiftyMoveRule": "Zasada 50 posunięć",
+      "seventyFiveMoveRule": "Zasada 75 posunięć",
+      "threefoldRepetition": "Trzykrotne powtórzenie",
+      "fivefoldRepetition": "Pięciokrotne powtórzenie",
+      "timeoutVsInsufficient": "Czas vs niewystarczający materiał",
+      "opponentDisconnected": "Przeciwnik rozłączony",
+      "noShow": "Przeciwnik się nie pojawił"
+    },
+    "actions": {
+      "newGame": "Nowa {time}",
+      "rematch": "Rewanż",
+      "requestSent": "Prośba wysłana",
+      "acceptRematch": "Przyjmij rewanż",
+      "decline": "Odrzuć",
+      "viewBoard": "Zobacz planszę"
+    },
+    "stats": {
+      "you": "Ty",
+      "opponent": "Przeciwnik"
+    }
+  },
+  "disconnect": {
+    "title": "{name} rozłączony",
+    "autoWinIn": "Auto-wygrana za {seconds}s",
+    "waiting": "Czekanie na ponowne połączenie..."
+  },
+  "reconnecting": {
+    "title": "Połączenie utracone",
+    "subtitle": "Ponowne łączenie...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "Zasada 50 posunięć",
+    "fiftyMoveSubtitle": "Brak bić lub ruchów pionów przez 50 ruchów",
+    "fiftyMoveTooltip": "Gra może być uznana za remis, jeśli ostatnie 50 ruchów każdego gracza zostało wykonanych bez ruchu pionem lub bicia.",
+    "threefoldTitle": "Trzykrotne powtórzenie",
+    "threefoldSubtitle": "Pozycja powtórzona 3 razy",
+    "threefoldTooltip": "Gra może być uznana za remis, gdy ta sama pozycja wystąpi trzy razy z tym samym graczem do ruchu.",
+    "claimDraw": "Żądaj remisu"
   }
 }

@@ -14,9 +14,9 @@
   bottom: 0;
   z-index: $z-modal;
   @include flex-center;
-  background: rgba(0, 0, 0, 0.85);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.4);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 .animateIn {
@@ -57,6 +57,11 @@
   text-align: center;
   padding: $spacing-2xl;
   max-width: 320px;
+  background: $bg-secondary;
+  border-radius: $radius-xl;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.12),
+    0 12px 48px rgba(0, 0, 0, 0.08);
 }
 
 .iconContainer {
@@ -74,7 +79,7 @@
   transform: translate(-50%, -50%);
   width: 36px;
   height: 36px;
-  color: $text-inverse;
+  color: $text-secondary;
 }
 
 .signal1, .signal2, .signal3 {
@@ -127,13 +132,13 @@
   font-family: $font-family-display;
   font-size: $font-size-xl;
   font-weight: $font-weight-semibold;
-  color: $text-inverse;
+  color: $text-primary;
   margin: 0 0 $spacing-xs;
 }
 
 .subtitle {
   font-size: $font-size-base;
-  color: rgba(255, 255, 255, 0.7);
+  color: $text-secondary;
   margin: 0 0 $spacing-lg;
 }
 
@@ -151,7 +156,7 @@
 
 .progressBar {
   height: 4px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.08);
   border-radius: $radius-full;
   overflow: hidden;
 }
@@ -197,6 +202,6 @@
 
 .hint {
   font-size: $font-size-sm;
-  color: rgba(255, 255, 255, 0.5);
+  color: $text-muted;
   margin: 0;
 }

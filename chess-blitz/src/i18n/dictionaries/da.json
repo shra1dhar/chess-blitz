@@ -61,7 +61,8 @@
     "stockfish": "Skak Bot",
     "you": "Dig",
     "yourTurn": "Din tur",
-    "resignConfirm": "Er du sikker på at du vil give op?"
+    "resignConfirm": "Er du sikker på at du vil give op?",
+    "engineLoading": "Forbereder din modstander..."
   },
   "controls": {
     "controls": "Kontroller",
@@ -116,6 +117,7 @@
     "autoAbort": "Automatisk afbrydelse om 0:{seconds}"
   },
   "tournament": {
+    "back": "Tilbage",
     "title": "Skak Arena",
     "subtitle": "Vælg din kamp. Find din modstander.",
     "rating": "Rating",
@@ -130,7 +132,7 @@
     "classicalDesc": "Mere tid til at tænke. Dybere taktik. 10 minutter.",
     "min": "min",
     "play": "Spil",
-    "findingOpponent": "Finding opponent",
+    "findingOpponent": "Finder modstander",
     "position": "Position",
     "cancelSearch": "Annuller søgning",
     "matchFound": "Match Found!",
@@ -140,7 +142,7 @@
     "preparingGame": "Preparing your game...",
     "playingAsWhite": "Playing as White",
     "playingAsBlack": "Playing as Black",
-    "matchmakingHint": "Matching you with a player of similar skill",
+    "matchmakingHint": "Matcher dig med en spiller på lignende niveau",
     "cancel": "Cancel",
     "rematchRequest": "Rematch?",
     "rematchSent": "Rematch request sent",
@@ -160,5 +162,62 @@
     "opponentOffers": "Din modstander tilbyder remis",
     "accept": "Accepter",
     "decline": "Afvis"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Du vandt!",
+      "defeat": "Du tabte",
+      "draw": "Remis",
+      "aborted": "Afbrudt"
+    },
+    "reasons": {
+      "checkmate": "Skakmat!",
+      "opponentResigned": "Modstanderen opgav",
+      "wonOnTime": "Du vandt på tid",
+      "timeRanOut": "Tiden løb ud",
+      "youResigned": "Du opgav",
+      "stalemate": "Pat",
+      "insufficientMaterial": "Utilstrækkeligt materiale",
+      "drawAgreed": "Remis aftalt",
+      "gameCancelled": "Spil annulleret",
+      "fiftyMoveRule": "50-træk reglen",
+      "seventyFiveMoveRule": "75-træk reglen",
+      "threefoldRepetition": "Trefoldig gentagelse",
+      "fivefoldRepetition": "Femfoldig gentagelse",
+      "timeoutVsInsufficient": "Timeout mod utilstrækkeligt materiale",
+      "opponentDisconnected": "Modstanderen mistede forbindelsen",
+      "noShow": "Modstanderen mødte ikke op"
+    },
+    "actions": {
+      "newGame": "Nyt {time}",
+      "rematch": "Revanche",
+      "requestSent": "Anmodning sendt",
+      "acceptRematch": "Accepter revanche",
+      "decline": "Afvis",
+      "viewBoard": "Se brættet"
+    },
+    "stats": {
+      "you": "Dig",
+      "opponent": "Modstander"
+    }
+  },
+  "disconnect": {
+    "title": "{name} mistede forbindelsen",
+    "autoWinIn": "Auto-sejr om {seconds}s",
+    "waiting": "Venter på genforbindelse..."
+  },
+  "reconnecting": {
+    "title": "Forbindelse tabt",
+    "subtitle": "Genopretter forbindelse...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "50-træk reglen",
+    "fiftyMoveSubtitle": "Ingen slag eller bondetræk i 50 træk",
+    "fiftyMoveTooltip": "Spillet kan erklæres remis, hvis de sidste 50 træk af hver spiller er foretaget uden nogen bondebevægelse eller slag.",
+    "threefoldTitle": "Trefoldig gentagelse",
+    "threefoldSubtitle": "Position gentaget 3 gange",
+    "threefoldTooltip": "Spillet kan erklæres remis, når samme position forekommer tre gange med samme spiller til at trække.",
+    "claimDraw": "Kræv remis"
   }
 }

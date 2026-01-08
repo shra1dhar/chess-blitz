@@ -2,10 +2,10 @@
 
 // ==============================================
 // Chess Blitz - App Initializer
-// Runs side effects on mount (sound, MSN sync, store hydration)
+// Runs side effects on mount (sound, MSN sync, store hydration, auth)
 // ==============================================
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { soundManager } from '@/services/soundManager';
 import { useMSNAudioSync } from '@/hooks/useSound';
 import { useSettingsStore } from '@/stores/settingsStore';
@@ -64,6 +64,21 @@ export function AppInitializer() {
   useEffect(() => {
     soundManager.init();
   }, []);
+
+  // Initialize auth session in background (runs during page transitions)
+  const authInitializedRef = useRef(false);
+  const initializeSession = useMultiplayerStore((state) => state.initializeSession);
+
+  useEffect(() => {
+    // Only initialize once per app lifetime
+    if (authInitializedRef.current) return;
+    authInitializedRef.current = true;
+
+    // Initialize auth in background - don't await, let it complete during navigation
+    initializeSession().catch((error) => {
+      console.error('Failed to initialize auth session:', error);
+    });
+  }, [initializeSession]);
 
   // Sync with MSN platform audio state
   useMSNAudioSync();

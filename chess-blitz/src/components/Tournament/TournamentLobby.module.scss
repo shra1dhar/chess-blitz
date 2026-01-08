@@ -16,6 +16,7 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+  position: relative;
   height: 100vh;
   height: 100dvh;
   padding: $spacing-md;
@@ -24,6 +25,57 @@
 
   @include mobile {
     padding: $spacing-sm;
+  }
+}
+
+// Back Button
+.backButton {
+  @include flex-row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: absolute;
+  top: $spacing-md;
+  left: $spacing-md;
+  padding: $spacing-xs $spacing-sm;
+  background: rgba($bg-secondary, 0.8);
+  border: 1px solid rgba($text-secondary, 0.2);
+  border-radius: $radius-md;
+  color: $text-secondary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  -webkit-transition: all $transition-fast;
+  transition: all $transition-fast;
+
+  [dir="rtl"] & {
+    left: auto;
+    right: $spacing-md;
+  }
+
+  &:hover {
+    background: $bg-secondary;
+    color: $text-primary;
+    border-color: rgba($text-secondary, 0.4);
+  }
+
+  svg {
+    margin-inline-end: $spacing-xs;
+
+    [dir="rtl"] & {
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+    }
+  }
+
+  @include mobile {
+    top: $spacing-sm;
+    left: $spacing-sm;
+
+    [dir="rtl"] & {
+      left: auto;
+      right: $spacing-sm;
+    }
   }
 }
 

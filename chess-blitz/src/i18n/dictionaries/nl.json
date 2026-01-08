@@ -61,7 +61,8 @@
     "stockfish": "Schaakbot",
     "you": "Jij",
     "yourTurn": "Jouw beurt",
-    "resignConfirm": "Weet je zeker dat je wilt opgeven?"
+    "resignConfirm": "Weet je zeker dat je wilt opgeven?",
+    "engineLoading": "Je tegenstander voorbereiden..."
   },
   "controls": {
     "controls": "Bediening",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "Terug",
     "title": "Schaak Arena",
     "subtitle": "Kies je strijd. Vind je tegenstander.",
     "rating": "Rating",
@@ -160,5 +162,62 @@
     "opponentOffers": "Je tegenstander biedt remise aan",
     "accept": "Accepteren",
     "decline": "Weigeren"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Je hebt gewonnen!",
+      "defeat": "Je hebt verloren",
+      "draw": "Remise",
+      "aborted": "Afgebroken"
+    },
+    "reasons": {
+      "checkmate": "Schaakmat!",
+      "opponentResigned": "Tegenstander heeft opgegeven",
+      "wonOnTime": "Gewonnen op tijd",
+      "timeRanOut": "Tijd is op",
+      "youResigned": "Je hebt opgegeven",
+      "stalemate": "Pat",
+      "insufficientMaterial": "Onvoldoende materiaal",
+      "drawAgreed": "Remise overeengekomen",
+      "gameCancelled": "Spel geannuleerd",
+      "fiftyMoveRule": "50-zetten regel",
+      "seventyFiveMoveRule": "75-zetten regel",
+      "threefoldRepetition": "Drievoudige herhaling",
+      "fivefoldRepetition": "Vijfvoudige herhaling",
+      "timeoutVsInsufficient": "Tijd op vs onvoldoende materiaal",
+      "opponentDisconnected": "Tegenstander verbroken",
+      "noShow": "Tegenstander verscheen niet"
+    },
+    "actions": {
+      "newGame": "Nieuw {time}",
+      "rematch": "Rematch",
+      "requestSent": "Verzoek verzonden",
+      "acceptRematch": "Rematch accepteren",
+      "decline": "Weigeren",
+      "viewBoard": "Bekijk bord"
+    },
+    "stats": {
+      "you": "Jij",
+      "opponent": "Tegenstander"
+    }
+  },
+  "disconnect": {
+    "title": "{name} verbroken",
+    "autoWinIn": "Auto-winst in {seconds}s",
+    "waiting": "Wachten op herverbinding..."
+  },
+  "reconnecting": {
+    "title": "Verbinding verloren",
+    "subtitle": "Opnieuw verbinden...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "50-zetten regel",
+    "fiftyMoveSubtitle": "Geen slagen of pionzetten in 50 zetten",
+    "fiftyMoveTooltip": "Het spel kan remise worden verklaard als de laatste 50 zetten van elke speler zonder pionzet of slag zijn gemaakt.",
+    "threefoldTitle": "Drievoudige herhaling",
+    "threefoldSubtitle": "Stelling 3 keer herhaald",
+    "threefoldTooltip": "Het spel kan remise worden verklaard wanneer dezelfde stelling drie keer voorkomt met dezelfde speler aan zet.",
+    "claimDraw": "Claim remise"
   }
 }

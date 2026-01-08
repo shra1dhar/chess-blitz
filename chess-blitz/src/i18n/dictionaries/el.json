@@ -61,7 +61,8 @@
     "stockfish": "Ρομπότ Σκακιού",
     "you": "Εσύ",
     "yourTurn": "Η σειρά σου",
-    "resignConfirm": "Σίγουρα θέλεις να παραιτηθείς;"
+    "resignConfirm": "Σίγουρα θέλεις να παραιτηθείς;",
+    "engineLoading": "Προετοιμασία του αντιπάλου σου..."
   },
   "controls": {
     "controls": "Έλεγχοι",
@@ -116,6 +117,7 @@
     "autoAbort": "Αυτόματη ακύρωση σε 0:{seconds}"
   },
   "tournament": {
+    "back": "Πίσω",
     "title": "Σκακιστική Αρένα",
     "subtitle": "Διάλεξε τη μάχη σου. Βρες τον αντίπαλό σου.",
     "rating": "Βαθμολογία",
@@ -130,7 +132,7 @@
     "classicalDesc": "Περισσότερος χρόνος για σκέψη. Βαθύτερη τακτική. 10 λεπτά.",
     "min": "λεπ",
     "play": "Παίξε",
-    "findingOpponent": "Finding opponent",
+    "findingOpponent": "Αναζήτηση αντιπάλου",
     "position": "Θέση",
     "cancelSearch": "Ακύρωση αναζήτησης",
     "matchFound": "Match Found!",
@@ -140,7 +142,7 @@
     "preparingGame": "Preparing your game...",
     "playingAsWhite": "Playing as White",
     "playingAsBlack": "Playing as Black",
-    "matchmakingHint": "Matching you with a player of similar skill",
+    "matchmakingHint": "Αντιστοίχιση με παίκτη παρόμοιου επιπέδου",
     "cancel": "Cancel",
     "rematchRequest": "Rematch?",
     "rematchSent": "Rematch request sent",
@@ -160,5 +162,62 @@
     "opponentOffers": "Ο αντίπαλός σας προτείνει ισοπαλία",
     "accept": "Αποδοχή",
     "decline": "Απόρριψη"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Κέρδισες!",
+      "defeat": "Έχασες",
+      "draw": "Ισοπαλία",
+      "aborted": "Ακυρώθηκε"
+    },
+    "reasons": {
+      "checkmate": "Ματ!",
+      "opponentResigned": "Ο αντίπαλος παραιτήθηκε",
+      "wonOnTime": "Κέρδισες στο χρόνο",
+      "timeRanOut": "Ο χρόνος τελείωσε",
+      "youResigned": "Παραιτήθηκες",
+      "stalemate": "Πατ",
+      "insufficientMaterial": "Ανεπαρκές υλικό",
+      "drawAgreed": "Ισοπαλία με συμφωνία",
+      "gameCancelled": "Το παιχνίδι ακυρώθηκε",
+      "fiftyMoveRule": "Κανόνας 50 κινήσεων",
+      "seventyFiveMoveRule": "Κανόνας 75 κινήσεων",
+      "threefoldRepetition": "Τριπλή επανάληψη",
+      "fivefoldRepetition": "Πενταπλή επανάληψη",
+      "timeoutVsInsufficient": "Λήξη χρόνου έναντι ανεπαρκούς υλικού",
+      "opponentDisconnected": "Ο αντίπαλος αποσυνδέθηκε",
+      "noShow": "Ο αντίπαλος δεν εμφανίστηκε"
+    },
+    "actions": {
+      "newGame": "Νέο {time}",
+      "rematch": "Ρεβάνς",
+      "requestSent": "Αίτημα εστάλη",
+      "acceptRematch": "Αποδοχή ρεβάνς",
+      "decline": "Απόρριψη",
+      "viewBoard": "Προβολή σκακιέρας"
+    },
+    "stats": {
+      "you": "Εσύ",
+      "opponent": "Αντίπαλος"
+    }
+  },
+  "disconnect": {
+    "title": "{name} αποσυνδέθηκε",
+    "autoWinIn": "Αυτόματη νίκη σε {seconds}δ",
+    "waiting": "Αναμονή για επανασύνδεση..."
+  },
+  "reconnecting": {
+    "title": "Χάθηκε η σύνδεση",
+    "subtitle": "Επανασύνδεση...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "Κανόνας 50 κινήσεων",
+    "fiftyMoveSubtitle": "Καμία αιχμαλωσία ή κίνηση πιονιού σε 50 κινήσεις",
+    "fiftyMoveTooltip": "Το παιχνίδι μπορεί να κηρυχθεί ισοπαλία αν οι τελευταίες 50 κινήσεις κάθε παίκτη έγιναν χωρίς καμία κίνηση πιονιού ή αιχμαλωσία.",
+    "threefoldTitle": "Τριπλή επανάληψη",
+    "threefoldSubtitle": "Η θέση επαναλήφθηκε 3 φορές",
+    "threefoldTooltip": "Το παιχνίδι μπορεί να κηρυχθεί ισοπαλία όταν η ίδια θέση εμφανίζεται τρεις φορές με τον ίδιο παίκτη να κινείται.",
+    "claimDraw": "Διεκδίκηση ισοπαλίας"
   }
 }

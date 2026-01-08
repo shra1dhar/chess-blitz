@@ -4,8 +4,9 @@
 // ==============================================
 
 import { useState, useEffect, useRef, useCallback, useEffectEvent } from 'react';
+import { WebSocketStatus } from '@chess-blitz/shared';
 
-export type WebSocketStatus = 'connecting' | 'connected' | 'disconnected' | 'error';
+export { WebSocketStatus };
 
 // Exponential backoff configuration
 const BACKOFF_CONFIG = {
@@ -58,7 +59,7 @@ export function useWebSocket(
     maxReconnectAttempts = 10,
   } = options;
 
-  const [status, setStatus] = useState<WebSocketStatus>('disconnected');
+  const [status, setStatus] = useState<WebSocketStatus>(WebSocketStatus.Disconnected);
   const [lastMessage, setLastMessage] = useState<unknown>(null);
 
   const wsRef = useRef<WebSocket | null>(null);
@@ -125,7 +126,7 @@ export function useWebSocket(
     cleanup();
     isConnectingRef.current = true;
 
-    setStatus('connecting');
+    setStatus(WebSocketStatus.Connecting);
 
     try {
       const ws = new WebSocket(currentUrl);
@@ -133,7 +134,7 @@ export function useWebSocket(
 
       ws.onopen = () => {
         isConnectingRef.current = false;
-        setStatus('connected');
+        setStatus(WebSocketStatus.Connected);
         reconnectAttemptsRef.current = 0;
         onOpenEvent();
       };
@@ -152,13 +153,13 @@ export function useWebSocket(
 
       ws.onerror = (error) => {
         isConnectingRef.current = false;
-        setStatus('error');
+        setStatus(WebSocketStatus.Error);
         onErrorEvent(error);
       };
 
       ws.onclose = (event) => {
         isConnectingRef.current = false;
-        setStatus('disconnected');
+        setStatus(WebSocketStatus.Disconnected);
         onCloseEvent(event);
 
         // Attempt reconnection if enabled and not a clean close
@@ -176,7 +177,7 @@ export function useWebSocket(
       };
     } catch (error) {
       isConnectingRef.current = false;
-      setStatus('error');
+      setStatus(WebSocketStatus.Error);
       console.error('WebSocket connection error:', error);
     }
   }, [cleanup, maxReconnectAttempts]);
@@ -185,7 +186,7 @@ export function useWebSocket(
   const disconnect = useCallback(() => {
     shouldReconnectRef.current = false;
     cleanup();
-    setStatus('disconnected');
+    setStatus(WebSocketStatus.Disconnected);
   }, [cleanup]);
 
   // Send message function
@@ -209,7 +210,7 @@ export function useWebSocket(
       connect();
     } else if (!url && previousUrl) {
       cleanup();
-      setStatus('disconnected');
+      setStatus(WebSocketStatus.Disconnected);
     }
 
     return () => {

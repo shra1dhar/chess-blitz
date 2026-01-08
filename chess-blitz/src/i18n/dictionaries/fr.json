@@ -61,7 +61,8 @@
     "stockfish": "Bot d'échecs",
     "you": "Vous",
     "yourTurn": "Votre tour",
-    "resignConfirm": "Êtes-vous sûr de vouloir abandonner ?"
+    "resignConfirm": "Êtes-vous sûr de vouloir abandonner ?",
+    "engineLoading": "Préparation de votre adversaire..."
   },
   "controls": {
     "controls": "Contrôles",
@@ -116,6 +117,7 @@
     "autoAbort": "Abandon automatique dans 0:{seconds}"
   },
   "tournament": {
+    "back": "Retour",
     "title": "Arène d'Échecs",
     "subtitle": "Choisissez votre combat. Trouvez votre adversaire.",
     "rating": "Classement",
@@ -160,5 +162,62 @@
     "opponentOffers": "Votre adversaire propose la nulle",
     "accept": "Accepter",
     "decline": "Refuser"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Vous avez gagné !",
+      "defeat": "Vous avez perdu",
+      "draw": "Nulle",
+      "aborted": "Annulée"
+    },
+    "reasons": {
+      "checkmate": "Échec et mat !",
+      "opponentResigned": "L'adversaire a abandonné",
+      "wonOnTime": "Victoire au temps",
+      "timeRanOut": "Temps écoulé",
+      "youResigned": "Vous avez abandonné",
+      "stalemate": "Pat",
+      "insufficientMaterial": "Matériel insuffisant",
+      "drawAgreed": "Nulle convenue",
+      "gameCancelled": "Partie annulée",
+      "fiftyMoveRule": "Règle des 50 coups",
+      "seventyFiveMoveRule": "Règle des 75 coups",
+      "threefoldRepetition": "Triple répétition",
+      "fivefoldRepetition": "Quintuple répétition",
+      "timeoutVsInsufficient": "Temps vs matériel insuffisant",
+      "opponentDisconnected": "Adversaire déconnecté",
+      "noShow": "L'adversaire ne s'est pas présenté"
+    },
+    "actions": {
+      "newGame": "Nouvelle {time}",
+      "rematch": "Revanche",
+      "requestSent": "Demande envoyée",
+      "acceptRematch": "Accepter la revanche",
+      "decline": "Refuser",
+      "viewBoard": "Voir l'échiquier"
+    },
+    "stats": {
+      "you": "Vous",
+      "opponent": "Adversaire"
+    }
+  },
+  "disconnect": {
+    "title": "{name} déconnecté",
+    "autoWinIn": "Victoire auto dans {seconds}s",
+    "waiting": "En attente de reconnexion..."
+  },
+  "reconnecting": {
+    "title": "Connexion perdue",
+    "subtitle": "Reconnexion...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "Règle des 50 coups",
+    "fiftyMoveSubtitle": "Aucune prise ni coup de pion en 50 coups",
+    "fiftyMoveTooltip": "La partie peut être déclarée nulle si les 50 derniers coups de chaque joueur ont été effectués sans mouvement de pion ni prise.",
+    "threefoldTitle": "Triple répétition",
+    "threefoldSubtitle": "Position répétée 3 fois",
+    "threefoldTooltip": "La partie peut être déclarée nulle lorsque la même position se produit trois fois avec le même joueur au trait.",
+    "claimDraw": "Réclamer la nulle"
   }
 }

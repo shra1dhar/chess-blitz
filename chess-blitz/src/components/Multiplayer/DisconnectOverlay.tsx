@@ -9,12 +9,14 @@
 import { useEffect, useState } from 'react';
 import { Activity } from 'react';
 import { useActivityAnimation } from '@/hooks/useActivityAnimation';
+import type { Dictionary } from '@/i18n/dictionaries';
 import styles from './DisconnectOverlay.module.scss';
 
 interface DisconnectOverlayProps {
   isVisible: boolean;
   countdown: number | null;
   opponentName?: string;
+  dict: Dictionary;
 }
 
 // Wifi off icon
@@ -92,6 +94,7 @@ export function DisconnectOverlay({
   isVisible,
   countdown,
   opponentName = 'Opponent',
+  dict,
 }: DisconnectOverlayProps) {
   const [isDismissed, setIsDismissed] = useState(false);
 
@@ -155,11 +158,13 @@ export function DisconnectOverlay({
         </div>
 
         <div className={styles.textSection}>
-          <span className={styles.title}>{opponentName} Disconnected</span>
+          <span className={styles.title}>
+            {dict.disconnect.title.replace('{name}', opponentName)}
+          </span>
           <span className={styles.subtitle}>
             {countdown !== null && countdown > 0
-              ? `Auto-win in ${countdown}s`
-              : 'Waiting for reconnection...'}
+              ? dict.disconnect.autoWinIn.replace('{seconds}', String(countdown))
+              : dict.disconnect.waiting}
           </span>
         </div>
       </div>

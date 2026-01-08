@@ -61,7 +61,8 @@
     "stockfish": "Schach-Bot",
     "you": "Du",
     "yourTurn": "Du bist dran",
-    "resignConfirm": "Möchtest du wirklich aufgeben?"
+    "resignConfirm": "Möchtest du wirklich aufgeben?",
+    "engineLoading": "Bereite deinen Gegner vor..."
   },
   "controls": {
     "controls": "Steuerung",
@@ -116,6 +117,7 @@
     "autoAbort": "Automatischer Abbruch in 0:{seconds}"
   },
   "tournament": {
+    "back": "Zurück",
     "title": "Schach-Arena",
     "subtitle": "Wähle deinen Kampf. Finde deinen Gegner.",
     "rating": "Wertung",
@@ -160,5 +162,62 @@
     "opponentOffers": "Dein Gegner bietet Remis an",
     "accept": "Annehmen",
     "decline": "Ablehnen"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Du hast gewonnen!",
+      "defeat": "Du hast verloren",
+      "draw": "Remis",
+      "aborted": "Abgebrochen"
+    },
+    "reasons": {
+      "checkmate": "Schachmatt!",
+      "opponentResigned": "Gegner hat aufgegeben",
+      "wonOnTime": "Du hast auf Zeit gewonnen",
+      "timeRanOut": "Zeit abgelaufen",
+      "youResigned": "Du hast aufgegeben",
+      "stalemate": "Patt",
+      "insufficientMaterial": "Unzureichendes Material",
+      "drawAgreed": "Remis vereinbart",
+      "gameCancelled": "Spiel abgebrochen",
+      "fiftyMoveRule": "50-Züge-Regel",
+      "seventyFiveMoveRule": "75-Züge-Regel",
+      "threefoldRepetition": "Dreifache Stellungswiederholung",
+      "fivefoldRepetition": "Fünffache Stellungswiederholung",
+      "timeoutVsInsufficient": "Zeit gegen unzureichendes Material",
+      "opponentDisconnected": "Gegner getrennt",
+      "noShow": "Gegner nicht erschienen"
+    },
+    "actions": {
+      "newGame": "Neues {time}",
+      "rematch": "Revanche",
+      "requestSent": "Anfrage gesendet",
+      "acceptRematch": "Revanche annehmen",
+      "decline": "Ablehnen",
+      "viewBoard": "Brett ansehen"
+    },
+    "stats": {
+      "you": "Du",
+      "opponent": "Gegner"
+    }
+  },
+  "disconnect": {
+    "title": "{name} getrennt",
+    "autoWinIn": "Auto-Gewinn in {seconds}s",
+    "waiting": "Warte auf Wiederverbindung..."
+  },
+  "reconnecting": {
+    "title": "Verbindung verloren",
+    "subtitle": "Verbinde erneut...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "50-Züge-Regel",
+    "fiftyMoveSubtitle": "Keine Schläge oder Bauernzüge in 50 Zügen",
+    "fiftyMoveTooltip": "Das Spiel kann als Remis erklärt werden, wenn die letzten 50 Züge jedes Spielers ohne Bauernzug oder Schlagen gemacht wurden.",
+    "threefoldTitle": "Dreifache Stellungswiederholung",
+    "threefoldSubtitle": "Stellung 3 Mal wiederholt",
+    "threefoldTooltip": "Das Spiel kann als Remis erklärt werden, wenn dieselbe Stellung dreimal mit demselben Spieler am Zug auftritt.",
+    "claimDraw": "Remis beanspruchen"
   }
 }

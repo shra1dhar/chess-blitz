@@ -61,7 +61,8 @@
     "stockfish": "Bot di Scacchi",
     "you": "Tu",
     "yourTurn": "Tocca a te",
-    "resignConfirm": "Sei sicuro di voler abbandonare?"
+    "resignConfirm": "Sei sicuro di voler abbandonare?",
+    "engineLoading": "Preparazione del tuo avversario..."
   },
   "controls": {
     "controls": "Controlli",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "Indietro",
     "title": "Arena di Scacchi",
     "subtitle": "Scegli la tua battaglia. Trova il tuo avversario.",
     "rating": "Punteggio",
@@ -160,5 +162,62 @@
     "opponentOffers": "Il tuo avversario offre la patta",
     "accept": "Accetta",
     "decline": "Rifiuta"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Hai vinto!",
+      "defeat": "Hai perso",
+      "draw": "Patta",
+      "aborted": "Annullata"
+    },
+    "reasons": {
+      "checkmate": "Scacco matto!",
+      "opponentResigned": "L'avversario ha abbandonato",
+      "wonOnTime": "Hai vinto per tempo",
+      "timeRanOut": "Tempo scaduto",
+      "youResigned": "Hai abbandonato",
+      "stalemate": "Stallo",
+      "insufficientMaterial": "Materiale insufficiente",
+      "drawAgreed": "Patta concordata",
+      "gameCancelled": "Partita annullata",
+      "fiftyMoveRule": "Regola delle 50 mosse",
+      "seventyFiveMoveRule": "Regola delle 75 mosse",
+      "threefoldRepetition": "Triplice ripetizione",
+      "fivefoldRepetition": "Quintupla ripetizione",
+      "timeoutVsInsufficient": "Tempo vs materiale insufficiente",
+      "opponentDisconnected": "Avversario disconnesso",
+      "noShow": "L'avversario non si è presentato"
+    },
+    "actions": {
+      "newGame": "Nuova {time}",
+      "rematch": "Rivincita",
+      "requestSent": "Richiesta inviata",
+      "acceptRematch": "Accetta rivincita",
+      "decline": "Rifiuta",
+      "viewBoard": "Vedi scacchiera"
+    },
+    "stats": {
+      "you": "Tu",
+      "opponent": "Avversario"
+    }
+  },
+  "disconnect": {
+    "title": "{name} disconnesso",
+    "autoWinIn": "Vittoria automatica in {seconds}s",
+    "waiting": "In attesa di riconnessione..."
+  },
+  "reconnecting": {
+    "title": "Connessione persa",
+    "subtitle": "Riconnessione...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "Regola delle 50 mosse",
+    "fiftyMoveSubtitle": "Nessuna cattura o mossa di pedone in 50 mosse",
+    "fiftyMoveTooltip": "La partita può essere dichiarata patta se le ultime 50 mosse di ogni giocatore sono state effettuate senza movimento di pedone o cattura.",
+    "threefoldTitle": "Triplice ripetizione",
+    "threefoldSubtitle": "Posizione ripetuta 3 volte",
+    "threefoldTooltip": "La partita può essere dichiarata patta quando la stessa posizione si verifica tre volte con lo stesso giocatore al tratto.",
+    "claimDraw": "Reclama patta"
   }
 }

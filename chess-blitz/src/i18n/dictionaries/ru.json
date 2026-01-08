@@ -61,7 +61,8 @@
     "stockfish": "Шахматный Бот",
     "you": "Вы",
     "yourTurn": "Ваш ход",
-    "resignConfirm": "Вы уверены, что хотите сдаться?"
+    "resignConfirm": "Вы уверены, что хотите сдаться?",
+    "engineLoading": "Подготовка вашего соперника..."
   },
   "controls": {
     "controls": "Управление",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "Назад",
     "title": "Шахматная арена",
     "subtitle": "Выбери свой бой. Найди соперника.",
     "rating": "Рейтинг",
@@ -160,5 +162,62 @@
     "opponentOffers": "Ваш соперник предлагает ничью",
     "accept": "Принять",
     "decline": "Отклонить"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Вы выиграли!",
+      "defeat": "Вы проиграли",
+      "draw": "Ничья",
+      "aborted": "Отменена"
+    },
+    "reasons": {
+      "checkmate": "Мат!",
+      "opponentResigned": "Соперник сдался",
+      "wonOnTime": "Победа по времени",
+      "timeRanOut": "Время истекло",
+      "youResigned": "Вы сдались",
+      "stalemate": "Пат",
+      "insufficientMaterial": "Недостаточно материала",
+      "drawAgreed": "Ничья по соглашению",
+      "gameCancelled": "Игра отменена",
+      "fiftyMoveRule": "Правило 50 ходов",
+      "seventyFiveMoveRule": "Правило 75 ходов",
+      "threefoldRepetition": "Троекратное повторение",
+      "fivefoldRepetition": "Пятикратное повторение",
+      "timeoutVsInsufficient": "Время против недостатка материала",
+      "opponentDisconnected": "Соперник отключился",
+      "noShow": "Соперник не появился"
+    },
+    "actions": {
+      "newGame": "Новая {time}",
+      "rematch": "Реванш",
+      "requestSent": "Запрос отправлен",
+      "acceptRematch": "Принять реванш",
+      "decline": "Отклонить",
+      "viewBoard": "Смотреть доску"
+    },
+    "stats": {
+      "you": "Вы",
+      "opponent": "Соперник"
+    }
+  },
+  "disconnect": {
+    "title": "{name} отключился",
+    "autoWinIn": "Авто-победа через {seconds}с",
+    "waiting": "Ожидание переподключения..."
+  },
+  "reconnecting": {
+    "title": "Соединение потеряно",
+    "subtitle": "Переподключение...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "Правило 50 ходов",
+    "fiftyMoveSubtitle": "Нет взятий или ходов пешкой за 50 ходов",
+    "fiftyMoveTooltip": "Игра может быть объявлена ничьей, если последние 50 ходов каждого игрока были сделаны без движения пешки или взятия.",
+    "threefoldTitle": "Троекратное повторение",
+    "threefoldSubtitle": "Позиция повторилась 3 раза",
+    "threefoldTooltip": "Игра может быть объявлена ничьей, когда одна и та же позиция возникает трижды с тем же игроком на ходу.",
+    "claimDraw": "Требовать ничью"
   }
 }

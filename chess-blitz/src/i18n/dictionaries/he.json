@@ -61,7 +61,8 @@
     "stockfish": "בוט שחמט",
     "you": "אתה",
     "yourTurn": "תורך",
-    "resignConfirm": "האם אתה בטוח שברצונך לוותר?"
+    "resignConfirm": "האם אתה בטוח שברצונך לוותר?",
+    "engineLoading": "מכין את היריב שלך..."
   },
   "controls": {
     "controls": "בקרות",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "חזרה",
     "title": "זירת השחמט",
     "subtitle": "בחר את הקרב שלך. מצא את היריב שלך.",
     "rating": "דירוג",
@@ -160,5 +162,62 @@
     "opponentOffers": "היריב שלך מציע תיקו",
     "accept": "קבל",
     "decline": "דחה"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "ניצחת!",
+      "defeat": "הפסדת",
+      "draw": "תיקו",
+      "aborted": "בוטל"
+    },
+    "reasons": {
+      "checkmate": "מט!",
+      "opponentResigned": "היריב נכנע",
+      "wonOnTime": "ניצחון בזמן",
+      "timeRanOut": "הזמן נגמר",
+      "youResigned": "נכנעת",
+      "stalemate": "פט",
+      "insufficientMaterial": "חומר לא מספיק",
+      "drawAgreed": "תיקו בהסכמה",
+      "gameCancelled": "המשחק בוטל",
+      "fiftyMoveRule": "חוק 50 המהלכים",
+      "seventyFiveMoveRule": "חוק 75 המהלכים",
+      "threefoldRepetition": "חזרה משולשת",
+      "fivefoldRepetition": "חזרה חמש פעמים",
+      "timeoutVsInsufficient": "זמן מול חומר לא מספיק",
+      "opponentDisconnected": "היריב התנתק",
+      "noShow": "היריב לא הופיע"
+    },
+    "actions": {
+      "newGame": "משחק {time} חדש",
+      "rematch": "ריבנצ'",
+      "requestSent": "הבקשה נשלחה",
+      "acceptRematch": "קבל ריבנצ'",
+      "decline": "דחה",
+      "viewBoard": "הצג לוח"
+    },
+    "stats": {
+      "you": "אתה",
+      "opponent": "יריב"
+    }
+  },
+  "disconnect": {
+    "title": "{name} התנתק",
+    "autoWinIn": "ניצחון אוטומטי בעוד {seconds}ש'",
+    "waiting": "ממתין להתחברות מחדש..."
+  },
+  "reconnecting": {
+    "title": "החיבור נותק",
+    "subtitle": "מתחבר מחדש...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "חוק 50 המהלכים",
+    "fiftyMoveSubtitle": "אין אכילות או מהלכי רגלים ב-50 מהלכים",
+    "fiftyMoveTooltip": "ניתן להכריז על המשחק כתיקו אם 50 המהלכים האחרונים של כל שחקן נעשו ללא הזזת רגלי או אכילה.",
+    "threefoldTitle": "חזרה משולשת",
+    "threefoldSubtitle": "עמדה חזרה 3 פעמים",
+    "threefoldTooltip": "ניתן להכריז על המשחק כתיקו כאשר אותה עמדה מתרחשת שלוש פעמים עם אותו שחקן לנוע.",
+    "claimDraw": "תבע תיקו"
   }
 }

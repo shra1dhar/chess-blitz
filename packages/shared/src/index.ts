@@ -1,5 +1,12 @@
 // Enums
 export { ClientMessageType, ServerMessageType, DrawClaimReason } from "./enums";
+export {
+  MatchState,
+  RematchState,
+  GameRoomStatus,
+  WebSocketStatus,
+  DrawClaimType,
+} from "./enums";
 
 // Types
 export { TOURNAMENT_TYPES, TIME_CONTROLS } from "./types";

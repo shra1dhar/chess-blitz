@@ -61,7 +61,8 @@
     "stockfish": "चेस बॉट",
     "you": "आप",
     "yourTurn": "आपकी बारी",
-    "resignConfirm": "क्या आप वाकई हार मानना चाहते हैं?"
+    "resignConfirm": "क्या आप वाकई हार मानना चाहते हैं?",
+    "engineLoading": "आपके प्रतिद्वंद्वी को तैयार किया जा रहा है..."
   },
   "controls": {
     "controls": "नियंत्रण",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "वापस",
     "title": "शतरंज अखाड़ा",
     "subtitle": "अपनी लड़ाई चुनें। अपना प्रतिद्वंद्वी खोजें।",
     "rating": "रेटिंग",
@@ -130,7 +132,7 @@
     "classicalDesc": "सोचने के लिए अधिक समय। गहरी रणनीति। 10 मिनट।",
     "min": "मिनट",
     "play": "खेलें",
-    "findingOpponent": "Finding opponent",
+    "findingOpponent": "प्रतिद्वंद्वी ढूंढ रहे हैं",
     "position": "स्थिति",
     "cancelSearch": "खोज रद्द करें",
     "matchFound": "Match Found!",
@@ -140,7 +142,7 @@
     "preparingGame": "Preparing your game...",
     "playingAsWhite": "Playing as White",
     "playingAsBlack": "Playing as Black",
-    "matchmakingHint": "Matching you with a player of similar skill",
+    "matchmakingHint": "समान कौशल के खिलाड़ी के साथ मिलान हो रहा है",
     "cancel": "Cancel",
     "rematchRequest": "Rematch?",
     "rematchSent": "Rematch request sent",
@@ -160,5 +162,62 @@
     "opponentOffers": "आपके प्रतिद्वंद्वी ने ड्रॉ ऑफर किया है",
     "accept": "स्वीकार करें",
     "decline": "अस्वीकार करें"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "आप जीते!",
+      "defeat": "आप हारे",
+      "draw": "ड्रॉ",
+      "aborted": "रद्द"
+    },
+    "reasons": {
+      "checkmate": "शह और मात!",
+      "opponentResigned": "प्रतिद्वंद्वी ने हार मानी",
+      "wonOnTime": "समय से जीते",
+      "timeRanOut": "समय समाप्त",
+      "youResigned": "आपने हार मान ली",
+      "stalemate": "गतिरोध",
+      "insufficientMaterial": "अपर्याप्त सामग्री",
+      "drawAgreed": "ड्रॉ सहमत",
+      "gameCancelled": "खेल रद्द",
+      "fiftyMoveRule": "50 चाल नियम",
+      "seventyFiveMoveRule": "75 चाल नियम",
+      "threefoldRepetition": "तीन बार दोहराव",
+      "fivefoldRepetition": "पांच बार दोहराव",
+      "timeoutVsInsufficient": "समय समाप्त बनाम अपर्याप्त सामग्री",
+      "opponentDisconnected": "प्रतिद्वंद्वी डिस्कनेक्ट",
+      "noShow": "प्रतिद्वंद्वी नहीं आया"
+    },
+    "actions": {
+      "newGame": "नया {time}",
+      "rematch": "पुनर्मुकाबला",
+      "requestSent": "अनुरोध भेजा गया",
+      "acceptRematch": "पुनर्मुकाबला स्वीकारें",
+      "decline": "अस्वीकार करें",
+      "viewBoard": "बोर्ड देखें"
+    },
+    "stats": {
+      "you": "आप",
+      "opponent": "प्रतिद्वंद्वी"
+    }
+  },
+  "disconnect": {
+    "title": "{name} डिस्कनेक्ट",
+    "autoWinIn": "{seconds}स में ऑटो-जीत",
+    "waiting": "पुनः कनेक्शन की प्रतीक्षा..."
+  },
+  "reconnecting": {
+    "title": "कनेक्शन टूट गया",
+    "subtitle": "पुनः कनेक्ट हो रहा है...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "50 चाल नियम",
+    "fiftyMoveSubtitle": "50 चालों में कोई कैप्चर या प्यादे की चाल नहीं",
+    "fiftyMoveTooltip": "खेल को ड्रॉ घोषित किया जा सकता है यदि प्रत्येक खिलाड़ी की अंतिम 50 चालें बिना प्यादे की चाल या कैप्चर के की गई हों।",
+    "threefoldTitle": "तीन बार दोहराव",
+    "threefoldSubtitle": "स्थिति 3 बार दोहराई गई",
+    "threefoldTooltip": "खेल को ड्रॉ घोषित किया जा सकता है जब एक ही स्थिति उसी खिलाड़ी की चाल के साथ तीन बार होती है।",
+    "claimDraw": "ड्रॉ का दावा करें"
   }
 }

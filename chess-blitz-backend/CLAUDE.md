@@ -70,6 +70,39 @@ Or from monorepo root:
 pnpm --filter @chess-blitz/shared build
 ```
 
+### Shared State Enums (IMPORTANT)
+
+**Always use enums from `@chess-blitz/shared` instead of hardcoded strings for state comparisons.**
+
+Available enums:
+
+| Enum | Values | Usage |
+|------|--------|-------|
+| `GameRoomStatus` | `Waiting`, `Active`, `Paused`, `Finished` | Game room lifecycle |
+| `ClientMessageType` | Various | WebSocket messages client -> server |
+| `ServerMessageType` | Various | WebSocket messages server -> client |
+| `DrawClaimReason` | `FiftyMove`, `ThreefoldRepetition` | Draw claim reasons |
+
+**Usage Example:**
+
+```typescript
+// GOOD - Use enum values
+import { GameRoomStatus } from '@chess-blitz/shared';
+
+this.game.status = GameRoomStatus.Active;
+if (this.game.status === GameRoomStatus.Finished) { ... }
+
+// BAD - Hardcoded strings (avoid this!)
+this.game.status = "active";
+if (this.game.status === "finished") { ... }
+```
+
+**Import locations:**
+- Direct: `import { GameRoomStatus } from '@chess-blitz/shared'`
+- Via types: `import { GameRoomStatus } from '../types/game'`
+
+Note: `GameStatus` is an alias for `GameRoomStatus` for backwards compatibility in `src/types/game.ts`.
+
 ---
 
 ## Architecture

@@ -61,7 +61,8 @@
     "stockfish": "Sakk Bot",
     "you": "Te",
     "yourTurn": "Te jössz",
-    "resignConfirm": "Biztosan fel akarod adni?"
+    "resignConfirm": "Biztosan fel akarod adni?",
+    "engineLoading": "Ellenfeled előkészítése..."
   },
   "controls": {
     "controls": "Irányítás",
@@ -116,6 +117,7 @@
     "autoAbort": "Will auto-abort in 0:{seconds}"
   },
   "tournament": {
+    "back": "Vissza",
     "title": "Sakk Aréna",
     "subtitle": "Válaszd ki a csatádat. Találd meg az ellenfeled.",
     "rating": "Értékelés",
@@ -160,5 +162,62 @@
     "opponentOffers": "Ellenfeled döntetlent ajánl",
     "accept": "Elfogad",
     "decline": "Elutasít"
+  },
+  "gameResult": {
+    "titles": {
+      "victory": "Nyertél!",
+      "defeat": "Vesztettél",
+      "draw": "Döntetlen",
+      "aborted": "Megszakítva"
+    },
+    "reasons": {
+      "checkmate": "Sakk-matt!",
+      "opponentResigned": "Az ellenfél feladta",
+      "wonOnTime": "Időn nyertél",
+      "timeRanOut": "Lejárt az idő",
+      "youResigned": "Feladtad",
+      "stalemate": "Patt",
+      "insufficientMaterial": "Elégtelen anyag",
+      "drawAgreed": "Döntetlen megegyezéssel",
+      "gameCancelled": "Játék törölve",
+      "fiftyMoveRule": "50 lépés szabály",
+      "seventyFiveMoveRule": "75 lépés szabály",
+      "threefoldRepetition": "Háromszoros ismétlés",
+      "fivefoldRepetition": "Ötszörös ismétlés",
+      "timeoutVsInsufficient": "Időtúllépés elégtelen anyag ellen",
+      "opponentDisconnected": "Az ellenfél kapcsolata megszakadt",
+      "noShow": "Az ellenfél nem jelent meg"
+    },
+    "actions": {
+      "newGame": "Új {time}",
+      "rematch": "Visszavágó",
+      "requestSent": "Kérés elküldve",
+      "acceptRematch": "Visszavágó elfogadása",
+      "decline": "Elutasít",
+      "viewBoard": "Tábla megtekintése"
+    },
+    "stats": {
+      "you": "Te",
+      "opponent": "Ellenfél"
+    }
+  },
+  "disconnect": {
+    "title": "{name} kapcsolata megszakadt",
+    "autoWinIn": "Automatikus győzelem {seconds}mp múlva",
+    "waiting": "Várakozás az újracsatlakozásra..."
+  },
+  "reconnecting": {
+    "title": "Kapcsolat megszakadt",
+    "subtitle": "Újracsatlakozás...",
+    "hint": "Please check your internet connection"
+  },
+  "drawClaim": {
+    "fiftyMoveTitle": "50 lépés szabály",
+    "fiftyMoveSubtitle": "Nincs ütés vagy gyaloglépés 50 lépésen belül",
+    "fiftyMoveTooltip": "A játék döntetlenné nyilvánítható, ha mindkét játékos utolsó 50 lépése gyaloglépés vagy ütés nélkül történt.",
+    "threefoldTitle": "Háromszoros ismétlés",
+    "threefoldSubtitle": "Az állás 3-szor megismétlődött",
+    "threefoldTooltip": "A játék döntetlenné nyilvánítható, ha ugyanaz az állás háromszor előfordul ugyanazzal a játékossal lépésen.",
+    "claimDraw": "Döntetlen igénylése"
   }
 }

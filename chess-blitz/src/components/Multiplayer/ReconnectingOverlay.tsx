@@ -6,10 +6,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import type { Dictionary } from '@/i18n/dictionaries';
 import styles from './ReconnectingOverlay.module.scss';
 
 interface ReconnectingOverlayProps {
   isVisible: boolean;
+  dict: Dictionary;
 }
 
 // Wifi icon with animated signal
@@ -64,10 +66,11 @@ const SpinnerIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export function ReconnectingOverlay({ isVisible }: ReconnectingOverlayProps) {
+export function ReconnectingOverlay({ isVisible, dict }: ReconnectingOverlayProps) {
   const [shouldRender, setShouldRender] = useState(isVisible);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
   const [dots, setDots] = useState('');
+  const t = dict.reconnecting;
 
   useEffect(() => {
     if (isVisible) {
@@ -108,9 +111,9 @@ export function ReconnectingOverlay({ isVisible }: ReconnectingOverlayProps) {
           <SpinnerIcon className={styles.spinnerIcon} />
         </div>
 
-        <h2 className={styles.title}>Connection Lost</h2>
+        <h2 className={styles.title}>{t.title}</h2>
         <p className={styles.subtitle}>
-          Reconnecting<span className={styles.dots}>{dots}</span>
+          {t.subtitle.replace('...', '')}<span className={styles.dots}>{dots}</span>
         </p>
 
         <div className={styles.progressContainer}>
@@ -120,7 +123,7 @@ export function ReconnectingOverlay({ isVisible }: ReconnectingOverlayProps) {
         </div>
 
         <p className={styles.hint}>
-          Please check your internet connection
+          {t.hint}
         </p>
       </div>
     </div>
