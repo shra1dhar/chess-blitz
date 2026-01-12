@@ -1,11 +1,12 @@
 {
+  "appName": "Szachy Blitz",
   "meta": {
-    "title": "Chess Blitz - Graj w szachy online",
-    "description": "Graj w szachy przeciwko AI na różnych poziomach trudności. Darmowa gra w szachy online z klasycznymi figurami Staunton i pięknymi motywami szachownicy.",
+    "title": "Szachy Blitz - Graj w szachy online",
+    "description": "Graj w szachy online z graczami z całego świata. Darmowe szachy wieloosobowe z matchmakingiem ELO - bullet, błyskawiczne, szybkie i klasyczne. Ćwicz z AI lub rywalizuj w meczach rankingowych.",
     "keywords": "szachy, gra w szachy, chess blitz, szachy online, darmowe szachy, strategia, gra planszowa, gra logiczna, graj z komputerem, taktyka szachowa, blitz"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Szachy Blitz",
     "tagline": "Opanuj swoją grę",
     "chooseGame": "Wybierz grę",
     "playVsComputer": "Graj z komputerem",

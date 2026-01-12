@@ -925,6 +925,45 @@ export class GameRoom extends DurableObject<Env> {
     await this.persistState();
 
     this.broadcastToPlayers({ type: ServerMessageType.DrawOffered, by: color });
+
+    // Check if opponent is a bot and auto-respond
+    const opponentColor = color === "white" ? "black" : "white";
+    const opponent = this.game[opponentColor];
+
+    if (opponent.isBot) {
+      // Evaluate position
+      const materialBalance = this.evaluateMaterial();
+
+      // Bot accepts draw if:
+      // - Position is dead equal (within 1 point of material)
+      // - Bot is losing significantly (3+ points down)
+      const botMaterialAdvantage = opponentColor === "white"
+        ? materialBalance
+        : -materialBalance;
+
+      const shouldAccept =
+        Math.abs(materialBalance) < 1 ||  // Dead equal
+        botMaterialAdvantage < -3;         // Bot losing by 3+ points
+
+      if (shouldAccept) {
+        // Accept draw immediately after small delay
+        setTimeout(async () => {
+          if (this.game?.pendingDrawOffer === color) {
+            await this.endGame("draw", "draw_agreement");
+          }
+        }, 500);
+      } else {
+        // Decline after small delay
+        setTimeout(() => {
+          if (this.game?.pendingDrawOffer === color) {
+            this.game.pendingDrawOffer = undefined;
+            this.broadcastToPlayers({
+              type: ServerMessageType.DrawDeclined,
+            });
+          }
+        }, 800);
+      }
+    }
   }
 
   /**
@@ -1019,6 +1058,19 @@ export class GameRoom extends DurableObject<Env> {
    */
   private async handleRematchOffer(color: Color): Promise<void> {
     if (!this.game || this.game.status !== "finished") return;
+
+    // Rematch not available for bot games
+    if (this.game.white.isBot || this.game.black.isBot) {
+      const conn = this.connections.get(color);
+      if (conn?.ws) {
+        safeSend(conn.ws, {
+          type: ServerMessageType.Error,
+          code: "REMATCH_NOT_AVAILABLE",
+          message: "Rematch is not available for bot games"
+        });
+      }
+      return;
+    }
 
     if (this.game.pendingRematchOffer === color) {
       return; // Already offered
@@ -1450,6 +1502,37 @@ export class GameRoom extends DurableObject<Env> {
 
     // Add some randomness
     return baseTime + Math.random() * 500;
+  }
+
+  /**
+   * Evaluates material balance for bot draw decisions.
+   * Positive = white ahead, Negative = black ahead
+   */
+  private evaluateMaterial(): number {
+    if (!this.chess) return 0;
+
+    const pieceValues: Record<string, number> = {
+      p: 1, n: 3, b: 3, r: 5, q: 9, k: 0
+    };
+
+    let whiteTotal = 0;
+    let blackTotal = 0;
+
+    const board = this.chess.board();
+    for (const row of board) {
+      for (const square of row) {
+        if (square) {
+          const value = pieceValues[square.type];
+          if (square.color === 'w') {
+            whiteTotal += value;
+          } else {
+            blackTotal += value;
+          }
+        }
+      }
+    }
+
+    return whiteTotal - blackTotal;
   }
 
   /**

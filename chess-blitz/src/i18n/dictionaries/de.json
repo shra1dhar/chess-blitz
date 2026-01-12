@@ -1,11 +1,12 @@
 {
+  "appName": "Schach Blitz",
   "meta": {
-    "title": "Chess Blitz - Online Schach spielen",
-    "description": "Spiele Schach gegen KI mit mehreren Schwierigkeitsstufen. Kostenloses Online-Schachspiel mit klassischen Staunton-Figuren und schönen Brettdesigns.",
+    "title": "Schach Blitz - Online Schach spielen",
+    "description": "Spiele Online-Schach mit Spielern weltweit. Kostenloses Multiplayer-Schach mit ELO-Matchmaking - Bullet, Blitz, Rapid und klassische Zeitkontrollen. Übe gegen KI oder kämpfe in Ranglistenspielen.",
     "keywords": "Schach, Schachspiel, Schach Blitz, Online Schach, kostenloses Schach, Strategie, Brettspiel, Gehirnspiel, gegen Computer spielen, Schachtaktik, Blitzschach"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Schach Blitz",
     "tagline": "Meistere dein Spiel",
     "chooseGame": "Wähle dein Spiel",
     "playVsComputer": "Gegen Computer spielen",

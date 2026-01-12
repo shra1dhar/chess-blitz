@@ -1,11 +1,12 @@
 {
+  "appName": "Catur Blitz",
   "meta": {
-    "title": "Chess Blitz - Main Catur Dalam Talian",
-    "description": "Main catur melawan AI dengan pelbagai tahap kesukaran. Permainan catur dalam talian percuma dengan bidak Staunton klasik dan tema papan yang cantik.",
+    "title": "Catur Blitz - Main Catur Dalam Talian",
+    "description": "Main catur dalam talian dengan pemain di seluruh dunia. Catur berbilang pemain percuma dengan pemadanan ELO - bullet, blitz, rapid dan klasik. Berlatih lawan AI atau bersaing dalam perlawanan berperingkat.",
     "keywords": "catur, permainan catur, chess blitz, catur dalam talian, catur percuma, strategi, permainan papan, permainan minda, main lawan komputer, taktik catur, blitz"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Catur Blitz",
     "tagline": "Kuasai permainan anda",
     "chooseGame": "Pilih Permainan",
     "playVsComputer": "Lawan Komputer",

@@ -1,11 +1,12 @@
 {
+  "appName": "Șah Blitz",
   "meta": {
-    "title": "Chess Blitz - Joacă șah online",
-    "description": "Joacă șah împotriva AI cu mai multe niveluri de dificultate. Joc de șah online gratuit cu piese clasice Staunton și teme frumoase pentru tablă.",
+    "title": "Șah Blitz - Joacă șah online",
+    "description": "Joacă șah online cu jucători din întreaga lume. Șah multiplayer gratuit cu matchmaking ELO - bullet, blitz, rapid și clasic. Exersează contra AI sau concurează în meciuri clasificate.",
     "keywords": "șah, joc de șah, chess blitz, șah online, șah gratuit, strategie, joc de masă, joc de minte, joacă contra computer, tactici de șah, blitz"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Șah Blitz",
     "tagline": "Stăpânește-ți jocul",
     "chooseGame": "Alege jocul tău",
     "playVsComputer": "Joacă contra computerului",

@@ -1,11 +1,12 @@
 {
+  "appName": "Šach Blitz",
   "meta": {
-    "title": "Chess Blitz - Hrajte šach online",
-    "description": "Hrajte šach proti AI s viacerými úrovňami obtiažnosti. Bezplatná online šachová hra s klasickými figúrkami Staunton a krásnymi témami šachovnice.",
+    "title": "Šach Blitz - Hrajte šach online",
+    "description": "Hrajte šach online s hráčmi z celého sveta. Bezplatný multiplayer šach s ELO matchmakingom - bullet, blitz, rapid a klasický. Trénujte proti AI alebo súťažte v hodnotených zápasoch.",
     "keywords": "šach, šachová hra, chess blitz, online šach, bezplatný šach, stratégia, stolová hra, logická hra, hraj proti počítaču, šachová taktika, blitz"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Šach Blitz",
     "tagline": "Ovládni svoju hru",
     "chooseGame": "Vyber si hru",
     "playVsComputer": "Hraj proti počítaču",

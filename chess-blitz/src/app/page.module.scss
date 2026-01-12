@@ -170,6 +170,15 @@
   -ms-flex-align: center;
   align-items: center;
   z-index: 1;
+
+  // Expand for larger screens
+  @include extra-large-desktop {
+    max-width: 800px;
+  }
+
+  @include ultra-wide {
+    max-width: 1200px;
+  }
 }
 
 // ==============================================
@@ -270,6 +279,17 @@
     display: block;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
   }
+
+  @include extra-large-desktop {
+    width: 88px;
+    height: 88px;
+    margin-inline-end: $spacing-lg;
+  }
+
+  @include ultra-wide {
+    width: 120px;
+    height: 120px;
+  }
 }
 
 .title {
@@ -279,6 +299,14 @@
   color: var(--ui-text-primary);
   letter-spacing: -0.5px;
   margin: 0;
+
+  @include extra-large-desktop {
+    font-size: 48px;
+  }
+
+  @include ultra-wide {
+    font-size: 64px;
+  }
 }
 
 .tagline {
@@ -288,6 +316,15 @@
   color: $brand-primary;
   margin-top: $spacing-xs;
   letter-spacing: 0.5px;
+
+  @include extra-large-desktop {
+    font-size: $font-size-xl;
+  }
+
+  @include ultra-wide {
+    font-size: 28px;
+    margin-top: $spacing-sm;
+  }
 }
 
 // ==============================================
@@ -406,6 +443,25 @@
     }
   }
 
+  // Larger padding on extra-large screens
+  @include extra-large-desktop {
+    padding: $spacing-2xl $spacing-xl;
+    margin-inline-end: $spacing-lg;
+
+    &:last-child {
+      margin-inline-end: 0;
+    }
+  }
+
+  @include ultra-wide {
+    padding: 80px $spacing-3xl;
+    margin-inline-end: $spacing-2xl;
+
+    &:last-child {
+      margin-inline-end: 0;
+    }
+  }
+
   &:hover:not(.disabled) {
     border-color: $brand-primary;
     -webkit-transform: translateY(-2px);
@@ -465,6 +521,17 @@
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
   }
+
+  @include extra-large-desktop {
+    width: 96px;
+    height: 96px;
+  }
+
+  @include ultra-wide {
+    width: 128px;
+    height: 128px;
+    margin-bottom: $spacing-xl;
+  }
 }
 
 .modeTitle {
@@ -473,12 +540,29 @@
   font-weight: $font-weight-semibold;
   color: var(--ui-text-primary);
   margin-bottom: $spacing-xs;
+
+  @include extra-large-desktop {
+    font-size: $font-size-2xl;
+  }
+
+  @include ultra-wide {
+    font-size: 28px;
+    margin-bottom: $spacing-sm;
+  }
 }
 
 .modeDesc {
   font-size: $font-size-sm;
   color: var(--ui-text-secondary);
   text-align: center;
+
+  @include extra-large-desktop {
+    font-size: $font-size-base;
+  }
+
+  @include ultra-wide {
+    font-size: $font-size-xl;
+  }
 }
 
 // ==============================================
@@ -494,6 +578,17 @@
   background: transparent;
   border: none;
   border-radius: 0;
+
+  // Expand for larger screens
+  @include extra-large-desktop {
+    max-width: 800px;
+    padding: $spacing-xl;
+  }
+
+  @include ultra-wide {
+    max-width: 1200px;
+    padding: $spacing-3xl;
+  }
 
   &.visible {
     -webkit-animation: fadeIn 300ms ease forwards;

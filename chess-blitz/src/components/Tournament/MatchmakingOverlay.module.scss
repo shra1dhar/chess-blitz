@@ -4,6 +4,7 @@
 // ==============================================
 
 @use 'sass:color';
+@use '../../styles/variables' as *;
 
 // Design tokens - Luxury chess club palette
 $color-backdrop: rgba(15, 12, 10, 0.92);
@@ -298,7 +299,7 @@ $ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .title {
-  font-family: 'Crimson Pro', 'Playfair Display', 'Georgia', serif;
+  font-family: $font-family-display;
   font-size: 1.75rem;
   font-weight: 500;
   color: $color-cream;
@@ -309,7 +310,7 @@ $ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
 .ellipsis {
   display: inline-block;
-  width: 24px;
+  min-width: 30px;
   text-align: start;
   font-family: inherit;
   color: $color-gold;
@@ -372,7 +373,7 @@ $ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .opponentName {
-  font-family: 'Crimson Pro', 'Playfair Display', 'Georgia', serif;
+  font-family: $font-family-display;
   font-size: 1.125rem;
   font-weight: 500;
   color: $color-cream;

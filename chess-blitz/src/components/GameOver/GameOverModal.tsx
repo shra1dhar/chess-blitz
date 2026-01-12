@@ -4,7 +4,7 @@ import { useState, useCallback } from 'react';
 import { Activity } from 'react';
 import type { Color } from 'chess.js';
 import type { GameResult, GameStatus } from '@/types/chess';
-import type { GameResultReason, EloChanges, TournamentType } from '@/types/multiplayer';
+import type { GameResultReason, EloChanges, TournamentType, PlayerInfo } from '@/types/multiplayer';
 import type { Dictionary } from '@/i18n/dictionaries';
 import { RematchState } from '@/hooks/useMultiplayer';
 import { TOURNAMENT_TIME_MS } from '@/types/multiplayer';
@@ -22,6 +22,7 @@ interface GameOverModalProps {
   dict: Dictionary;
   isMultiplayer?: boolean;
   multiplayerReason?: GameResultReason;
+  opponent?: PlayerInfo;
   rematchState?: RematchState;
   onRequestRematch?: () => void;
   onAcceptRematch?: () => void;
@@ -196,6 +197,7 @@ export default function GameOverModal({
   dict,
   isMultiplayer = false,
   multiplayerReason,
+  opponent,
   rematchState = RematchState.Idle,
   onRequestRematch,
   onAcceptRematch,
@@ -297,8 +299,8 @@ export default function GameOverModal({
                 {newGameText}
               </button>
 
-              {/* Secondary: Rematch (multiplayer only) */}
-              {isMultiplayer && (
+              {/* Secondary: Rematch (multiplayer only, not bot games) */}
+              {isMultiplayer && !opponent?.isBot && (
                 <>
                   {rematchState === RematchState.Idle && (
                     <button className={`${styles.button} ${styles.buttonSecondary}`} onClick={onRequestRematch}>

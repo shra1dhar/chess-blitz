@@ -1,7 +1,8 @@
 {
+  "appName": "Chess Blitz",
   "meta": {
     "title": "Chess Blitz - Play Chess Online",
-    "description": "Play chess against AI with multiple difficulty levels. Free online chess game with classic Staunton pieces and beautiful board themes.",
+    "description": "Play chess online with players worldwide. Free multiplayer chess with ELO-based matchmaking - bullet, blitz, rapid and classical time controls. Practice against AI or compete in ranked matches.",
     "keywords": "chess, chess game, chess blitz, online chess, free chess, strategy, board game, brain game, play against computer, chess tactics, blitz chess"
   },
   "home": {

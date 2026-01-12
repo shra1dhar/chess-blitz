@@ -12,14 +12,7 @@
   height: 100dvh; // Dynamic viewport height for mobile
   background-color: var(--ui-bg-primary);
   @include flex-column;
-  overflow: hidden; // Prevent page scroll
-
-  // Allow scroll when height is constrained (Windows laptops, tablets)
-  @include constrained-height {
-    overflow-y: auto;
-    overflow-x: hidden;
-    @include custom-scrollbar;
-  }
+  overflow: hidden; // Prevent page scroll - content must fit within viewport
 }
 
 // Header
@@ -110,10 +103,8 @@
   flex: 1;
   @include flex-column;
   padding: $spacing-md;
-  overflow-y: auto; // Allow scroll when content overflows
-  overflow-x: hidden;
+  overflow: hidden; // No scroll - content must fit
   min-height: 0; // Allow flex child to shrink
-  @include custom-scrollbar;
 
   @include mobile {
     padding: $spacing-sm;
@@ -121,9 +112,6 @@
 
   @include desktop {
     padding: $spacing-lg;
-    // Allow scroll on desktop when height is constrained
-    overflow-y: auto;
-    overflow-x: hidden;
   }
 
   // Reduced padding for constrained heights
@@ -133,6 +121,11 @@
 
   @include short-viewport {
     padding: $spacing-xs;
+  }
+
+  // Ultra-wide with limited height - reduced padding
+  @include ultra-wide-limited-height {
+    padding: $spacing-md;
   }
 }
 
@@ -154,6 +147,15 @@
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
+  }
+
+  // Expand for larger screens - use more of the available space
+  @include extra-large-desktop {
+    max-width: 1400px;
+  }
+
+  @include ultra-wide {
+    max-width: 1900px;
   }
 }
 
@@ -180,6 +182,21 @@
   @include desktop {
     -ms-flex-negative: 0;
     flex-shrink: 0;
+  }
+
+  // Larger board on extra-large screens
+  @include extra-large-desktop {
+    max-width: 680px;
+  }
+
+  @include ultra-wide {
+    max-width: 880px;
+  }
+
+  // Ultra-wide screens with limited height (e.g., 1920x1080)
+  // Reduce board size to fit player info cards within viewport
+  @include ultra-wide-limited-height {
+    max-width: 600px; // Aggressive reduction to ensure all content fits
   }
 }
 
@@ -228,6 +245,31 @@
 
     &:last-of-type {
       margin-top: 2px;
+    }
+  }
+
+  // Larger player info on wide screens
+  @include extra-large-desktop {
+    padding: $spacing-md $spacing-lg;
+    margin-bottom: $spacing-md;
+    border-radius: $radius-lg;
+
+    &:last-of-type {
+      margin-top: $spacing-md;
+    }
+  }
+
+  @include ultra-wide {
+    padding: $spacing-lg $spacing-xl;
+  }
+
+  // Ultra-wide with limited height - compact player info
+  @include ultra-wide-limited-height {
+    padding: $spacing-sm $spacing-md;
+    margin-bottom: $spacing-sm;
+
+    &:last-of-type {
+      margin-top: $spacing-sm;
     }
   }
 }
@@ -289,6 +331,50 @@
       height: 14px;
     }
   }
+
+  // Larger avatars on wide screens
+  @include extra-large-desktop {
+    width: 48px;
+    height: 48px;
+    margin-right: $spacing-md;
+
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: $spacing-md;
+    }
+
+    svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  @include ultra-wide {
+    width: 64px;
+    height: 64px;
+
+    svg {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  // Ultra-wide with limited height - smaller avatars
+  @include ultra-wide-limited-height {
+    width: 40px;
+    height: 40px;
+    margin-right: $spacing-sm;
+
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: $spacing-sm;
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
 }
 
 .playerDetails {
@@ -308,6 +394,18 @@
   @include mobile {
     font-size: $font-size-sm;
   }
+
+  @include extra-large-desktop {
+    font-size: $font-size-lg;
+  }
+
+  @include ultra-wide {
+    font-size: $font-size-xl;
+  }
+
+  @include ultra-wide-limited-height {
+    font-size: $font-size-base;
+  }
 }
 
 .playerLevel {
@@ -316,6 +414,18 @@
 
   @include mobile {
     font-size: $font-size-xs;
+  }
+
+  @include extra-large-desktop {
+    font-size: $font-size-base;
+  }
+
+  @include ultra-wide {
+    font-size: $font-size-lg;
+  }
+
+  @include ultra-wide-limited-height {
+    font-size: $font-size-sm;
   }
 }
 
@@ -519,6 +629,39 @@
     margin-top: 0;
     margin-left: $spacing-xl;
     max-height: calc(100vh - 200px);
+
+    [dir="rtl"] & {
+      margin-left: 0;
+      margin-right: $spacing-xl;
+    }
+  }
+
+  // Wider sidebar on extra-large screens
+  @include extra-large-desktop {
+    max-width: 420px;
+    margin-left: $spacing-2xl;
+
+    [dir="rtl"] & {
+      margin-left: 0;
+      margin-right: $spacing-2xl;
+    }
+  }
+
+  @include ultra-wide {
+    max-width: 560px;
+    margin-left: 80px;
+
+    [dir="rtl"] & {
+      margin-left: 0;
+      margin-right: 80px;
+    }
+  }
+
+  // Ultra-wide with limited height - compact sidebar
+  @include ultra-wide-limited-height {
+    max-width: 380px;
+    margin-left: $spacing-xl;
+    max-height: calc(100vh - 120px);
 
     [dir="rtl"] & {
       margin-left: 0;

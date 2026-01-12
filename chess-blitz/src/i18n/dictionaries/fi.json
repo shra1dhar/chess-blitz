@@ -1,11 +1,12 @@
 {
+  "appName": "Shakki Blitz",
   "meta": {
-    "title": "Chess Blitz - Pelaa shakkia verkossa",
-    "description": "Pelaa shakkia tekoälyä vastaan useilla vaikeustasoilla. Ilmainen verkkoshakkipeli klassisilla Staunton-nappuloilla ja kauniilla lauta-teemoilla.",
+    "title": "Shakki Blitz - Pelaa shakkia verkossa",
+    "description": "Pelaa shakkia verkossa pelaajien kanssa ympäri maailmaa. Ilmainen moninpelishakki ELO-matchmakingilla - bullet, blitz, rapid ja klassinen. Harjoittele tekoälyä vastaan tai kilpaile rankingpeleissä.",
     "keywords": "shakki, shakkipeli, chess blitz, verkkoshakki, ilmainen shakki, strategia, lautapeli, aivopeli, pelaa tietokonetta vastaan, shakki taktiikka, pikashakki"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Shakki Blitz",
     "tagline": "Hallitse pelisi",
     "chooseGame": "Valitse pelisi",
     "playVsComputer": "Pelaa tietokonetta vastaan",

@@ -1,11 +1,12 @@
 {
+  "appName": "Xadrez Blitz",
   "meta": {
-    "title": "Chess Blitz - Jogue Xadrez Online",
-    "description": "Jogue xadrez contra IA com múltiplos níveis de dificuldade. Jogo de xadrez online gratuito com peças Staunton clássicas e belos temas de tabuleiro.",
+    "title": "Xadrez Blitz - Jogue Xadrez Online",
+    "description": "Jogue xadrez online com jogadores do mundo todo. Xadrez multiplayer grátis com matchmaking ELO - bullet, blitz, rápido e clássico. Pratique contra IA ou dispute partidas ranqueadas.",
     "keywords": "xadrez, jogo de xadrez, chess blitz, xadrez online, xadrez grátis, estratégia, jogo de tabuleiro, jogo mental, jogar contra computador, táticas de xadrez, blitz"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Xadrez Blitz",
     "tagline": "Domine seu jogo",
     "chooseGame": "Escolha seu jogo",
     "playVsComputer": "Jogar contra computador",

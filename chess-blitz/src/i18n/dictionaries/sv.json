@@ -1,11 +1,12 @@
 {
+  "appName": "Schack Blitz",
   "meta": {
-    "title": "Chess Blitz - Spela schack online",
-    "description": "Spela schack mot AI med flera svårighetsgrader. Gratis online schackspel med klassiska Staunton-pjäser och vackra brädteman.",
+    "title": "Schack Blitz - Spela schack online",
+    "description": "Spela schack online med spelare världen över. Gratis multiplayer-schack med ELO-matchmaking - bullet, blixt, rapid och klassisk tidskontroll. Träna mot AI eller tävla i rankade matcher.",
     "keywords": "schack, schackspel, chess blitz, online schack, gratis schack, strategi, brädspel, hjärnspel, spela mot dator, schacktaktik, blixt"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Schack Blitz",
     "tagline": "Bemästra ditt spel",
     "chooseGame": "Välj ditt spel",
     "playVsComputer": "Spela mot dator",

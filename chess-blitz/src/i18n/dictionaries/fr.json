@@ -1,11 +1,12 @@
 {
+  "appName": "Échecs Blitz",
   "meta": {
-    "title": "Chess Blitz - Jouez aux échecs en ligne",
-    "description": "Jouez aux échecs contre l'IA avec plusieurs niveaux de difficulté. Jeu d'échecs en ligne gratuit avec des pièces Staunton classiques et de beaux thèmes de plateau.",
+    "title": "Échecs Blitz - Jouez aux échecs en ligne",
+    "description": "Jouez aux échecs en ligne avec des joueurs du monde entier. Échecs multijoueur gratuits avec matchmaking ELO - bullet, blitz, rapide et classique. Entraînez-vous contre l'IA ou affrontez des adversaires classés.",
     "keywords": "échecs, jeu d'échecs, chess blitz, échecs en ligne, échecs gratuits, stratégie, jeu de plateau, jeu cérébral, jouer contre ordinateur, tactiques d'échecs, blitz"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Échecs Blitz",
     "tagline": "Maîtrisez votre jeu",
     "chooseGame": "Choisissez votre partie",
     "playVsComputer": "Jouer contre l'ordinateur",

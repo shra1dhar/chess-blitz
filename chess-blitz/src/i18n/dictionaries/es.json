@@ -1,11 +1,12 @@
 {
+  "appName": "Ajedrez Blitz",
   "meta": {
-    "title": "Chess Blitz - Juega Ajedrez en Línea",
-    "description": "Juega ajedrez contra IA con múltiples niveles de dificultad. Juego de ajedrez en línea gratuito con piezas Staunton clásicas y hermosos temas de tablero.",
+    "title": "Ajedrez Blitz - Juega Ajedrez en Línea",
+    "description": "Juega ajedrez en línea con jugadores de todo el mundo. Ajedrez multijugador gratis con emparejamiento ELO - bullet, blitz, rápido y clásico. Practica contra IA o compite en partidas clasificatorias.",
     "keywords": "ajedrez, juego de ajedrez, chess blitz, ajedrez en línea, ajedrez gratis, estrategia, juego de mesa, juego mental, jugar contra computadora, tácticas de ajedrez, ajedrez blitz"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Ajedrez Blitz",
     "tagline": "Domina tu juego",
     "chooseGame": "Elige tu partida",
     "playVsComputer": "Jugar vs Computadora",

@@ -1,11 +1,12 @@
 {
+  "appName": "Schaak Blitz",
   "meta": {
-    "title": "Chess Blitz - Speel schaken online",
-    "description": "Speel schaken tegen AI met meerdere moeilijkheidsniveaus. Gratis online schaakspel met klassieke Staunton-stukken en prachtige bordthema's.",
+    "title": "Schaak Blitz - Speel schaken online",
+    "description": "Speel online schaken met spelers wereldwijd. Gratis multiplayer schaak met ELO-matchmaking - bullet, blitz, rapid en klassieke tijdscontroles. Oefen tegen AI of strijd in gerangschikte partijen.",
     "keywords": "schaken, schaakspel, chess blitz, online schaken, gratis schaken, strategie, bordspel, denkspel, tegen computer spelen, schaaktactieken, blitz"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Schaak Blitz",
     "tagline": "Beheers je spel",
     "chooseGame": "Kies je spel",
     "playVsComputer": "Speel tegen computer",

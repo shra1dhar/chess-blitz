@@ -51,4 +51,4 @@ next-env.d.ts
 
 !.dev.vars.example
 
-.playwright
+screenshots

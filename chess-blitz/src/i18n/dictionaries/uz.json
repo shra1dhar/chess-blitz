@@ -1,11 +1,12 @@
 {
+  "appName": "Shaxmat Blits",
   "meta": {
-    "title": "Chess Blitz - Onlayn shaxmat o'ynang",
-    "description": "Sun'iy intellektga qarshi turli qiyinchilik darajalarida shaxmat o'ynang. Klassik Staunton figuralari va chiroyli taxta mavzulari bilan bepul onlayn shaxmat o'yini.",
+    "title": "Shaxmat Blits - Onlayn shaxmat o'ynang",
+    "description": "Dunyo bo'ylab o'yinchilar bilan onlayn shaxmat o'ynang. ELO matchmaking bilan bepul multiplayer shaxmat - bullet, blitz, rapid va klassik. AI ga qarshi mashq qiling yoki reytingli o'yinlarda raqobatlashing.",
     "keywords": "shaxmat, shaxmat o'yini, chess blitz, onlayn shaxmat, bepul shaxmat, strategiya, stol o'yini, aql o'yini, kompyuterga qarshi o'ynash, shaxmat taktikasi, blits"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Shaxmat Blits",
     "tagline": "O'yiningizni mukammallashtiring",
     "chooseGame": "O'yiningizni tanlang",
     "playVsComputer": "Kompyuterga qarshi o'ynash",

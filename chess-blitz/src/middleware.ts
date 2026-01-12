@@ -78,6 +78,11 @@ export function middleware(request: NextRequest) {
     return;
   }
 
+  // Privacy policy is English-only, no locale redirect
+  if (pathname === '/privacy') {
+    return;
+  }
+
   // Redirect all users to their locale-prefixed path for non-homepage routes
   const newUrl = new URL(request.url);
   newUrl.pathname = `/${locale}${pathname}`;

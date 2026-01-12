@@ -165,17 +165,24 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
     router.push(`/${locale}/tournament`);
   }, [multiplayer.reset, router, locale]);
 
+  // Check if this is a bot game
+  const isBotGame = gameId.startsWith('bot-');
+
   // Loading state
-  if (!multiplayer.gameState || multiplayer.connectionStatus === 'connecting') {
-    return (
-      <LoadingScreen
-        message={multiplayer.connectionStatus === 'connecting' ? dict.play.connectingToGame : dict.play.loading}
-      />
-    );
+  if (!multiplayer.gameState) {
+    // For bot games, we might still be initializing
+    if (isBotGame) {
+      return <LoadingScreen message={dict.play.loading} />;
+    }
+    // For real games, show appropriate message based on connection status
+    if (multiplayer.connectionStatus === 'connecting') {
+      return <LoadingScreen message={dict.play.connectingToGame} />;
+    }
+    return <LoadingScreen message={dict.play.loading} />;
   }
 
-  // Error state - no game data
-  if (multiplayer.connectionStatus === 'disconnected' && !multiplayer.gameState) {
+  // Error state - no game data (only for real games, bot games don't need WebSocket)
+  if (!isBotGame && multiplayer.connectionStatus === 'disconnected' && !multiplayer.gameState) {
     return (
       <LoadingScreen
         message="Game not found or session expired"
@@ -325,7 +332,7 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
             dict={dict}
           />
           <ReconnectingOverlay
-            isVisible={multiplayer.connectionStatus === 'disconnected' && isPlaying}
+            isVisible={!isBotGame && multiplayer.connectionStatus === 'disconnected' && isPlaying}
             dict={dict}
           />
           <MatchmakingOverlay
@@ -368,6 +375,7 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
               dict={dict}
               isMultiplayer={true}
               multiplayerReason={multiplayer.resultReason || undefined}
+              opponent={multiplayer.opponent || undefined}
               rematchState={multiplayer.rematchState}
               onRequestRematch={multiplayer.requestRematch}
               onAcceptRematch={multiplayer.acceptRematch}

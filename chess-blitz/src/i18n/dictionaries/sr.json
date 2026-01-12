@@ -1,11 +1,12 @@
 {
+  "appName": "Шах Блиц",
   "meta": {
-    "title": "Chess Blitz - Играјте шах онлајн",
-    "description": "Играјте шах против АИ са више нивоа тежине. Бесплатна онлајн шаховска игра са класичним Стаунтон фигурама и прелепим темама табле.",
+    "title": "Шах Блиц - Играјте шах онлајн",
+    "description": "Igrajte šah online sa igračima širom sveta. Besplatan multiplayer šah sa ELO mečmejkingom - bullet, blic, rapid i klasični. Vežbajte protiv AI ili se takmičite u rangiranim mečevima.",
     "keywords": "шах, шаховска игра, chess blitz, онлајн шах, бесплатан шах, стратегија, игра на табли, игра за ум, играј против рачунара, шаховска тактика, блиц"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Шах Блиц",
     "tagline": "Савладај своју игру",
     "chooseGame": "Изабери своју игру",
     "playVsComputer": "Играј против рачунара",

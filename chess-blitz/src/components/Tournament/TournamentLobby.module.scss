@@ -96,6 +96,15 @@
   @include mobile {
     font-size: $font-size-2xl;
   }
+
+  @include extra-large-desktop {
+    font-size: 48px;
+    margin: 0 0 $spacing-sm;
+  }
+
+  @include ultra-wide {
+    font-size: 64px;
+  }
 }
 
 .subtitle {
@@ -105,6 +114,14 @@
 
   @include mobile {
     font-size: $font-size-base;
+  }
+
+  @include extra-large-desktop {
+    font-size: $font-size-xl;
+  }
+
+  @include ultra-wide {
+    font-size: 28px;
   }
 }
 
@@ -124,6 +141,15 @@
   width: 100%;
   max-width: 1000px;
   margin: 0 auto $spacing-md;
+
+  // Wider container on extra-large screens
+  @include extra-large-desktop {
+    max-width: 1200px;
+  }
+
+  @include ultra-wide {
+    max-width: 1600px;
+  }
 }
 
 .tournamentCard {
@@ -187,6 +213,16 @@
     margin: math.div($spacing-xs, 2);
     padding: $spacing-sm;
   }
+
+  // Larger padding on extra-large screens
+  @include extra-large-desktop {
+    padding: $spacing-xl $spacing-lg;
+    border-radius: $radius-xl;
+  }
+
+  @include ultra-wide {
+    padding: $spacing-3xl $spacing-2xl;
+  }
 }
 
 .cardHeader {
@@ -210,6 +246,22 @@
     margin-right: 0;
     margin-left: $spacing-sm;
   }
+
+  @include extra-large-desktop {
+    width: 44px;
+    height: 44px;
+    margin-right: $spacing-md;
+
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: $spacing-md;
+    }
+  }
+
+  @include ultra-wide {
+    width: 52px;
+    height: 52px;
+  }
 }
 
 .cardLabel {
@@ -221,6 +273,14 @@
   @include mobile {
     font-size: $font-size-base;
   }
+
+  @include extra-large-desktop {
+    font-size: $font-size-xl;
+  }
+
+  @include ultra-wide {
+    font-size: $font-size-2xl;
+  }
 }
 
 .cardTime {
@@ -228,6 +288,15 @@
   font-weight: $font-weight-bold;
   color: $brand-primary;
   margin-bottom: $spacing-sm;
+
+  @include extra-large-desktop {
+    font-size: $font-size-3xl;
+    margin-bottom: $spacing-md;
+  }
+
+  @include ultra-wide {
+    font-size: 56px;
+  }
 }
 
 .cardDescription {
@@ -241,6 +310,15 @@
 
   @media (max-width: 650px) {
     display: none;
+  }
+
+  @include extra-large-desktop {
+    font-size: $font-size-base;
+    margin: 0 0 $spacing-lg;
+  }
+
+  @include ultra-wide {
+    font-size: $font-size-lg;
   }
 }
 
@@ -275,6 +353,28 @@
 
   .tournamentCard:hover:not(:disabled) & {
     background: linear-gradient(135deg, color.adjust($brand-primary, $lightness: 5%) 0%, $brand-primary 100%);
+  }
+
+  @include extra-large-desktop {
+    padding: $spacing-md $spacing-lg;
+    font-size: $font-size-lg;
+    border-radius: $radius-lg;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      margin-right: $spacing-sm;
+
+      [dir="rtl"] & {
+        margin-right: 0;
+        margin-left: $spacing-sm;
+      }
+    }
+  }
+
+  @include ultra-wide {
+    padding: $spacing-lg $spacing-xl;
+    font-size: $font-size-xl;
   }
 }
 
@@ -381,55 +481,3 @@
   }
 }
 
-// Footer
-.footer {
-  margin-top: $spacing-sm;
-  text-align: center;
-}
-
-.statusOnline {
-  color: $color-success;
-  font-size: $font-size-sm;
-
-  &::before {
-    content: '';
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background: $color-success;
-    border-radius: 50%;
-    margin-right: $spacing-xs;
-  }
-}
-
-.statusConnecting {
-  color: $color-warning;
-  font-size: $font-size-sm;
-
-  &::before {
-    content: '';
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background: $color-warning;
-    border-radius: 50%;
-    margin-right: $spacing-xs;
-    -webkit-animation: pulse 1s infinite;
-    animation: pulse 1s infinite;
-  }
-}
-
-.statusOffline {
-  color: $text-muted;
-  font-size: $font-size-sm;
-
-  &::before {
-    content: '';
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background: $text-muted;
-    border-radius: 50%;
-    margin-right: $spacing-xs;
-  }
-}

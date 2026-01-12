@@ -1,11 +1,12 @@
 {
+  "appName": "Skak Blitz",
   "meta": {
-    "title": "Chess Blitz - Spil skak online",
-    "description": "Spil skak mod AI med flere sværhedsgrader. Gratis online skakspil med klassiske Staunton-brikker og smukke brættemaer.",
+    "title": "Skak Blitz - Spil skak online",
+    "description": "Spil skak online med spillere fra hele verden. Gratis multiplayer skak med ELO-matchmaking - bullet, lynskak, hurtigskak og klassisk. Øv mod AI eller kæmp i rangerede kampe.",
     "keywords": "skak, skakspil, chess blitz, online skak, gratis skak, strategi, brætspil, hjernespil, spil mod computer, skaktaktik, blitz"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Skak Blitz",
     "tagline": "Mestr dit spil",
     "chooseGame": "Vælg dit spil",
     "playVsComputer": "Spil mod computer",

@@ -1,11 +1,12 @@
 {
+  "appName": "Scacchi Blitz",
   "meta": {
-    "title": "Chess Blitz - Gioca a scacchi online",
-    "description": "Gioca a scacchi contro l'IA con diversi livelli di difficoltà. Gioco di scacchi online gratuito con pezzi Staunton classici e bellissimi temi di scacchiera.",
+    "title": "Scacchi Blitz - Gioca a scacchi online",
+    "description": "Gioca a scacchi online con giocatori di tutto il mondo. Scacchi multiplayer gratuiti con matchmaking ELO - bullet, blitz, rapido e classico. Allenati contro l'IA o gareggia in partite classificate.",
     "keywords": "scacchi, gioco di scacchi, chess blitz, scacchi online, scacchi gratis, strategia, gioco da tavolo, gioco mentale, giocare contro computer, tattiche scacchi, blitz"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Scacchi Blitz",
     "tagline": "Padroneggia il tuo gioco",
     "chooseGame": "Scegli la tua partita",
     "playVsComputer": "Gioca contro il computer",

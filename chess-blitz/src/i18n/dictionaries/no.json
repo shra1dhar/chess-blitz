@@ -1,11 +1,12 @@
 {
+  "appName": "Sjakk Blitz",
   "meta": {
-    "title": "Chess Blitz - Spill sjakk online",
-    "description": "Spill sjakk mot AI med flere vanskelighetsgrader. Gratis online sjakkspill med klassiske Staunton-brikker og vakre bretttemaer.",
+    "title": "Sjakk Blitz - Spill sjakk online",
+    "description": "Spill sjakk på nett med spillere fra hele verden. Gratis flerspiller-sjakk med ELO-matchmaking - bullet, lynsjakk, hurtigsjakk og klassisk. Øv mot AI eller konkurrer i rangerte kamper.",
     "keywords": "sjakk, sjakkspill, chess blitz, online sjakk, gratis sjakk, strategi, brettspill, hjernespill, spill mot datamaskin, sjakktaktikk, blitz"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Sjakk Blitz",
     "tagline": "Mestre spillet ditt",
     "chooseGame": "Velg ditt spill",
     "playVsComputer": "Spill mot datamaskin",

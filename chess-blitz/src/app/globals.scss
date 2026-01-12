@@ -8,9 +8,6 @@
 @use '../styles/mixins' as *;
 @use '../styles/themes';
 
-// Google Fonts Import (must be after @use rules in SCSS)
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
-
 // Root element
 html {
   font-size: 16px;

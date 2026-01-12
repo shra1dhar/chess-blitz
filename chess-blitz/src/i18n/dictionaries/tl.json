@@ -1,7 +1,8 @@
 {
+  "appName": "Chess Blitz",
   "meta": {
     "title": "Chess Blitz - Maglaro ng chess online",
-    "description": "Maglaro ng chess laban sa AI na may maraming antas ng kahirapan. Libreng online chess game na may klasikong Staunton pieces at magagandang board theme.",
+    "description": "Maglaro ng chess online kasama ang mga manlalaro sa buong mundo. Libreng multiplayer chess na may ELO matchmaking - bullet, blitz, rapid at classical. Mag-ensayo laban sa AI o makipagkumpitensya sa ranked matches.",
     "keywords": "chess, chess game, chess blitz, online chess, libreng chess, estratehiya, board game, brain game, maglaro laban sa computer, chess tactics, blitz"
   },
   "home": {

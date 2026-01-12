@@ -1,11 +1,12 @@
 {
+  "appName": "国际象棋闪电战",
   "meta": {
-    "title": "Chess Blitz - 在线国际象棋",
-    "description": "与AI对弈国际象棋，多种难度级别可选。免费在线国际象棋游戏，经典斯汤顿棋子和精美棋盘主题。",
+    "title": "国际象棋闪电战 - 在线国际象棋",
+    "description": "与全球玩家在线下棋。免费多人国际象棋，配备ELO匹配系统 - 子弹、闪电、快棋和慢棋模式。与AI练习或参与排位赛。",
     "keywords": "国际象棋, 象棋游戏, chess blitz, 在线象棋, 免费象棋, 策略, 棋盘游戏, 益智游戏, 电脑对战, 象棋战术, 快棋"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "国际象棋闪电战",
     "tagline": "精通你的棋艺",
     "chooseGame": "选择游戏",
     "playVsComputer": "对战电脑",

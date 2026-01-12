@@ -1,11 +1,12 @@
 {
+  "appName": "Catur Blitz",
   "meta": {
-    "title": "Chess Blitz - Main Catur Online",
-    "description": "Main catur melawan AI dengan berbagai tingkat kesulitan. Game catur online gratis dengan bidak Staunton klasik dan tema papan yang indah.",
+    "title": "Catur Blitz - Main Catur Online",
+    "description": "Main catur online dengan pemain di seluruh dunia. Catur multiplayer gratis dengan matchmaking ELO - bullet, blitz, rapid dan klasik. Berlatih melawan AI atau bersaing di pertandingan peringkat.",
     "keywords": "catur, game catur, chess blitz, catur online, catur gratis, strategi, permainan papan, permainan otak, main lawan komputer, taktik catur, blitz"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Catur Blitz",
     "tagline": "Kuasai permainanmu",
     "chooseGame": "Pilih Permainan",
     "playVsComputer": "Lawan Komputer",

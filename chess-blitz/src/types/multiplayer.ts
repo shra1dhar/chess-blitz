@@ -338,6 +338,6 @@ export interface EloChanges {
 export { MATCHMAKING, GAME, RATE_LIMITS, MAX_MESSAGE_SIZE_BYTES } from '@chess-blitz/shared';
 
 // Frontend-specific aliases for convenience
-export const MATCHMAKING_TIMEOUT_MS = 30_000; // 30 seconds before bot fallback
+export const MATCHMAKING_TIMEOUT_MS = 7_000; // 7 seconds before bot fallback
 export const RECONNECT_TIMEOUT_MS = 30_000; // 30 seconds to reconnect
 export const ELO_MATCH_RANGE = 200; // Match players within this Elo range

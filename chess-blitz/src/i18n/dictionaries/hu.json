@@ -1,11 +1,12 @@
 {
+  "appName": "Sakk Blitz",
   "meta": {
-    "title": "Chess Blitz - Sakkozz online",
-    "description": "Játssz sakkot MI ellen különböző nehézségi szinteken. Ingyenes online sakkjáték klasszikus Staunton figurákkal és gyönyörű táblatémákkal.",
+    "title": "Sakk Blitz - Sakkozz online",
+    "description": "Játssz sakkot online játékosokkal a világ minden tájáról. Ingyenes többjátékos sakk ELO alapú párosítással - bullet, villám, rapid és klasszikus. Gyakorolj AI ellen vagy versenyezz rangsorolt meccseken.",
     "keywords": "sakk, sakkjáték, chess blitz, online sakk, ingyenes sakk, stratégia, táblajáték, agyjáték, számítógép ellen játék, sakktaktika, blitz"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Sakk Blitz",
     "tagline": "Fejleszd a játékod",
     "chooseGame": "Válaszd ki a játékot",
     "playVsComputer": "Játék számítógép ellen",

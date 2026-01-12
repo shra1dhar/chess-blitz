@@ -211,6 +211,18 @@
   }
 }
 
+@mixin extra-large-desktop {
+  @media screen and (min-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+@mixin ultra-wide {
+  @media screen and (min-width: $breakpoint-2xl) {
+    @content;
+  }
+}
+
 // Height-based responsive queries (for vertical space constraints)
 // Use these for Windows laptops with high DPI scaling, tablets in landscape, etc.
 @mixin short-viewport {
@@ -227,6 +239,28 @@
 
 @mixin constrained-height {
   @media screen and (max-height: #{$breakpoint-height-md - 1px}) {
+    @content;
+  }
+}
+
+// Standard 1080p with zoom/scaling - board needs to fit with player info cards
+@mixin standard-height {
+  @media screen and (max-height: #{$breakpoint-height-xl - 1px}) {
+    @content;
+  }
+}
+
+// Full HD 1080p screens - slight reduction needed at ultra-wide widths
+@mixin fullhd-height {
+  @media screen and (max-height: #{$breakpoint-height-2xl - 1px}) {
+    @content;
+  }
+}
+
+// Ultra-wide width with limited height (1920x1080 scenario)
+// Board needs to be smaller to fit all content vertically
+@mixin ultra-wide-limited-height {
+  @media screen and (min-width: $breakpoint-2xl) and (max-height: #{$breakpoint-height-2xl - 1px}) {
     @content;
   }
 }

@@ -1,11 +1,12 @@
 {
+  "appName": "Satranç Blitz",
   "meta": {
-    "title": "Chess Blitz - Online Satranç Oyna",
-    "description": "Farklı zorluk seviyelerinde yapay zeka ile satranç oynayın. Klasik Staunton taşları ve güzel tahta temaları ile ücretsiz online satranç oyunu.",
+    "title": "Satranç Blitz - Online Satranç Oyna",
+    "description": "Dünya genelinden oyuncularla online satranç oynayın. ELO eşleştirmeli ücretsiz çok oyunculu satranç - bullet, blitz, hızlı ve klasik. AI'ya karşı pratik yapın veya dereceli maçlarda yarışın.",
     "keywords": "satranç, satranç oyunu, chess blitz, online satranç, ücretsiz satranç, strateji, masa oyunu, beyin oyunu, bilgisayara karşı oyna, satranç taktikleri, blitz"
   },
   "home": {
-    "title": "Chess Blitz",
+    "title": "Satranç Blitz",
     "tagline": "Oyununda ustalaş",
     "chooseGame": "Oyununu seç",
     "playVsComputer": "Bilgisayara karşı oyna",

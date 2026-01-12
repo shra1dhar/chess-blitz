@@ -12,13 +12,27 @@
   max-width: 560px;
 
   // Constrain board height on short viewports to prevent overflow
-  // Account for header (~45px) + player info (2×~50px) + controls (~70px) + margins
+  // Tighter calculation to fit more UI elements within viewport
   @include constrained-height {
-    max-width: min(560px, calc(100vh - 280px));
+    max-width: calc(100vh - 220px);
   }
 
   @include short-viewport {
-    max-width: min(100%, calc(100vh - 200px));
+    max-width: calc(100vh - 140px);
+  }
+
+  // Larger board on extra-large screens
+  @include extra-large-desktop {
+    max-width: 680px;
+  }
+
+  @include ultra-wide {
+    max-width: 880px;
+  }
+
+  // Limit board size when height is constrained on ultra-wide screens (e.g., 1920x1080)
+  @include ultra-wide-limited-height {
+    max-width: 600px;
   }
 }
 

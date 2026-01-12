@@ -4,12 +4,11 @@
 
 'use client';
 
-import { useCallback, useEffect, useState, useRef, use } from 'react';
+import { useCallback, useEffect, useRef, use } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useMultiplayerStore } from '@/stores/multiplayerStore';
 import { useMultiplayer, MatchState } from '@/hooks/useMultiplayer';
-import { WebSocketStatus } from '@/hooks/useWebSocket';
 import { MatchmakingOverlay } from './MatchmakingOverlay';
 import { BackArrowIcon } from '@/components/icons/GameIcons';
 import type { TournamentType } from '@/types/multiplayer';
@@ -136,7 +135,6 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
 
   // Multiplayer state
   const {
-    connectionStatus,
     matchState,
     queuePosition,
     tournamentType: currentTournament,
@@ -157,20 +155,17 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
 
       // Wait for overlay fade-out animation (1500ms show + 500ms fade)
       const timer = setTimeout(() => {
-        if (opponent?.isBot) {
-          // Bot game - navigate to play page with bot params
-          router.push(`/${locale}/play?mode=bot&difficulty=medium&color=${playerColor}`);
-        } else if (onGameStart) {
+        if (onGameStart) {
           onGameStart(gameId);
         } else {
-          // Navigate to multiplayer game
+          // Navigate to multiplayer game (handles both human and bot opponents)
           router.push(`/${locale}/play/${gameId}`);
         }
       }, 2000);
 
       return () => clearTimeout(timer);
     }
-  }, [matchState, gameId, opponent, playerColor, onGameStart, router]);
+  }, [matchState, gameId, onGameStart, router, locale]);
 
   // Handle tournament selection
   const handleSelectTournament = useCallback((type: TournamentType) => {
@@ -265,18 +260,6 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
           <span>{t.matchFound}</span>
         </div>
       )}
-
-      <div className={styles.footer}>
-        <p>
-          {connectionStatus === WebSocketStatus.Connected ? (
-            <span className={styles.statusOnline}>{t.connected}</span>
-          ) : connectionStatus === WebSocketStatus.Connecting ? (
-            <span className={styles.statusConnecting}>{t.connecting}</span>
-          ) : (
-            <span className={styles.statusOffline}>{t.offline}</span>
-          )}
-        </p>
-      </div>
 
       {/* Matchmaking overlay - shown when queued or matched */}
       {(matchState === MatchState.Queued || matchState === MatchState.Matched) && (
