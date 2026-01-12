@@ -15,6 +15,7 @@
 	"dependencies": {
 		"@chess-blitz/shared": "workspace:*",
 		"@formatjs/intl-localematcher": "^0.7.3",
+		"@next/third-parties": "^16.1.1",
 		"@opennextjs/cloudflare": "^1.14.7",
 		"chess.js": "^1.0.0",
 		"country-flag-icons": "^1.6.4",

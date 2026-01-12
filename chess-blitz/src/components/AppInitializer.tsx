@@ -7,6 +7,7 @@
 
 import { useEffect, useRef } from 'react';
 import { soundManager } from '@/services/soundManager';
+import { initStockfish } from '@/services/stockfishService';
 import { useMSNAudioSync } from '@/hooks/useSound';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useMultiplayerStore } from '@/stores/multiplayerStore';
@@ -65,6 +66,15 @@ export function AppInitializer() {
     soundManager.init();
   }, []);
 
+  // Register service worker for PWA installability
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch((error) => {
+        console.error('SW registration failed:', error);
+      });
+    }
+  }, []);
+
   // Initialize auth session in background (runs during page transitions)
   const authInitializedRef = useRef(false);
   const initializeSession = useMultiplayerStore((state) => state.initializeSession);
@@ -82,6 +92,14 @@ export function AppInitializer() {
 
   // Sync with MSN platform audio state
   useMSNAudioSync();
+
+  // Preload Stockfish engine in background (non-blocking)
+  // This ensures the engine is ready when user starts a game
+  useEffect(() => {
+    initStockfish().catch((error) => {
+      console.warn('[AppInitializer] Stockfish preload failed:', error);
+    });
+  }, []);
 
   return null;
 }

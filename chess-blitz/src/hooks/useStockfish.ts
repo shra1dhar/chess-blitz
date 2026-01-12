@@ -1,78 +1,44 @@
 // ==============================================
 // Chess Blitz - Stockfish AI Hook
-// Simplified implementation following Lichess pattern
+// Uses singleton service for shared Worker instance
 // ==============================================
 
 import { useCallback, useEffect, useRef, useState, useEffectEvent } from 'react';
 import type { Difficulty } from '@/types/chess';
 import { DIFFICULTY_CONFIGS } from '@/types/chess';
+import {
+  initStockfish,
+  setSkillLevel,
+  findBestMove as sfFindBestMove,
+  stopCalculation,
+  getStatus,
+  type EngineVersion,
+} from '@/services/stockfishService';
 
 interface UseStockfishOptions {
   difficulty: Difficulty;
   onBestMove: (move: string) => void;
   onError?: (error: string) => void;
+  enabled?: boolean; // Only initialize when true (default: true)
 }
 
 interface UseStockfishReturn {
   isReady: boolean;
   isThinking: boolean;
-  engineVersion: 'wasm' | 'asm' | null;
+  engineVersion: EngineVersion;
   findBestMove: (fen: string) => void;
   stop: () => void;
-}
-
-// Stockfish paths
-const STOCKFISH_WASM_URL = '/stockfish/stockfish-17-wasm.js';
-const STOCKFISH_ASM_URL = '/stockfish/stockfish-10-asm.js';
-
-/**
- * Check if browser supports WebAssembly (Lichess pattern)
- */
-function hasWasmSupport(): boolean {
-  try {
-    return typeof WebAssembly === 'object' &&
-      WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
-  } catch {
-    return false;
-  }
-}
-
-/**
- * Create message handler for Stockfish worker
- */
-function createMessageHandler(
-  onReady: () => void,
-  onMove: (move: string) => void,
-  version: 'wasm' | 'asm'
-) {
-  return (event: MessageEvent) => {
-    const msg = event.data;
-    if (typeof msg !== 'string') return;
-
-    if (msg === 'uciok') {
-      console.log(`[Stockfish] Engine ready (${version})`);
-      onReady();
-    }
-
-    if (msg.startsWith('bestmove')) {
-      const move = msg.split(' ')[1];
-      if (move && move !== '(none)') {
-        console.log('[Stockfish] Best move:', move);
-        onMove(move);
-      }
-    }
-  };
 }
 
 export function useStockfish({
   difficulty,
   onBestMove,
   onError,
+  enabled = true,
 }: UseStockfishOptions): UseStockfishReturn {
-  const workerRef = useRef<Worker | null>(null);
   const [isReady, setIsReady] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
-  const [engineVersion, setEngineVersion] = useState<'wasm' | 'asm' | null>(null);
+  const [engineVersion, setEngineVersion] = useState<EngineVersion>(null);
   const pendingMoveRef = useRef<string | null>(null);
   const thinkingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -80,71 +46,43 @@ export function useStockfish({
   const onBestMoveEvent = useEffectEvent((move: string) => onBestMove(move));
   const onErrorEvent = useEffectEvent((error: string) => onError?.(error));
 
-  // Initialize Stockfish worker
+  // Initialize singleton when enabled
   useEffect(() => {
-    let mounted = true;
-    const useWasm = hasWasmSupport();
-    const version: 'wasm' | 'asm' = useWasm ? 'wasm' : 'asm';
+    if (!enabled) return;
 
-    console.log(`[Stockfish] Loading ${version} version`);
+    // Check if already ready (singleton may have been initialized by another hook)
+    const status = getStatus();
+    if (status.isReady) {
+      setIsReady(true);
+      setEngineVersion(status.engineVersion);
+      return;
+    }
 
-    const initWorker = (url: string, ver: 'wasm' | 'asm', isFallback = false) => {
-      const worker = new Worker(url);
-
-      worker.onmessage = createMessageHandler(
-        () => {
-          if (mounted) {
-            setIsReady(true);
-            setEngineVersion(ver);
-          }
-        },
-        (move) => {
-          pendingMoveRef.current = move;
-        },
-        ver
-      );
-
-      worker.onerror = (error) => {
-        console.error(`Stockfish ${ver} error:`, error);
-
-        // If WASM failed and not already a fallback, try asm.js
-        if (ver === 'wasm' && !isFallback && mounted) {
-          console.log('[Stockfish] WASM failed, falling back to asm.js');
-          workerRef.current?.terminate();
-          initWorker(STOCKFISH_ASM_URL, 'asm', true);
-          return;
-        }
-
+    // Initialize the singleton
+    initStockfish()
+      .then((version) => {
+        setIsReady(true);
+        setEngineVersion(version);
+      })
+      .catch((error) => {
+        console.error('[useStockfish] Init failed:', error);
         onErrorEvent('Failed to initialize chess engine');
-      };
-
-      worker.postMessage('uci');
-      workerRef.current = worker;
-    };
-
-    initWorker(useWasm ? STOCKFISH_WASM_URL : STOCKFISH_ASM_URL, version);
-
-    return () => {
-      mounted = false;
-      if (thinkingTimeoutRef.current) clearTimeout(thinkingTimeoutRef.current);
-      workerRef.current?.terminate();
-      workerRef.current = null;
-    };
-  }, []);
+      });
+  }, [enabled]);
 
   // Update skill level when difficulty changes
   useEffect(() => {
-    if (workerRef.current && isReady) {
+    if (isReady) {
       const config = DIFFICULTY_CONFIGS[difficulty];
-      workerRef.current.postMessage(`setoption name Skill Level value ${config.skillLevel}`);
+      setSkillLevel(config.skillLevel);
     }
   }, [difficulty, isReady]);
 
   // Find best move
   const findBestMove = useCallback(
     (fen: string) => {
-      if (!workerRef.current || !isReady) {
-        console.warn('[Stockfish] Not ready');
+      if (!isReady) {
+        console.warn('[useStockfish] Not ready');
         return;
       }
 
@@ -153,9 +91,10 @@ export function useStockfish({
 
       const config = DIFFICULTY_CONFIGS[difficulty];
 
-      // Send position and start calculation
-      workerRef.current.postMessage(`position fen ${fen}`);
-      workerRef.current.postMessage(`go depth ${config.depth}`);
+      // Request move from singleton service
+      sfFindBestMove(fen, config.depth, (move) => {
+        pendingMoveRef.current = move;
+      });
 
       // Wait for thinkingTime, then deliver move (or wait up to 10s if not ready)
       thinkingTimeoutRef.current = setTimeout(() => {
@@ -190,7 +129,7 @@ export function useStockfish({
 
   // Stop calculation
   const stop = useCallback(() => {
-    workerRef.current?.postMessage('stop');
+    stopCalculation();
     if (thinkingTimeoutRef.current) clearTimeout(thinkingTimeoutRef.current);
     setIsThinking(false);
     pendingMoveRef.current = null;

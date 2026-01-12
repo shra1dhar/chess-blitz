@@ -5,8 +5,11 @@
 
 import { useState, useCallback, useEffect, useRef, useEffectEvent } from 'react';
 import type { Square, PieceSymbol, Color as ChessColor } from 'chess.js';
+import { Chess } from 'chess.js';
 import { useWebSocket, type WebSocketStatus } from './useWebSocket';
+import { useStockfish, parseUCIMove } from './useStockfish';
 import { useSound } from './useSound';
+import type { Difficulty } from '@/types/chess';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useMultiplayerStore, selectToken } from '@/stores/multiplayerStore';
 import { useShallow } from 'zustand/react/shallow';
@@ -30,6 +33,8 @@ import {
   type SerializedGameState,
   type LiteSerializedGameState,
   RECONNECT_TIMEOUT_MS,
+  TOURNAMENT_TIME_MS,
+  DEFAULT_ELO,
   toChessColor,
 } from '@/types/multiplayer';
 
@@ -179,6 +184,45 @@ function getBackendWsUrl(): string {
   return 'ws://localhost:8787';
 }
 
+// Create initial game state for bot games
+function createInitialBotGameState(
+  gameId: string,
+  playerColor: ChessColor,
+  opponent: PlayerInfo,
+  tournamentType: TournamentType
+): MultiplayerGameState {
+  const timeMs = TOURNAMENT_TIME_MS[tournamentType];
+  const playerInfo: PlayerInfo = {
+    id: 'local-player',
+    displayName: 'You',
+    elo: DEFAULT_ELO,
+    isBot: false,
+  };
+
+  return {
+    id: gameId,
+    tournamentType,
+    white: playerColor === 'w' ? playerInfo : opponent,
+    black: playerColor === 'b' ? playerInfo : opponent,
+    fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+    pgn: '',
+    whiteTimeMs: timeMs,
+    blackTimeMs: timeMs,
+    turn: 'w',
+    lastMoveAt: Date.now(),
+    serverTime: Date.now(),
+    status: 'active',
+  };
+}
+
+// Map bot ELO to Stockfish difficulty
+function getBotDifficulty(elo: number): Difficulty {
+  if (elo < 800) return 'easy';
+  if (elo < 1200) return 'medium';
+  if (elo < 1600) return 'hard';
+  return 'expert';
+}
+
 interface UseMultiplayerOptions {
   /** Dictionary for localized notifications (optional) */
   dict?: { offerDeclined: string };
@@ -231,11 +275,87 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
   // Refs
   const pendingGameConnectionRef = useRef<{ gameId: string; color: Color } | null>(null);
   const isBotGameRef = useRef(false);
+  const botChessRef = useRef<Chess | null>(null);
   const drawOfferedByMeRef = useRef(false);
+
+  // Bot game state - used for lazy loading Stockfish (state triggers re-render, ref for sync access)
+  const [isBotGame, setIsBotGame] = useState(false);
 
   // Settings
   const { soundEnabled } = useSettingsStore();
   const { playMoveSound, playCheckmateSound, playGameEndSound, playGameStartSound } = useSound();
+
+  // Handle bot's best move using useEffectEvent to avoid Stockfish re-initialization
+  const handleBotMove = useEffectEvent((uciMove: string) => {
+    if (!isBotGameRef.current || !botChessRef.current || !gameState) return;
+
+    const { from, to, promotion } = parseUCIMove(uciMove);
+
+    try {
+      const move = botChessRef.current.move({
+        from,
+        to,
+        promotion: promotion as PieceSymbol | undefined,
+      });
+
+      if (move) {
+        const newTurn = botChessRef.current.turn();
+        const isCheckmate = botChessRef.current.isCheckmate();
+        const isStalemate = botChessRef.current.isStalemate();
+        const isDraw = botChessRef.current.isDraw();
+
+        // Calculate elapsed time
+        const elapsed = Date.now() - gameState.lastMoveAt;
+        const newWhiteTime = gameState.turn === 'w' ? Math.max(0, gameState.whiteTimeMs - elapsed) : gameState.whiteTimeMs;
+        const newBlackTime = gameState.turn === 'b' ? Math.max(0, gameState.blackTimeMs - elapsed) : gameState.blackTimeMs;
+
+        // Update game state
+        setGameState((prev) => {
+          if (!prev) return null;
+          return {
+            ...prev,
+            fen: botChessRef.current!.fen(),
+            pgn: botChessRef.current!.pgn(),
+            turn: newTurn,
+            whiteTimeMs: newWhiteTime,
+            blackTimeMs: newBlackTime,
+            lastMoveAt: Date.now(),
+            serverTime: Date.now(),
+            lastMove: { from: from as Square, to: to as Square },
+            status: isCheckmate || isStalemate || isDraw ? 'finished' : 'active',
+          };
+        });
+
+        if (soundEnabled) {
+          playMoveSound();
+        }
+
+        // Check for game end
+        if (isCheckmate) {
+          // Bot checkmated the player (it was bot's turn, now it's player's turn but they're mated)
+          setMatchState(MatchState.Ended);
+          setResult(playerColor === 'w' ? '0-1' : '1-0'); // Bot won
+          setResultReason('checkmate');
+          if (soundEnabled) playCheckmateSound();
+        } else if (isStalemate || isDraw) {
+          setMatchState(MatchState.Ended);
+          setResult('1/2-1/2');
+          setResultReason(isStalemate ? 'stalemate' : 'draw_agreement');
+          if (soundEnabled) playGameEndSound();
+        }
+      }
+    } catch (error) {
+      console.error('[Bot] Move error:', error);
+    }
+  });
+
+  // Stockfish integration for bot games - lazy loaded only when in bot game
+  const { isReady: isStockfishReady, findBestMove, stop: stopStockfish } = useStockfish({
+    difficulty: getBotDifficulty(opponent?.elo || 1500),
+    onBestMove: handleBotMove,
+    onError: (error) => console.error('[Stockfish] Error:', error),
+    enabled: isBotGame, // Only load Stockfish when in bot game
+  });
 
   // Build WebSocket URLs
   const getMatchmakingUrl = useCallback(
@@ -285,6 +405,12 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
         break;
 
       case ServerMessageType.MatchFound:
+        // Clear queue timeout - we found a match!
+        if (queueTimeoutRef.current) {
+          clearTimeout(queueTimeoutRef.current);
+          queueTimeoutRef.current = null;
+        }
+
         setMatchState(MatchState.Matched);
         setGameId(message.gameId);
         setPlayerColor(toChessColor(message.color));
@@ -536,44 +662,59 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
   const connectionErrorCountRef = useRef(0);
   const pendingJoinQueueRef = useRef<TournamentType | null>(null);
 
+  // Handle queue errors - use useEffectEvent to always access latest state
+  const handleQueueError = useEffectEvent(() => {
+    // On error during queue, increment error count
+    if (matchState === MatchState.Queued) {
+      connectionErrorCountRef.current++;
+      console.log(`[Multiplayer] Queue error #${connectionErrorCountRef.current}`);
+      if (connectionErrorCountRef.current >= 2 && joinQueueTournamentRef.current) {
+        // Clear queue timeout to prevent double-triggering
+        if (queueTimeoutRef.current) {
+          clearTimeout(queueTimeoutRef.current);
+          queueTimeoutRef.current = null;
+        }
+        console.log('[Multiplayer] WebSocket connection failed, falling back to bot');
+        createLocalBotMatch(joinQueueTournamentRef.current);
+        setWsUrl(null);
+      }
+    }
+  });
+
+  // Handle WebSocket open - use useEffectEvent to always access latest state
+  const handleWsOpen = useEffectEvent(() => {
+    // If we have a pending join_queue request, send it now
+    if (pendingJoinQueueRef.current) {
+      sendMessage({ type: ClientMessageType.JoinQueue, tournamentType: pendingJoinQueueRef.current });
+      pendingJoinQueueRef.current = null;
+    }
+    // CRITICAL FIX: If we reconnect while queued, we MUST re-send JoinQueue
+    // because the backend treats a new WebSocket connection as a new session (not in queue)
+    // unless we explicitly tell it to put us back in.
+    else if (matchState === MatchState.Queued && joinQueueTournamentRef.current) {
+      console.log('[Multiplayer] Reconnected while queued, re-sending JoinQueue');
+      sendMessage({ type: ClientMessageType.JoinQueue, tournamentType: joinQueueTournamentRef.current });
+    }
+  });
+
+  // Handle WebSocket close - use useEffectEvent to always access latest state
+  const handleWsClose = useEffectEvent(() => {
+    // If we got matched and need to switch to game room
+    if (pendingGameConnectionRef.current && !isBotGameRef.current) {
+      const { gameId: gId, color } = pendingGameConnectionRef.current;
+      const gameUrl = getGameUrl(gId, color);
+      if (gameUrl) {
+        setWsUrl(gameUrl);
+      }
+      pendingGameConnectionRef.current = null;
+    }
+  });
+
   const { status: connectionStatus, sendMessage, disconnect } = useWebSocket(wsUrl, {
     onMessage: handleMessage,
-    onOpen: () => {
-      // If we have a pending join_queue request, send it now
-      if (pendingJoinQueueRef.current) {
-        sendMessage({ type: ClientMessageType.JoinQueue, tournamentType: pendingJoinQueueRef.current });
-        pendingJoinQueueRef.current = null;
-      }
-      // CRITICAL FIX: If we reconnect while queued, we MUST re-send JoinQueue
-      // because the backend treats a new WebSocket connection as a new session (not in queue)
-      // unless we explicitly tell it to put us back in.
-      else if (matchState === MatchState.Queued && joinQueueTournamentRef.current) {
-        console.log('[Multiplayer] Reconnected while queued, re-sending JoinQueue');
-        sendMessage({ type: ClientMessageType.JoinQueue, tournamentType: joinQueueTournamentRef.current });
-      }
-    },
-    onClose: () => {
-      // If we got matched and need to switch to game room
-      if (pendingGameConnectionRef.current && !isBotGameRef.current) {
-        const { gameId: gId, color } = pendingGameConnectionRef.current;
-        const gameUrl = getGameUrl(gId, color);
-        if (gameUrl) {
-          setWsUrl(gameUrl);
-        }
-        pendingGameConnectionRef.current = null;
-      }
-    },
-    onError: () => {
-      // On error during queue, increment error count
-      if (matchState === MatchState.Queued) {
-        connectionErrorCountRef.current++;
-        if (connectionErrorCountRef.current >= 10 && joinQueueTournamentRef.current) {
-          console.log('[Multiplayer] WebSocket connection failed, falling back to bot');
-          createLocalBotMatch(joinQueueTournamentRef.current);
-          setWsUrl(null);
-        }
-      }
-    },
+    onOpen: handleWsOpen,
+    onClose: handleWsClose,
+    onError: handleQueueError,
     reconnect: matchState === MatchState.Playing || matchState === MatchState.Queued || matchState === MatchState.Ended,
   });
 
@@ -585,39 +726,107 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
     matchState === MatchState.Playing && gameState && gameState.fen === 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
   );
 
+  // Initialize Chess.js instance for bot games
+  useEffect(() => {
+    if (isBotGameRef.current && gameState && !botChessRef.current) {
+      botChessRef.current = new Chess(gameState.fen);
+      console.log('[Bot] Chess instance initialized');
+    }
+  }, [gameState?.id]);
+
+  // Track if we've triggered the bot's first move
+  const botFirstMoveTriggeredRef = useRef(false);
+
+  // Trigger bot's first move when Stockfish is ready (if bot plays first)
+  useEffect(() => {
+    if (
+      isBotGameRef.current &&
+      botChessRef.current &&
+      isStockfishReady &&
+      playerColor === 'b' &&
+      gameState?.turn === 'w' &&
+      !botFirstMoveTriggeredRef.current
+    ) {
+      botFirstMoveTriggeredRef.current = true;
+      console.log('[Bot] Bot plays first, triggering move');
+      setTimeout(() => {
+        if (botChessRef.current) {
+          findBestMove(botChessRef.current.fen());
+        }
+      }, 500);
+    }
+  }, [isStockfishReady, playerColor, gameState?.turn, findBestMove]);
+
+  // Bot game clock timeout check
+  useEffect(() => {
+    if (!isBotGameRef.current || matchState !== MatchState.Playing || !gameState) return;
+
+    const checkTimeout = () => {
+      if (!gameState) return;
+
+      const elapsed = Date.now() - gameState.lastMoveAt;
+      const currentPlayerTime = gameState.turn === 'w' ? gameState.whiteTimeMs : gameState.blackTimeMs;
+      const remainingTime = currentPlayerTime - elapsed;
+
+      if (remainingTime <= 0) {
+        const timedOutPlayer = gameState.turn;
+        const playerWon = timedOutPlayer !== playerColor;
+
+        setMatchState(MatchState.Ended);
+        setResult(playerWon ? (playerColor === 'w' ? '1-0' : '0-1') : playerColor === 'w' ? '0-1' : '1-0');
+        setResultReason('timeout');
+        if (soundEnabled) playGameEndSound();
+      }
+    };
+
+    const interval = setInterval(checkTimeout, 100);
+    return () => clearInterval(interval);
+  }, [gameState, matchState, playerColor, soundEnabled, playGameEndSound]);
+
   // Create a local bot match (fallback for when backend is unavailable)
   const createLocalBotMatch = useCallback(
     (tournament: TournamentType) => {
       const botNames = ['ChessBot', 'Stockfish Jr', 'BlitzMaster', 'KnightRider', 'QueenSlayer'];
       const botName = botNames[Math.floor(Math.random() * botNames.length)];
       const color: ChessColor = Math.random() > 0.5 ? 'w' : 'b';
+      const gId = `bot-${Date.now()}`;
 
+      const botOpponent: PlayerInfo = {
+        id: 'bot-stockfish',
+        displayName: botName,
+        elo: 1500,
+        isBot: true,
+      };
+
+      // Briefly show queued state, then matched
       setMatchState(MatchState.Queued);
       setTournamentType(tournament);
       setQueuePosition(1);
 
       setTimeout(() => {
+        // Set matched state - TournamentLobby will handle navigation
+        // Don't set Playing here - that happens in joinGame after navigation
         setMatchState(MatchState.Matched);
-        setGameId(`bot-${Date.now()}`);
+        setGameId(gId);
         setPlayerColor(color);
-        setOpponent({
-          id: 'bot-stockfish',
-          displayName: botName,
-          elo: 1500,
-          isBot: true,
-        });
+        setOpponent(botOpponent);
         isBotGameRef.current = true;
+        setIsBotGame(true); // Trigger Stockfish lazy load
+
+        // Store game data for navigation (joinGame will read this)
+        setCurrentGame(gId, color === 'w' ? 'white' : 'black', botOpponent, tournament);
 
         if (soundEnabled) {
           playGameStartSound();
         }
       }, 1500);
     },
-    [soundEnabled, playGameStartSound]
+    [soundEnabled, playGameStartSound, setCurrentGame]
   );
 
   // Track tournament type for fallback
   const joinQueueTournamentRef = useRef<TournamentType | null>(null);
+  const queueTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Actions
   const joinQueue = useCallback(
@@ -635,12 +844,25 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
       // Store the tournament type so we can send join_queue after connection
       pendingJoinQueueRef.current = tournament;
 
+      // Start 7-second timeout for bot fallback
+      if (queueTimeoutRef.current) {
+        clearTimeout(queueTimeoutRef.current);
+      }
+      queueTimeoutRef.current = setTimeout(() => {
+        // Only trigger fallback if still in queue
+        if (joinQueueTournamentRef.current) {
+          console.log('[Multiplayer] Queue timeout (7s), falling back to bot');
+          createLocalBotMatch(joinQueueTournamentRef.current);
+          setWsUrl(null);
+        }
+      }, 7000);
+
       const url = getMatchmakingUrl(tournament);
       if (url) {
         setWsUrl(url);
       }
     },
-    [token, getMatchmakingUrl]
+    [token, getMatchmakingUrl, createLocalBotMatch]
   );
 
   // Join an existing game directly (for navigation from matchmaking)
@@ -666,8 +888,17 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
       setTournamentType(storedTournament);
       setMatchState(MatchState.Playing);
       isBotGameRef.current = Boolean(storedOpponent.isBot);
+      setIsBotGame(Boolean(storedOpponent.isBot)); // Trigger Stockfish lazy load for bot games
 
-      // Connect to game room WebSocket
+      // For bot games, initialize game state locally without WebSocket
+      if (storedOpponent.isBot && storedTournament) {
+        const initialState = createInitialBotGameState(gId, toChessColor(storedColor), storedOpponent, storedTournament);
+        setGameState(initialState);
+        console.log('[Bot] Game state initialized for bot game');
+        return; // Don't connect to WebSocket for bot games
+      }
+
+      // Connect to game room WebSocket for real games
       const gameUrl = getGameUrl(gId, storedColor);
       if (gameUrl) {
         setWsUrl(gameUrl);
@@ -677,6 +908,12 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
   );
 
   const leaveQueue = useCallback(() => {
+    // Clear queue timeout
+    if (queueTimeoutRef.current) {
+      clearTimeout(queueTimeoutRef.current);
+      queueTimeoutRef.current = null;
+    }
+    joinQueueTournamentRef.current = null;
     sendMessage({ type: ClientMessageType.LeaveQueue } as ClientMessage);
     disconnect();
     setMatchState(MatchState.Idle);
@@ -690,7 +927,73 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
       if (!isMyTurn) return;
 
       if (isBotGameRef.current) {
-        // TODO: Handle bot game locally
+        // Handle bot game locally
+        if (!botChessRef.current || !gameState) return;
+
+        try {
+          const move = botChessRef.current.move({
+            from,
+            to,
+            promotion: promotion || 'q',
+          });
+
+          if (!move) return;
+
+          // Calculate elapsed time and update clocks
+          const elapsed = Date.now() - gameState.lastMoveAt;
+          const newWhiteTime = gameState.turn === 'w' ? Math.max(0, gameState.whiteTimeMs - elapsed) : gameState.whiteTimeMs;
+          const newBlackTime = gameState.turn === 'b' ? Math.max(0, gameState.blackTimeMs - elapsed) : gameState.blackTimeMs;
+
+          const newTurn = botChessRef.current.turn();
+          const isCheckmate = botChessRef.current.isCheckmate();
+          const isStalemate = botChessRef.current.isStalemate();
+          const isDraw = botChessRef.current.isDraw();
+
+          // Update game state
+          setGameState((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  fen: botChessRef.current!.fen(),
+                  pgn: botChessRef.current!.pgn(),
+                  turn: newTurn,
+                  whiteTimeMs: newWhiteTime,
+                  blackTimeMs: newBlackTime,
+                  lastMoveAt: Date.now(),
+                  serverTime: Date.now(),
+                  lastMove: { from, to },
+                  status: isCheckmate || isStalemate || isDraw ? 'finished' : 'active',
+                }
+              : null
+          );
+
+          if (soundEnabled) {
+            playMoveSound();
+          }
+
+          // Check for game end
+          if (isCheckmate) {
+            // Player checkmated the bot
+            setMatchState(MatchState.Ended);
+            setResult(playerColor === 'w' ? '1-0' : '0-1'); // Player won
+            setResultReason('checkmate');
+            if (soundEnabled) playCheckmateSound();
+          } else if (isStalemate || isDraw) {
+            setMatchState(MatchState.Ended);
+            setResult('1/2-1/2');
+            setResultReason(isStalemate ? 'stalemate' : 'draw_agreement');
+            if (soundEnabled) playGameEndSound();
+          } else {
+            // Trigger bot response after small delay
+            setTimeout(() => {
+              if (botChessRef.current && isStockfishReady) {
+                findBestMove(botChessRef.current.fen());
+              }
+            }, 200);
+          }
+        } catch (error) {
+          console.error('[Bot] Invalid move:', error);
+        }
       } else {
         sendMessage({
           type: ClientMessageType.Move,
@@ -700,7 +1003,7 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
         } as ClientMessage);
       }
     },
-    [isMyTurn, sendMessage]
+    [isMyTurn, gameState, playerColor, soundEnabled, playMoveSound, playCheckmateSound, playGameEndSound, sendMessage, isStockfishReady, findBestMove]
   );
 
   const resign = useCallback(() => {
@@ -774,6 +1077,19 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
   }, [rematchState, sendMessage]);
 
   const reset = useCallback(() => {
+    // Clean up bot game state
+    stopStockfish();
+    botChessRef.current = null;
+    botFirstMoveTriggeredRef.current = false;
+    setIsBotGame(false);
+
+    // Clear queue timeout
+    if (queueTimeoutRef.current) {
+      clearTimeout(queueTimeoutRef.current);
+      queueTimeoutRef.current = null;
+    }
+    joinQueueTournamentRef.current = null;
+
     disconnect();
     clearCurrentGame();
     setMatchState(MatchState.Idle);
@@ -804,7 +1120,7 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
       clearInterval(firstMoveTimerRef.current);
       firstMoveTimerRef.current = null;
     }
-  }, [disconnect, clearCurrentGame]);
+  }, [disconnect, clearCurrentGame, stopStockfish]);
 
   // Cleanup on unmount
   useEffect(() => {
