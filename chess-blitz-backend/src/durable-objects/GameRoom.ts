@@ -1152,7 +1152,9 @@ export class GameRoom extends DurableObject<Env> {
     }
 
     // Start new game with swapped colors
-    const newGameId = crypto.randomUUID();
+    // IMPORTANT: Keep the same gameId so clients reconnect to the SAME Durable Object
+    // The DO routing uses idFromName(gameId), so changing gameId would route to a different DO
+    const sameGameId = this.game.gameId;
     const timeControl = TIME_CONTROLS[this.game.tournamentType];
     const now = Date.now();
 
@@ -1163,7 +1165,7 @@ export class GameRoom extends DurableObject<Env> {
     this.chess = new Chess();
 
     this.game = {
-      gameId: newGameId,
+      gameId: sameGameId,
       tournamentType: this.game.tournamentType,
       white: newWhite,
       black: newBlack,
@@ -1207,14 +1209,14 @@ export class GameRoom extends DurableObject<Env> {
     if (whiteConn?.connected && whiteConn.ws) {
       safeSend(whiteConn.ws, {
         type: ServerMessageType.RematchStarting,
-        gameId: newGameId,
+        gameId: sameGameId,
         yourColor: "black", // Old white is now black
       });
     }
     if (blackConn?.connected && blackConn.ws) {
       safeSend(blackConn.ws, {
         type: ServerMessageType.RematchStarting,
-        gameId: newGameId,
+        gameId: sameGameId,
         yourColor: "white", // Old black is now white
       });
     }

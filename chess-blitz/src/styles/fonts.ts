@@ -61,7 +61,7 @@ const notoSerifThai = Noto_Serif_Thai({
 
 // Korean script
 const notoSerifKR = Noto_Serif_KR({
-  subsets: ['latin'],
+  preload: false,
   variable: '--font-display',
   display: 'swap',
   weight: ['400', '500', '600', '700'],
@@ -69,7 +69,7 @@ const notoSerifKR = Noto_Serif_KR({
 
 // Japanese script
 const notoSerifJP = Noto_Serif_JP({
-  subsets: ['latin'],
+  preload: false,
   variable: '--font-display',
   display: 'swap',
   weight: ['400', '500', '600', '700'],
@@ -77,7 +77,7 @@ const notoSerifJP = Noto_Serif_JP({
 
 // Chinese Simplified script
 const notoSerifSC = Noto_Serif_SC({
-  subsets: ['latin'],
+  preload: false,
   variable: '--font-display',
   display: 'swap',
   weight: ['400', '500', '600', '700'],

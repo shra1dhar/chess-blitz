@@ -14,7 +14,8 @@ type StatusIndicator =
   | { type: 'thinking' }
   | { type: 'yourTurn'; label: string }
   | { type: 'clock'; timeMs: number; isActive: boolean }
-  | { type: 'firstMoveWarning'; countdown: number | null; label: string };
+  | { type: 'firstMoveWarning'; countdown: number | null; label: string }
+  | { type: 'opponentDisconnected'; countdown: number | null; label: string };
 
 interface PlayerInfoCardProps {
   avatarType: 'bot' | 'human';
@@ -36,6 +37,13 @@ export function PlayerInfoCard({
   // Render the appropriate subtitle or warning
   const renderSubtitle = () => {
     if (statusIndicator?.type === 'firstMoveWarning') {
+      return (
+        <span className={styles.firstMoveWarning}>
+          {statusIndicator.label}
+        </span>
+      );
+    }
+    if (statusIndicator?.type === 'opponentDisconnected') {
       return (
         <span className={styles.firstMoveWarning}>
           {statusIndicator.label}
@@ -75,7 +83,8 @@ export function PlayerInfoCard({
       }
 
       case 'firstMoveWarning':
-        // First move warning is shown in subtitle, no additional status needed
+      case 'opponentDisconnected':
+        // Warning is shown in subtitle, no additional status needed
         return null;
 
       default:
