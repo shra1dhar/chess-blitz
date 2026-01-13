@@ -145,11 +145,11 @@
     "playingAsBlack": "Playing as Black",
     "matchmakingHint": "আপনার সমান দক্ষতার খেলোয়াড়ের সাথে ম্যাচ করা হচ্ছে",
     "cancel": "Cancel",
-    "rematchRequest": "Rematch?",
-    "rematchSent": "Rematch request sent",
-    "rematchReceived": "Opponent wants a rematch!",
-    "rematchAccepted": "Rematch accepted!",
-    "rematchDeclined": "Rematch declined",
+    "rematchRequest": "রিম্যাচ?",
+    "rematchSent": "রিম্যাচ অনুরোধ পাঠানো হয়েছে",
+    "rematchReceived": "প্রতিপক্ষ রিম্যাচ চায়!",
+    "rematchAccepted": "রিম্যাচ গৃহীত!",
+    "rematchDeclined": "রিম্যাচ প্রত্যাখ্যাত",
     "opponentOffline": "Opponent is offline",
     "opponentInMatch": "Opponent joined another match",
     "rematchTimeout": "Rematch request timed out",
@@ -210,7 +210,7 @@
   "reconnecting": {
     "title": "সংযোগ বিচ্ছিন্ন",
     "subtitle": "পুনরায় সংযোগ করা হচ্ছে...",
-    "hint": "Please check your internet connection"
+    "hint": "অনুগ্রহ করে আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন"
   },
   "drawClaim": {
     "fiftyMoveTitle": "৫০-চাল নিয়ম",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "অবস্থান ৩ বার পুনরাবৃত্তি হয়েছে",
     "threefoldTooltip": "খেলাটি ড্র ঘোষণা করা যেতে পারে যখন একই অবস্থান একই খেলোয়াড়ের চালসহ তিনবার ঘটে।",
     "claimDraw": "ড্র দাবি করুন"
+  },
+  "multiplayer": {
+    "opponentReconnected": "প্রতিপক্ষ পুনরায় সংযুক্ত হয়েছে"
   }
 }

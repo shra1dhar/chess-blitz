@@ -210,7 +210,7 @@
   "reconnecting": {
     "title": "连接丢失",
     "subtitle": "重新连接中...",
-    "hint": "Please check your internet connection"
+    "hint": "请检查您的网络连接"
   },
   "drawClaim": {
     "fiftyMoveTitle": "50回合规则",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "局面重复3次",
     "threefoldTooltip": "当相同局面在同一方走棋时出现三次，可以宣布和棋。",
     "claimDraw": "宣布和棋"
+  },
+  "multiplayer": {
+    "opponentReconnected": "对手已重新连接"
   }
 }

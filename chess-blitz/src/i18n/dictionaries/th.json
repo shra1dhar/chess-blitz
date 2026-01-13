@@ -145,11 +145,11 @@
     "playingAsBlack": "Playing as Black",
     "matchmakingHint": "Matching you with a player of similar skill",
     "cancel": "Cancel",
-    "rematchRequest": "Rematch?",
-    "rematchSent": "Rematch request sent",
-    "rematchReceived": "Opponent wants a rematch!",
-    "rematchAccepted": "Rematch accepted!",
-    "rematchDeclined": "Rematch declined",
+    "rematchRequest": "แข่งใหม่?",
+    "rematchSent": "ส่งคำขอแข่งใหม่แล้ว",
+    "rematchReceived": "คู่ต่อสู้ต้องการแข่งใหม่!",
+    "rematchAccepted": "ยอมรับแข่งใหม่!",
+    "rematchDeclined": "ปฏิเสธแข่งใหม่",
     "opponentOffline": "Opponent is offline",
     "opponentInMatch": "Opponent joined another match",
     "rematchTimeout": "Rematch request timed out",
@@ -210,7 +210,7 @@
   "reconnecting": {
     "title": "การเชื่อมต่อหลุด",
     "subtitle": "กำลังเชื่อมต่อใหม่...",
-    "hint": "Please check your internet connection"
+    "hint": "กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ"
   },
   "drawClaim": {
     "fiftyMoveTitle": "กฎ 50 ตา",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "ตำแหน่งซ้ำ 3 ครั้ง",
     "threefoldTooltip": "เกมสามารถประกาศเสมอได้เมื่อตำแหน่งเดียวกันเกิดขึ้นสามครั้งกับผู้เล่นคนเดียวกันที่ต้องเดิน",
     "claimDraw": "เรียกร้องเสมอ"
+  },
+  "multiplayer": {
+    "opponentReconnected": "คู่ต่อสู้เชื่อมต่อใหม่แล้ว"
   }
 }

@@ -145,11 +145,11 @@
     "playingAsBlack": "Playing as Black",
     "matchmakingHint": "Etsitään samantyylinen pelaaja",
     "cancel": "Cancel",
-    "rematchRequest": "Rematch?",
-    "rematchSent": "Rematch request sent",
-    "rematchReceived": "Opponent wants a rematch!",
-    "rematchAccepted": "Rematch accepted!",
-    "rematchDeclined": "Rematch declined",
+    "rematchRequest": "Uusintaottelu?",
+    "rematchSent": "Uusintaottelupyyntö lähetetty",
+    "rematchReceived": "Vastustaja haluaa uusintaottelun!",
+    "rematchAccepted": "Uusintaottelu hyväksytty!",
+    "rematchDeclined": "Uusintaottelu hylätty",
     "opponentOffline": "Opponent is offline",
     "opponentInMatch": "Opponent joined another match",
     "rematchTimeout": "Rematch request timed out",
@@ -210,7 +210,7 @@
   "reconnecting": {
     "title": "Yhteys katkennut",
     "subtitle": "Yhdistetään uudelleen...",
-    "hint": "Please check your internet connection"
+    "hint": "Tarkista internet-yhteytesi"
   },
   "drawClaim": {
     "fiftyMoveTitle": "50 siirron sääntö",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "Asema toistettu 3 kertaa",
     "threefoldTooltip": "Peli voidaan julistaa tasapeliksi, kun sama asema esiintyy kolme kertaa saman pelaajan ollessa siirtovuorossa.",
     "claimDraw": "Vaadi tasapeli"
+  },
+  "multiplayer": {
+    "opponentReconnected": "Vastustaja yhdisti uudelleen"
   }
 }

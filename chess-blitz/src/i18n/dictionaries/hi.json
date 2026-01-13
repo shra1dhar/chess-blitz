@@ -145,11 +145,11 @@
     "playingAsBlack": "Playing as Black",
     "matchmakingHint": "समान कौशल के खिलाड़ी के साथ मिलान हो रहा है",
     "cancel": "Cancel",
-    "rematchRequest": "Rematch?",
-    "rematchSent": "Rematch request sent",
-    "rematchReceived": "Opponent wants a rematch!",
-    "rematchAccepted": "Rematch accepted!",
-    "rematchDeclined": "Rematch declined",
+    "rematchRequest": "रीमैच?",
+    "rematchSent": "रीमैच अनुरोध भेजा गया",
+    "rematchReceived": "प्रतिद्वंद्वी रीमैच चाहता है!",
+    "rematchAccepted": "रीमैच स्वीकार!",
+    "rematchDeclined": "रीमैच अस्वीकार",
     "opponentOffline": "Opponent is offline",
     "opponentInMatch": "Opponent joined another match",
     "rematchTimeout": "Rematch request timed out",
@@ -210,7 +210,7 @@
   "reconnecting": {
     "title": "कनेक्शन टूट गया",
     "subtitle": "पुनः कनेक्ट हो रहा है...",
-    "hint": "Please check your internet connection"
+    "hint": "कृपया अपना इंटरनेट कनेक्शन जांचें"
   },
   "drawClaim": {
     "fiftyMoveTitle": "50 चाल नियम",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "स्थिति 3 बार दोहराई गई",
     "threefoldTooltip": "खेल को ड्रॉ घोषित किया जा सकता है जब एक ही स्थिति उसी खिलाड़ी की चाल के साथ तीन बार होती है।",
     "claimDraw": "ड्रॉ का दावा करें"
+  },
+  "multiplayer": {
+    "opponentReconnected": "प्रतिद्वंद्वी फिर से जुड़ गया"
   }
 }

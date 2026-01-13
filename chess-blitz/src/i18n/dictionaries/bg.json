@@ -145,11 +145,11 @@
     "playingAsBlack": "Playing as Black",
     "matchmakingHint": "Намираме играч с подобно ниво",
     "cancel": "Cancel",
-    "rematchRequest": "Rematch?",
-    "rematchSent": "Rematch request sent",
-    "rematchReceived": "Opponent wants a rematch!",
-    "rematchAccepted": "Rematch accepted!",
-    "rematchDeclined": "Rematch declined",
+    "rematchRequest": "Реванш?",
+    "rematchSent": "Заявката за реванш е изпратена",
+    "rematchReceived": "Противникът иска реванш!",
+    "rematchAccepted": "Реваншът е приет!",
+    "rematchDeclined": "Реваншът е отказан",
     "opponentOffline": "Opponent is offline",
     "opponentInMatch": "Opponent joined another match",
     "rematchTimeout": "Rematch request timed out",
@@ -210,7 +210,7 @@
   "reconnecting": {
     "title": "Връзката е прекъсната",
     "subtitle": "Повторно свързване...",
-    "hint": "Please check your internet connection"
+    "hint": "Моля, проверете интернет връзката си"
   },
   "drawClaim": {
     "fiftyMoveTitle": "Правило за 50 хода",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "Позицията се повтори 3 пъти",
     "threefoldTooltip": "Играта може да бъде обявена за реми, когато една и съща позиция се появи три пъти с един и същ играч на ход.",
     "claimDraw": "Искам реми"
+  },
+  "multiplayer": {
+    "opponentReconnected": "Противникът се свърза отново"
   }
 }

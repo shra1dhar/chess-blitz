@@ -210,7 +210,7 @@
   "reconnecting": {
     "title": "Connexion perdue",
     "subtitle": "Reconnexion...",
-    "hint": "Please check your internet connection"
+    "hint": "Veuillez vérifier votre connexion internet"
   },
   "drawClaim": {
     "fiftyMoveTitle": "Règle des 50 coups",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "Position répétée 3 fois",
     "threefoldTooltip": "La partie peut être déclarée nulle lorsque la même position se produit trois fois avec le même joueur au trait.",
     "claimDraw": "Réclamer la nulle"
+  },
+  "multiplayer": {
+    "opponentReconnected": "L'adversaire s'est reconnecté"
   }
 }

@@ -145,11 +145,11 @@
     "playingAsBlack": "Playing as Black",
     "matchmakingHint": "Matching you with a player of similar skill",
     "cancel": "Cancel",
-    "rematchRequest": "Rematch?",
-    "rematchSent": "Rematch request sent",
-    "rematchReceived": "Opponent wants a rematch!",
-    "rematchAccepted": "Rematch accepted!",
-    "rematchDeclined": "Rematch declined",
+    "rematchRequest": "Herkansing?",
+    "rematchSent": "Herkansingsverzoek verzonden",
+    "rematchReceived": "Tegenstander wil herkansing!",
+    "rematchAccepted": "Herkansing geaccepteerd!",
+    "rematchDeclined": "Herkansing geweigerd",
     "opponentOffline": "Opponent is offline",
     "opponentInMatch": "Opponent joined another match",
     "rematchTimeout": "Rematch request timed out",
@@ -210,7 +210,7 @@
   "reconnecting": {
     "title": "Verbinding verloren",
     "subtitle": "Opnieuw verbinden...",
-    "hint": "Please check your internet connection"
+    "hint": "Controleer uw internetverbinding"
   },
   "drawClaim": {
     "fiftyMoveTitle": "50-zetten regel",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "Stelling 3 keer herhaald",
     "threefoldTooltip": "Het spel kan remise worden verklaard wanneer dezelfde stelling drie keer voorkomt met dezelfde speler aan zet.",
     "claimDraw": "Claim remise"
+  },
+  "multiplayer": {
+    "opponentReconnected": "Tegenstander heeft opnieuw verbonden"
   }
 }

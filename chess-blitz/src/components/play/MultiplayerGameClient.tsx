@@ -23,7 +23,6 @@ import GameInfo from '@/components/GameInfo/GameInfo';
 import ChessBoard from '@/components/Board/ChessBoard';
 import GameOverModal from '@/components/GameOver/GameOverModal';
 import { DrawOfferBanner } from '@/components/Multiplayer/DrawOfferBanner';
-import { DisconnectOverlay } from '@/components/Multiplayer/DisconnectOverlay';
 import { DrawClaimBanner } from '@/components/Multiplayer/DrawClaimBanner';
 import { ReconnectingOverlay } from '@/components/Multiplayer/ReconnectingOverlay';
 import { SidebarControls } from '@/components/Multiplayer/SidebarControls';
@@ -54,7 +53,16 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
   useMSNAudioSync();
 
   // Multiplayer state from hook
-  const multiplayer = useMultiplayer({ dict: dict.draw });
+  const multiplayer = useMultiplayer({
+    dict: {
+      offerDeclined: dict.draw.offerDeclined,
+      opponentReconnected: dict.multiplayer.opponentReconnected,
+      rematchSent: dict.tournament.rematchSent,
+      rematchReceived: dict.tournament.rematchReceived,
+      rematchAccepted: dict.tournament.rematchAccepted,
+      rematchDeclined: dict.tournament.rematchDeclined,
+    },
+  });
 
   // Real-time clock countdown
   const displayTimes = useGameClock({
@@ -199,8 +207,17 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
   const gameResult = getPlayerResult(multiplayer.result, multiplayer.playerColor || 'w');
   const gameStatus = getGameStatusFromReason(multiplayer.result, multiplayer.resultReason);
 
-  // Get opponent subtitle (ELO or first move warning)
+  // Get opponent subtitle (ELO, first move warning, or disconnect warning)
   const getOpponentSubtitle = () => {
+    // Disconnect warning takes priority
+    if (multiplayer.opponentDisconnected) {
+      const countdown = multiplayer.disconnectCountdown;
+      const seconds = countdown !== null ? `0:${String(countdown).padStart(2, '0')}` : '';
+      // Hardcoded for now - can add i18n later
+      const label = seconds ? `Disconnected. Auto-win in ${seconds}` : 'Disconnected';
+      return { subtitle: label, isWarning: true, isDisconnected: true };
+    }
+    // First move warning
     if (
       multiplayer.firstMoveWarning.active &&
       multiplayer.firstMoveWarning.player === (multiplayer.playerColor === 'w' ? 'black' : 'white')
@@ -208,9 +225,9 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
       const label = `${dict.firstMoveWarning?.opponentMove || 'Waiting for move...'} ${dict.firstMoveWarning?.autoAbort?.replace('{seconds}', String(multiplayer.firstMoveWarning.countdown)) ||
         `0:${String(multiplayer.firstMoveWarning.countdown).padStart(2, '0')}`
         }`;
-      return { subtitle: label, isWarning: true };
+      return { subtitle: label, isWarning: true, isDisconnected: false };
     }
-    return { subtitle: `${multiplayer.opponent?.elo || '—'} ELO`, isWarning: false };
+    return { subtitle: `${multiplayer.opponent?.elo || '—'} ELO`, isWarning: false, isDisconnected: false };
   };
 
   // Get player subtitle (color or first move warning)
@@ -222,11 +239,12 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
       const label = `${dict.firstMoveWarning?.yourMove || 'Your move.'} ${dict.firstMoveWarning?.autoAbort?.replace('{seconds}', String(multiplayer.firstMoveWarning.countdown)) ||
         `0:${String(multiplayer.firstMoveWarning.countdown).padStart(2, '0')}`
         }`;
-      return { subtitle: label, isWarning: true };
+      return { subtitle: label, isWarning: true, isDisconnected: false };
     }
     return {
       subtitle: multiplayer.playerColor === 'w' ? dict.gameOptions.white : dict.gameOptions.black,
       isWarning: false,
+      isDisconnected: false,
     };
   };
 
@@ -249,13 +267,15 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
           name={multiplayer.opponent?.displayName || 'Opponent'}
           subtitle={opponentSubtitle.subtitle}
           statusIndicator={
-            opponentSubtitle.isWarning
-              ? { type: 'firstMoveWarning', countdown: multiplayer.firstMoveWarning.countdown, label: opponentSubtitle.subtitle }
-              : {
-                type: 'clock',
-                timeMs: opponentTimeMs,
-                isActive: multiplayer.gameState.turn !== multiplayer.playerColor,
-              }
+            opponentSubtitle.isDisconnected
+              ? { type: 'opponentDisconnected', countdown: multiplayer.disconnectCountdown, label: opponentSubtitle.subtitle }
+              : opponentSubtitle.isWarning
+                ? { type: 'firstMoveWarning', countdown: multiplayer.firstMoveWarning.countdown, label: opponentSubtitle.subtitle }
+                : {
+                  type: 'clock',
+                  timeMs: opponentTimeMs,
+                  isActive: multiplayer.gameState.turn !== multiplayer.playerColor,
+                }
           }
         />
       }
@@ -323,12 +343,6 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
           <DrawClaimBanner
             claimType={multiplayer.drawClaimAvailable}
             onClaim={multiplayer.claimDraw}
-            dict={dict}
-          />
-          <DisconnectOverlay
-            isVisible={multiplayer.opponentDisconnected}
-            countdown={multiplayer.disconnectCountdown}
-            opponentName={multiplayer.opponent?.displayName}
             dict={dict}
           />
           <ReconnectingOverlay

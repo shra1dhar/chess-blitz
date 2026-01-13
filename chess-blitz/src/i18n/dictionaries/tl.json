@@ -145,11 +145,11 @@
     "playingAsBlack": "Playing as Black",
     "matchmakingHint": "Matching you with a player of similar skill",
     "cancel": "Cancel",
-    "rematchRequest": "Rematch?",
-    "rematchSent": "Rematch request sent",
-    "rematchReceived": "Opponent wants a rematch!",
-    "rematchAccepted": "Rematch accepted!",
-    "rematchDeclined": "Rematch declined",
+    "rematchRequest": "Ulitin?",
+    "rematchSent": "Naipadala ang kahilingan para sa rematch",
+    "rematchReceived": "Gusto ng kalaban ng rematch!",
+    "rematchAccepted": "Tinanggap ang rematch!",
+    "rematchDeclined": "Tinanggihan ang rematch",
     "opponentOffline": "Opponent is offline",
     "opponentInMatch": "Opponent joined another match",
     "rematchTimeout": "Rematch request timed out",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "Inulit ang posisyon ng 3 beses",
     "threefoldTooltip": "Maaaring ideklara ang laro bilang draw kapag ang parehong posisyon ay lumitaw ng tatlong beses na may parehong manlalaro na gagalaw.",
     "claimDraw": "Mag-claim ng Draw"
+  },
+  "multiplayer": {
+    "opponentReconnected": "Muling nakakonekta ang kalaban"
   }
 }

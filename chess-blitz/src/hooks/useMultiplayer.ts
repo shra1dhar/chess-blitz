@@ -225,7 +225,14 @@ function getBotDifficulty(elo: number): Difficulty {
 
 interface UseMultiplayerOptions {
   /** Dictionary for localized notifications (optional) */
-  dict?: { offerDeclined: string };
+  dict?: {
+    offerDeclined: string;
+    opponentReconnected: string;
+    rematchSent: string;
+    rematchReceived: string;
+    rematchAccepted: string;
+    rematchDeclined: string;
+  };
 }
 
 export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultiplayerReturn {
@@ -546,7 +553,9 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
           clearInterval(disconnectTimerRef.current);
           disconnectTimerRef.current = null;
         }
-        toast.success('Opponent reconnected');
+        if (dict?.opponentReconnected) {
+          toast.success(dict.opponentReconnected);
+        }
         break;
 
       case ServerMessageType.RematchOffered:
@@ -556,11 +565,15 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
           if (rematchState === RematchState.Requested) {
             setRematchState(RematchState.Accepted);
             sendMessage({ type: ClientMessageType.AcceptRematch } as ClientMessage);
-            toast.success('Mutual rematch - starting game!');
+            if (dict?.rematchAccepted) {
+              toast.success(dict.rematchAccepted);
+            }
           } else {
             // Only show UI if we didn't already request
             setRematchState(RematchState.Received);
-            toast('Opponent wants a rematch!');
+            if (dict?.rematchReceived) {
+              toast(dict.rematchReceived);
+            }
           }
         }
         break;
@@ -583,7 +596,9 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
           setCurrentGame(message.gameId, message.yourColor, opponent, tournamentType);
         }
 
-        toast.success('Rematch starting!');
+        if (dict?.rematchAccepted) {
+          toast.success(dict.rematchAccepted);
+        }
         if (soundEnabled) {
           playGameStartSound();
         }
@@ -599,7 +614,9 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
 
       case ServerMessageType.RematchDeclined:
         setRematchState(RematchState.Idle);
-        toast.error('Rematch declined');
+        if (dict?.rematchDeclined) {
+          toast.error(dict.rematchDeclined);
+        }
         break;
 
       case ServerMessageType.LowTimeWarning:
@@ -1060,8 +1077,10 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
     }
     setRematchState(RematchState.Requested);
     sendMessage({ type: ClientMessageType.OfferRematch } as ClientMessage);
-    toast('Rematch request sent!');
-  }, [matchState, sendMessage]);
+    if (dict?.rematchSent) {
+      toast(dict.rematchSent);
+    }
+  }, [matchState, sendMessage, dict]);
 
   const acceptRematch = useCallback(() => {
     if (rematchState !== RematchState.Received) return;

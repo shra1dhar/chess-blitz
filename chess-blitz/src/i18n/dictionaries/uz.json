@@ -145,11 +145,11 @@
     "playingAsBlack": "Playing as Black",
     "matchmakingHint": "Matching you with a player of similar skill",
     "cancel": "Cancel",
-    "rematchRequest": "Rematch?",
-    "rematchSent": "Rematch request sent",
-    "rematchReceived": "Opponent wants a rematch!",
-    "rematchAccepted": "Rematch accepted!",
-    "rematchDeclined": "Rematch declined",
+    "rematchRequest": "Qayta o'yin?",
+    "rematchSent": "Qayta o'yin so'rovi yuborildi",
+    "rematchReceived": "Raqib qayta o'yin istimoqda!",
+    "rematchAccepted": "Qayta o'yin qabul qilindi!",
+    "rematchDeclined": "Qayta o'yin rad etildi",
     "opponentOffline": "Opponent is offline",
     "opponentInMatch": "Opponent joined another match",
     "rematchTimeout": "Rematch request timed out",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "Pozitsiya 3 marta takrorlandi",
     "threefoldTooltip": "O'yin durrang deb e'lon qilinishi mumkin, agar bir xil pozitsiya bir xil o'yinchi yurishi bilan uch marta takrorlansa.",
     "claimDraw": "Durrang talab qilish"
+  },
+  "multiplayer": {
+    "opponentReconnected": "Raqib qayta ulandi"
   }
 }

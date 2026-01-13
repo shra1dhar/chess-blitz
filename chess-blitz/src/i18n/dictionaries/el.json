@@ -145,11 +145,11 @@
     "playingAsBlack": "Playing as Black",
     "matchmakingHint": "Αντιστοίχιση με παίκτη παρόμοιου επιπέδου",
     "cancel": "Cancel",
-    "rematchRequest": "Rematch?",
-    "rematchSent": "Rematch request sent",
-    "rematchReceived": "Opponent wants a rematch!",
-    "rematchAccepted": "Rematch accepted!",
-    "rematchDeclined": "Rematch declined",
+    "rematchRequest": "Ρεβάνς;",
+    "rematchSent": "Αίτημα ρεβάνς εστάλη",
+    "rematchReceived": "Ο αντίπαλος θέλει ρεβάνς!",
+    "rematchAccepted": "Ρεβάνς αποδεκτή!",
+    "rematchDeclined": "Ρεβάνς απορρίφθηκε",
     "opponentOffline": "Opponent is offline",
     "opponentInMatch": "Opponent joined another match",
     "rematchTimeout": "Rematch request timed out",
@@ -210,7 +210,7 @@
   "reconnecting": {
     "title": "Χάθηκε η σύνδεση",
     "subtitle": "Επανασύνδεση...",
-    "hint": "Please check your internet connection"
+    "hint": "Παρακαλώ ελέγξτε τη σύνδεσή σας στο διαδίκτυο"
   },
   "drawClaim": {
     "fiftyMoveTitle": "Κανόνας 50 κινήσεων",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "Η θέση επαναλήφθηκε 3 φορές",
     "threefoldTooltip": "Το παιχνίδι μπορεί να κηρυχθεί ισοπαλία όταν η ίδια θέση εμφανίζεται τρεις φορές με τον ίδιο παίκτη να κινείται.",
     "claimDraw": "Διεκδίκηση ισοπαλίας"
+  },
+  "multiplayer": {
+    "opponentReconnected": "Ο αντίπαλος επανασυνδέθηκε"
   }
 }

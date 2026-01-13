@@ -145,11 +145,11 @@
     "playingAsBlack": "Playing as Black",
     "matchmakingHint": "Hľadáme hráča podobnej úrovne",
     "cancel": "Cancel",
-    "rematchRequest": "Rematch?",
-    "rematchSent": "Rematch request sent",
-    "rematchReceived": "Opponent wants a rematch!",
-    "rematchAccepted": "Rematch accepted!",
-    "rematchDeclined": "Rematch declined",
+    "rematchRequest": "Odveta?",
+    "rematchSent": "Žiadosť o odvetu odoslaná",
+    "rematchReceived": "Súper chce odvetu!",
+    "rematchAccepted": "Odveta prijatá!",
+    "rematchDeclined": "Odveta odmietnutá",
     "opponentOffline": "Opponent is offline",
     "opponentInMatch": "Opponent joined another match",
     "rematchTimeout": "Rematch request timed out",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "Pozícia sa opakovala 3-krát",
     "threefoldTooltip": "Hra môže byť vyhlásená za remízu, keď sa rovnaká pozícia vyskytne trikrát s rovnakým hráčom na ťahu.",
     "claimDraw": "Reklamovať remízu"
+  },
+  "multiplayer": {
+    "opponentReconnected": "Súper sa znovu pripojil"
   }
 }

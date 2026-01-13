@@ -210,7 +210,7 @@
   "reconnecting": {
     "title": "연결 끊김",
     "subtitle": "재연결 중...",
-    "hint": "Please check your internet connection"
+    "hint": "인터넷 연결을 확인해주세요"
   },
   "drawClaim": {
     "fiftyMoveTitle": "50수 규칙",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "같은 국면이 3회 반복",
     "threefoldTooltip": "같은 국면이 같은 플레이어 차례에 세 번 발생하면 무승부를 선언할 수 있습니다.",
     "claimDraw": "무승부 선언"
+  },
+  "multiplayer": {
+    "opponentReconnected": "상대가 다시 연결되었습니다"
   }
 }

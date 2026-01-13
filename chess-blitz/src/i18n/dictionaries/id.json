@@ -145,11 +145,11 @@
     "playingAsBlack": "Playing as Black",
     "matchmakingHint": "Mencocokkan dengan pemain dengan level serupa",
     "cancel": "Cancel",
-    "rematchRequest": "Rematch?",
-    "rematchSent": "Rematch request sent",
-    "rematchReceived": "Opponent wants a rematch!",
-    "rematchAccepted": "Rematch accepted!",
-    "rematchDeclined": "Rematch declined",
+    "rematchRequest": "Tanding ulang?",
+    "rematchSent": "Permintaan tanding ulang terkirim",
+    "rematchReceived": "Lawan ingin tanding ulang!",
+    "rematchAccepted": "Tanding ulang diterima!",
+    "rematchDeclined": "Tanding ulang ditolak",
     "opponentOffline": "Opponent is offline",
     "opponentInMatch": "Opponent joined another match",
     "rematchTimeout": "Rematch request timed out",
@@ -210,7 +210,7 @@
   "reconnecting": {
     "title": "Koneksi Terputus",
     "subtitle": "Menghubungkan kembali...",
-    "hint": "Please check your internet connection"
+    "hint": "Silakan periksa koneksi internet Anda"
   },
   "drawClaim": {
     "fiftyMoveTitle": "Aturan 50 Langkah",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "Posisi terulang 3 kali",
     "threefoldTooltip": "Permainan dapat dinyatakan seri ketika posisi yang sama terjadi tiga kali dengan pemain yang sama untuk bergerak.",
     "claimDraw": "Klaim Seri"
+  },
+  "multiplayer": {
+    "opponentReconnected": "Lawan telah terhubung kembali"
   }
 }

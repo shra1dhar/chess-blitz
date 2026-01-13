@@ -210,7 +210,7 @@
   "reconnecting": {
     "title": "Conexão perdida",
     "subtitle": "Reconectando...",
-    "hint": "Please check your internet connection"
+    "hint": "Por favor, verifique sua conexão com a internet"
   },
   "drawClaim": {
     "fiftyMoveTitle": "Regra dos 50 movimentos",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "Posição repetida 3 vezes",
     "threefoldTooltip": "A partida pode ser declarada empate quando a mesma posição ocorre três vezes com o mesmo jogador para mover.",
     "claimDraw": "Reivindicar empate"
+  },
+  "multiplayer": {
+    "opponentReconnected": "O oponente reconectou"
   }
 }

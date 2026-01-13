@@ -210,7 +210,7 @@
   "reconnecting": {
     "title": "Verbindung verloren",
     "subtitle": "Verbinde erneut...",
-    "hint": "Please check your internet connection"
+    "hint": "Bitte überprüfen Sie Ihre Internetverbindung"
   },
   "drawClaim": {
     "fiftyMoveTitle": "50-Züge-Regel",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "Stellung 3 Mal wiederholt",
     "threefoldTooltip": "Das Spiel kann als Remis erklärt werden, wenn dieselbe Stellung dreimal mit demselben Spieler am Zug auftritt.",
     "claimDraw": "Remis beanspruchen"
+  },
+  "multiplayer": {
+    "opponentReconnected": "Gegner hat sich wieder verbunden"
   }
 }

@@ -145,11 +145,11 @@
     "playingAsBlack": "Playing as Black",
     "matchmakingHint": "Matching you with a player of similar skill",
     "cancel": "Cancel",
-    "rematchRequest": "Rematch?",
-    "rematchSent": "Rematch request sent",
-    "rematchReceived": "Opponent wants a rematch!",
-    "rematchAccepted": "Rematch accepted!",
-    "rematchDeclined": "Rematch declined",
+    "rematchRequest": "Реванш?",
+    "rematchSent": "Запит на реванш надіслано",
+    "rematchReceived": "Суперник хоче реванш!",
+    "rematchAccepted": "Реванш прийнято!",
+    "rematchDeclined": "Реванш відхилено",
     "opponentOffline": "Opponent is offline",
     "opponentInMatch": "Opponent joined another match",
     "rematchTimeout": "Rematch request timed out",
@@ -210,7 +210,7 @@
   "reconnecting": {
     "title": "З'єднання втрачено",
     "subtitle": "Повторне підключення...",
-    "hint": "Please check your internet connection"
+    "hint": "Будь ласка, перевірте з'єднання з інтернетом"
   },
   "drawClaim": {
     "fiftyMoveTitle": "Правило 50 ходів",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "Позиція повторилася 3 рази",
     "threefoldTooltip": "Гру можна оголосити нічиєю, коли та сама позиція виникає тричі з тим самим гравцем на ході.",
     "claimDraw": "Вимагати нічию"
+  },
+  "multiplayer": {
+    "opponentReconnected": "Суперник перепідключився"
   }
 }

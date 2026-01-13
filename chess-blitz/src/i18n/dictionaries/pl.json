@@ -145,11 +145,11 @@
     "playingAsBlack": "Playing as Black",
     "matchmakingHint": "Dopasowywanie gracza o podobnym poziomie",
     "cancel": "Cancel",
-    "rematchRequest": "Rematch?",
-    "rematchSent": "Rematch request sent",
-    "rematchReceived": "Opponent wants a rematch!",
-    "rematchAccepted": "Rematch accepted!",
-    "rematchDeclined": "Rematch declined",
+    "rematchRequest": "Rewanż?",
+    "rematchSent": "Prośba o rewanż wysłana",
+    "rematchReceived": "Przeciwnik chce rewanżu!",
+    "rematchAccepted": "Rewanż zaakceptowany!",
+    "rematchDeclined": "Rewanż odrzucony",
     "opponentOffline": "Opponent is offline",
     "opponentInMatch": "Opponent joined another match",
     "rematchTimeout": "Rematch request timed out",
@@ -210,7 +210,7 @@
   "reconnecting": {
     "title": "Połączenie utracone",
     "subtitle": "Ponowne łączenie...",
-    "hint": "Please check your internet connection"
+    "hint": "Sprawdź swoje połączenie internetowe"
   },
   "drawClaim": {
     "fiftyMoveTitle": "Zasada 50 posunięć",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "Pozycja powtórzona 3 razy",
     "threefoldTooltip": "Gra może być uznana za remis, gdy ta sama pozycja wystąpi trzy razy z tym samym graczem do ruchu.",
     "claimDraw": "Żądaj remisu"
+  },
+  "multiplayer": {
+    "opponentReconnected": "Przeciwnik połączył się ponownie"
   }
 }

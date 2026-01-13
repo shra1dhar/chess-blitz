@@ -220,5 +220,8 @@
     "threefoldSubtitle": "Position repeated 3 times",
     "threefoldTooltip": "The game can be declared a draw when the same position occurs three times with the same player to move.",
     "claimDraw": "Claim Draw"
+  },
+  "multiplayer": {
+    "opponentReconnected": "Opponent reconnected"
   }
 }

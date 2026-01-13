@@ -145,11 +145,11 @@
     "playingAsBlack": "Playing as Black",
     "matchmakingHint": "Matching you with a player of similar skill",
     "cancel": "Cancel",
-    "rematchRequest": "Rematch?",
-    "rematchSent": "Rematch request sent",
-    "rematchReceived": "Opponent wants a rematch!",
-    "rematchAccepted": "Rematch accepted!",
-    "rematchDeclined": "Rematch declined",
+    "rematchRequest": "Rövanş?",
+    "rematchSent": "Rövanş isteği gönderildi",
+    "rematchReceived": "Rakip rövanş istiyor!",
+    "rematchAccepted": "Rövanş kabul edildi!",
+    "rematchDeclined": "Rövanş reddedildi",
     "opponentOffline": "Opponent is offline",
     "opponentInMatch": "Opponent joined another match",
     "rematchTimeout": "Rematch request timed out",
@@ -210,7 +210,7 @@
   "reconnecting": {
     "title": "Bağlantı kesildi",
     "subtitle": "Yeniden bağlanılıyor...",
-    "hint": "Please check your internet connection"
+    "hint": "Lütfen internet bağlantınızı kontrol edin"
   },
   "drawClaim": {
     "fiftyMoveTitle": "50 hamle kuralı",
@@ -220,5 +220,8 @@
     "threefoldSubtitle": "Pozisyon 3 kez tekrarlandı",
     "threefoldTooltip": "Aynı pozisyon aynı oyuncunun hamle sırası ile üç kez oluştuğunda oyun berabere ilan edilebilir.",
     "claimDraw": "Beraberlik talep et"
+  },
+  "multiplayer": {
+    "opponentReconnected": "Rakip yeniden bağlandı"
   }
 }
