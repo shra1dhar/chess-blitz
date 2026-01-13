@@ -6,7 +6,7 @@ import OfflineIndicator from '@/components/OfflineIndicator/OfflineIndicator';
 import { JsonLd } from '@/components/JsonLd';
 import { getDictionary } from '@/i18n/dictionaries';
 import { locales, type Locale } from '@/i18n/config';
-import { notoSerifDisplay } from '@/styles/fonts';
+import { notoSerifLatin } from '@/styles/fonts/latin';
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || 'https://chess-blitz.zoony.io';
@@ -81,7 +81,7 @@ export default async function EnglishLayout({
   const dict = await getDictionary('en');
 
   return (
-    <html lang="en" dir="ltr" data-theme="wood" className={notoSerifDisplay.variable}>
+    <html lang="en" dir="ltr" data-theme="wood" className={notoSerifLatin.variable}>
       <head>
         <meta name="google" content="notranslate" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

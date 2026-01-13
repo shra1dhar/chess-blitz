@@ -15,6 +15,22 @@ export const defaultLocale: Locale = 'en';
 
 export const rtlLocales: Locale[] = ['ar', 'he'];
 
+// Locale groupings by script type (for font optimization)
+export const localesByScript = {
+  latin: ['id', 'ms', 'tl'] as const,
+  latinExt: ['cs', 'da', 'de', 'es', 'fr', 'it', 'hu', 'nl', 'no', 'uz', 'pl', 'pt', 'ro', 'sk', 'fi', 'sv', 'tr'] as const,
+  cyrillic: ['ru', 'uk', 'bg', 'sr'] as const,
+  greek: ['el'] as const,
+  arabic: ['ar'] as const,
+  hebrew: ['he'] as const,
+  devanagari: ['hi'] as const,
+  bengali: ['bn'] as const,
+  thai: ['th'] as const,
+  korean: ['ko'] as const,
+  japanese: ['ja'] as const,
+  chinese: ['zh'] as const,
+} as const;
+
 // Display names for each locale (in their native language)
 export const localeNames: Record<Locale, string> = {
   en: 'English',

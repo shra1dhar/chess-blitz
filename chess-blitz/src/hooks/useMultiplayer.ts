@@ -861,18 +861,18 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
       // Store the tournament type so we can send join_queue after connection
       pendingJoinQueueRef.current = tournament;
 
-      // Start 7-second timeout for bot fallback
+      // Start 12-second timeout for bot fallback
       if (queueTimeoutRef.current) {
         clearTimeout(queueTimeoutRef.current);
       }
       queueTimeoutRef.current = setTimeout(() => {
         // Only trigger fallback if still in queue
         if (joinQueueTournamentRef.current) {
-          console.log('[Multiplayer] Queue timeout (7s), falling back to bot');
+          console.log('[Multiplayer] Queue timeout (12s), falling back to bot');
           createLocalBotMatch(joinQueueTournamentRef.current);
           setWsUrl(null);
         }
-      }, 7000);
+      }, 12000);
 
       const url = getMatchmakingUrl(tournament);
       if (url) {

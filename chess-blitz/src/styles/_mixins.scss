@@ -217,6 +217,14 @@
   }
 }
 
+// Extra-large desktop with limited height (1280px+ width, ≤900px height)
+// Common scenario: 1280x800 laptops, 1920x1080 with browser chrome
+@mixin extra-large-desktop-limited-height {
+  @media screen and (min-width: $breakpoint-xl) and (max-height: #{$breakpoint-height-xl - 1px}) {
+    @content;
+  }
+}
+
 @mixin ultra-wide {
   @media screen and (min-width: $breakpoint-2xl) {
     @content;

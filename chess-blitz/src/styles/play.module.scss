@@ -114,6 +114,11 @@
     padding: $spacing-lg;
   }
 
+  // Extra-large desktop with limited height - reduce padding
+  @include extra-large-desktop-limited-height {
+    padding: $spacing-md;
+  }
+
   // Reduced padding for constrained heights
   @include constrained-height {
     padding: $spacing-sm;
@@ -189,6 +194,11 @@
     max-width: 680px;
   }
 
+  // Extra-large desktop with limited height - reduce board to fit
+  @include extra-large-desktop-limited-height {
+    max-width: 520px;
+  }
+
   @include ultra-wide {
     max-width: 880px;
   }
@@ -256,6 +266,16 @@
 
     &:last-of-type {
       margin-top: $spacing-md;
+    }
+  }
+
+  // Extra-large desktop with limited height - compact player info
+  @include extra-large-desktop-limited-height {
+    padding: $spacing-sm $spacing-md;
+    margin-bottom: $spacing-sm;
+
+    &:last-of-type {
+      margin-top: $spacing-sm;
     }
   }
 
@@ -349,6 +369,23 @@
     }
   }
 
+  // Extra-large desktop with limited height - smaller avatars
+  @include extra-large-desktop-limited-height {
+    width: 40px;
+    height: 40px;
+    margin-right: $spacing-sm;
+
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: $spacing-sm;
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
   @include ultra-wide {
     width: 64px;
     height: 64px;
@@ -399,6 +436,10 @@
     font-size: $font-size-lg;
   }
 
+  @include extra-large-desktop-limited-height {
+    font-size: $font-size-base;
+  }
+
   @include ultra-wide {
     font-size: $font-size-xl;
   }
@@ -418,6 +459,10 @@
 
   @include extra-large-desktop {
     font-size: $font-size-base;
+  }
+
+  @include extra-large-desktop-limited-height {
+    font-size: $font-size-sm;
   }
 
   @include ultra-wide {
@@ -600,7 +645,8 @@
   -ms-flex-negative: 0;
   flex-shrink: 0;
 
-  @include desktop {
+  // Hide when sidebar becomes visible (900px+)
+  @media screen and (min-width: 900px) {
     display: none;
   }
 

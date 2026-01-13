@@ -13,6 +13,8 @@ export async function GET(
     short_name: dict.appName,
     description: dict.meta.description,
     start_url: `/${lang}`,
+    scope: `/${lang}`,
+    lang: lang,
     display: 'standalone',
     background_color: '#f8f6f3',
     theme_color: '#b58863',
@@ -40,7 +42,37 @@ export async function GET(
       {
         src: '/chess-icon-1920x1080.jpg',
         sizes: '1920x1080',
-        type: 'image/jpg',
+        type: 'image/jpeg',
+      },
+    ],
+    screenshots: [
+      {
+        src: '/screenshots/home-mobile.png',
+        sizes: '1080x1920',
+        type: 'image/png',
+        form_factor: 'narrow',
+        label: 'Chess Blitz home screen',
+      },
+      {
+        src: '/screenshots/game-mobile.png',
+        sizes: '1080x1920',
+        type: 'image/png',
+        form_factor: 'narrow',
+        label: 'Chess game in progress',
+      },
+      {
+        src: '/screenshots/home-desktop.png',
+        sizes: '1920x1080',
+        type: 'image/png',
+        form_factor: 'wide',
+        label: 'Chess Blitz home screen',
+      },
+      {
+        src: '/screenshots/game-desktop.png',
+        sizes: '1920x1080',
+        type: 'image/png',
+        form_factor: 'wide',
+        label: 'Chess game in progress',
       },
     ],
   };

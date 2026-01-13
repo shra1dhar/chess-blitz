@@ -1,117 +1,51 @@
-import {
-  Noto_Serif_Display,
-  Noto_Naskh_Arabic,
-  Noto_Serif_Hebrew,
-  Noto_Serif_Devanagari,
-  Noto_Serif_Bengali,
-  Noto_Serif_Thai,
-  Noto_Serif_KR,
-  Noto_Serif_JP,
-  Noto_Serif_SC,
-} from 'next/font/google';
 import type { Locale } from '@/i18n/config';
 
-// Latin, Cyrillic, Greek scripts
-const notoSerifDisplay = Noto_Serif_Display({
-  subsets: ['latin', 'latin-ext', 'cyrillic', 'cyrillic-ext', 'greek', 'greek-ext', 'vietnamese'],
-  variable: '--font-display',
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-});
-
-// Arabic script
-const notoNaskhArabic = Noto_Naskh_Arabic({
-  subsets: ['arabic'],
-  variable: '--font-display',
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-});
-
-// Hebrew script
-const notoSerifHebrew = Noto_Serif_Hebrew({
-  subsets: ['hebrew'],
-  variable: '--font-display',
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-});
-
-// Devanagari script (Hindi)
-const notoSerifDevanagari = Noto_Serif_Devanagari({
-  subsets: ['devanagari'],
-  variable: '--font-display',
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-});
-
-// Bengali script
-const notoSerifBengali = Noto_Serif_Bengali({
-  subsets: ['bengali'],
-  variable: '--font-display',
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-});
-
-// Thai script
-const notoSerifThai = Noto_Serif_Thai({
-  subsets: ['thai'],
-  variable: '--font-display',
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-});
-
-// Korean script
-const notoSerifKR = Noto_Serif_KR({
-  preload: false,
-  variable: '--font-display',
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-});
-
-// Japanese script
-const notoSerifJP = Noto_Serif_JP({
-  preload: false,
-  variable: '--font-display',
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-});
-
-// Chinese Simplified script
-const notoSerifSC = Noto_Serif_SC({
-  preload: false,
-  variable: '--font-display',
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-});
+// Import fonts from separate files (each file only loads when imported)
+import { notoSerifLatin } from './fonts/latin';
+import { notoSerifLatinExt } from './fonts/latin-ext';
+import { notoSerifCyrillic } from './fonts/cyrillic';
+import { notoSerifGreek } from './fonts/greek';
+import { notoNaskhArabic } from './fonts/arabic';
+import { notoSerifHebrew } from './fonts/hebrew';
+import { notoSerifDevanagari } from './fonts/devanagari';
+import { notoSerifBengali } from './fonts/bengali';
+import { notoSerifThai } from './fonts/thai';
+import { notoSerifKR } from './fonts/korean';
+import { notoSerifJP } from './fonts/japanese';
+import { notoSerifSC } from './fonts/chinese';
 
 // Font map by locale
 const fontMap = {
-  // Latin script (includes Cyrillic, Greek)
-  en: notoSerifDisplay,
-  id: notoSerifDisplay,
-  ms: notoSerifDisplay,
-  cs: notoSerifDisplay,
-  da: notoSerifDisplay,
-  de: notoSerifDisplay,
-  es: notoSerifDisplay,
-  fr: notoSerifDisplay,
-  it: notoSerifDisplay,
-  hu: notoSerifDisplay,
-  nl: notoSerifDisplay,
-  no: notoSerifDisplay,
-  uz: notoSerifDisplay,
-  pl: notoSerifDisplay,
-  pt: notoSerifDisplay,
-  ro: notoSerifDisplay,
-  sk: notoSerifDisplay,
-  fi: notoSerifDisplay,
-  sv: notoSerifDisplay,
-  tl: notoSerifDisplay,
-  tr: notoSerifDisplay,
-  el: notoSerifDisplay, // Greek
-  ru: notoSerifDisplay, // Cyrillic
-  uk: notoSerifDisplay, // Cyrillic
-  bg: notoSerifDisplay, // Cyrillic
-  sr: notoSerifDisplay, // Cyrillic
+  // Latin only (basic ASCII)
+  en: notoSerifLatin,
+  id: notoSerifLatin,
+  ms: notoSerifLatin,
+  tl: notoSerifLatin,
+  // Latin extended (languages with diacritics)
+  cs: notoSerifLatinExt,
+  da: notoSerifLatinExt,
+  de: notoSerifLatinExt,
+  es: notoSerifLatinExt,
+  fr: notoSerifLatinExt,
+  it: notoSerifLatinExt,
+  hu: notoSerifLatinExt,
+  nl: notoSerifLatinExt,
+  no: notoSerifLatinExt,
+  uz: notoSerifLatinExt,
+  pl: notoSerifLatinExt,
+  pt: notoSerifLatinExt,
+  ro: notoSerifLatinExt,
+  sk: notoSerifLatinExt,
+  fi: notoSerifLatinExt,
+  sv: notoSerifLatinExt,
+  tr: notoSerifLatinExt,
+  // Greek
+  el: notoSerifGreek,
+  // Cyrillic
+  ru: notoSerifCyrillic,
+  uk: notoSerifCyrillic,
+  bg: notoSerifCyrillic,
+  sr: notoSerifCyrillic,
   // Non-Latin scripts
   ar: notoNaskhArabic,
   he: notoSerifHebrew,
@@ -124,8 +58,8 @@ const fontMap = {
 } as const;
 
 export function getDisplayFont(locale: Locale) {
-  return fontMap[locale] || notoSerifDisplay;
+  return fontMap[locale] || notoSerifLatin;
 }
 
-// Export for English layout (always Latin)
-export { notoSerifDisplay };
+// Re-export for backwards compatibility
+export { notoSerifLatin };
