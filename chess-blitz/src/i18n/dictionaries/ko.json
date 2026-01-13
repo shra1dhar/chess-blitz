@@ -113,9 +113,9 @@
     "rememberPreference": "설정 기억"
   },
   "firstMoveWarning": {
-    "yourMove": "Your move.",
-    "opponentMove": "Waiting for opponent...",
-    "autoAbort": "Will auto-abort in 0:{seconds}"
+    "yourMove": "당신 차례입니다.",
+    "opponentMove": "상대 대기 중...",
+    "autoAbort": "0:{seconds} 후 자동 취소"
   },
   "tournament": {
     "back": "뒤로",

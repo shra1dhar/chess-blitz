@@ -113,9 +113,9 @@
     "rememberPreference": "זכור את ההעדפה שלי"
   },
   "firstMoveWarning": {
-    "yourMove": "Your move.",
-    "opponentMove": "Waiting for opponent...",
-    "autoAbort": "Will auto-abort in 0:{seconds}"
+    "yourMove": "תורך.",
+    "opponentMove": "ממתין ליריב...",
+    "autoAbort": "יבוטל אוטומטית בעוד 0:{seconds}"
   },
   "tournament": {
     "back": "חזרה",

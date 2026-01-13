@@ -113,9 +113,9 @@
     "rememberPreference": "记住我的选择"
   },
   "firstMoveWarning": {
-    "yourMove": "Your move.",
-    "opponentMove": "Waiting for opponent...",
-    "autoAbort": "Will auto-abort in 0:{seconds}"
+    "yourMove": "轮到你了。",
+    "opponentMove": "等待对手...",
+    "autoAbort": "将在0:{seconds}后自动取消"
   },
   "tournament": {
     "back": "返回",

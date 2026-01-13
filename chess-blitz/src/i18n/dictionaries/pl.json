@@ -113,9 +113,9 @@
     "rememberPreference": "Zapamiętaj moje ustawienie"
   },
   "firstMoveWarning": {
-    "yourMove": "Your move.",
-    "opponentMove": "Waiting for opponent...",
-    "autoAbort": "Will auto-abort in 0:{seconds}"
+    "yourMove": "Twój ruch.",
+    "opponentMove": "Czekanie na przeciwnika...",
+    "autoAbort": "Automatyczne przerwanie za 0:{seconds}"
   },
   "tournament": {
     "back": "Wstecz",
@@ -136,26 +136,26 @@
     "findingOpponent": "Szukanie przeciwnika",
     "position": "Pozycja",
     "cancelSearch": "Anuluj wyszukiwanie",
-    "matchFound": "Match Found!",
+    "matchFound": "Mecz znaleziony!",
     "connected": "Połączono",
     "connecting": "Łączenie...",
     "offline": "Offline",
-    "preparingGame": "Preparing your game...",
-    "playingAsWhite": "Playing as White",
-    "playingAsBlack": "Playing as Black",
+    "preparingGame": "Przygotowuję twoją grę...",
+    "playingAsWhite": "Grasz białymi",
+    "playingAsBlack": "Grasz czarnymi",
     "matchmakingHint": "Dopasowywanie gracza o podobnym poziomie",
-    "cancel": "Cancel",
+    "cancel": "Anuluj",
     "rematchRequest": "Rewanż?",
     "rematchSent": "Prośba o rewanż wysłana",
     "rematchReceived": "Przeciwnik chce rewanżu!",
     "rematchAccepted": "Rewanż zaakceptowany!",
     "rematchDeclined": "Rewanż odrzucony",
-    "opponentOffline": "Opponent is offline",
-    "opponentInMatch": "Opponent joined another match",
-    "rematchTimeout": "Rematch request timed out",
-    "accept": "Accept",
-    "decline": "Decline",
-    "waitingForOpponent": "Waiting for opponent..."
+    "opponentOffline": "Przeciwnik jest offline",
+    "opponentInMatch": "Przeciwnik dołączył do innego meczu",
+    "rematchTimeout": "Prośba o rewanż wygasła",
+    "accept": "Akceptuj",
+    "decline": "Odrzuć",
+    "waitingForOpponent": "Czekanie na przeciwnika..."
   },
   "draw": {
     "offerDeclined": "Twoja oferta remisu została odrzucona",

@@ -113,9 +113,9 @@
     "rememberPreference": "मेरी पसंद याद रखें"
   },
   "firstMoveWarning": {
-    "yourMove": "Your move.",
-    "opponentMove": "Waiting for opponent...",
-    "autoAbort": "Will auto-abort in 0:{seconds}"
+    "yourMove": "आपकी चाल।",
+    "opponentMove": "प्रतिद्वंद्वी की प्रतीक्षा...",
+    "autoAbort": "0:{seconds} में स्वतः रद्द हो जाएगा"
   },
   "tournament": {
     "back": "वापस",
@@ -136,26 +136,26 @@
     "findingOpponent": "प्रतिद्वंद्वी ढूंढ रहे हैं",
     "position": "स्थिति",
     "cancelSearch": "खोज रद्द करें",
-    "matchFound": "Match Found!",
+    "matchFound": "मैच मिला!",
     "connected": "कनेक्टेड",
     "connecting": "कनेक्ट हो रहा है...",
     "offline": "ऑफ़लाइन",
-    "preparingGame": "Preparing your game...",
-    "playingAsWhite": "Playing as White",
-    "playingAsBlack": "Playing as Black",
+    "preparingGame": "आपका गेम तैयार हो रहा है...",
+    "playingAsWhite": "सफेद से खेल रहे हैं",
+    "playingAsBlack": "काले से खेल रहे हैं",
     "matchmakingHint": "समान कौशल के खिलाड़ी के साथ मिलान हो रहा है",
-    "cancel": "Cancel",
+    "cancel": "रद्द करें",
     "rematchRequest": "रीमैच?",
     "rematchSent": "रीमैच अनुरोध भेजा गया",
     "rematchReceived": "प्रतिद्वंद्वी रीमैच चाहता है!",
     "rematchAccepted": "रीमैच स्वीकार!",
     "rematchDeclined": "रीमैच अस्वीकार",
-    "opponentOffline": "Opponent is offline",
-    "opponentInMatch": "Opponent joined another match",
-    "rematchTimeout": "Rematch request timed out",
-    "accept": "Accept",
-    "decline": "Decline",
-    "waitingForOpponent": "Waiting for opponent..."
+    "opponentOffline": "प्रतिद्वंद्वी ऑफ़लाइन है",
+    "opponentInMatch": "प्रतिद्वंद्वी दूसरे मैच में शामिल हो गया",
+    "rematchTimeout": "रीमैच अनुरोध समय समाप्त",
+    "accept": "स्वीकार",
+    "decline": "अस्वीकार",
+    "waitingForOpponent": "प्रतिद्वंद्वी की प्रतीक्षा..."
   },
   "draw": {
     "offerDeclined": "आपका ड्रॉ ऑफर अस्वीकार कर दिया गया",

@@ -113,9 +113,9 @@
     "rememberPreference": "Запомнить выбор"
   },
   "firstMoveWarning": {
-    "yourMove": "Your move.",
-    "opponentMove": "Waiting for opponent...",
-    "autoAbort": "Will auto-abort in 0:{seconds}"
+    "yourMove": "Ваш ход.",
+    "opponentMove": "Ожидание соперника...",
+    "autoAbort": "Автоотмена через 0:{seconds}"
   },
   "tournament": {
     "back": "Назад",

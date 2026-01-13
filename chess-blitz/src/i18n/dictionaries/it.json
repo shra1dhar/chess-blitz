@@ -113,9 +113,9 @@
     "rememberPreference": "Ricorda la mia preferenza"
   },
   "firstMoveWarning": {
-    "yourMove": "Your move.",
-    "opponentMove": "Waiting for opponent...",
-    "autoAbort": "Will auto-abort in 0:{seconds}"
+    "yourMove": "Tocca a te.",
+    "opponentMove": "In attesa dell'avversario...",
+    "autoAbort": "Abbandono automatico tra 0:{seconds}"
   },
   "tournament": {
     "back": "Indietro",

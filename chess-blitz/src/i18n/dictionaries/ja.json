@@ -113,9 +113,9 @@
     "rememberPreference": "設定を記憶"
   },
   "firstMoveWarning": {
-    "yourMove": "Your move.",
-    "opponentMove": "Waiting for opponent...",
-    "autoAbort": "Will auto-abort in 0:{seconds}"
+    "yourMove": "あなたの番です。",
+    "opponentMove": "相手を待っています...",
+    "autoAbort": "0:{seconds}後に自動中断"
   },
   "tournament": {
     "back": "戻る",

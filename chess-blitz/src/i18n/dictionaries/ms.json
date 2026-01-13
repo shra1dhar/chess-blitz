@@ -113,9 +113,9 @@
     "rememberPreference": "Ingat pilihan saya"
   },
   "firstMoveWarning": {
-    "yourMove": "Your move.",
-    "opponentMove": "Waiting for opponent...",
-    "autoAbort": "Will auto-abort in 0:{seconds}"
+    "yourMove": "Giliran anda.",
+    "opponentMove": "Menunggu lawan...",
+    "autoAbort": "Akan dibatalkan automatik dalam 0:{seconds}"
   },
   "tournament": {
     "back": "Kembali",
@@ -136,26 +136,26 @@
     "findingOpponent": "Mencari lawan",
     "position": "Kedudukan",
     "cancelSearch": "Batal carian",
-    "matchFound": "Match Found!",
+    "matchFound": "Perlawanan Dijumpai!",
     "connected": "Bersambung",
     "connecting": "Menyambung...",
     "offline": "Luar talian",
-    "preparingGame": "Preparing your game...",
-    "playingAsWhite": "Playing as White",
-    "playingAsBlack": "Playing as Black",
+    "preparingGame": "Menyediakan permainan anda...",
+    "playingAsWhite": "Bermain sebagai Putih",
+    "playingAsBlack": "Bermain sebagai Hitam",
     "matchmakingHint": "Memadankan anda dengan pemain tahap yang sama",
-    "cancel": "Cancel",
+    "cancel": "Batal",
     "rematchRequest": "Perlawanan semula?",
     "rematchSent": "Permintaan perlawanan semula dihantar",
     "rematchReceived": "Lawan mahu perlawanan semula!",
     "rematchAccepted": "Perlawanan semula diterima!",
     "rematchDeclined": "Perlawanan semula ditolak",
-    "opponentOffline": "Opponent is offline",
-    "opponentInMatch": "Opponent joined another match",
-    "rematchTimeout": "Rematch request timed out",
-    "accept": "Accept",
-    "decline": "Decline",
-    "waitingForOpponent": "Waiting for opponent..."
+    "opponentOffline": "Lawan sedang luar talian",
+    "opponentInMatch": "Lawan menyertai perlawanan lain",
+    "rematchTimeout": "Permintaan perlawanan semula tamat tempoh",
+    "accept": "Terima",
+    "decline": "Tolak",
+    "waitingForOpponent": "Menunggu lawan..."
   },
   "draw": {
     "offerDeclined": "Tawaran seri anda ditolak",

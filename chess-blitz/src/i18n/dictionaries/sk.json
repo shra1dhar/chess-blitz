@@ -113,9 +113,9 @@
     "rememberPreference": "Zapamätať moju voľbu"
   },
   "firstMoveWarning": {
-    "yourMove": "Your move.",
-    "opponentMove": "Waiting for opponent...",
-    "autoAbort": "Will auto-abort in 0:{seconds}"
+    "yourMove": "Tvoj ťah.",
+    "opponentMove": "Čakám na súpera...",
+    "autoAbort": "Automatické zrušenie o 0:{seconds}"
   },
   "tournament": {
     "back": "Späť",
@@ -136,26 +136,26 @@
     "findingOpponent": "Hľadanie súpera",
     "position": "Pozícia",
     "cancelSearch": "Zrušiť hľadanie",
-    "matchFound": "Match Found!",
+    "matchFound": "Zápas nájdený!",
     "connected": "Pripojené",
     "connecting": "Pripájam...",
     "offline": "Offline",
-    "preparingGame": "Preparing your game...",
-    "playingAsWhite": "Playing as White",
-    "playingAsBlack": "Playing as Black",
+    "preparingGame": "Pripravujem tvoju hru...",
+    "playingAsWhite": "Hráš za bielych",
+    "playingAsBlack": "Hráš za čiernych",
     "matchmakingHint": "Hľadáme hráča podobnej úrovne",
-    "cancel": "Cancel",
+    "cancel": "Zrušiť",
     "rematchRequest": "Odveta?",
     "rematchSent": "Žiadosť o odvetu odoslaná",
     "rematchReceived": "Súper chce odvetu!",
     "rematchAccepted": "Odveta prijatá!",
     "rematchDeclined": "Odveta odmietnutá",
-    "opponentOffline": "Opponent is offline",
-    "opponentInMatch": "Opponent joined another match",
-    "rematchTimeout": "Rematch request timed out",
-    "accept": "Accept",
-    "decline": "Decline",
-    "waitingForOpponent": "Waiting for opponent..."
+    "opponentOffline": "Súper je offline",
+    "opponentInMatch": "Súper sa pripojil k inému zápasu",
+    "rematchTimeout": "Žiadosť o odvetu vypršala",
+    "accept": "Prijať",
+    "decline": "Odmietnuť",
+    "waitingForOpponent": "Čakám na súpera..."
   },
   "draw": {
     "offerDeclined": "Vaša ponuka remízy bola odmietnutá",
