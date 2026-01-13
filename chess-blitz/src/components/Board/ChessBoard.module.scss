@@ -34,6 +34,12 @@
   @include ultra-wide-limited-height {
     max-width: 600px;
   }
+
+  // Isolate board from RTL to prevent animation direction issues
+  // react-chessboard uses LTR coordinate system internally
+  [dir="rtl"] & {
+    direction: ltr;
+  }
 }
 
 $aspect-ratio-value: string.unquote("1 / 1");
