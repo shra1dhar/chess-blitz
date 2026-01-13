@@ -25,18 +25,21 @@
     "playNow": "今すぐプレイ"
   },
   "difficulty": {
+    "beginner": "初心者",
+    "beginnerDesc": "初心者に最適",
+    "beginnerElo": "400-600",
     "easy": "簡単",
-    "easyDesc": "初心者に最適",
-    "easyElo": "400-700",
+    "easyDesc": "カジュアルプレイ",
+    "easyElo": "600-900",
     "medium": "普通",
     "mediumDesc": "バランスの取れた挑戦",
     "mediumElo": "900-1200",
     "hard": "難しい",
     "hardDesc": "強い戦術的プレイ",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "エキスパート",
     "expertDesc": "ほぼ完璧なプレイ",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "設定",

@@ -25,18 +25,21 @@
     "playNow": "Spill nå"
   },
   "difficulty": {
+    "beginner": "Nybegynner",
+    "beginnerDesc": "Perfekt for nybegynnere",
+    "beginnerElo": "400-600",
     "easy": "Lett",
-    "easyDesc": "Perfekt for nybegynnere",
-    "easyElo": "400-700",
+    "easyDesc": "Avslappet spill",
+    "easyElo": "600-900",
     "medium": "Middels",
     "mediumDesc": "Balansert utfordring",
     "mediumElo": "900-1200",
     "hard": "Vanskelig",
     "hardDesc": "Sterkt taktisk spill",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "Ekspert",
     "expertDesc": "Nesten perfekt spill",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "Innstillinger",

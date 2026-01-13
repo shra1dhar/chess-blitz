@@ -25,18 +25,21 @@
     "playNow": "Graj teraz"
   },
   "difficulty": {
+    "beginner": "Początkujący",
+    "beginnerDesc": "Idealny dla początkujących",
+    "beginnerElo": "400-600",
     "easy": "Łatwy",
-    "easyDesc": "Idealny dla początkujących",
-    "easyElo": "400-700",
+    "easyDesc": "Swobodna gra",
+    "easyElo": "600-900",
     "medium": "Średni",
     "mediumDesc": "Zrównoważone wyzwanie",
     "mediumElo": "900-1200",
     "hard": "Trudny",
     "hardDesc": "Silna gra taktyczna",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "Ekspert",
     "expertDesc": "Prawie idealna gra",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "Ustawienia",

@@ -25,18 +25,21 @@
     "playNow": "Pelaa nyt"
   },
   "difficulty": {
+    "beginner": "Aloittelija",
+    "beginnerDesc": "Täydellinen aloittelijoille",
+    "beginnerElo": "400-600",
     "easy": "Helppo",
-    "easyDesc": "Täydellinen aloittelijoille",
-    "easyElo": "400-700",
+    "easyDesc": "Rento peli",
+    "easyElo": "600-900",
     "medium": "Keskitaso",
     "mediumDesc": "Tasapainoinen haaste",
     "mediumElo": "900-1200",
     "hard": "Vaikea",
     "hardDesc": "Vahva taktinen peli",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "Asiantuntija",
     "expertDesc": "Lähes täydellinen peli",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "Asetukset",

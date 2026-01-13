@@ -25,18 +25,21 @@
     "playNow": "Παίξε τώρα"
   },
   "difficulty": {
+    "beginner": "Αρχάριος",
+    "beginnerDesc": "Ιδανικό για αρχάριους",
+    "beginnerElo": "400-600",
     "easy": "Εύκολο",
-    "easyDesc": "Ιδανικό για αρχάριους",
-    "easyElo": "400-700",
+    "easyDesc": "Χαλαρό παιχνίδι",
+    "easyElo": "600-900",
     "medium": "Μεσαίο",
     "mediumDesc": "Ισορροπημένη πρόκληση",
     "mediumElo": "900-1200",
     "hard": "Δύσκολο",
     "hardDesc": "Δυνατό τακτικό παιχνίδι",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "Ειδικός",
     "expertDesc": "Σχεδόν τέλειο παιχνίδι",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "Ρυθμίσεις",

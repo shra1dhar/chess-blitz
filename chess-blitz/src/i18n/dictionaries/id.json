@@ -25,18 +25,21 @@
     "playNow": "Main Sekarang"
   },
   "difficulty": {
+    "beginner": "Pemula",
+    "beginnerDesc": "Sempurna untuk pemula",
+    "beginnerElo": "400-600",
     "easy": "Mudah",
-    "easyDesc": "Cocok untuk pemula",
-    "easyElo": "400-700",
+    "easyDesc": "Permainan santai",
+    "easyElo": "600-900",
     "medium": "Sedang",
     "mediumDesc": "Tantangan seimbang",
     "mediumElo": "900-1200",
     "hard": "Sulit",
     "hardDesc": "Permainan taktis kuat",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "Ahli",
     "expertDesc": "Permainan hampir sempurna",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "Pengaturan",

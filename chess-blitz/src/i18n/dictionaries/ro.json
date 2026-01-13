@@ -25,18 +25,21 @@
     "playNow": "Joacă acum"
   },
   "difficulty": {
+    "beginner": "Începător",
+    "beginnerDesc": "Perfect pentru începători",
+    "beginnerElo": "400-600",
     "easy": "Ușor",
-    "easyDesc": "Perfect pentru începători",
-    "easyElo": "400-700",
+    "easyDesc": "Joc relaxat",
+    "easyElo": "600-900",
     "medium": "Mediu",
     "mediumDesc": "Provocare echilibrată",
     "mediumElo": "900-1200",
     "hard": "Greu",
     "hardDesc": "Joc tactic puternic",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "Expert",
     "expertDesc": "Joc aproape perfect",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "Setări",

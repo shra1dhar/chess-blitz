@@ -5,7 +5,7 @@
 import type { Chess, Square, PieceSymbol, Color } from 'chess.js';
 
 // Game difficulty levels
-export type Difficulty = 'easy' | 'medium' | 'hard' | 'expert';
+export type Difficulty = 'beginner' | 'easy' | 'medium' | 'hard' | 'expert';
 
 export interface DifficultyConfig {
   name: string;
@@ -17,37 +17,45 @@ export interface DifficultyConfig {
 }
 
 export const DIFFICULTY_CONFIGS: Record<Difficulty, DifficultyConfig> = {
-  easy: {
-    name: 'Easy',
+  beginner: {
+    name: 'Beginner',
     description: 'Perfect for beginners',
-    skillLevel: 0, // Lowest skill level - makes many mistakes
+    skillLevel: 0, // Lowest skill level - makes frequent blunders
     depth: 1, // Very shallow search
     thinkingTime: 300,
-    eloRange: '300-500',
+    eloRange: '400-600',
+  },
+  easy: {
+    name: 'Easy',
+    description: 'Casual play',
+    skillLevel: 1, // Low skill - still weak but plays recognizable chess
+    depth: 2,
+    thinkingTime: 400,
+    eloRange: '600-900',
   },
   medium: {
     name: 'Medium',
-    description: 'Casual play',
-    skillLevel: 2, // Low skill - still makes mistakes
-    depth: 3, // Shallow search
-    thinkingTime: 500,
-    eloRange: '600-900',
+    description: 'Balanced challenge',
+    skillLevel: 3, // Balanced for ~900-1200 rated players
+    depth: 4,
+    thinkingTime: 600,
+    eloRange: '900-1200',
   },
   hard: {
     name: 'Hard',
-    description: 'Balanced challenge',
-    skillLevel: 4,
-    depth: 4,
+    description: 'Strong tactical play',
+    skillLevel: 5, // Challenging for club players
+    depth: 6,
     thinkingTime: 1000,
-    eloRange: '1000-1300',
+    eloRange: '1200-1500',
   },
   expert: {
     name: 'Expert',
-    description: 'Strong tactical play',
-    skillLevel: 8,
-    depth: 8,
+    description: 'Near-perfect play',
+    skillLevel: 8, // Very strong tactical play
+    depth: 10,
     thinkingTime: 1200,
-    eloRange: '1400+',
+    eloRange: '1500+',
   },
 };
 

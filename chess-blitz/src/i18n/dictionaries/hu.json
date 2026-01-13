@@ -25,18 +25,21 @@
     "playNow": "Játék"
   },
   "difficulty": {
+    "beginner": "Kezdő",
+    "beginnerDesc": "Tökéletes kezdőknek",
+    "beginnerElo": "400-600",
     "easy": "Könnyű",
-    "easyDesc": "Tökéletes kezdőknek",
-    "easyElo": "400-700",
+    "easyDesc": "Laza játék",
+    "easyElo": "600-900",
     "medium": "Közepes",
     "mediumDesc": "Kiegyensúlyozott kihívás",
     "mediumElo": "900-1200",
     "hard": "Nehéz",
     "hardDesc": "Erős taktikai játék",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "Szakértő",
     "expertDesc": "Majdnem tökéletes játék",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "Beállítások",

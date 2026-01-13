@@ -25,18 +25,21 @@
     "playNow": "Грати"
   },
   "difficulty": {
+    "beginner": "Початківець",
+    "beginnerDesc": "Ідеально для початківців",
+    "beginnerElo": "400-600",
     "easy": "Легко",
-    "easyDesc": "Ідеально для початківців",
-    "easyElo": "400-700",
+    "easyDesc": "Невимушена гра",
+    "easyElo": "600-900",
     "medium": "Середньо",
     "mediumDesc": "Збалансований виклик",
     "mediumElo": "900-1200",
     "hard": "Складно",
     "hardDesc": "Сильна тактична гра",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "Експерт",
     "expertDesc": "Майже ідеальна гра",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "Налаштування",

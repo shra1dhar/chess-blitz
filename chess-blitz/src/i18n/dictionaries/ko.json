@@ -25,18 +25,21 @@
     "playNow": "지금 플레이"
   },
   "difficulty": {
+    "beginner": "초급",
+    "beginnerDesc": "초보자에게 적합",
+    "beginnerElo": "400-600",
     "easy": "쉬움",
-    "easyDesc": "초보자에게 적합",
-    "easyElo": "400-700",
+    "easyDesc": "캐주얼 플레이",
+    "easyElo": "600-900",
     "medium": "보통",
     "mediumDesc": "균형 잡힌 도전",
     "mediumElo": "900-1200",
     "hard": "어려움",
     "hardDesc": "강력한 전술 플레이",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "전문가",
     "expertDesc": "거의 완벽한 플레이",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "설정",

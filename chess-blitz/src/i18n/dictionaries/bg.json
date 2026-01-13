@@ -25,18 +25,21 @@
     "playNow": "Играй сега"
   },
   "difficulty": {
+    "beginner": "Начинаещ",
+    "beginnerDesc": "Идеално за начинаещи",
+    "beginnerElo": "400-600",
     "easy": "Лесно",
-    "easyDesc": "Идеално за начинаещи",
-    "easyElo": "400-700",
+    "easyDesc": "Обикновена игра",
+    "easyElo": "600-900",
     "medium": "Средно",
     "mediumDesc": "Балансирано предизвикателство",
     "mediumElo": "900-1200",
     "hard": "Трудно",
     "hardDesc": "Силна тактическа игра",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "Експерт",
     "expertDesc": "Почти перфектна игра",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "Настройки",

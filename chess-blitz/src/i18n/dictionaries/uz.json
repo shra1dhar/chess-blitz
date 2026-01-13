@@ -25,18 +25,21 @@
     "playNow": "Hozir o'ynash"
   },
   "difficulty": {
+    "beginner": "Boshlang'ich",
+    "beginnerDesc": "Yangi boshlovchilar uchun ideal",
+    "beginnerElo": "400-600",
     "easy": "Oson",
-    "easyDesc": "Yangi boshlovchilar uchun ideal",
-    "easyElo": "400-700",
+    "easyDesc": "Oddiy o'yin",
+    "easyElo": "600-900",
     "medium": "O'rtacha",
     "mediumDesc": "Muvozanatli qiyinchilik",
     "mediumElo": "900-1200",
     "hard": "Qiyin",
     "hardDesc": "Kuchli taktik o'yin",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "Ekspert",
     "expertDesc": "Deyarli mukammal o'yin",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "Sozlamalar",

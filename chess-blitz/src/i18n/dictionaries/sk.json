@@ -25,18 +25,21 @@
     "playNow": "Hrať teraz"
   },
   "difficulty": {
+    "beginner": "Začiatočník",
+    "beginnerDesc": "Ideálne pre začiatočníkov",
+    "beginnerElo": "400-600",
     "easy": "Ľahké",
-    "easyDesc": "Ideálne pre začiatočníkov",
-    "easyElo": "400-700",
+    "easyDesc": "Príležitostná hra",
+    "easyElo": "600-900",
     "medium": "Stredné",
     "mediumDesc": "Vyvážená výzva",
     "mediumElo": "900-1200",
     "hard": "Ťažké",
     "hardDesc": "Silná taktická hra",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "Expert",
     "expertDesc": "Takmer dokonalá hra",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "Nastavenia",

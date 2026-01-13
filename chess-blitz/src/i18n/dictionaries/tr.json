@@ -25,18 +25,21 @@
     "playNow": "Şimdi oyna"
   },
   "difficulty": {
+    "beginner": "Başlangıç",
+    "beginnerDesc": "Yeni başlayanlar için ideal",
+    "beginnerElo": "400-600",
     "easy": "Kolay",
-    "easyDesc": "Yeni başlayanlar için ideal",
-    "easyElo": "400-700",
+    "easyDesc": "Rahat oyun",
+    "easyElo": "600-900",
     "medium": "Orta",
     "mediumDesc": "Dengeli meydan okuma",
     "mediumElo": "900-1200",
     "hard": "Zor",
     "hardDesc": "Güçlü taktik oyun",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "Uzman",
     "expertDesc": "Neredeyse mükemmel oyun",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "Ayarlar",

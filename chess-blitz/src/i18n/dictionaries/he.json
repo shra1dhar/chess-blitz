@@ -25,18 +25,21 @@
     "playNow": "שחק עכשיו"
   },
   "difficulty": {
+    "beginner": "מתחיל",
+    "beginnerDesc": "מושלם למתחילים",
+    "beginnerElo": "400-600",
     "easy": "קל",
-    "easyDesc": "מושלם למתחילים",
-    "easyElo": "400-700",
+    "easyDesc": "משחק מזדמן",
+    "easyElo": "600-900",
     "medium": "בינוני",
     "mediumDesc": "אתגר מאוזן",
     "mediumElo": "900-1200",
     "hard": "קשה",
     "hardDesc": "משחק טקטי חזק",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "מומחה",
     "expertDesc": "משחק כמעט מושלם",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "הגדרות",

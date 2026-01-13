@@ -25,18 +25,21 @@
     "playNow": "Nu spelen"
   },
   "difficulty": {
+    "beginner": "Beginner",
+    "beginnerDesc": "Perfect voor beginners",
+    "beginnerElo": "400-600",
     "easy": "Makkelijk",
-    "easyDesc": "Perfect voor beginners",
-    "easyElo": "400-700",
+    "easyDesc": "Ontspannen spel",
+    "easyElo": "600-900",
     "medium": "Gemiddeld",
     "mediumDesc": "Gebalanceerde uitdaging",
     "mediumElo": "900-1200",
     "hard": "Moeilijk",
     "hardDesc": "Sterk tactisch spel",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "Expert",
     "expertDesc": "Bijna perfect spel",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "Instellingen",

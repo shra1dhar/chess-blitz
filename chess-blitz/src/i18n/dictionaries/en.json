@@ -25,18 +25,21 @@
     "playNow": "Play Now"
   },
   "difficulty": {
+    "beginner": "Beginner",
+    "beginnerDesc": "Perfect for beginners",
+    "beginnerElo": "400-600",
     "easy": "Easy",
-    "easyDesc": "Perfect for beginners",
-    "easyElo": "400-700",
+    "easyDesc": "Casual play",
+    "easyElo": "600-900",
     "medium": "Medium",
     "mediumDesc": "Balanced challenge",
     "mediumElo": "900-1200",
     "hard": "Hard",
     "hardDesc": "Strong tactical play",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "Expert",
     "expertDesc": "Near-perfect play",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "Settings",

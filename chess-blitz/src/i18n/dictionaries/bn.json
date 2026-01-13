@@ -25,18 +25,21 @@
     "playNow": "এখনই খেলুন"
   },
   "difficulty": {
+    "beginner": "শিক্ষানবিস",
+    "beginnerDesc": "নতুনদের জন্য উপযুক্ত",
+    "beginnerElo": "৪০০-৬০০",
     "easy": "সহজ",
-    "easyDesc": "নতুনদের জন্য উপযুক্ত",
-    "easyElo": "৪০০-৭০০",
+    "easyDesc": "স্বাভাবিক খেলা",
+    "easyElo": "৬০০-৯০০",
     "medium": "মাঝারি",
     "mediumDesc": "সুষম চ্যালেঞ্জ",
     "mediumElo": "৯০০-১২০০",
     "hard": "কঠিন",
     "hardDesc": "শক্তিশালী কৌশলগত খেলা",
-    "hardElo": "১৩০০-১৬০০",
+    "hardElo": "১২০০-১৫০০",
     "expert": "বিশেষজ্ঞ",
     "expertDesc": "প্রায় নিখুঁত খেলা",
-    "expertElo": "১৮০০+"
+    "expertElo": "১৫০০+"
   },
   "settings": {
     "settings": "সেটিংস",

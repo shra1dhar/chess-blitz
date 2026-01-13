@@ -25,18 +25,21 @@
     "playNow": "Maglaro na"
   },
   "difficulty": {
+    "beginner": "Baguhan",
+    "beginnerDesc": "Perpekto para sa mga baguhan",
+    "beginnerElo": "400-600",
     "easy": "Madali",
-    "easyDesc": "Perpekto para sa mga baguhan",
-    "easyElo": "400-700",
+    "easyDesc": "Kaswal na laro",
+    "easyElo": "600-900",
     "medium": "Katamtaman",
     "mediumDesc": "Balanseng hamon",
     "mediumElo": "900-1200",
     "hard": "Mahirap",
     "hardDesc": "Malakas na tactical play",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "Eksperto",
     "expertDesc": "Halos perpektong laro",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "Mga Setting",

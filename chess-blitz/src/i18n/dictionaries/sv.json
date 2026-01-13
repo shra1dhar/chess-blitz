@@ -25,18 +25,21 @@
     "playNow": "Spela nu"
   },
   "difficulty": {
+    "beginner": "Nybörjare",
+    "beginnerDesc": "Perfekt för nybörjare",
+    "beginnerElo": "400-600",
     "easy": "Lätt",
-    "easyDesc": "Perfekt för nybörjare",
-    "easyElo": "400-700",
+    "easyDesc": "Avslappnat spel",
+    "easyElo": "600-900",
     "medium": "Medel",
     "mediumDesc": "Balanserad utmaning",
     "mediumElo": "900-1200",
     "hard": "Svår",
     "hardDesc": "Stark taktiskt spel",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "Expert",
     "expertDesc": "Nästan perfekt spel",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "Inställningar",

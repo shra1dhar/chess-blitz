@@ -25,18 +25,21 @@
     "playNow": "العب الآن"
   },
   "difficulty": {
+    "beginner": "مبتدئ",
+    "beginnerDesc": "مثالي للمبتدئين",
+    "beginnerElo": "400-600",
     "easy": "سهل",
-    "easyDesc": "مثالي للمبتدئين",
-    "easyElo": "400-700",
+    "easyDesc": "لعب عادي",
+    "easyElo": "600-900",
     "medium": "متوسط",
     "mediumDesc": "تحدٍ متوازن",
     "mediumElo": "900-1200",
     "hard": "صعب",
     "hardDesc": "لعب تكتيكي قوي",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "خبير",
     "expertDesc": "لعب شبه مثالي",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "الإعدادات",

@@ -25,18 +25,21 @@
     "playNow": "开始游戏"
   },
   "difficulty": {
+    "beginner": "初学者",
+    "beginnerDesc": "适合初学者",
+    "beginnerElo": "400-600",
     "easy": "简单",
-    "easyDesc": "适合初学者",
-    "easyElo": "400-700",
+    "easyDesc": "休闲对弈",
+    "easyElo": "600-900",
     "medium": "中等",
     "mediumDesc": "平衡的挑战",
     "mediumElo": "900-1200",
     "hard": "困难",
     "hardDesc": "强大的战术对弈",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "专家",
     "expertDesc": "近乎完美的对弈",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "设置",

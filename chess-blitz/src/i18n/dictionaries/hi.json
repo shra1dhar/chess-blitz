@@ -25,18 +25,21 @@
     "playNow": "अभी खेलें"
   },
   "difficulty": {
+    "beginner": "शुरुआती",
+    "beginnerDesc": "शुरुआती के लिए बिल्कुल सही",
+    "beginnerElo": "400-600",
     "easy": "आसान",
-    "easyDesc": "शुरुआती के लिए बिल्कुल सही",
-    "easyElo": "400-700",
+    "easyDesc": "आरामदायक खेल",
+    "easyElo": "600-900",
     "medium": "मध्यम",
     "mediumDesc": "संतुलित चुनौती",
     "mediumElo": "900-1200",
     "hard": "कठिन",
     "hardDesc": "मजबूत रणनीतिक खेल",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "विशेषज्ञ",
     "expertDesc": "लगभग सही खेल",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "सेटिंग्स",

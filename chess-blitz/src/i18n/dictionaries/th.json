@@ -25,18 +25,21 @@
     "playNow": "เล่นเลย"
   },
   "difficulty": {
+    "beginner": "มือใหม่",
+    "beginnerDesc": "เหมาะสำหรับมือใหม่",
+    "beginnerElo": "400-600",
     "easy": "ง่าย",
-    "easyDesc": "เหมาะสำหรับมือใหม่",
-    "easyElo": "400-700",
+    "easyDesc": "เล่นแบบสบายๆ",
+    "easyElo": "600-900",
     "medium": "ปานกลาง",
     "mediumDesc": "ท้าทายพอดี",
     "mediumElo": "900-1200",
     "hard": "ยาก",
     "hardDesc": "เกมกลยุทธ์ที่แข็งแกร่ง",
-    "hardElo": "1300-1600",
+    "hardElo": "1200-1500",
     "expert": "ผู้เชี่ยวชาญ",
     "expertDesc": "เกมที่เกือบสมบูรณ์แบบ",
-    "expertElo": "1800+"
+    "expertElo": "1500+"
   },
   "settings": {
     "settings": "ตั้งค่า",
