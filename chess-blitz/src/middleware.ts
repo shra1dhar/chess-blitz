@@ -70,20 +70,16 @@ export function middleware(request: NextRequest) {
     return;
   }
 
-  // For paths without locale prefix (/, /tournament, etc.)
+  // For paths without locale prefix (/, /play, /privacy, etc.)
   const locale = getLocale(request);
 
-  // Homepage (/) stays at root for English users
-  if (pathname === '/' && locale === 'en') {
+  // English users: Let Next.js config rewrites handle root paths
+  // Rewrites in next.config.ts map / → /en, /play → /en/play, /privacy → /en/privacy
+  if (locale === 'en') {
     return;
   }
 
-  // Privacy policy is English-only, no locale redirect
-  if (pathname === '/privacy') {
-    return;
-  }
-
-  // Redirect all users to their locale-prefixed path for non-homepage routes
+  // Non-English users: Redirect to their locale-prefixed path
   const newUrl = new URL(request.url);
   newUrl.pathname = `/${locale}${pathname}`;
   return NextResponse.redirect(newUrl);

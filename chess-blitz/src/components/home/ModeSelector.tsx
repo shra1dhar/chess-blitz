@@ -5,7 +5,9 @@
 // Game mode selection cards
 // ==============================================
 
+import Link from 'next/link';
 import type { Dictionary } from '@/i18n/dictionaries';
+import type { Locale } from '@/i18n/config';
 import { soundManager } from '@/services/soundManager';
 import styles from '@/app/page.module.scss';
 
@@ -15,13 +17,16 @@ interface ModeSelectorProps {
   onSelect: (mode: GameMode) => void;
   isHidden?: boolean;
   dict: Dictionary;
+  locale: Locale;
 }
 
-export function ModeSelector({ onSelect, isHidden, dict }: ModeSelectorProps) {
+export function ModeSelector({ onSelect, isHidden, dict, locale }: ModeSelectorProps) {
   const handleSelect = (mode: GameMode) => {
     soundManager.playSync('move');
     onSelect(mode);
   };
+
+  const tournamentPath = `/${locale}/tournament`;
 
   return (
     <section className={`${styles.modeSection} ${isHidden ? styles.hidden : styles.visible}`}>
@@ -49,9 +54,11 @@ export function ModeSelector({ onSelect, isHidden, dict }: ModeSelectorProps) {
         </button>
 
         {/* Tournament Card */}
-        <button
+        <Link
+          href={tournamentPath}
+          prefetch={true}
           className={styles.modeCard}
-          onClick={() => handleSelect('tournament')}
+          onClick={() => soundManager.playSync('move')}
         >
           <div className={styles.modeIcon}>
             {/* Trophy/Crown icon */}
@@ -67,7 +74,7 @@ export function ModeSelector({ onSelect, isHidden, dict }: ModeSelectorProps) {
           </div>
           <h3 className={styles.modeTitle}>{dict.home.tournament}</h3>
           <p className={styles.modeDesc}>{dict.home.tournamentDesc}</p>
-        </button>
+        </Link>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 // ==============================================
 // Chess Blitz - Sound Manager Service
+// Uses Web Audio API when available, falls back to HTMLAudioElement
 // ==============================================
 
 export type SoundName =
@@ -40,8 +41,28 @@ const SOUND_CONFIG: Record<SoundName, SoundConfig> = {
   lowTime: { src: '/sounds/low-time.wav', volume: 0.8, preload: false },
 };
 
+// Check if Web Audio API is supported
+function isWebAudioSupported(): boolean {
+  return typeof window !== 'undefined' &&
+    (typeof AudioContext !== 'undefined' || typeof (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext !== 'undefined');
+}
+
+// Get AudioContext constructor (with webkit prefix fallback)
+function getAudioContextClass(): typeof AudioContext | null {
+  if (typeof window === 'undefined') return null;
+  return window.AudioContext || (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext || null;
+}
+
 class SoundManager {
-  private sounds: Map<SoundName, HTMLAudioElement> = new Map();
+  // Web Audio API (modern browsers)
+  private audioContext: AudioContext | null = null;
+  private audioBuffers: Map<string, AudioBuffer> = new Map();
+  private soundToBuffer: Map<SoundName, string> = new Map();
+
+  // HTMLAudioElement fallback (older browsers)
+  private useWebAudio: boolean = false;
+  private htmlAudioElements: Map<SoundName, HTMLAudioElement> = new Map();
+
   private muted: boolean = false;
   private masterVolume: number = 1.0;
   private initialized: boolean = false;
@@ -54,6 +75,16 @@ class SoundManager {
     if (this.initialized) return;
     if (typeof window === 'undefined') return;
 
+    // Detect Web Audio API support
+    this.useWebAudio = isWebAudioSupported();
+
+    if (this.useWebAudio) {
+      const AudioContextClass = getAudioContextClass();
+      if (AudioContextClass) {
+        this.audioContext = new AudioContextClass();
+      }
+    }
+
     const preloadPromises: Promise<void>[] = [];
 
     for (const [name, config] of Object.entries(SOUND_CONFIG)) {
@@ -64,15 +95,45 @@ class SoundManager {
 
     await Promise.all(preloadPromises);
     this.initialized = true;
-    console.log('[SoundManager] Initialized with preloaded sounds');
+    console.log(`[SoundManager] Initialized (${this.useWebAudio ? 'Web Audio API' : 'HTMLAudioElement fallback'})`);
   }
 
   /**
-   * Load a single sound into the cache.
+   * Load a single sound into cache.
    */
   private async loadSound(name: SoundName): Promise<void> {
     if (typeof window === 'undefined') return;
 
+    const config = SOUND_CONFIG[name];
+    const src = config.src;
+
+    if (this.useWebAudio && this.audioContext) {
+      // Web Audio API: Load into AudioBuffer
+      if (this.audioBuffers.has(src)) {
+        this.soundToBuffer.set(name, src);
+        return;
+      }
+
+      try {
+        const response = await fetch(src);
+        const arrayBuffer = await response.arrayBuffer();
+        const audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+
+        this.audioBuffers.set(src, audioBuffer);
+        this.soundToBuffer.set(name, src);
+      } catch (error) {
+        console.warn(`[SoundManager] Failed to load sound: ${name}`, error);
+      }
+    } else {
+      // HTMLAudioElement fallback
+      await this.loadSoundFallback(name);
+    }
+  }
+
+  /**
+   * Fallback: Load sound using HTMLAudioElement.
+   */
+  private loadSoundFallback(name: SoundName): Promise<void> {
     return new Promise((resolve) => {
       const config = SOUND_CONFIG[name];
       const audio = new Audio(config.src);
@@ -80,25 +141,22 @@ class SoundManager {
       audio.preload = 'auto';
 
       const handleLoad = () => {
-        this.sounds.set(name, audio);
+        this.htmlAudioElements.set(name, audio);
         resolve();
       };
 
-      const handleError = () => {
-        console.warn(`[SoundManager] Failed to load sound: ${name}`);
-        resolve(); // Don't block on failed sounds
-      };
-
       audio.addEventListener('canplaythrough', handleLoad, { once: true });
-      audio.addEventListener('error', handleError, { once: true });
+      audio.addEventListener('error', () => {
+        console.warn(`[SoundManager] Failed to load sound: ${name}`);
+        resolve();
+      }, { once: true });
 
-      // Trigger load
       audio.load();
 
-      // Timeout fallback in case events don't fire
+      // Timeout fallback
       setTimeout(() => {
-        if (!this.sounds.has(name)) {
-          this.sounds.set(name, audio);
+        if (!this.htmlAudioElements.has(name)) {
+          this.htmlAudioElements.set(name, audio);
           resolve();
         }
       }, 3000);
@@ -107,27 +165,79 @@ class SoundManager {
 
   /**
    * Play a sound by name.
-   * If sound isn't loaded, it will be lazy-loaded first.
    */
   async play(name: SoundName): Promise<void> {
     if (this.muted) return;
     if (typeof window === 'undefined') return;
 
+    if (this.useWebAudio) {
+      await this.playWebAudio(name);
+    } else {
+      await this.playFallback(name);
+    }
+  }
+
+  /**
+   * Play using Web Audio API (no re-download on replay).
+   */
+  private async playWebAudio(name: SoundName): Promise<void> {
+    // Ensure AudioContext is created and resumed
+    if (!this.audioContext) {
+      const AudioContextClass = getAudioContextClass();
+      if (!AudioContextClass) return;
+      this.audioContext = new AudioContextClass();
+    }
+
+    // Resume if suspended (browsers suspend until user interaction)
+    if (this.audioContext.state === 'suspended') {
+      await this.audioContext.resume();
+    }
+
     // Lazy load if not yet loaded
-    if (!this.sounds.has(name)) {
+    if (!this.soundToBuffer.has(name)) {
       await this.loadSound(name);
     }
 
-    const audio = this.sounds.get(name);
+    const src = this.soundToBuffer.get(name);
+    if (!src) return;
+
+    const buffer = this.audioBuffers.get(src);
+    if (!buffer) return;
+
+    try {
+      const source = this.audioContext.createBufferSource();
+      source.buffer = buffer;
+
+      const gainNode = this.audioContext.createGain();
+      gainNode.gain.value = SOUND_CONFIG[name].volume * this.masterVolume;
+
+      source.connect(gainNode);
+      gainNode.connect(this.audioContext.destination);
+      source.start(0);
+    } catch (error) {
+      if ((error as Error).name !== 'NotAllowedError') {
+        console.warn(`[SoundManager] Failed to play: ${name}`, error);
+      }
+    }
+  }
+
+  /**
+   * Fallback: Play using HTMLAudioElement (may re-download on clone).
+   */
+  private async playFallback(name: SoundName): Promise<void> {
+    if (!this.htmlAudioElements.has(name)) {
+      await this.loadSoundFallback(name);
+    }
+
+    const audio = this.htmlAudioElements.get(name);
     if (!audio) return;
 
     try {
-      // Clone audio for overlapping sounds
+      // Clone for overlapping sounds (may re-download in some browsers)
       const clone = audio.cloneNode() as HTMLAudioElement;
       clone.volume = SOUND_CONFIG[name].volume * this.masterVolume;
       await clone.play();
     } catch (error) {
-      // Autoplay blocked - ignore silently (common before user interaction)
       if ((error as Error).name !== 'NotAllowedError') {
         console.warn(`[SoundManager] Failed to play: ${name}`, error);
       }
@@ -158,14 +268,10 @@ class SoundManager {
 
   /**
    * Set master volume (0.0 to 1.0).
+   * With Web Audio API, volume is applied per-playback via gain nodes.
    */
   setVolume(volume: number): void {
     this.masterVolume = Math.max(0, Math.min(1, volume));
-
-    // Update all loaded sounds
-    this.sounds.forEach((audio, name) => {
-      audio.volume = SOUND_CONFIG[name].volume * this.masterVolume;
-    });
   }
 
   /**

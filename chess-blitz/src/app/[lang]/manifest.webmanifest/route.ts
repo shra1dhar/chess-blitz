@@ -8,12 +8,16 @@ export async function GET(
   const { lang } = await params;
   const dict = await getDictionary(lang as Locale);
 
+  // English uses root path '/', other locales use '/{lang}'
+  const startUrl = lang === 'en' ? '/' : `/${lang}`;
+  const scope = lang === 'en' ? '/' : `/${lang}`;
+
   const manifest = {
     name: dict.meta.title,
     short_name: dict.appName,
     description: dict.meta.description,
-    start_url: `/${lang}`,
-    scope: `/${lang}`,
+    start_url: startUrl,
+    scope: scope,
     lang: lang,
     display: 'standalone',
     background_color: '#f8f6f3',

@@ -12,6 +12,16 @@ const nextConfig: NextConfig = {
 	sassOptions: {
 		silenceDeprecations: ['legacy-js-api'],
 	},
+	// Rewrites: Map root English paths to /en/* internally
+	// This allows all routes to be under [lang] while keeping / as the canonical English URL
+	async rewrites() {
+		return [
+			{ source: '/', destination: '/en' },
+			{ source: '/play', destination: '/en/play' },
+			{ source: '/privacy', destination: '/en/privacy' },
+			{ source: '/manifest.webmanifest', destination: '/en/manifest.webmanifest' },
+		];
+	},
 };
 
 export default nextConfig;

@@ -191,8 +191,8 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
 
   // Handle back navigation
   const handleBack = useCallback(() => {
-    router.push(`/${locale}`);
-  }, [router, locale]);
+    router.back();
+  }, [router]);
 
   return (
     <div className={styles.lobby}>

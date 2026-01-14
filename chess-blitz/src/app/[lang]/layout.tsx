@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
-import '../../globals.scss';
+import '../globals.scss';
 import { AppInitializer } from '@/components/AppInitializer';
 import { ToastProvider } from '@/components/Toast/ToastProvider';
+import OfflineIndicator from '@/components/OfflineIndicator/OfflineIndicator';
 import { JsonLd } from '@/components/JsonLd';
 import { locales, isRtl, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
@@ -48,14 +49,15 @@ export async function generateMetadata({
       telephone: false,
     },
     alternates: {
-      canonical: `${BASE_URL}/${locale}`,
+      // English canonical is root URL, others include locale
+      canonical: locale === 'en' ? BASE_URL : `${BASE_URL}/${locale}`,
       languages,
     },
     openGraph: {
       title: dict.meta.title,
       description: dict.meta.description,
       type: 'website',
-      url: `${BASE_URL}/${locale}`,
+      url: locale === 'en' ? BASE_URL : `${BASE_URL}/${locale}`,
       siteName: dict.appName,
       locale: locale,
       alternateLocale: locales.filter((l) => l !== locale),
@@ -99,12 +101,15 @@ export default async function LocaleLayout({
   // Get the appropriate font for this locale
   const displayFont = getDisplayFont(locale);
 
+  // English uses /manifest.webmanifest, other locales use /{lang}/manifest.webmanifest
+  const manifestPath = locale === 'en' ? '/manifest.webmanifest' : `/${lang}/manifest.webmanifest`;
+
   return (
     <html lang={lang} dir={dir} data-theme="wood" className={displayFont.variable}>
       <head>
         <meta name="google" content="notranslate" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="manifest" href={`/${lang}/manifest.webmanifest`} />
+        <link rel="manifest" href={manifestPath} />
         <JsonLd
           locale={locale}
           appName={dict.appName}
@@ -113,6 +118,7 @@ export default async function LocaleLayout({
       </head>
       <body>
         <AppInitializer />
+        <OfflineIndicator />
         <div className="app-container">{children}</div>
         <ToastProvider />
       </body>

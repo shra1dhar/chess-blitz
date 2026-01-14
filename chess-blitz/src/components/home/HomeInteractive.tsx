@@ -98,6 +98,7 @@ export function HomeInteractive({ dict }: HomeInteractiveProps) {
             onSelect={handleModeSelect}
             isHidden={isTransitioning}
             dict={dict}
+            locale={locale}
           />
         </Activity>
 
