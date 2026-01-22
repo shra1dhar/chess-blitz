@@ -56,7 +56,9 @@
     "blue": "Błękitny ocean",
     "blueDesc": "Chłodne niebieskie tony",
     "midnight": "Północ",
-    "midnightDesc": "Przyjazna dla trybu ciemnego"
+    "midnightDesc": "Przyjazna dla trybu ciemnego",
+    "purple": "Fioletowy",
+    "purpleDesc": "Żywy fiolet i lawenda"
   },
   "play": {
     "back": "Wstecz",

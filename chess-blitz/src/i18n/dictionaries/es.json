@@ -56,7 +56,9 @@
     "blue": "Océano azul",
     "blueDesc": "Tonos azules frescos",
     "midnight": "Medianoche",
-    "midnightDesc": "Ideal para modo oscuro"
+    "midnightDesc": "Ideal para modo oscuro",
+    "purple": "Púrpura",
+    "purpleDesc": "Púrpura vibrante y lavanda"
   },
   "play": {
     "back": "Atrás",

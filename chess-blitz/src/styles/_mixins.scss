@@ -233,6 +233,12 @@
 
 // Height-based responsive queries (for vertical space constraints)
 // Use these for Windows laptops with high DPI scaling, tablets in landscape, etc.
+@mixin very-short-viewport {
+  @media screen and (max-height: #{$breakpoint-height-xs - 1px}) {
+    @content;
+  }
+}
+
 @mixin short-viewport {
   @media screen and (max-height: #{$breakpoint-height-sm - 1px}) {
     @content;

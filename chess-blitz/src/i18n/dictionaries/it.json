@@ -56,7 +56,9 @@
     "blue": "Oceano blu",
     "blueDesc": "Toni blu freschi",
     "midnight": "Mezzanotte",
-    "midnightDesc": "Ideale per modalità scura"
+    "midnightDesc": "Ideale per modalità scura",
+    "purple": "Viola",
+    "purpleDesc": "Viola vibrante e lavanda"
   },
   "play": {
     "back": "Indietro",

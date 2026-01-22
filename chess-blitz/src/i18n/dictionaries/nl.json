@@ -56,7 +56,9 @@
     "blue": "Blauwe oceaan",
     "blueDesc": "Koele blauwe tinten",
     "midnight": "Middernacht",
-    "midnightDesc": "Donkere modus vriendelijk"
+    "midnightDesc": "Donkere modus vriendelijk",
+    "purple": "Paars",
+    "purpleDesc": "Levendig paars en lavendel"
   },
   "play": {
     "back": "Terug",

@@ -5,12 +5,13 @@
 // Dropdown with country flags and cookie persistence
 // ==============================================
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useTransition } from 'react';
 import { useRouter, usePathname, useParams } from 'next/navigation';
 import { locales, localeNames, localeCountries, type Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n/dictionaries';
 import { useDropdown } from '@/hooks/useDropdown';
 import { soundManager } from '@/services/soundManager';
+import { LanguageLoadingOverlay } from './LanguageLoadingOverlay';
 import styles from './LanguageSelector.module.scss';
 
 // Import flags from country-flag-icons
@@ -23,6 +24,7 @@ interface LanguageSelectorProps {
 export function LanguageSelector({ dict }: LanguageSelectorProps) {
   const { isOpen, isVisible, containerRef, toggle, close, handleAnimationEnd } = useDropdown();
   const [rememberPreference, setRememberPreference] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
@@ -77,7 +79,9 @@ export function LanguageSelector({ dict }: LanguageSelectorProps) {
       }
     }
 
-    router.push(newPathname);
+    startTransition(() => {
+      router.push(newPathname);
+    });
     close();
   };
 
@@ -102,8 +106,12 @@ export function LanguageSelector({ dict }: LanguageSelectorProps) {
   };
 
   return (
-    <div ref={containerRef} className={styles.languageSelector}>
-      {/* Trigger Button */}
+    <>
+      {/* Loading Overlay */}
+      <LanguageLoadingOverlay isVisible={isPending} />
+
+      <div ref={containerRef} className={styles.languageSelector}>
+        {/* Trigger Button */}
       <button
         className={styles.trigger}
         onClick={handleToggle}
@@ -179,6 +187,7 @@ export function LanguageSelector({ dict }: LanguageSelectorProps) {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </>
   );
 }

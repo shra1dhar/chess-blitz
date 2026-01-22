@@ -57,6 +57,7 @@ export function middleware(request: NextRequest) {
   if (pathname === '/en') {
     const newUrl = new URL(request.url);
     newUrl.pathname = '/';
+    // Query params preserved via URL object (search property remains intact)
     return NextResponse.redirect(newUrl);
   }
 
@@ -82,6 +83,7 @@ export function middleware(request: NextRequest) {
   // Non-English users: Redirect to their locale-prefixed path
   const newUrl = new URL(request.url);
   newUrl.pathname = `/${locale}${pathname}`;
+  // Query params preserved via URL object (search property remains intact)
   return NextResponse.redirect(newUrl);
 }
 

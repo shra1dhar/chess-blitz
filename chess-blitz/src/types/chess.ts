@@ -60,7 +60,7 @@ export const DIFFICULTY_CONFIGS: Record<Difficulty, DifficultyConfig> = {
 };
 
 // Board themes
-export type BoardTheme = 'wood' | 'green' | 'blue' | 'midnight';
+export type BoardTheme = 'wood' | 'green' | 'blue' | 'midnight' | 'purple';
 
 export interface BoardThemeConfig {
   name: string;
@@ -83,6 +83,10 @@ export const BOARD_THEMES: Record<BoardTheme, BoardThemeConfig> = {
   midnight: {
     name: 'Midnight',
     description: 'Dark mode friendly',
+  },
+  purple: {
+    name: 'Purple',
+    description: 'Vibrant purple and lavender',
   },
 };
 

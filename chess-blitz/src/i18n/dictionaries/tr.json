@@ -56,7 +56,9 @@
     "blue": "Mavi okyanus",
     "blueDesc": "Serin mavi tonlar",
     "midnight": "Gece yarısı",
-    "midnightDesc": "Karanlık mod dostu"
+    "midnightDesc": "Karanlık mod dostu",
+    "purple": "Mor",
+    "purpleDesc": "Canlı mor ve lavanta"
   },
   "play": {
     "back": "Geri",

@@ -56,7 +56,9 @@
     "blue": "אוקיינוס כחול",
     "blueDesc": "גוונים כחולים קרירים",
     "midnight": "חצות",
-    "midnightDesc": "ידידותי למצב כהה"
+    "midnightDesc": "ידידותי למצב כהה",
+    "purple": "סגול",
+    "purpleDesc": "סגול תוסס ולבנדר"
   },
   "play": {
     "back": "חזור",

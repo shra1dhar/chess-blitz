@@ -56,7 +56,9 @@
     "blue": "Ocean albastru",
     "blueDesc": "Tonuri reci de albastru",
     "midnight": "Miezul nopții",
-    "midnightDesc": "Prietenos cu modul întunecat"
+    "midnightDesc": "Prietenos cu modul întunecat",
+    "purple": "Mov",
+    "purpleDesc": "Mov vibrant și lavandă"
   },
   "play": {
     "back": "Înapoi",

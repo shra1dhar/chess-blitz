@@ -56,7 +56,9 @@
     "blue": "Modrý oceán",
     "blueDesc": "Chladné modré tóny",
     "midnight": "Polnoc",
-    "midnightDesc": "Vhodné pre tmavý režim"
+    "midnightDesc": "Vhodné pre tmavý režim",
+    "purple": "Fialová",
+    "purpleDesc": "Žiarivá fialová a levanduľa"
   },
   "play": {
     "back": "Späť",

@@ -64,6 +64,14 @@
   --ui-border: #333333;
 }
 
+// Theme: Purple
+[data-theme="purple"] {
+  --board-light: #{$theme-purple-light};
+  --board-dark: #{$theme-purple-dark};
+  --board-highlight: #{$theme-purple-highlight};
+  --board-selected: #{$theme-purple-selected};
+}
+
 // Theme preview swatches
 .theme-swatch {
   display: inline-block;
@@ -138,6 +146,18 @@
     $theme-midnight-light 50%,
     $theme-midnight-light 75%,
     $theme-midnight-dark 75%
+  );
+  background-size: 20px 20px;
+}
+
+.theme-swatch--purple .theme-swatch__grid {
+  background: linear-gradient(135deg,
+    $theme-purple-light 25%,
+    $theme-purple-dark 25%,
+    $theme-purple-dark 50%,
+    $theme-purple-light 50%,
+    $theme-purple-light 75%,
+    $theme-purple-dark 75%
   );
   background-size: 20px 20px;
 }

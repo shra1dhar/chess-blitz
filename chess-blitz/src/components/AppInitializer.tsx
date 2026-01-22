@@ -66,15 +66,6 @@ export function AppInitializer() {
     soundManager.init();
   }, []);
 
-  // Register service worker for PWA installability
-  useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch((error) => {
-        console.error('SW registration failed:', error);
-      });
-    }
-  }, []);
-
   // Initialize auth session in background (runs during page transitions)
   const authInitializedRef = useRef(false);
   const initializeSession = useMultiplayerStore((state) => state.initializeSession);

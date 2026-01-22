@@ -1197,3 +1197,87 @@
     }
   }
 }
+
+// ==============================================
+// Height-Based Responsive (Constrained Viewports)
+// Only compress when viewport height is actually constrained
+// ==============================================
+
+// Moderate compression for constrained heights (max-height: 800px)
+@media screen and (max-height: 800px) {
+  .gameOptions {
+    padding: $spacing-md;
+  }
+
+  .optionGroup {
+    margin-bottom: $spacing-md;
+  }
+
+  .colorOption {
+    padding: $spacing-sm + 4px;
+  }
+
+  .difficultyOption {
+    padding: $spacing-sm + 4px;
+    margin-bottom: 6px;
+  }
+
+  .playButton {
+    margin-top: $spacing-md;
+  }
+}
+
+// Aggressive compression for very short viewports (max-height: 699px)
+@include constrained-height {
+  .gameOptions {
+    padding: $spacing-sm + 4px;
+  }
+
+  .optionGroup {
+    margin-bottom: $spacing-sm + 4px;
+  }
+
+  .optionLabel {
+    margin-bottom: $spacing-sm;
+    font-size: $font-size-xs;
+  }
+
+  .colorOption {
+    padding: 10px;
+    min-width: 75px;
+  }
+
+  .randomOption {
+    min-width: 82px;
+  }
+
+  .colorIcon {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 2px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .colorLabel {
+    font-size: $font-size-xs;
+  }
+
+  .difficultyOption {
+    padding: 10px;
+    margin-bottom: $spacing-xs;
+  }
+
+  .difficultyName {
+    font-size: $font-size-sm;
+  }
+
+  .playButton {
+    margin-top: $spacing-sm + 4px;
+    padding: 10px $spacing-md;
+    font-size: $font-size-base;
+  }
+}

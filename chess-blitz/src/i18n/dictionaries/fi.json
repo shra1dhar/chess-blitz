@@ -56,7 +56,9 @@
     "blue": "Sininen meri",
     "blueDesc": "Viileät siniset sävyt",
     "midnight": "Keskiyö",
-    "midnightDesc": "Tumma tila ystävällinen"
+    "midnightDesc": "Tumma tila ystävällinen",
+    "purple": "Violetti",
+    "purpleDesc": "Eloisa violetti ja laventeli"
   },
   "play": {
     "back": "Takaisin",

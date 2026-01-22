@@ -197,7 +197,7 @@ export default function ChessBoard({
   }, [lastMove, selectedSquare, legalMoves, showLegalMoves, isCheck, fen]);
 
   return (
-    <div className={styles.boardWrapper}>
+    <div className={styles.boardWrapper} data-board>
       <div className={styles.board}>
         <Chessboard
           position={fen}

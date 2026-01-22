@@ -56,7 +56,9 @@
     "blue": "蓝色海洋",
     "blueDesc": "清凉的蓝色调",
     "midnight": "午夜",
-    "midnightDesc": "适合深色模式"
+    "midnightDesc": "适合深色模式",
+    "purple": "紫色",
+    "purpleDesc": "鲜艳的紫色和薰衣草色"
   },
   "play": {
     "back": "返回",

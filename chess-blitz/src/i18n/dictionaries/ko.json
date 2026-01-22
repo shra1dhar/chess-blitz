@@ -56,7 +56,9 @@
     "blue": "블루 오션",
     "blueDesc": "시원한 블루 톤",
     "midnight": "미드나잇",
-    "midnightDesc": "다크 모드 친화적"
+    "midnightDesc": "다크 모드 친화적",
+    "purple": "퍼플",
+    "purpleDesc": "생생한 보라색과 라벤더"
   },
   "play": {
     "back": "뒤로",

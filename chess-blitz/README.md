@@ -45,3 +45,36 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+----
+
+# Chess Blitz
+
+**Play chess online against players worldwide or challenge the AI!**
+
+Chess Blitz is a fast-paced browser chess game with multiple time controls to match your style. Jump into quick 1-minute bullet games or take your time with 10-minute rapid matches.
+
+## Game Modes
+
+**Multiplayer** - Match against real players online
+- 1 Minute (Bullet)
+- 3 Minutes (Blitz)
+- 5 Minutes (Blitz)
+- 10 Minutes (Rapid)
+
+**Single Player** - Practice against AI opponents
+
+## Features
+
+- **Instant matchmaking** - Find opponents in seconds
+- **Clean, responsive interface** - Works great on desktop and mobile
+- **No downloads required** - Play directly in your browser
+- **34 languages supported** - Play in your native language
+
+## How to Play
+
+1. Choose your preferred time control
+2. Select Multiplayer to play online or Single Player for AI
+3. Make your moves and beat the clock!
+
+Perfect for quick gaming sessions or extended chess practice. Whether you're a beginner learning the ropes or an experienced player looking for fast-paced competition, Chess Blitz has a mode for you.

@@ -21,6 +21,18 @@
     max-width: calc(100vh - 140px);
   }
 
+  // Short viewport with horizontal layout - board sized by available height
+  // Reserve space for: header (~35px) + opponent info (~32px) + player info (~32px) + margins (~11px) = ~110px
+  @media screen and (max-height: 599px) and (min-width: 600px) {
+    max-width: calc(100vh - 110px);
+  }
+
+  // Very short viewport (< 500px) - balance board size with UI visibility
+  // Need more space for player info cards at extreme heights
+  @media screen and (max-height: 499px) and (min-width: 600px) {
+    max-width: calc(100vh - 120px);
+  }
+
   // Larger board on extra-large screens
   @include extra-large-desktop {
     max-width: 680px;

@@ -51,6 +51,12 @@ $theme-midnight-dark: #2d2d2d;
 $theme-midnight-highlight: rgba(255, 255, 0, 0.3);
 $theme-midnight-selected: rgba(100, 150, 100, 0.5);
 
+// Board Theme: Purple
+$theme-purple-light: #e8e0ff;
+$theme-purple-dark: #6842ff;
+$theme-purple-highlight: rgba(255, 255, 0, 0.4);
+$theme-purple-selected: rgba(80, 50, 180, 0.5);
+
 // Typography
 $font-family-display: var(--font-display), Georgia, 'Times New Roman', serif;
 $font-family-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
@@ -110,6 +116,7 @@ $breakpoint-2xl: 1536px;  // Ultra-wide displays (1920x1080+)
 
 // Breakpoints (height) - for vertical space constraints
 // Windows laptops with high DPI scaling often have effective heights of 600-700px
+$breakpoint-height-xs: 500px;  // Extremely constrained (landscape mobile, small embedded views)
 $breakpoint-height-sm: 600px;  // Very constrained (mobile landscape, small laptops)
 $breakpoint-height-md: 700px;  // Moderately constrained (Windows with 125-150% DPI)
 $breakpoint-height-lg: 800px;  // Normal height

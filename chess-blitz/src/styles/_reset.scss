@@ -30,6 +30,13 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  // Prevent text selection and magnification tool on mobile/tablet
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  // Disable touch callout (long-press context menu) on iOS
+  -webkit-touch-callout: none;
 }
 
 img,

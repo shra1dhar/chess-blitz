@@ -86,6 +86,10 @@
   @include mobile {
     font-size: $font-size-base;
   }
+
+  @include very-short-viewport {
+    display: none;
+  }
 }
 
 .spacer {
@@ -93,6 +97,10 @@
 
   @include mobile {
     width: 40px;
+  }
+
+  @include very-short-viewport {
+    display: none;
   }
 }
 
@@ -128,6 +136,10 @@
     padding: $spacing-xs;
   }
 
+  @include very-short-viewport {
+    padding: 2px;
+  }
+
   // Ultra-wide with limited height - reduced padding
   @include ultra-wide-limited-height {
     padding: $spacing-md;
@@ -146,9 +158,20 @@
 
   @include desktop {
     @include flex-row;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
-    align-items: flex-start;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+
+  // Short viewport with sufficient width - use horizontal layout
+  @media screen and (max-height: 599px) and (min-width: 600px) {
+    @include flex-row;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
@@ -171,7 +194,7 @@
   -ms-flex-align: center;
   align-items: center;
   width: 100%;
-  max-width: 560px;
+  max-width: 640px;
   min-height: 0;
 
   @include mobile {
@@ -185,13 +208,17 @@
   }
 
   @include desktop {
-    -ms-flex-negative: 0;
-    flex-shrink: 0;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    // justify-content: center;
   }
 
   // Larger board on extra-large screens
   @include extra-large-desktop {
-    max-width: 680px;
+    max-width: 760px;
   }
 
   // Extra-large desktop with limited height - reduce board to fit
@@ -207,6 +234,22 @@
   // Reduce board size to fit player info cards within viewport
   @include ultra-wide-limited-height {
     max-width: 600px; // Aggressive reduction to ensure all content fits
+  }
+
+  // Short viewports (< 600px height) with horizontal layout
+  @media screen and (max-height: 599px) and (min-width: 600px) {
+    max-width: calc(100vh - 110px); // Match board constraint
+    width: calc(100vh - 110px);
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+  }
+
+  // Very short viewports (< 500px height) with horizontal layout
+  // Need more space for player info cards at extreme heights
+  @media screen and (max-height: 499px) and (min-width: 600px) {
+    max-width: calc(100vh - 120px);
+    width: calc(100vh - 120px);
   }
 }
 
@@ -650,6 +693,11 @@
     display: none;
   }
 
+  // Hide for short viewport with sufficient width (use sidebar instead)
+  @media screen and (max-height: 599px) and (min-width: 600px) {
+    display: none;
+  }
+
   // Compact spacing for constrained heights
   @include constrained-height {
     margin-top: $spacing-xs;
@@ -664,21 +712,36 @@
 .sidebar {
   display: none;
   width: 100%;
-  max-width: 320px;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+  max-width: 280px;
   overflow-y: auto;
 
   // Show sidebar only on wider screens (900px+)
   @media screen and (min-width: 900px) {
-    display: block;
+    @include flex-column;
     margin-top: 0;
     margin-left: $spacing-xl;
-    max-height: calc(100vh - 200px);
+    min-height: 0;
 
     [dir="rtl"] & {
       margin-left: 0;
       margin-right: $spacing-xl;
+    }
+  }
+
+  // Show sidebar for short viewport with sufficient width
+  @media screen and (max-height: 599px) and (min-width: 600px) {
+    @include flex-column;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: 220px;
+    max-width: 220px;
+    margin-left: $spacing-md;
+    min-height: 0;
+
+    [dir="rtl"] & {
+      margin-left: 0;
+      margin-right: $spacing-md;
     }
   }
 
@@ -705,9 +768,8 @@
 
   // Ultra-wide with limited height - compact sidebar
   @include ultra-wide-limited-height {
-    max-width: 380px;
+    max-width: 340px;
     margin-left: $spacing-xl;
-    max-height: calc(100vh - 120px);
 
     [dir="rtl"] & {
       margin-left: 0;

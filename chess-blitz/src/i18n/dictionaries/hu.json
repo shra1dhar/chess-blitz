@@ -56,7 +56,9 @@
     "blue": "Kék óceán",
     "blueDesc": "Hűvös kék tónusok",
     "midnight": "Éjfél",
-    "midnightDesc": "Sötét mód barát"
+    "midnightDesc": "Sötét mód barát",
+    "purple": "Lila",
+    "purpleDesc": "Élénk lila és levendula"
   },
   "play": {
     "back": "Vissza",

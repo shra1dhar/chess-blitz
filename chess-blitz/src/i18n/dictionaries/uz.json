@@ -56,7 +56,9 @@
     "blue": "Ko'k okean",
     "blueDesc": "Salqin ko'k ohanglar",
     "midnight": "Yarim tun",
-    "midnightDesc": "Qorong'u rejim uchun qulay"
+    "midnightDesc": "Qorong'u rejim uchun qulay",
+    "purple": "Binafsha",
+    "purpleDesc": "Yorqin binafsha va lavanda"
   },
   "play": {
     "back": "Orqaga",

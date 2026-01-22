@@ -56,7 +56,9 @@
     "blue": "Blå ocean",
     "blueDesc": "Kølige blå toner",
     "midnight": "Midnat",
-    "midnightDesc": "Mørk tilstand venlig"
+    "midnightDesc": "Mørk tilstand venlig",
+    "purple": "Lilla",
+    "purpleDesc": "Levende lilla og lavendel"
   },
   "play": {
     "back": "Tilbage",

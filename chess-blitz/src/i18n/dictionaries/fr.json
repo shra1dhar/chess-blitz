@@ -56,7 +56,9 @@
     "blue": "Océan bleu",
     "blueDesc": "Tons bleus frais",
     "midnight": "Minuit",
-    "midnightDesc": "Idéal pour le mode sombre"
+    "midnightDesc": "Idéal pour le mode sombre",
+    "purple": "Violet",
+    "purpleDesc": "Violet vibrant et lavande"
   },
   "play": {
     "back": "Retour",

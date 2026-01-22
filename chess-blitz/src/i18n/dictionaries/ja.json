@@ -56,7 +56,9 @@
     "blue": "ブルーオーシャン",
     "blueDesc": "クールなブルートーン",
     "midnight": "ミッドナイト",
-    "midnightDesc": "ダークモード対応"
+    "midnightDesc": "ダークモード対応",
+    "purple": "パープル",
+    "purpleDesc": "鮮やかな紫とラベンダー"
   },
   "play": {
     "back": "戻る",

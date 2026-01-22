@@ -56,7 +56,9 @@
     "blue": "Blauer Ozean",
     "blueDesc": "Kühle Blautöne",
     "midnight": "Mitternacht",
-    "midnightDesc": "Dunkelmodus-freundlich"
+    "midnightDesc": "Dunkelmodus-freundlich",
+    "purple": "Lila",
+    "purpleDesc": "Lebhaftes Lila und Lavendel"
   },
   "play": {
     "back": "Zurück",

@@ -56,7 +56,9 @@
     "blue": "Blue Ocean",
     "blueDesc": "Cool blue tones",
     "midnight": "Midnight",
-    "midnightDesc": "Dark mode friendly"
+    "midnightDesc": "Dark mode friendly",
+    "purple": "Purple",
+    "purpleDesc": "Vibrant purple and lavender"
   },
   "play": {
     "back": "Back",

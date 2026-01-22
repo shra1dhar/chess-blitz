@@ -56,7 +56,9 @@
     "blue": "Lautan Biru",
     "blueDesc": "Nada biru sejuk",
     "midnight": "Tengah Malam",
-    "midnightDesc": "Sesuai untuk mod gelap"
+    "midnightDesc": "Sesuai untuk mod gelap",
+    "purple": "Ungu",
+    "purpleDesc": "Ungu terang dan lavender"
   },
   "play": {
     "back": "Kembali",
