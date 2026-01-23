@@ -19,7 +19,7 @@ export async function GET(
     display: 'standalone',
     background_color: '#f8f6f3',
     theme_color: '#b58863',
-    id: '',
+    id: 'chess-blitz-zoony',
     dir: 'auto',
     orientation: 'portrait',
     ms_start_compatible: true,
@@ -45,9 +45,9 @@ export async function GET(
         type: 'image/jpeg',
       },
       {
-        src: '/chess-blitz-purple-512x512.jpg',
+        src: '/chess-blitz-purple-512x512.png',
         sizes: '512x512',
-        type: 'image/jpeg',
+        type: 'image/png',
       },
       {
         src: '/chess-blitz-purple-1920x1080.jpg',
