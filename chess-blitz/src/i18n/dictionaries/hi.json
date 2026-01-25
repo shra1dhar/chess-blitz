@@ -46,7 +46,8 @@
     "boardTheme": "बोर्ड थीम",
     "soundEffects": "ध्वनि प्रभाव",
     "disableSound": "आवाज़ बंद करें",
-    "enableSound": "आवाज़ चालू करें"
+    "enableSound": "आवाज़ चालू करें",
+    "pieceSet": "मोहरों का सेट"
   },
   "themes": {
     "wood": "क्लासिक लकड़ी",
@@ -55,8 +56,6 @@
     "greenDesc": "क्लासिक हरा और क्रीम",
     "blue": "नीला सागर",
     "blueDesc": "शांत नीले टोन",
-    "midnight": "मध्यरात्रि",
-    "midnightDesc": "डार्क मोड के अनुकूल",
     "purple": "बैंगनी",
     "purpleDesc": "जीवंत बैंगनी और लैवेंडर"
   },
@@ -77,8 +76,6 @@
     "resign": "हार मानें",
     "resignGame": "गेम छोड़ें",
     "playAgain": "फिर से खेलें",
-    "getHint": "संकेत",
-    "getHintSoon": "संकेत प्राप्त करें (जल्द आ रहा है)",
     "offerDraw": "ड्रॉ का प्रस्ताव",
     "drawOffered": "ड्रॉ प्रस्तावित",
     "draw": "ड्रॉ"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "प्रतिद्वंद्वी फिर से जुड़ गया"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "मेटल",
+    "metalDesc": "पॉलिश धातु के मोहरे"
   }
 }

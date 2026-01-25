@@ -46,7 +46,8 @@
     "boardTheme": "Тема доски",
     "soundEffects": "Звуковые эффекты",
     "disableSound": "Выключить звук",
-    "enableSound": "Включить звук"
+    "enableSound": "Включить звук",
+    "pieceSet": "Набор фигур"
   },
   "themes": {
     "wood": "Классическое дерево",
@@ -55,8 +56,6 @@
     "greenDesc": "Классический зелёный и кремовый",
     "blue": "Синий океан",
     "blueDesc": "Прохладные синие тона",
-    "midnight": "Полночь",
-    "midnightDesc": "Для тёмного режима",
     "purple": "Фиолетовый",
     "purpleDesc": "Яркий фиолетовый и лавандовый"
   },
@@ -77,8 +76,6 @@
     "resign": "Сдаться",
     "resignGame": "Сдать партию",
     "playAgain": "Играть снова",
-    "getHint": "Подсказка",
-    "getHintSoon": "Получить подсказку (скоро)",
     "offerDraw": "Предложить ничью",
     "drawOffered": "Ничья предложена",
     "draw": "Ничья"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "Соперник переподключился"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Металл",
+    "metalDesc": "Полированные металлические фигуры"
   }
 }

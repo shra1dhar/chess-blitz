@@ -46,7 +46,8 @@
     "boardTheme": "Motyw szachownicy",
     "soundEffects": "Efekty dźwiękowe",
     "disableSound": "Wyłącz dźwięk",
-    "enableSound": "Włącz dźwięk"
+    "enableSound": "Włącz dźwięk",
+    "pieceSet": "Zestaw figur"
   },
   "themes": {
     "wood": "Klasyczne drewno",
@@ -55,8 +56,6 @@
     "greenDesc": "Klasyczna zieleń i krem",
     "blue": "Błękitny ocean",
     "blueDesc": "Chłodne niebieskie tony",
-    "midnight": "Północ",
-    "midnightDesc": "Przyjazna dla trybu ciemnego",
     "purple": "Fioletowy",
     "purpleDesc": "Żywy fiolet i lawenda"
   },
@@ -77,8 +76,6 @@
     "resign": "Poddaj się",
     "resignGame": "Poddaj partię",
     "playAgain": "Zagraj ponownie",
-    "getHint": "Podpowiedź",
-    "getHintSoon": "Uzyskaj podpowiedź (wkrótce)",
     "offerDraw": "Zaproponuj remis",
     "drawOffered": "Remis zaproponowany",
     "draw": "Remis"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "Przeciwnik połączył się ponownie"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Metal",
+    "metalDesc": "Polerowane figury metalowe"
   }
 }

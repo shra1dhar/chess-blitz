@@ -5,9 +5,9 @@
 // Theme and sound settings toggle
 // ==============================================
 
-import type { BoardTheme } from '@/types/chess';
+import type { BoardTheme, PieceSet } from '@/types/chess';
 import type { Dictionary } from '@/i18n/dictionaries';
-import { BOARD_THEMES } from '@/types/chess';
+import { BOARD_THEMES, PIECE_SETS } from '@/types/chess';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useDropdown } from '@/hooks/useDropdown';
 import { soundManager } from '@/services/soundManager';
@@ -19,11 +19,16 @@ interface SettingsSectionProps {
 
 export function SettingsSection({ dict }: SettingsSectionProps) {
   const { isOpen, isVisible, containerRef, toggle, handleAnimationEnd } = useDropdown();
-  const { theme, setTheme, soundEnabled, toggleSound } = useSettingsStore();
+  const { theme, setTheme, pieceSet, setPieceSet, soundEnabled, toggleSound } = useSettingsStore();
 
   const handleThemeChange = (themeKey: BoardTheme) => {
     soundManager.playSync('move');
     setTheme(themeKey);
+  };
+
+  const handlePieceSetChange = (setKey: PieceSet) => {
+    soundManager.playSync('move');
+    setPieceSet(setKey);
   };
 
   const handleSoundToggle = () => {
@@ -63,12 +68,11 @@ export function SettingsSection({ dict }: SettingsSectionProps) {
           className={`${styles.settingsPanel} ${isOpen ? styles.open : styles.closing}`}
           onAnimationEnd={handleAnimationEnd}
         >
-          {/* Theme Selection */}
+          {/* Theme Selection - Icon only, no names */}
           <div className={styles.settingGroup}>
             <h3 className={styles.settingLabel}>{dict.settings.boardTheme}</h3>
             <div className={styles.themeOptions}>
               {(Object.keys(BOARD_THEMES) as BoardTheme[]).map((themeKey) => {
-                const themeName = dict.themes[themeKey as keyof typeof dict.themes] || BOARD_THEMES[themeKey].name;
                 const themeDesc = dict.themes[`${themeKey}Desc` as keyof typeof dict.themes] || BOARD_THEMES[themeKey].description;
                 return (
                   <button
@@ -76,14 +80,43 @@ export function SettingsSection({ dict }: SettingsSectionProps) {
                     className={`${styles.themeOption} ${theme === themeKey ? styles.active : ''}`}
                     onClick={() => handleThemeChange(themeKey)}
                     title={themeDesc}
+                    aria-label={BOARD_THEMES[themeKey].name}
                   >
                     <div className={`theme-swatch theme-swatch--${themeKey}`}>
                       <span className="theme-swatch__grid" />
                     </div>
-                    <span className={styles.themeName}>{themeName}</span>
                   </button>
                 );
               })}
+            </div>
+          </div>
+
+          {/* Piece Set Selection - Icon only, no classic option */}
+          <div className={styles.settingGroup}>
+            <h3 className={styles.settingLabel}>{dict.settings.pieceSet || 'Piece Set'}</h3>
+            <div className={styles.pieceSetOptions}>
+              {(Object.keys(PIECE_SETS) as PieceSet[])
+                .filter((setKey) => setKey !== 'classic')
+                .map((setKey) => {
+                  const setDesc = dict.pieceSets?.[`${setKey}Desc` as keyof typeof dict.pieceSets] || PIECE_SETS[setKey].description;
+                  return (
+                    <button
+                      key={setKey}
+                      className={`${styles.pieceSetOption} ${pieceSet === setKey ? styles.active : ''}`}
+                      onClick={() => handlePieceSetChange(setKey)}
+                      title={setDesc as string}
+                      aria-label={PIECE_SETS[setKey].name}
+                    >
+                      <div className={styles.pieceSetPreview}>
+                        <img
+                          src={`/theme/pieces/${setKey}/white-knight.png`}
+                          alt={`${PIECE_SETS[setKey].name} pieces`}
+                          className={styles.previewPiece}
+                        />
+                      </div>
+                    </button>
+                  );
+                })}
             </div>
           </div>
 

@@ -46,7 +46,8 @@
     "boardTheme": "Тема табле",
     "soundEffects": "Звучни ефекти",
     "disableSound": "Искључи звук",
-    "enableSound": "Укључи звук"
+    "enableSound": "Укључи звук",
+    "pieceSet": "Сет фигура"
   },
   "themes": {
     "wood": "Класично дрво",
@@ -55,8 +56,6 @@
     "greenDesc": "Класична зелена и крем",
     "blue": "Плави океан",
     "blueDesc": "Хладни плави тонови",
-    "midnight": "Поноћ",
-    "midnightDesc": "Погодно за тамни режим",
     "purple": "Љубичаста",
     "purpleDesc": "Живописна љубичаста и лаванда"
   },
@@ -77,8 +76,6 @@
     "resign": "Предај се",
     "resignGame": "Предај игру",
     "playAgain": "Играј поново",
-    "getHint": "Савет",
-    "getHintSoon": "Добиј савет (ускоро)",
     "offerDraw": "Понуди реми",
     "drawOffered": "Реми понуђен",
     "draw": "Реми"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "Противник се поново повезао"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Метал",
+    "metalDesc": "Полиране металне фигуре"
   }
 }

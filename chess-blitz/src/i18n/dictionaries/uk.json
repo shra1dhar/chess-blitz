@@ -46,7 +46,8 @@
     "boardTheme": "Тема дошки",
     "soundEffects": "Звукові ефекти",
     "disableSound": "Вимкнути звук",
-    "enableSound": "Увімкнути звук"
+    "enableSound": "Увімкнути звук",
+    "pieceSet": "Набір фігур"
   },
   "themes": {
     "wood": "Класичне дерево",
@@ -55,8 +56,6 @@
     "greenDesc": "Класичний зелений та кремовий",
     "blue": "Синій океан",
     "blueDesc": "Прохолодні сині тони",
-    "midnight": "Опівночі",
-    "midnightDesc": "Для темного режиму",
     "purple": "Фіолетовий",
     "purpleDesc": "Яскравий фіолетовий та лавандовий"
   },
@@ -77,8 +76,6 @@
     "resign": "Здатися",
     "resignGame": "Здати партію",
     "playAgain": "Грати знову",
-    "getHint": "Підказка",
-    "getHintSoon": "Отримати підказку (незабаром)",
     "offerDraw": "Запропонувати нічию",
     "drawOffered": "Нічию запропоновано",
     "draw": "Нічия"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "Суперник перепідключився"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Метал",
+    "metalDesc": "Полірований металеві фігури"
   }
 }

@@ -46,7 +46,8 @@
     "boardTheme": "Téma šachovnice",
     "soundEffects": "Zvukové efekty",
     "disableSound": "Vypnúť zvuk",
-    "enableSound": "Zapnúť zvuk"
+    "enableSound": "Zapnúť zvuk",
+    "pieceSet": "Sada figúrok"
   },
   "themes": {
     "wood": "Klasické drevo",
@@ -55,8 +56,6 @@
     "greenDesc": "Klasická zelená a krémová",
     "blue": "Modrý oceán",
     "blueDesc": "Chladné modré tóny",
-    "midnight": "Polnoc",
-    "midnightDesc": "Vhodné pre tmavý režim",
     "purple": "Fialová",
     "purpleDesc": "Žiarivá fialová a levanduľa"
   },
@@ -77,8 +76,6 @@
     "resign": "Vzdať sa",
     "resignGame": "Vzdať hru",
     "playAgain": "Hrať znova",
-    "getHint": "Nápoveda",
-    "getHintSoon": "Získať nápovedu (čoskoro)",
     "offerDraw": "Ponúknuť remízu",
     "drawOffered": "Remíza ponúknutá",
     "draw": "Remíza"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "Súper sa znovu pripojil"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Kovové",
+    "metalDesc": "Leštené kovové figúrky"
   }
 }

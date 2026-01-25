@@ -46,7 +46,8 @@
     "boardTheme": "Tema tablei",
     "soundEffects": "Efecte sonore",
     "disableSound": "Dezactivează sunetul",
-    "enableSound": "Activează sunetul"
+    "enableSound": "Activează sunetul",
+    "pieceSet": "Set de piese"
   },
   "themes": {
     "wood": "Lemn clasic",
@@ -55,8 +56,6 @@
     "greenDesc": "Verde clasic și crem",
     "blue": "Ocean albastru",
     "blueDesc": "Tonuri reci de albastru",
-    "midnight": "Miezul nopții",
-    "midnightDesc": "Prietenos cu modul întunecat",
     "purple": "Mov",
     "purpleDesc": "Mov vibrant și lavandă"
   },
@@ -77,8 +76,6 @@
     "resign": "Predă-te",
     "resignGame": "Predă jocul",
     "playAgain": "Joacă din nou",
-    "getHint": "Indiciu",
-    "getHintSoon": "Obține indiciu (în curând)",
     "offerDraw": "Oferă remiză",
     "drawOffered": "Remiză oferită",
     "draw": "Remiză"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "Adversarul s-a reconectat"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Metal",
+    "metalDesc": "Piese din metal lustruit"
   }
 }

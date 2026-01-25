@@ -46,7 +46,8 @@
     "boardTheme": "棋盘主题",
     "soundEffects": "音效",
     "disableSound": "关闭声音",
-    "enableSound": "开启声音"
+    "enableSound": "开启声音",
+    "pieceSet": "棋子样式"
   },
   "themes": {
     "wood": "经典木纹",
@@ -55,8 +56,6 @@
     "greenDesc": "经典绿色和奶油色",
     "blue": "蓝色海洋",
     "blueDesc": "清凉的蓝色调",
-    "midnight": "午夜",
-    "midnightDesc": "适合深色模式",
     "purple": "紫色",
     "purpleDesc": "鲜艳的紫色和薰衣草色"
   },
@@ -77,8 +76,6 @@
     "resign": "认输",
     "resignGame": "认输",
     "playAgain": "再玩一次",
-    "getHint": "提示",
-    "getHintSoon": "获取提示（即将推出）",
     "offerDraw": "提议和棋",
     "drawOffered": "已提议和棋",
     "draw": "和棋"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "对手已重新连接"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "金属",
+    "metalDesc": "抛光金属棋子"
   }
 }

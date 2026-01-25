@@ -42,7 +42,7 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
   const [isInitialized, setIsInitialized] = useState(false);
   const [chess] = useState(() => new Chess());
 
-  const { theme, showLegalMoves, animationSpeed } = useSettingsStore();
+  const { theme, pieceSet, showLegalMoves, animationSpeed } = useSettingsStore();
 
   // Get auth state from store - needed for reconnection after page refresh
   const token = useMultiplayerStore((s) => s.token);
@@ -290,6 +290,7 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
           isCheck={isCheck}
           showLegalMoves={showLegalMoves}
           animationSpeed={animationSpeed}
+          pieceSet={pieceSet}
         />
       }
       playerInfo={

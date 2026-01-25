@@ -46,7 +46,8 @@
     "boardTheme": "Tema Papan",
     "soundEffects": "Efek Suara",
     "disableSound": "Matikan suara",
-    "enableSound": "Aktifkan suara"
+    "enableSound": "Aktifkan suara",
+    "pieceSet": "Set Bidak"
   },
   "themes": {
     "wood": "Kayu Klasik",
@@ -55,8 +56,6 @@
     "greenDesc": "Hijau dan krem klasik",
     "blue": "Lautan Biru",
     "blueDesc": "Nada biru sejuk",
-    "midnight": "Tengah Malam",
-    "midnightDesc": "Cocok untuk mode gelap",
     "purple": "Ungu",
     "purpleDesc": "Ungu cerah dan lavender"
   },
@@ -77,8 +76,6 @@
     "resign": "Menyerah",
     "resignGame": "Menyerah dari permainan",
     "playAgain": "Main Lagi",
-    "getHint": "Petunjuk",
-    "getHintSoon": "Dapatkan petunjuk (segera)",
     "offerDraw": "Tawarkan Seri",
     "drawOffered": "Seri Ditawarkan",
     "draw": "Seri"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "Lawan telah terhubung kembali"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Logam",
+    "metalDesc": "Bidak logam mengkilap"
   }
 }

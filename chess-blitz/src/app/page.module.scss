@@ -1040,24 +1040,22 @@
 }
 
 // ==============================================
-// Theme Selection
+// Theme Selection - Icon only grid
 // ==============================================
 
 .themeOptions {
-  @include flex-row;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
 }
 
 .themeOption {
-  @include flex-column;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  width: calc(25% - 9px);
+  @include flex-center;
+  padding: $spacing-xs;
   margin-inline-end: $spacing-sm;
-  margin-bottom: $spacing-sm;
-  padding: $spacing-sm;
   background: transparent;
   border: 2px solid transparent;
   border-radius: $radius-md;
@@ -1065,25 +1063,73 @@
   -webkit-transition: all $transition-fast;
   transition: all $transition-fast;
 
-  &:nth-child(4n) {
+  &:last-child {
     margin-inline-end: 0;
   }
 
   &:hover {
-    background-color: var(--ui-bg-primary);
+    background-color: rgba($brand-primary, 0.05);
+    border-color: rgba($brand-primary, 0.3);
   }
 
   &.active {
     border-color: $brand-primary;
-    background-color: rgba($brand-primary, 0.05);
+    background-color: rgba($brand-primary, 0.08);
   }
 }
 
-.themeName {
-  font-size: $font-size-xs;
-  color: var(--ui-text-secondary);
-  margin-top: $spacing-xs;
-  text-align: center;
+// ==============================================
+// Piece Set Selection - Icon only, 2 options
+// ==============================================
+
+.pieceSetOptions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+
+.pieceSetOption {
+  @include flex-center;
+  padding: $spacing-xs;
+  margin-inline-end: $spacing-md;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: $radius-md;
+  cursor: pointer;
+  -webkit-transition: all $transition-fast;
+  transition: all $transition-fast;
+
+  &:last-child {
+    margin-inline-end: 0;
+  }
+
+  &:hover {
+    background-color: rgba($brand-primary, 0.05);
+    border-color: rgba($brand-primary, 0.3);
+  }
+
+  &.active {
+    border-color: $brand-primary;
+    background-color: rgba($brand-primary, 0.08);
+  }
+}
+
+.pieceSetPreview {
+  width: 48px;
+  height: 48px;
+  @include flex-center;
+  background-color: var(--board-light);
+  border-radius: $radius-sm;
+}
+
+.previewPiece {
+  width: 40px;
+  height: 40px;
+  -o-object-fit: contain;
+  object-fit: contain;
 }
 
 // ==============================================
@@ -1184,18 +1230,6 @@
     min-width: 78px;
   }
 
-  .themeOption {
-    width: calc(50% - #{$spacing-xs});
-    margin-inline-end: $spacing-sm;
-
-    &:nth-child(4n) {
-      margin-inline-end: $spacing-sm;
-    }
-
-    &:nth-child(2n) {
-      margin-inline-end: 0;
-    }
-  }
 }
 
 // ==============================================

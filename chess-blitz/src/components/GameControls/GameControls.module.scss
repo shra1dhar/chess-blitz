@@ -201,23 +201,6 @@
   }
 }
 
-// Outline/hint button
-.buttonOutline {
-  background: transparent;
-  color: var(--ui-text-secondary);
-  border: 1px solid var(--ui-border);
-
-  &:hover:not(:disabled) {
-    background: rgba(0, 0, 0, 0.03);
-    color: var(--ui-text-primary);
-    border-color: rgba(0, 0, 0, 0.15);
-  }
-
-  &:disabled {
-    opacity: 0.35;
-  }
-}
-
 .buttonFull {
   -ms-flex: 1 1 100%;
   flex: 1 1 100%;

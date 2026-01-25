@@ -46,7 +46,8 @@
     "boardTheme": "ثيم الرقعة",
     "soundEffects": "المؤثرات الصوتية",
     "disableSound": "إيقاف الصوت",
-    "enableSound": "تشغيل الصوت"
+    "enableSound": "تشغيل الصوت",
+    "pieceSet": "مجموعة القطع"
   },
   "themes": {
     "wood": "خشب كلاسيكي",
@@ -55,8 +56,6 @@
     "greenDesc": "أخضر وكريمي كلاسيكي",
     "blue": "محيط أزرق",
     "blueDesc": "درجات زرقاء باردة",
-    "midnight": "منتصف الليل",
-    "midnightDesc": "مناسب للوضع المظلم",
     "purple": "أرجواني",
     "purpleDesc": "أرجواني نابض بالحياة ولافندر"
   },
@@ -77,8 +76,6 @@
     "resign": "استسلم",
     "resignGame": "استسلم في اللعبة",
     "playAgain": "العب مرة أخرى",
-    "getHint": "تلميح",
-    "getHintSoon": "احصل على تلميح (قريباً)",
     "offerDraw": "عرض التعادل",
     "drawOffered": "تم عرض التعادل",
     "draw": "تعادل"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "عاد الخصم للاتصال"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "معدن",
+    "metalDesc": "قطع معدنية لامعة"
   }
 }

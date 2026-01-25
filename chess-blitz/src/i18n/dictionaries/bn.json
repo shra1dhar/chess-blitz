@@ -46,7 +46,8 @@
     "boardTheme": "বোর্ড থিম",
     "soundEffects": "শব্দ প্রভাব",
     "disableSound": "শব্দ বন্ধ করুন",
-    "enableSound": "শব্দ চালু করুন"
+    "enableSound": "শব্দ চালু করুন",
+    "pieceSet": "পিস সেট"
   },
   "themes": {
     "wood": "ক্লাসিক কাঠ",
@@ -55,8 +56,6 @@
     "greenDesc": "ক্লাসিক সবুজ এবং ক্রিম",
     "blue": "নীল সাগর",
     "blueDesc": "শীতল নীল টোন",
-    "midnight": "মধ্যরাত",
-    "midnightDesc": "ডার্ক মোড বান্ধব",
     "purple": "বেগুনি",
     "purpleDesc": "প্রাণবন্ত বেগুনি এবং ল্যাভেন্ডার"
   },
@@ -77,8 +76,6 @@
     "resign": "হার মানুন",
     "resignGame": "খেলা ছেড়ে দিন",
     "playAgain": "আবার খেলুন",
-    "getHint": "সংকেত",
-    "getHintSoon": "সংকেত পান (শীঘ্রই আসছে)",
     "offerDraw": "ড্র অফার করুন",
     "drawOffered": "ড্র অফার করা হয়েছে",
     "draw": "ড্র"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "প্রতিপক্ষ পুনরায় সংযুক্ত হয়েছে"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "মেটাল",
+    "metalDesc": "পালিশ করা ধাতব পিস"
   }
 }

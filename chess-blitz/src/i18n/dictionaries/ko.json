@@ -46,7 +46,8 @@
     "boardTheme": "보드 테마",
     "soundEffects": "효과음",
     "disableSound": "소리 끄기",
-    "enableSound": "소리 켜기"
+    "enableSound": "소리 켜기",
+    "pieceSet": "말 세트"
   },
   "themes": {
     "wood": "클래식 우드",
@@ -55,8 +56,6 @@
     "greenDesc": "클래식 그린과 크림",
     "blue": "블루 오션",
     "blueDesc": "시원한 블루 톤",
-    "midnight": "미드나잇",
-    "midnightDesc": "다크 모드 친화적",
     "purple": "퍼플",
     "purpleDesc": "생생한 보라색과 라벤더"
   },
@@ -77,8 +76,6 @@
     "resign": "기권",
     "resignGame": "게임 기권",
     "playAgain": "다시 플레이",
-    "getHint": "힌트",
-    "getHintSoon": "힌트 받기 (출시 예정)",
     "offerDraw": "무승부 제안",
     "drawOffered": "무승부 제안됨",
     "draw": "무승부"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "상대가 다시 연결되었습니다"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "메탈",
+    "metalDesc": "광택 금속 말"
   }
 }

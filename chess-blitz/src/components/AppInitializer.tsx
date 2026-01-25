@@ -18,7 +18,7 @@ function loadMSNSDK() {
   if (document.querySelector('script[src*="msstart-games-sdk"]')) return;
 
   const script = document.createElement('script');
-  script.src = 'https://assets.msn.com/staticsb/statics/latest/msstart-games-sdk/msstart-v1.0.0-rc.13.min.js';
+  script.src = 'https://assets.msn.com/staticsb/statics/latest/msstart-games-sdk/msstart-v1.0.0-rc.22.min.js';
   script.async = true;
   document.head.appendChild(script);
 }

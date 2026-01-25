@@ -3,8 +3,9 @@
 import { useState, useCallback, useMemo } from 'react';
 import { Chessboard } from 'react-chessboard';
 import type { Square, PieceSymbol, Color } from 'chess.js';
-import type { UserSettings } from '@/types/chess';
+import type { UserSettings, PieceSet } from '@/types/chess';
 import { ANIMATION_SPEEDS } from '@/types/chess';
+import { getCustomPieces, getPieceImageUrl } from '@/utils/customPieces';
 import styles from './ChessBoard.module.scss';
 
 interface ChessBoardProps {
@@ -17,6 +18,7 @@ interface ChessBoardProps {
   isCheck: boolean;
   showLegalMoves: boolean;
   animationSpeed: UserSettings['animationSpeed'];
+  pieceSet: PieceSet;
 }
 
 export default function ChessBoard({
@@ -29,6 +31,7 @@ export default function ChessBoard({
   isCheck,
   showLegalMoves,
   animationSpeed,
+  pieceSet,
 }: ChessBoardProps) {
   const [selectedSquare, setSelectedSquare] = useState<Square | null>(null);
   const [legalMoves, setLegalMoves] = useState<Square[]>([]);
@@ -42,6 +45,9 @@ export default function ChessBoard({
 
   // Animation duration
   const animationDuration = ANIMATION_SPEEDS[animationSpeed];
+
+  // Custom pieces based on piece set
+  const customPieces = useMemo(() => getCustomPieces(pieceSet), [pieceSet]);
 
   // Handle square click for click-to-move
   const handleSquareClick = useCallback(
@@ -207,6 +213,7 @@ export default function ChessBoard({
           onPieceDragBegin={handlePieceDragBegin}
           onPieceDragEnd={handlePieceDragEnd}
           customSquareStyles={customSquareStyles}
+          customPieces={customPieces}
           customBoardStyle={{
             borderRadius: '4px',
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
@@ -237,7 +244,7 @@ export default function ChessBoard({
                   className={styles.promotionOption}
                   onClick={() => handlePromotion(piece)}
                 >
-                  <PieceIcon piece={piece} color={playerColor} />
+                  <PieceIcon piece={piece} color={playerColor} pieceSet={pieceSet} />
                 </button>
               ))}
             </div>
@@ -309,15 +316,40 @@ function findKingSquare(fen: string, color: Color): Square | null {
   return null;
 }
 
-// Piece icon component
-function PieceIcon({ piece, color }: { piece: PieceSymbol; color: Color }) {
+// Piece icon component (for promotion dialog)
+function PieceIcon({
+  piece,
+  color,
+  pieceSet,
+}: {
+  piece: PieceSymbol;
+  color: Color;
+  pieceSet: PieceSet;
+}) {
+  // For promotion dialog, only q/r/b/n pieces are shown
+  const imageUrl =
+    piece !== 'k' && piece !== 'p'
+      ? getPieceImageUrl(pieceSet, piece as 'q' | 'r' | 'b' | 'n', color)
+      : null;
+
+  if (imageUrl) {
+    return (
+      <img
+        src={imageUrl}
+        alt={`${color === 'w' ? 'White' : 'Black'} ${piece}`}
+        className={styles.pieceImage}
+      />
+    );
+  }
+
+  // Fallback to Unicode for default piece set
   const pieceChars: Record<PieceSymbol, string> = {
-    k: color === 'w' ? '♔' : '♚',
-    q: color === 'w' ? '♕' : '♛',
-    r: color === 'w' ? '♖' : '♜',
-    b: color === 'w' ? '♗' : '♝',
-    n: color === 'w' ? '♘' : '♞',
-    p: color === 'w' ? '♙' : '♟',
+    k: color === 'w' ? '\u2654' : '\u265A',
+    q: color === 'w' ? '\u2655' : '\u265B',
+    r: color === 'w' ? '\u2656' : '\u265C',
+    b: color === 'w' ? '\u2657' : '\u265D',
+    n: color === 'w' ? '\u2658' : '\u265E',
+    p: color === 'w' ? '\u2659' : '\u265F',
   };
 
   return <span className={styles.pieceIcon}>{pieceChars[piece]}</span>;

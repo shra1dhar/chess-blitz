@@ -46,7 +46,8 @@
     "boardTheme": "Brettdesign",
     "soundEffects": "Soundeffekte",
     "disableSound": "Ton deaktivieren",
-    "enableSound": "Ton aktivieren"
+    "enableSound": "Ton aktivieren",
+    "pieceSet": "Figurensatz"
   },
   "themes": {
     "wood": "Klassisches Holz",
@@ -55,8 +56,6 @@
     "greenDesc": "Klassisches Grün und Creme",
     "blue": "Blauer Ozean",
     "blueDesc": "Kühle Blautöne",
-    "midnight": "Mitternacht",
-    "midnightDesc": "Dunkelmodus-freundlich",
     "purple": "Lila",
     "purpleDesc": "Lebhaftes Lila und Lavendel"
   },
@@ -77,8 +76,6 @@
     "resign": "Aufgeben",
     "resignGame": "Partie aufgeben",
     "playAgain": "Nochmal spielen",
-    "getHint": "Hinweis",
-    "getHintSoon": "Hinweis erhalten (bald verfügbar)",
     "offerDraw": "Remis anbieten",
     "drawOffered": "Remis angeboten",
     "draw": "Remis"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "Gegner hat sich wieder verbunden"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Metall",
+    "metalDesc": "Polierte Metallfiguren"
   }
 }

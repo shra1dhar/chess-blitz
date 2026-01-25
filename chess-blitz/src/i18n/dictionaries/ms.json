@@ -46,7 +46,8 @@
     "boardTheme": "Tema Papan",
     "soundEffects": "Kesan Bunyi",
     "disableSound": "Matikan bunyi",
-    "enableSound": "Aktifkan bunyi"
+    "enableSound": "Aktifkan bunyi",
+    "pieceSet": "Set Buah"
   },
   "themes": {
     "wood": "Kayu Klasik",
@@ -55,8 +56,6 @@
     "greenDesc": "Hijau dan krim klasik",
     "blue": "Lautan Biru",
     "blueDesc": "Nada biru sejuk",
-    "midnight": "Tengah Malam",
-    "midnightDesc": "Sesuai untuk mod gelap",
     "purple": "Ungu",
     "purpleDesc": "Ungu terang dan lavender"
   },
@@ -77,8 +76,6 @@
     "resign": "Menyerah",
     "resignGame": "Menyerah permainan",
     "playAgain": "Main Lagi",
-    "getHint": "Petunjuk",
-    "getHintSoon": "Dapatkan petunjuk (akan datang)",
     "offerDraw": "Tawarkan Seri",
     "drawOffered": "Seri Ditawarkan",
     "draw": "Seri"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "Lawan telah menyambung semula"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Logam",
+    "metalDesc": "Buah logam berkilat"
   }
 }

@@ -46,7 +46,8 @@
     "boardTheme": "Laudan teema",
     "soundEffects": "Äänitehosteet",
     "disableSound": "Poista äänet",
-    "enableSound": "Ota äänet käyttöön"
+    "enableSound": "Ota äänet käyttöön",
+    "pieceSet": "Nappulasarja"
   },
   "themes": {
     "wood": "Klassinen puu",
@@ -55,8 +56,6 @@
     "greenDesc": "Klassinen vihreä ja kerma",
     "blue": "Sininen meri",
     "blueDesc": "Viileät siniset sävyt",
-    "midnight": "Keskiyö",
-    "midnightDesc": "Tumma tila ystävällinen",
     "purple": "Violetti",
     "purpleDesc": "Eloisa violetti ja laventeli"
   },
@@ -77,8 +76,6 @@
     "resign": "Luovuta",
     "resignGame": "Luovuta peli",
     "playAgain": "Pelaa uudelleen",
-    "getHint": "Vinkki",
-    "getHintSoon": "Hae vinkki (tulossa pian)",
     "offerDraw": "Tarjoa tasapeli",
     "drawOffered": "Tasapeli tarjottu",
     "draw": "Tasapeli"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "Vastustaja yhdisti uudelleen"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Metalli",
+    "metalDesc": "Kiillotetut metallinappulat"
   }
 }

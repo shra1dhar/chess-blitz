@@ -60,7 +60,7 @@ export const DIFFICULTY_CONFIGS: Record<Difficulty, DifficultyConfig> = {
 };
 
 // Board themes
-export type BoardTheme = 'wood' | 'green' | 'blue' | 'midnight' | 'purple';
+export type BoardTheme = 'wood' | 'green' | 'blue' | 'purple';
 
 export interface BoardThemeConfig {
   name: string;
@@ -80,13 +80,36 @@ export const BOARD_THEMES: Record<BoardTheme, BoardThemeConfig> = {
     name: 'Blue Ocean',
     description: 'Cool blue tones',
   },
-  midnight: {
-    name: 'Midnight',
-    description: 'Dark mode friendly',
-  },
   purple: {
     name: 'Purple',
     description: 'Vibrant purple and lavender',
+  },
+};
+
+// Piece sets
+export type PieceSet = 'classic' | 'standard' | 'metal';
+
+export interface PieceSetConfig {
+  name: string;
+  description: string;
+  basePath?: string; // For custom piece sets with images
+}
+
+export const PIECE_SETS: Record<PieceSet, PieceSetConfig> = {
+  classic: {
+    name: 'Classic',
+    description: 'Traditional SVG pieces',
+    // No basePath - uses library built-in SVGs
+  },
+  standard: {
+    name: 'Standard',
+    description: 'Custom standard pieces',
+    basePath: '/theme/pieces/standard',
+  },
+  metal: {
+    name: 'Metal',
+    description: 'Polished metal pieces',
+    basePath: '/theme/pieces/metal',
   },
 };
 
@@ -182,6 +205,7 @@ export interface GameState {
 // User settings
 export interface UserSettings {
   theme: BoardTheme;
+  pieceSet: PieceSet;
   soundEnabled: boolean;
   showLegalMoves: boolean;
   autoQueen: boolean; // Auto-promote to queen
@@ -191,6 +215,7 @@ export interface UserSettings {
 
 export const DEFAULT_SETTINGS: UserSettings = {
   theme: 'wood',
+  pieceSet: 'standard',
   soundEnabled: true,
   showLegalMoves: true,
   autoQueen: true,

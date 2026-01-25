@@ -46,7 +46,8 @@
     "boardTheme": "Tahta teması",
     "soundEffects": "Ses efektleri",
     "disableSound": "Sesi kapat",
-    "enableSound": "Sesi aç"
+    "enableSound": "Sesi aç",
+    "pieceSet": "Taş Seti"
   },
   "themes": {
     "wood": "Klasik ahşap",
@@ -55,8 +56,6 @@
     "greenDesc": "Klasik yeşil ve krem",
     "blue": "Mavi okyanus",
     "blueDesc": "Serin mavi tonlar",
-    "midnight": "Gece yarısı",
-    "midnightDesc": "Karanlık mod dostu",
     "purple": "Mor",
     "purpleDesc": "Canlı mor ve lavanta"
   },
@@ -77,8 +76,6 @@
     "resign": "Terk et",
     "resignGame": "Oyunu terk et",
     "playAgain": "Tekrar oyna",
-    "getHint": "İpucu",
-    "getHintSoon": "İpucu al (yakında)",
     "offerDraw": "Beraberlik teklif et",
     "drawOffered": "Beraberlik teklif edildi",
     "draw": "Beraberlik"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "Rakip yeniden bağlandı"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Metal",
+    "metalDesc": "Cilalı metal taşlar"
   }
 }

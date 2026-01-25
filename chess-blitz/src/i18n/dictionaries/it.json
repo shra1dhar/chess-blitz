@@ -46,7 +46,8 @@
     "boardTheme": "Tema scacchiera",
     "soundEffects": "Effetti sonori",
     "disableSound": "Disattiva audio",
-    "enableSound": "Attiva audio"
+    "enableSound": "Attiva audio",
+    "pieceSet": "Set di pezzi"
   },
   "themes": {
     "wood": "Legno classico",
@@ -55,8 +56,6 @@
     "greenDesc": "Verde e crema classico",
     "blue": "Oceano blu",
     "blueDesc": "Toni blu freschi",
-    "midnight": "Mezzanotte",
-    "midnightDesc": "Ideale per modalità scura",
     "purple": "Viola",
     "purpleDesc": "Viola vibrante e lavanda"
   },
@@ -77,8 +76,6 @@
     "resign": "Abbandona",
     "resignGame": "Abbandona partita",
     "playAgain": "Gioca ancora",
-    "getHint": "Suggerimento",
-    "getHintSoon": "Ottieni suggerimento (presto)",
     "offerDraw": "Offri patta",
     "drawOffered": "Patta offerta",
     "draw": "Patta"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "L'avversario si è riconnesso"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Metallo",
+    "metalDesc": "Pezzi in metallo lucido"
   }
 }

@@ -46,7 +46,8 @@
     "boardTheme": "עיצוב הלוח",
     "soundEffects": "אפקטים קוליים",
     "disableSound": "השתק צליל",
-    "enableSound": "הפעל צליל"
+    "enableSound": "הפעל צליל",
+    "pieceSet": "ערכת כלים"
   },
   "themes": {
     "wood": "עץ קלאסי",
@@ -55,8 +56,6 @@
     "greenDesc": "ירוק וקרם קלאסי",
     "blue": "אוקיינוס כחול",
     "blueDesc": "גוונים כחולים קרירים",
-    "midnight": "חצות",
-    "midnightDesc": "ידידותי למצב כהה",
     "purple": "סגול",
     "purpleDesc": "סגול תוסס ולבנדר"
   },
@@ -77,8 +76,6 @@
     "resign": "ויתור",
     "resignGame": "ויתור על המשחק",
     "playAgain": "שחק שוב",
-    "getHint": "רמז",
-    "getHintSoon": "קבל רמז (בקרוב)",
     "offerDraw": "הצע תיקו",
     "drawOffered": "תיקו הוצע",
     "draw": "תיקו"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "היריב התחבר מחדש"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "מתכת",
+    "metalDesc": "כלי מתכת מלוטשים"
   }
 }

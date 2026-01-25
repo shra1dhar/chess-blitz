@@ -46,7 +46,8 @@
     "boardTheme": "Θέμα σκακιέρας",
     "soundEffects": "Ηχητικά εφέ",
     "disableSound": "Απενεργοποίηση ήχου",
-    "enableSound": "Ενεργοποίηση ήχου"
+    "enableSound": "Ενεργοποίηση ήχου",
+    "pieceSet": "Σετ πιονιών"
   },
   "themes": {
     "wood": "Κλασικό ξύλο",
@@ -55,8 +56,6 @@
     "greenDesc": "Κλασικό πράσινο και κρεμ",
     "blue": "Μπλε ωκεανός",
     "blueDesc": "Δροσεροί μπλε τόνοι",
-    "midnight": "Μεσάνυχτα",
-    "midnightDesc": "Φιλικό για σκοτεινή λειτουργία",
     "purple": "Μωβ",
     "purpleDesc": "Ζωντανό μωβ και λεβάντα"
   },
@@ -77,8 +76,6 @@
     "resign": "Παραίτηση",
     "resignGame": "Παραίτηση από το παιχνίδι",
     "playAgain": "Παίξε ξανά",
-    "getHint": "Υπόδειξη",
-    "getHintSoon": "Λάβε υπόδειξη (σύντομα)",
     "offerDraw": "Προσφορά ισοπαλίας",
     "drawOffered": "Ισοπαλία προσφέρθηκε",
     "draw": "Ισοπαλία"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "Ο αντίπαλος επανασυνδέθηκε"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Μεταλλικό",
+    "metalDesc": "Γυαλισμένα μεταλλικά πιόνια"
   }
 }

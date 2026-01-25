@@ -4,12 +4,13 @@
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { UserSettings, BoardTheme } from '@/types/chess';
+import type { UserSettings, BoardTheme, PieceSet } from '@/types/chess';
 import { DEFAULT_SETTINGS } from '@/types/chess';
 
 interface SettingsStore extends UserSettings {
   // Actions
   setTheme: (theme: BoardTheme) => void;
+  setPieceSet: (pieceSet: PieceSet) => void;
   toggleSound: () => void;
   setSoundEnabled: (enabled: boolean) => void;
   toggleLegalMoves: () => void;
@@ -79,6 +80,8 @@ export const useSettingsStore = create<SettingsStore>()(
         }
       },
 
+      setPieceSet: (pieceSet: PieceSet) => set({ pieceSet }),
+
       toggleSound: () => set((state) => ({ soundEnabled: !state.soundEnabled })),
 
       setSoundEnabled: (enabled: boolean) => set({ soundEnabled: enabled }),
@@ -114,6 +117,7 @@ export const useSettingsStore = create<SettingsStore>()(
       // Only persist certain settings (cast needed for Zustand 5 type compatibility)
       partialize: (state) => ({
         theme: state.theme,
+        pieceSet: state.pieceSet,
         soundEnabled: state.soundEnabled,
         showLegalMoves: state.showLegalMoves,
         autoQueen: state.autoQueen,

@@ -46,7 +46,8 @@
     "boardTheme": "Bordthema",
     "soundEffects": "Geluidseffecten",
     "disableSound": "Geluid uit",
-    "enableSound": "Geluid aan"
+    "enableSound": "Geluid aan",
+    "pieceSet": "Stukkenset"
   },
   "themes": {
     "wood": "Klassiek hout",
@@ -55,8 +56,6 @@
     "greenDesc": "Klassiek groen en crème",
     "blue": "Blauwe oceaan",
     "blueDesc": "Koele blauwe tinten",
-    "midnight": "Middernacht",
-    "midnightDesc": "Donkere modus vriendelijk",
     "purple": "Paars",
     "purpleDesc": "Levendig paars en lavendel"
   },
@@ -77,8 +76,6 @@
     "resign": "Opgeven",
     "resignGame": "Spel opgeven",
     "playAgain": "Opnieuw spelen",
-    "getHint": "Hint",
-    "getHintSoon": "Hint krijgen (binnenkort)",
     "offerDraw": "Remise aanbieden",
     "drawOffered": "Remise aangeboden",
     "draw": "Remise"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "Tegenstander heeft opnieuw verbonden"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Metaal",
+    "metalDesc": "Gepolijste metalen stukken"
   }
 }

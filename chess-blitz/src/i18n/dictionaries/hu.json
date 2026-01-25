@@ -46,7 +46,8 @@
     "boardTheme": "Tábla téma",
     "soundEffects": "Hangeffektek",
     "disableSound": "Hang ki",
-    "enableSound": "Hang be"
+    "enableSound": "Hang be",
+    "pieceSet": "Figurakészlet"
   },
   "themes": {
     "wood": "Klasszikus fa",
@@ -55,8 +56,6 @@
     "greenDesc": "Klasszikus zöld és krém",
     "blue": "Kék óceán",
     "blueDesc": "Hűvös kék tónusok",
-    "midnight": "Éjfél",
-    "midnightDesc": "Sötét mód barát",
     "purple": "Lila",
     "purpleDesc": "Élénk lila és levendula"
   },
@@ -77,8 +76,6 @@
     "resign": "Feladás",
     "resignGame": "Játék feladása",
     "playAgain": "Újra játék",
-    "getHint": "Tipp",
-    "getHintSoon": "Tipp kérése (hamarosan)",
     "offerDraw": "Döntetlen ajánlat",
     "drawOffered": "Döntetlen ajánlva",
     "draw": "Döntetlen"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "Az ellenfél újracsatlakozott"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Fém",
+    "metalDesc": "Csiszolt fém figurák"
   }
 }

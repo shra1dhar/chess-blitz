@@ -46,7 +46,8 @@
     "boardTheme": "Tema del tablero",
     "soundEffects": "Efectos de sonido",
     "disableSound": "Desactivar sonido",
-    "enableSound": "Activar sonido"
+    "enableSound": "Activar sonido",
+    "pieceSet": "Conjunto de piezas"
   },
   "themes": {
     "wood": "Madera clásica",
@@ -55,8 +56,6 @@
     "greenDesc": "Verde y crema clásico",
     "blue": "Océano azul",
     "blueDesc": "Tonos azules frescos",
-    "midnight": "Medianoche",
-    "midnightDesc": "Ideal para modo oscuro",
     "purple": "Púrpura",
     "purpleDesc": "Púrpura vibrante y lavanda"
   },
@@ -77,8 +76,6 @@
     "resign": "Rendirse",
     "resignGame": "Rendirse",
     "playAgain": "Jugar de nuevo",
-    "getHint": "Pista",
-    "getHintSoon": "Obtener pista (próximamente)",
     "offerDraw": "Ofrecer tablas",
     "drawOffered": "Tablas ofrecidas",
     "draw": "Tablas"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "El oponente se ha reconectado"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Metal",
+    "metalDesc": "Piezas de metal pulido"
   }
 }

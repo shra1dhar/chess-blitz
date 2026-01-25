@@ -46,7 +46,8 @@
     "boardTheme": "ธีมกระดาน",
     "soundEffects": "เอฟเฟกต์เสียง",
     "disableSound": "ปิดเสียง",
-    "enableSound": "เปิดเสียง"
+    "enableSound": "เปิดเสียง",
+    "pieceSet": "ชุดหมาก"
   },
   "themes": {
     "wood": "ไม้คลาสสิก",
@@ -55,8 +56,6 @@
     "greenDesc": "สีเขียวและครีมคลาสสิก",
     "blue": "มหาสมุทรสีน้ำเงิน",
     "blueDesc": "โทนสีน้ำเงินเย็น",
-    "midnight": "เที่ยงคืน",
-    "midnightDesc": "เหมาะกับโหมดมืด",
     "purple": "ม่วง",
     "purpleDesc": "สีม่วงสดใสและลาเวนเดอร์"
   },
@@ -77,8 +76,6 @@
     "resign": "ยอมแพ้",
     "resignGame": "ยอมแพ้เกม",
     "playAgain": "เล่นอีกครั้ง",
-    "getHint": "คำใบ้",
-    "getHintSoon": "รับคำใบ้ (เร็วๆ นี้)",
     "offerDraw": "เสนอเสมอ",
     "drawOffered": "เสนอเสมอแล้ว",
     "draw": "เสมอ"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "คู่ต่อสู้เชื่อมต่อใหม่แล้ว"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "โลหะ",
+    "metalDesc": "หมากโลหะเงางาม"
   }
 }

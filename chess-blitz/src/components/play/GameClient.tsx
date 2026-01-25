@@ -39,7 +39,7 @@ export function GameClient({ dictPromise, locale }: GameClientProps) {
 
   // Game state
   const game = useChessGame();
-  const { theme, showLegalMoves, animationSpeed } = useSettingsStore();
+  const { theme, pieceSet, showLegalMoves, animationSpeed } = useSettingsStore();
 
   // Sync with MSN audio state
   useMSNAudioSync();
@@ -113,6 +113,7 @@ export function GameClient({ dictPromise, locale }: GameClientProps) {
           isCheck={game.isCheck}
           showLegalMoves={showLegalMoves}
           animationSpeed={animationSpeed}
+          pieceSet={pieceSet}
         />
       }
       playerInfo={

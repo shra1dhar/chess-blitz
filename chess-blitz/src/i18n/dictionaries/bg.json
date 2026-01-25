@@ -46,7 +46,8 @@
     "boardTheme": "Тема на дъската",
     "soundEffects": "Звукови ефекти",
     "disableSound": "Изключи звука",
-    "enableSound": "Включи звука"
+    "enableSound": "Включи звука",
+    "pieceSet": "Комплект фигури"
   },
   "themes": {
     "wood": "Класическо дърво",
@@ -55,8 +56,6 @@
     "greenDesc": "Класическо зелено и кремаво",
     "blue": "Син океан",
     "blueDesc": "Хладни сини тонове",
-    "midnight": "Полунощ",
-    "midnightDesc": "За тъмен режим",
     "purple": "Лилаво",
     "purpleDesc": "Ярко лилаво и лавандула"
   },
@@ -77,8 +76,6 @@
     "resign": "Предай се",
     "resignGame": "Предай играта",
     "playAgain": "Играй отново",
-    "getHint": "Подсказка",
-    "getHintSoon": "Вземи подсказка (скоро)",
     "offerDraw": "Предложи реми",
     "drawOffered": "Реми предложено",
     "draw": "Реми"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "Противникът се свърза отново"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Метал",
+    "metalDesc": "Полирани метални фигури"
   }
 }

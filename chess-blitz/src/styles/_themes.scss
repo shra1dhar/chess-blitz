@@ -49,21 +49,6 @@
   --board-selected: #{$theme-blue-selected};
 }
 
-// Theme: Midnight (Dark Mode)
-[data-theme="midnight"] {
-  --board-light: #{$theme-midnight-light};
-  --board-dark: #{$theme-midnight-dark};
-  --board-highlight: #{$theme-midnight-highlight};
-  --board-selected: #{$theme-midnight-selected};
-
-  // Dark UI theme
-  --ui-bg-primary: #121212;
-  --ui-bg-secondary: #1e1e1e;
-  --ui-text-primary: #e0e0e0;
-  --ui-text-secondary: #a0a0a0;
-  --ui-border: #333333;
-}
-
 // Theme: Purple
 [data-theme="purple"] {
   --board-light: #{$theme-purple-light};
@@ -101,63 +86,39 @@
   }
 }
 
-// Generate swatch for each theme
+// Generate swatch for each theme - 2x2 checkerboard grid
 .theme-swatch--wood .theme-swatch__grid {
-  background: linear-gradient(135deg,
-    $theme-wood-light 25%,
-    $theme-wood-dark 25%,
-    $theme-wood-dark 50%,
-    $theme-wood-light 50%,
-    $theme-wood-light 75%,
-    $theme-wood-dark 75%
+  background: conic-gradient(
+    $theme-wood-light 90deg,
+    $theme-wood-dark 90deg 180deg,
+    $theme-wood-light 180deg 270deg,
+    $theme-wood-dark 270deg
   );
-  background-size: 20px 20px;
 }
 
 .theme-swatch--green .theme-swatch__grid {
-  background: linear-gradient(135deg,
-    $theme-green-light 25%,
-    $theme-green-dark 25%,
-    $theme-green-dark 50%,
-    $theme-green-light 50%,
-    $theme-green-light 75%,
-    $theme-green-dark 75%
+  background: conic-gradient(
+    $theme-green-light 90deg,
+    $theme-green-dark 90deg 180deg,
+    $theme-green-light 180deg 270deg,
+    $theme-green-dark 270deg
   );
-  background-size: 20px 20px;
 }
 
 .theme-swatch--blue .theme-swatch__grid {
-  background: linear-gradient(135deg,
-    $theme-blue-light 25%,
-    $theme-blue-dark 25%,
-    $theme-blue-dark 50%,
-    $theme-blue-light 50%,
-    $theme-blue-light 75%,
-    $theme-blue-dark 75%
+  background: conic-gradient(
+    $theme-blue-light 90deg,
+    $theme-blue-dark 90deg 180deg,
+    $theme-blue-light 180deg 270deg,
+    $theme-blue-dark 270deg
   );
-  background-size: 20px 20px;
-}
-
-.theme-swatch--midnight .theme-swatch__grid {
-  background: linear-gradient(135deg,
-    $theme-midnight-light 25%,
-    $theme-midnight-dark 25%,
-    $theme-midnight-dark 50%,
-    $theme-midnight-light 50%,
-    $theme-midnight-light 75%,
-    $theme-midnight-dark 75%
-  );
-  background-size: 20px 20px;
 }
 
 .theme-swatch--purple .theme-swatch__grid {
-  background: linear-gradient(135deg,
-    $theme-purple-light 25%,
-    $theme-purple-dark 25%,
-    $theme-purple-dark 50%,
-    $theme-purple-light 50%,
-    $theme-purple-light 75%,
-    $theme-purple-dark 75%
+  background: conic-gradient(
+    $theme-purple-light 90deg,
+    $theme-purple-dark 90deg 180deg,
+    $theme-purple-light 180deg 270deg,
+    $theme-purple-dark 270deg
   );
-  background-size: 20px 20px;
 }

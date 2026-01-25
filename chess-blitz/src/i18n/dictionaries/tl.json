@@ -46,7 +46,8 @@
     "boardTheme": "Board Theme",
     "soundEffects": "Sound Effects",
     "disableSound": "I-off ang tunog",
-    "enableSound": "I-on ang tunog"
+    "enableSound": "I-on ang tunog",
+    "pieceSet": "Set ng Piraso"
   },
   "themes": {
     "wood": "Klasikong Kahoy",
@@ -55,8 +56,6 @@
     "greenDesc": "Klasikong berde at cream",
     "blue": "Asul na Karagatan",
     "blueDesc": "Malamig na asul na kulay",
-    "midnight": "Hatinggabi",
-    "midnightDesc": "Friendly sa dark mode",
     "purple": "Lila",
     "purpleDesc": "Makulay na lila at lavender"
   },
@@ -77,8 +76,6 @@
     "resign": "Sumuko",
     "resignGame": "Isuko ang laro",
     "playAgain": "Maglaro ulit",
-    "getHint": "Hint",
-    "getHintSoon": "Kumuha ng hint (malapit na)",
     "offerDraw": "Mag-alok ng Draw",
     "drawOffered": "Draw na Inalok",
     "draw": "Draw"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "Muling nakakonekta ang kalaban"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Metal",
+    "metalDesc": "Pinakintab na metal piraso"
   }
 }

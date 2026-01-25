@@ -46,7 +46,8 @@
     "boardTheme": "Taxta mavzusi",
     "soundEffects": "Ovoz effektlari",
     "disableSound": "Ovozni o'chirish",
-    "enableSound": "Ovozni yoqish"
+    "enableSound": "Ovozni yoqish",
+    "pieceSet": "Donalar toʻplami"
   },
   "themes": {
     "wood": "Klassik yog'och",
@@ -55,8 +56,6 @@
     "greenDesc": "Klassik yashil va krem",
     "blue": "Ko'k okean",
     "blueDesc": "Salqin ko'k ohanglar",
-    "midnight": "Yarim tun",
-    "midnightDesc": "Qorong'u rejim uchun qulay",
     "purple": "Binafsha",
     "purpleDesc": "Yorqin binafsha va lavanda"
   },
@@ -77,8 +76,6 @@
     "resign": "Taslim bo'lish",
     "resignGame": "O'yinni taslim qilish",
     "playAgain": "Yana o'ynash",
-    "getHint": "Maslahat",
-    "getHintSoon": "Maslahat olish (tez kunda)",
     "offerDraw": "Durrang taklif qilish",
     "drawOffered": "Durrang taklif qilindi",
     "draw": "Durrang"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "Raqib qayta ulandi"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Metall",
+    "metalDesc": "Sayqallangan metall donalar"
   }
 }

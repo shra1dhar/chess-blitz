@@ -46,7 +46,8 @@
     "boardTheme": "Brættema",
     "soundEffects": "Lydeffekter",
     "disableSound": "Slå lyd fra",
-    "enableSound": "Slå lyd til"
+    "enableSound": "Slå lyd til",
+    "pieceSet": "Brikker"
   },
   "themes": {
     "wood": "Klassisk træ",
@@ -55,8 +56,6 @@
     "greenDesc": "Klassisk grøn og creme",
     "blue": "Blå ocean",
     "blueDesc": "Kølige blå toner",
-    "midnight": "Midnat",
-    "midnightDesc": "Mørk tilstand venlig",
     "purple": "Lilla",
     "purpleDesc": "Levende lilla og lavendel"
   },
@@ -77,8 +76,6 @@
     "resign": "Giv op",
     "resignGame": "Giv op spillet",
     "playAgain": "Spil igen",
-    "getHint": "Hint",
-    "getHintSoon": "Få hint (kommer snart)",
     "offerDraw": "Tilbyd remis",
     "drawOffered": "Remis tilbudt",
     "draw": "Remis"
@@ -228,5 +225,11 @@
   },
   "multiplayer": {
     "opponentReconnected": "Modstanderen genoprettede forbindelsen"
+  },
+  "pieceSets": {
+    "standard": "Standard",
+    "standardDesc": "Custom standard pieces",
+    "metal": "Metal",
+    "metalDesc": "Polerede metalbrikker"
   }
 }
