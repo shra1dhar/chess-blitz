@@ -26,6 +26,10 @@
       {
         "name": "GAME_ROOM",
         "class_name": "GameRoom"
+      },
+      {
+        "name": "PRIVATE_LOBBY",
+        "class_name": "PrivateLobby"
       }
     ]
   },
@@ -35,6 +39,12 @@
       "new_sqlite_classes": [
         "MatchmakingQueue",
         "GameRoom"
+      ]
+    },
+    {
+      "tag": "v2",
+      "new_classes": [
+        "PrivateLobby"
       ]
     }
   ],
@@ -58,6 +68,10 @@
           {
             "name": "GAME_ROOM",
             "class_name": "GameRoom"
+          },
+          {
+            "name": "PRIVATE_LOBBY",
+            "class_name": "PrivateLobby"
           }
         ]
       }

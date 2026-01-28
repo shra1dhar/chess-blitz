@@ -4,13 +4,16 @@
 
 'use client';
 
-import { useCallback, useEffect, useRef, use } from 'react';
-import { useRouter, useParams } from 'next/navigation';
+import { useCallback, useEffect, useRef, use, useState } from 'react';
+import { useRouter, useParams, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useMultiplayerStore } from '@/stores/multiplayerStore';
+import { useIntegrationStore } from '@/stores/integrationStore';
 import { useMultiplayer, MatchState } from '@/hooks/useMultiplayer';
 import { MatchmakingOverlay } from './MatchmakingOverlay';
+import { PrivateLobbyOverlay } from '@/components/Multiplayer/PrivateLobbyOverlay';
 import { BackArrowIcon } from '@/components/icons/GameIcons';
+import { IntegrationType } from '@/types/integration';
 import type { TournamentType } from '@/types/multiplayer';
 import { TOURNAMENT_TIME_MS } from '@/types/multiplayer';
 import type { Dictionary } from '@/i18n/dictionaries';
@@ -58,6 +61,15 @@ const XIcon = () => (
   </svg>
 );
 
+const UsersIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+  </svg>
+);
+
 const TOURNAMENTS: { type: TournamentType; icon: React.ReactNode; labelKey: 'bullet' | 'blitz' | 'rapid' | 'classical'; descKey: 'bulletDesc' | 'blitzDesc' | 'rapidDesc' | 'classicalDesc' }[] = [
   {
     type: 'bullet',
@@ -99,6 +111,19 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
   const locale = (params.lang as string) || 'en';
   const t = dict.tournament;
 
+  // Integration state for CrazyGames multiplayer
+  const integrationType = useIntegrationStore((s) => s.integrationType);
+  const isInstantMultiplayer = useIntegrationStore((s) => s.isInstantMultiplayer);
+  const inviteRoomId = useIntegrationStore((s) => s.inviteRoomId);
+  const clearMultiplayerState = useIntegrationStore((s) => s.clearMultiplayerState);
+  const [showPrivateLobby, setShowPrivateLobby] = useState(false);
+  // Capture inviteRoomId BEFORE clearing state (fixes join bug)
+  const [pendingInviteRoomId, setPendingInviteRoomId] = useState<string | null>(null);
+
+  // Handle return to lobby after private game (via URL params)
+  const searchParams = useSearchParams();
+  const returnToLobbyId = searchParams.get('returnToLobby');
+
   // Player state - use separate selectors to avoid re-render on unrelated state changes
   const playerId = useMultiplayerStore((state) => state.playerId);
   const isAuthenticated = useMultiplayerStore((state) => state.isAuthenticated);
@@ -132,6 +157,28 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
       clearSessionError?.();
     }
   }, [sessionError, clearSessionError]);
+
+  // Handle CrazyGames multiplayer entry points
+  useEffect(() => {
+    if (isInstantMultiplayer || inviteRoomId) {
+      // Capture inviteRoomId BEFORE clearing (fixes join bug)
+      if (inviteRoomId) {
+        setPendingInviteRoomId(inviteRoomId);
+      }
+      setShowPrivateLobby(true);
+      clearMultiplayerState();
+    }
+  }, [isInstantMultiplayer, inviteRoomId, clearMultiplayerState]);
+
+  // Handle return to lobby after private game ends
+  useEffect(() => {
+    if (returnToLobbyId) {
+      setPendingInviteRoomId(returnToLobbyId);
+      setShowPrivateLobby(true);
+      // Clear URL param to prevent re-opening on refresh
+      router.replace(`/${locale}/tournament`);
+    }
+  }, [returnToLobbyId, router, locale]);
 
   // Multiplayer state
   const {
@@ -245,6 +292,18 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
         ))}
       </div>
 
+      {/* Play with Friends button */}
+      {integrationType === IntegrationType.CrazyGames && (
+        <button
+          className={styles.playWithFriendsButton}
+          onClick={() => setShowPrivateLobby(true)}
+          disabled={matchState !== MatchState.Idle || isInitializing}
+        >
+          <UsersIcon />
+          <span>{t.playWithFriends}</span>
+        </button>
+      )}
+
       {matchState === MatchState.Queued && (
         <button className={styles.cancelButton} onClick={leaveQueue}>
           <XIcon />
@@ -270,6 +329,20 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
           playerColor={playerColor}
           onCancel={leaveQueue}
           dict={dict}
+        />
+      )}
+
+      {/* Private lobby overlay - shown when creating/joining a private lobby */}
+      {showPrivateLobby && (
+        <PrivateLobbyOverlay
+          integrationType={integrationType}
+          initialInviteRoomId={pendingInviteRoomId}
+          onClose={() => {
+            setShowPrivateLobby(false);
+            setPendingInviteRoomId(null);
+          }}
+          dict={dict}
+          locale={locale}
         />
       )}
     </div>

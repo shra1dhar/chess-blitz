@@ -47,7 +47,10 @@
     "soundEffects": "Effetti sonori",
     "disableSound": "Disattiva audio",
     "enableSound": "Attiva audio",
-    "pieceSet": "Set di pezzi"
+    "pieceSet": "Set di pezzi",
+    "account": "Account",
+    "signIn": "Accedi",
+    "guest": "Ospite"
   },
   "themes": {
     "wood": "Legno classico",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Richiesta di rivincita scaduta",
     "accept": "Accetta",
     "decline": "Rifiuta",
-    "waitingForOpponent": "In attesa dell'avversario..."
+    "waitingForOpponent": "In attesa dell'avversario...",
+    "playWithFriends": "Gioca con amici",
+    "privateLobby": "Lobby privata",
+    "waitingForFriend": "In attesa di un amico...",
+    "friendJoined": "Il tuo amico si è unito!",
+    "selectTimeControl": "Seleziona controllo tempo",
+    "startGame": "Inizia partita",
+    "copyInviteLink": "Copia link invito",
+    "linkCopied": "Link copiato!",
+    "lobbyExpired": "Lobby scaduta",
+    "friendLeft": "Il tuo amico ha lasciato la lobby",
+    "host": "Host",
+    "playAgainWithFriend": "Gioca ancora con amico"
   },
   "draw": {
     "offerDeclined": "La tua offerta di patta è stata rifiutata",

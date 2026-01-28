@@ -47,7 +47,10 @@
     "pieceSet": "Piece Set",
     "soundEffects": "Sound Effects",
     "disableSound": "Disable sound",
-    "enableSound": "Enable sound"
+    "enableSound": "Enable sound",
+    "account": "Account",
+    "signIn": "Sign In",
+    "guest": "Guest"
   },
   "pieceSets": {
     "standard": "Standard",
@@ -163,7 +166,19 @@
     "rematchTimeout": "Rematch request timed out",
     "accept": "Accept",
     "decline": "Decline",
-    "waitingForOpponent": "Waiting for opponent..."
+    "waitingForOpponent": "Waiting for opponent...",
+    "playWithFriends": "Play with Friends",
+    "privateLobby": "Private Lobby",
+    "waitingForFriend": "Waiting for friend...",
+    "friendJoined": "Friend joined!",
+    "selectTimeControl": "Select time control",
+    "startGame": "Start Game",
+    "copyInviteLink": "Copy invite link",
+    "linkCopied": "Link copied!",
+    "lobbyExpired": "Lobby expired",
+    "friendLeft": "Friend left the lobby",
+    "host": "Host",
+    "playAgainWithFriend": "Play Again with Friend"
   },
   "draw": {
     "offerDeclined": "Your draw offer was declined",

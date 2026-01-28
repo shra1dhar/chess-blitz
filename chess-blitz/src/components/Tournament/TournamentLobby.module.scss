@@ -409,6 +409,40 @@
   margin-top: $spacing-xs;
 }
 
+// Play with Friends Button
+.playWithFriendsButton {
+  @include flex-row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  padding: $spacing-md $spacing-lg;
+  margin-block-start: $spacing-lg;
+  background: linear-gradient(135deg, $brand-primary 0%, color.adjust($brand-primary, $lightness: -10%) 100%);
+  border: none;
+  border-radius: $radius-md;
+  color: white;
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  cursor: pointer;
+  -webkit-transition: all $transition-fast;
+  transition: all $transition-fast;
+
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, color.adjust($brand-primary, $lightness: 5%) 0%, color.adjust($brand-primary, $lightness: -5%) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba($brand-primary, 0.3);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
 // Cancel Button
 .cancelButton {
   @include flex-row;

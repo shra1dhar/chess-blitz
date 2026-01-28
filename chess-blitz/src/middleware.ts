@@ -52,6 +52,11 @@ export function middleware(request: NextRequest) {
     return;
   }
 
+  // Set x-url header for server components to read query params
+  // This is needed because layouts don't receive searchParams
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-url', request.url);
+
   // Only redirect /en to / (homepage only)
   // Keep /en/tournament, /en/play etc. as-is for localized routing
   if (pathname === '/en') {
@@ -66,9 +71,11 @@ export function middleware(request: NextRequest) {
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
-  // If locale is already in path, continue without redirect
+  // If locale is already in path, continue with x-url header
   if (pathnameHasLocale) {
-    return;
+    return NextResponse.next({
+      request: { headers: requestHeaders },
+    });
   }
 
   // For paths without locale prefix (/, /play, /privacy, etc.)
@@ -77,7 +84,9 @@ export function middleware(request: NextRequest) {
   // English users: Let Next.js config rewrites handle root paths
   // Rewrites in next.config.ts map / → /en, /play → /en/play, /privacy → /en/privacy
   if (locale === 'en') {
-    return;
+    return NextResponse.next({
+      request: { headers: requestHeaders },
+    });
   }
 
   // Non-English users: Redirect to their locale-prefixed path

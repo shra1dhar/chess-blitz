@@ -38,6 +38,10 @@ interface MultiplayerState {
   currentOpponent: PlayerInfo | null;
   currentTournamentType: TournamentType | null;
 
+  // Private lobby tracking (for "Play Again with Friend" feature)
+  isPrivateLobbyGame: boolean;
+  privateLobbyId: string | null;
+
   // Stats (local tracking only)
   gamesPlayed: number;
   wins: number;
@@ -54,6 +58,8 @@ interface MultiplayerState {
   setLastTournamentType: (type: TournamentType) => void;
   setCurrentGame: (gameId: string, color: Color, opponent: PlayerInfo, tournamentType: TournamentType) => void;
   clearCurrentGame: () => void;
+  setPrivateLobbyGame: (lobbyId: string) => void;
+  clearPrivateLobbyGame: () => void;
   clearSessionError: () => void;
   logout: () => void;
 }
@@ -81,6 +87,8 @@ export const useMultiplayerStore = create<MultiplayerState>()(
       currentPlayerColor: null,
       currentOpponent: null,
       currentTournamentType: null,
+      isPrivateLobbyGame: false,
+      privateLobbyId: null,
       gamesPlayed: 0,
       wins: 0,
       losses: 0,
@@ -255,6 +263,22 @@ export const useMultiplayerStore = create<MultiplayerState>()(
         });
       },
 
+      // Set private lobby game (for "Play Again with Friend")
+      setPrivateLobbyGame: (lobbyId: string) => {
+        set({
+          isPrivateLobbyGame: true,
+          privateLobbyId: lobbyId,
+        });
+      },
+
+      // Clear private lobby game data
+      clearPrivateLobbyGame: () => {
+        set({
+          isPrivateLobbyGame: false,
+          privateLobbyId: null,
+        });
+      },
+
       // Clear session error
       clearSessionError: () => {
         set({ sessionError: null });
@@ -280,6 +304,8 @@ export const useMultiplayerStore = create<MultiplayerState>()(
           currentPlayerColor: null,
           currentOpponent: null,
           currentTournamentType: null,
+          isPrivateLobbyGame: false,
+          privateLobbyId: null,
           gamesPlayed: 0,
           wins: 0,
           losses: 0,
@@ -301,6 +327,9 @@ export const useMultiplayerStore = create<MultiplayerState>()(
         currentPlayerColor: state.currentPlayerColor,
         currentOpponent: state.currentOpponent,
         currentTournamentType: state.currentTournamentType,
+        // Persist private lobby data for "Play Again with Friend"
+        isPrivateLobbyGame: state.isPrivateLobbyGame,
+        privateLobbyId: state.privateLobbyId,
       }),
       // Skip hydration to prevent SSR mismatch - rehydrate manually on client
       skipHydration: true,

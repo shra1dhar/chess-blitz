@@ -47,7 +47,10 @@
     "soundEffects": "音效",
     "disableSound": "关闭声音",
     "enableSound": "开启声音",
-    "pieceSet": "棋子样式"
+    "pieceSet": "棋子样式",
+    "account": "账户",
+    "signIn": "登录",
+    "guest": "访客"
   },
   "themes": {
     "wood": "经典木纹",
@@ -157,7 +160,19 @@
     "rematchTimeout": "再战请求已超时",
     "accept": "接受",
     "decline": "拒绝",
-    "waitingForOpponent": "等待对手..."
+    "waitingForOpponent": "等待对手...",
+    "playWithFriends": "与好友对战",
+    "privateLobby": "私人房间",
+    "waitingForFriend": "等待好友加入...",
+    "friendJoined": "好友已加入！",
+    "selectTimeControl": "选择时间控制",
+    "startGame": "开始游戏",
+    "copyInviteLink": "复制邀请链接",
+    "linkCopied": "链接已复制！",
+    "lobbyExpired": "房间已过期",
+    "friendLeft": "好友已离开",
+    "host": "房主",
+    "playAgainWithFriend": "与好友再来一局"
   },
   "draw": {
     "offerDeclined": "您的和棋提议被拒绝",

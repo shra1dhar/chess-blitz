@@ -78,40 +78,6 @@ export function useSound(): UseSoundReturn {
   };
 }
 
-// MSN Platform audio sync hook
-export function useMSNAudioSync(): void {
-  const { setSoundEnabled } = useSettingsStore();
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    // Check if MSN SDK is available
-    const msstart = window.$msstart;
-    if (!msstart) return;
-
-    // Initial sync
-    try {
-      const isMuted = msstart.getAudioMuted?.();
-      if (typeof isMuted === 'boolean') {
-        setSoundEnabled(!isMuted);
-        soundManager.setMuted(isMuted);
-      }
-    } catch (error) {
-      console.warn('Failed to get MSN audio state:', error);
-    }
-
-    // Listen for changes
-    try {
-      msstart.onAudioMuteChange?.((muted: boolean) => {
-        setSoundEnabled(!muted);
-        soundManager.setMuted(muted);
-      });
-    } catch (error) {
-      console.warn('Failed to subscribe to MSN audio changes:', error);
-    }
-  }, [setSoundEnabled]);
-}
-
 // Hook to initialize sound manager
 export function useSoundInit(): void {
   useEffect(() => {

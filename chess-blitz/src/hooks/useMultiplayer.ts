@@ -9,6 +9,7 @@ import { Chess } from 'chess.js';
 import { useWebSocket, type WebSocketStatus } from './useWebSocket';
 import { useStockfish, parseUCIMove } from './useStockfish';
 import { useSound } from './useSound';
+import { usePlatformUser } from './usePlatformUser';
 import type { Difficulty } from '@/types/chess';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useMultiplayerStore, selectToken } from '@/stores/multiplayerStore';
@@ -250,6 +251,9 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
   const setCurrentGame = useMultiplayerStore((state) => state.setCurrentGame);
   const clearCurrentGame = useMultiplayerStore((state) => state.clearCurrentGame);
 
+  // Platform user info (CrazyGames username/avatar)
+  const { user: platformUser } = usePlatformUser();
+
   // State
   const [matchState, setMatchState] = useState<MatchState>(MatchState.Idle);
   const [queuePosition, setQueuePosition] = useState<number | null>(null);
@@ -369,9 +373,17 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
     (tournament: TournamentType) => {
       if (!token) return null;
       const baseWsUrl = getBackendWsUrl();
-      return `${baseWsUrl}/ws/queue/${tournament}?token=${encodeURIComponent(token)}`;
+      let url = `${baseWsUrl}/ws/queue/${tournament}?token=${encodeURIComponent(token)}`;
+      // Include platform user data if available (CrazyGames)
+      if (platformUser?.username) {
+        url += `&platformUsername=${encodeURIComponent(platformUser.username)}`;
+      }
+      if (platformUser?.avatarUrl) {
+        url += `&platformAvatarUrl=${encodeURIComponent(platformUser.avatarUrl)}`;
+      }
+      return url;
     },
-    [token]
+    [token, platformUser]
   );
 
   const getGameUrl = useCallback(

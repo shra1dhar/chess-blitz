@@ -6,6 +6,7 @@ export {
   GameRoomStatus,
   WebSocketStatus,
   DrawClaimType,
+  LobbyStatus,
 } from "./enums";
 
 // Types

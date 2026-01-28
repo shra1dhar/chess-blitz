@@ -47,7 +47,10 @@
     "soundEffects": "Effets sonores",
     "disableSound": "Désactiver le son",
     "enableSound": "Activer le son",
-    "pieceSet": "Jeu de pièces"
+    "pieceSet": "Jeu de pièces",
+    "account": "Compte",
+    "signIn": "Se connecter",
+    "guest": "Invité"
   },
   "themes": {
     "wood": "Bois classique",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Demande de revanche expirée",
     "accept": "Accepter",
     "decline": "Refuser",
-    "waitingForOpponent": "En attente de l'adversaire..."
+    "waitingForOpponent": "En attente de l'adversaire...",
+    "playWithFriends": "Jouer avec des amis",
+    "privateLobby": "Salon privé",
+    "waitingForFriend": "En attente d'un ami...",
+    "friendJoined": "Votre ami a rejoint !",
+    "selectTimeControl": "Sélectionner la cadence",
+    "startGame": "Démarrer la partie",
+    "copyInviteLink": "Copier le lien d'invitation",
+    "linkCopied": "Lien copié !",
+    "lobbyExpired": "Le salon a expiré",
+    "friendLeft": "Votre ami a quitté le salon",
+    "host": "Hôte",
+    "playAgainWithFriend": "Rejouer avec un ami"
   },
   "draw": {
     "offerDeclined": "Votre offre de nulle a été refusée",

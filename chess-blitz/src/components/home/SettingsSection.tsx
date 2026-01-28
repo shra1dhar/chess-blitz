@@ -5,11 +5,15 @@
 // Theme and sound settings toggle
 // ==============================================
 
+import { useState } from 'react';
 import type { BoardTheme, PieceSet } from '@/types/chess';
 import type { Dictionary } from '@/i18n/dictionaries';
 import { BOARD_THEMES, PIECE_SETS } from '@/types/chess';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useDropdown } from '@/hooks/useDropdown';
+import { usePlatformUser } from '@/hooks/usePlatformUser';
+import { useIntegration } from '@/hooks/useIntegration';
+import { getIntegrationService } from '@/services/integration';
 import { soundManager } from '@/services/soundManager';
 import styles from '@/app/page.module.scss';
 
@@ -20,6 +24,30 @@ interface SettingsSectionProps {
 export function SettingsSection({ dict }: SettingsSectionProps) {
   const { isOpen, isVisible, containerRef, toggle, handleAnimationEnd } = useDropdown();
   const { theme, setTheme, pieceSet, setPieceSet, soundEnabled, toggleSound } = useSettingsStore();
+  const { user, isUserAccountAvailable } = usePlatformUser();
+  const { integrationType } = useIntegration();
+  const [isSigningIn, setIsSigningIn] = useState(false);
+
+  // Show login button only when: platform supports accounts AND user is not logged in
+  const showLoginButton = isUserAccountAvailable && !user;
+
+  const handleSignIn = async () => {
+    if (isSigningIn) return;
+
+    setIsSigningIn(true);
+    try {
+      const service = getIntegrationService(integrationType);
+      if (service.showAuthPrompt) {
+        await service.showAuthPrompt();
+        // User state will update automatically via usePlatformUser's auth listener
+      }
+    } catch (error) {
+      // User cancelled or already signed in - both are fine
+      console.log('[SettingsSection] Auth prompt closed:', error);
+    } finally {
+      setIsSigningIn(false);
+    }
+  };
 
   const handleThemeChange = (themeKey: BoardTheme) => {
     soundManager.playSync('move');
@@ -133,6 +161,41 @@ export function SettingsSection({ dict }: SettingsSectionProps) {
               </button>
             </div>
           </div>
+
+          {/* Account Section - Only show on platforms with account support */}
+          {showLoginButton && (
+            <div className={styles.settingGroup}>
+              <div className={styles.toggleRow}>
+                <span className={styles.toggleLabel}>{dict.settings.account}</span>
+                <button
+                  className={styles.signInButton}
+                  onClick={handleSignIn}
+                  disabled={isSigningIn}
+                >
+                  {isSigningIn ? '...' : dict.settings.signIn}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Show logged-in user info */}
+          {isUserAccountAvailable && user && (
+            <div className={styles.settingGroup}>
+              <div className={styles.toggleRow}>
+                <span className={styles.toggleLabel}>{dict.settings.account}</span>
+                <div className={styles.userInfo}>
+                  {user.avatarUrl && (
+                    <img
+                      src={user.avatarUrl}
+                      alt=""
+                      className={styles.userAvatar}
+                    />
+                  )}
+                  <span className={styles.userName}>{user.username}</span>
+                </div>
+              </div>
+            </div>
+          )}
         </section>
       )}
     </div>

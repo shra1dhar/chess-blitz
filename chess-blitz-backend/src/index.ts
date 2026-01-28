@@ -12,6 +12,7 @@ import { wsRoutes } from "./routes/ws";
 // Export Durable Objects
 export { MatchmakingQueue } from "./durable-objects/MatchmakingQueue";
 export { GameRoom } from "./durable-objects/GameRoom";
+export { PrivateLobby } from "./durable-objects/PrivateLobby";
 
 const app = new Hono<{ Bindings: Env }>();
 

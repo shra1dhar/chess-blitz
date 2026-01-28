@@ -47,7 +47,10 @@
     "soundEffects": "Ηχητικά εφέ",
     "disableSound": "Απενεργοποίηση ήχου",
     "enableSound": "Ενεργοποίηση ήχου",
-    "pieceSet": "Σετ πιονιών"
+    "pieceSet": "Σετ πιονιών",
+    "account": "Λογαριασμός",
+    "signIn": "Σύνδεση",
+    "guest": "Επισκέπτης"
   },
   "themes": {
     "wood": "Κλασικό ξύλο",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Το αίτημα ρεβάνς έληξε",
     "accept": "Αποδοχή",
     "decline": "Απόρριψη",
-    "waitingForOpponent": "Αναμονή για αντίπαλο..."
+    "waitingForOpponent": "Αναμονή για αντίπαλο...",
+    "playWithFriends": "Παίξε με φίλους",
+    "privateLobby": "Ιδιωτικό lobby",
+    "waitingForFriend": "Αναμονή για τον φίλο σου...",
+    "friendJoined": "Ο φίλος σου μπήκε!",
+    "selectTimeControl": "Επίλεξε έλεγχο χρόνου",
+    "startGame": "Έναρξη παιχνιδιού",
+    "copyInviteLink": "Αντιγραφή συνδέσμου πρόσκλησης",
+    "linkCopied": "Ο σύνδεσμος αντιγράφηκε!",
+    "lobbyExpired": "Το lobby έληξε",
+    "friendLeft": "Ο φίλος σου έφυγε",
+    "host": "Οικοδεσπότης",
+    "playAgainWithFriend": "Παίξε ξανά με φίλο"
   },
   "draw": {
     "offerDeclined": "Η πρόταση ισοπαλίας απορρίφθηκε",

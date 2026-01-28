@@ -335,6 +335,10 @@ setRematchState('requested');
    }
    ```
 
+6. **Don't overuse `useEffect`** 
+Sometimes simple solutions can be implemented with server side based architecture or otherwise with good practices.
+
+
 ### Code Splitting
 
 1. **ChessBoard uses dynamic import** for better initial load:

@@ -47,7 +47,10 @@
     "soundEffects": "Kesan Bunyi",
     "disableSound": "Matikan bunyi",
     "enableSound": "Aktifkan bunyi",
-    "pieceSet": "Set Buah"
+    "pieceSet": "Set Buah",
+    "account": "Akaun",
+    "signIn": "Log Masuk",
+    "guest": "Tetamu"
   },
   "themes": {
     "wood": "Kayu Klasik",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Permintaan perlawanan semula tamat tempoh",
     "accept": "Terima",
     "decline": "Tolak",
-    "waitingForOpponent": "Menunggu lawan..."
+    "waitingForOpponent": "Menunggu lawan...",
+    "playWithFriends": "Main dengan Kawan",
+    "privateLobby": "Lobi Peribadi",
+    "waitingForFriend": "Menunggu kawan anda...",
+    "friendJoined": "Kawan anda telah menyertai!",
+    "selectTimeControl": "Pilih kawalan masa",
+    "startGame": "Mula Permainan",
+    "copyInviteLink": "Salin pautan jemputan",
+    "linkCopied": "Pautan disalin!",
+    "lobbyExpired": "Lobi tamat tempoh",
+    "friendLeft": "Kawan anda keluar",
+    "host": "Hos",
+    "playAgainWithFriend": "Main lagi dengan kawan"
   },
   "draw": {
     "offerDeclined": "Tawaran seri anda ditolak",

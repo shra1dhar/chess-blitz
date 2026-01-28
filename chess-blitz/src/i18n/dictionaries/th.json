@@ -47,7 +47,10 @@
     "soundEffects": "เอฟเฟกต์เสียง",
     "disableSound": "ปิดเสียง",
     "enableSound": "เปิดเสียง",
-    "pieceSet": "ชุดหมาก"
+    "pieceSet": "ชุดหมาก",
+    "account": "บัญชี",
+    "signIn": "เข้าสู่ระบบ",
+    "guest": "ผู้เยี่ยมชม"
   },
   "themes": {
     "wood": "ไม้คลาสสิก",
@@ -157,7 +160,19 @@
     "rematchTimeout": "คำขอแข่งใหม่หมดเวลา",
     "accept": "ยอมรับ",
     "decline": "ปฏิเสธ",
-    "waitingForOpponent": "รอคู่ต่อสู้..."
+    "waitingForOpponent": "รอคู่ต่อสู้...",
+    "playWithFriends": "เล่นกับเพื่อน",
+    "privateLobby": "ห้องส่วนตัว",
+    "waitingForFriend": "รอเพื่อนของคุณ...",
+    "friendJoined": "เพื่อนของคุณเข้าร่วมแล้ว!",
+    "selectTimeControl": "เลือกการควบคุมเวลา",
+    "startGame": "เริ่มเกม",
+    "copyInviteLink": "คัดลอกลิงก์เชิญ",
+    "linkCopied": "คัดลอกลิงก์แล้ว!",
+    "lobbyExpired": "ห้องหมดอายุ",
+    "friendLeft": "เพื่อนของคุณออกไปแล้ว",
+    "host": "เจ้าภาพ",
+    "playAgainWithFriend": "เล่นอีกครั้งกับเพื่อน"
   },
   "draw": {
     "offerDeclined": "ข้อเสนอเสมอของคุณถูกปฏิเสธ",

@@ -50,11 +50,17 @@ export type Dictionary = Awaited<ReturnType<typeof dictionaries.en>>;
 /**
  * Load the dictionary for a given locale.
  * Falls back to English if the locale is not found.
+ *
+ * TODO: Update all language files with new private lobby keys:
+ * playWithFriends, privateLobby, waitingForFriend, friendJoined,
+ * selectTimeControl, startGame, copyInviteLink, linkCopied,
+ * lobbyExpired, friendLeft
  */
 export async function getDictionary(locale: Locale): Promise<Dictionary> {
   const loader = dictionaries[locale];
   if (loader) {
-    return loader();
+    // Type assertion needed because not all language files have new keys yet
+    return loader() as Promise<Dictionary>;
   }
   // Fallback to English
   return dictionaries.en();

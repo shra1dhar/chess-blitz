@@ -47,7 +47,10 @@
     "soundEffects": "Hangeffektek",
     "disableSound": "Hang ki",
     "enableSound": "Hang be",
-    "pieceSet": "Figurakészlet"
+    "pieceSet": "Figurakészlet",
+    "account": "Fiók",
+    "signIn": "Bejelentkezés",
+    "guest": "Vendég"
   },
   "themes": {
     "wood": "Klasszikus fa",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Visszavágó kérés lejárt",
     "accept": "Elfogad",
     "decline": "Elutasít",
-    "waitingForOpponent": "Várakozás az ellenfélre..."
+    "waitingForOpponent": "Várakozás az ellenfélre...",
+    "playWithFriends": "Játék barátokkal",
+    "privateLobby": "Privát lobby",
+    "waitingForFriend": "Várakozás a barátodra...",
+    "friendJoined": "A barátod csatlakozott!",
+    "selectTimeControl": "Válassz időkontrollt",
+    "startGame": "Játék indítása",
+    "copyInviteLink": "Meghívó link másolása",
+    "linkCopied": "Link másolva!",
+    "lobbyExpired": "A lobby lejárt",
+    "friendLeft": "A barátod kilépett",
+    "host": "Házigazda",
+    "playAgainWithFriend": "Játék újra baráttal"
   },
   "draw": {
     "offerDeclined": "Döntetlen ajánlatodat elutasították",

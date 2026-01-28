@@ -47,7 +47,10 @@
     "soundEffects": "Lydeffekter",
     "disableSound": "Slå av lyd",
     "enableSound": "Slå på lyd",
-    "pieceSet": "Brikkesett"
+    "pieceSet": "Brikkesett",
+    "account": "Konto",
+    "signIn": "Logg inn",
+    "guest": "Gjest"
   },
   "themes": {
     "wood": "Klassisk tre",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Forespørsel om omkamp utløpt",
     "accept": "Godta",
     "decline": "Avslå",
-    "waitingForOpponent": "Venter på motstander..."
+    "waitingForOpponent": "Venter på motstander...",
+    "playWithFriends": "Spill med venner",
+    "privateLobby": "Privat lobby",
+    "waitingForFriend": "Venter på vennen din...",
+    "friendJoined": "Vennen din ble med!",
+    "selectTimeControl": "Velg tidskontroll",
+    "startGame": "Start spill",
+    "copyInviteLink": "Kopier invitasjonslenke",
+    "linkCopied": "Lenke kopiert!",
+    "lobbyExpired": "Lobbyen utløp",
+    "friendLeft": "Vennen din forlot",
+    "host": "Vert",
+    "playAgainWithFriend": "Spill igjen med venn"
   },
   "draw": {
     "offerDeclined": "Ditt remistilbud ble avslått",

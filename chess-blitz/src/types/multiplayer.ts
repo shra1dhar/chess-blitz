@@ -104,6 +104,10 @@ export interface PlayerInfo {
   elo: number;
   isBot?: boolean;
   botLevel?: BotDifficulty;
+  /** CrazyGames platform username (if logged in) */
+  platformUsername?: string;
+  /** CrazyGames platform avatar URL (if logged in) */
+  platformAvatarUrl?: string;
 }
 
 // ==============================================
@@ -306,6 +310,10 @@ export interface OpponentInfo {
   elo: number;
   isBot: boolean;
   botLevel?: BotDifficulty;
+  /** CrazyGames platform username (if logged in) */
+  platformUsername?: string;
+  /** CrazyGames platform avatar URL (if logged in) */
+  platformAvatarUrl?: string;
 }
 
 export interface GameEndResult {

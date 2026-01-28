@@ -47,7 +47,10 @@
     "soundEffects": "효과음",
     "disableSound": "소리 끄기",
     "enableSound": "소리 켜기",
-    "pieceSet": "말 세트"
+    "pieceSet": "말 세트",
+    "account": "계정",
+    "signIn": "로그인",
+    "guest": "게스트"
   },
   "themes": {
     "wood": "클래식 우드",
@@ -157,7 +160,19 @@
     "rematchTimeout": "재대결 요청 시간 초과",
     "accept": "수락",
     "decline": "거절",
-    "waitingForOpponent": "상대 대기 중..."
+    "waitingForOpponent": "상대 대기 중...",
+    "playWithFriends": "친구와 대전",
+    "privateLobby": "비공개 로비",
+    "waitingForFriend": "친구 참가 대기 중...",
+    "friendJoined": "친구가 참가했습니다!",
+    "selectTimeControl": "시간 제어 선택",
+    "startGame": "게임 시작",
+    "copyInviteLink": "초대 링크 복사",
+    "linkCopied": "링크 복사됨!",
+    "lobbyExpired": "로비 만료됨",
+    "friendLeft": "친구가 나갔습니다",
+    "host": "호스트",
+    "playAgainWithFriend": "친구와 다시 플레이"
   },
   "draw": {
     "offerDeclined": "무승부 제안이 거절되었습니다",

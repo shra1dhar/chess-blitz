@@ -47,7 +47,10 @@
     "soundEffects": "Ses efektleri",
     "disableSound": "Sesi kapat",
     "enableSound": "Sesi aç",
-    "pieceSet": "Taş Seti"
+    "pieceSet": "Taş Seti",
+    "account": "Hesap",
+    "signIn": "Giriş yap",
+    "guest": "Misafir"
   },
   "themes": {
     "wood": "Klasik ahşap",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Rövanş isteği zaman aşımına uğradı",
     "accept": "Kabul et",
     "decline": "Reddet",
-    "waitingForOpponent": "Rakip bekleniyor..."
+    "waitingForOpponent": "Rakip bekleniyor...",
+    "playWithFriends": "Arkadaşlarla oyna",
+    "privateLobby": "Özel lobi",
+    "waitingForFriend": "Arkadaşın bekleniyor...",
+    "friendJoined": "Arkadaşın katıldı!",
+    "selectTimeControl": "Süre kontrolünü seç",
+    "startGame": "Oyunu başlat",
+    "copyInviteLink": "Davet linkini kopyala",
+    "linkCopied": "Link kopyalandı!",
+    "lobbyExpired": "Lobinin süresi doldu",
+    "friendLeft": "Arkadaşın ayrıldı",
+    "host": "Ev sahibi",
+    "playAgainWithFriend": "Arkadaşla tekrar oyna"
   },
   "draw": {
     "offerDeclined": "Beraberlik teklifiniz reddedildi",

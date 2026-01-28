@@ -47,7 +47,10 @@
     "soundEffects": "ध्वनि प्रभाव",
     "disableSound": "आवाज़ बंद करें",
     "enableSound": "आवाज़ चालू करें",
-    "pieceSet": "मोहरों का सेट"
+    "pieceSet": "मोहरों का सेट",
+    "account": "खाता",
+    "signIn": "साइन इन",
+    "guest": "अतिथि"
   },
   "themes": {
     "wood": "क्लासिक लकड़ी",
@@ -157,7 +160,19 @@
     "rematchTimeout": "रीमैच अनुरोध समय समाप्त",
     "accept": "स्वीकार",
     "decline": "अस्वीकार",
-    "waitingForOpponent": "प्रतिद्वंद्वी की प्रतीक्षा..."
+    "waitingForOpponent": "प्रतिद्वंद्वी की प्रतीक्षा...",
+    "playWithFriends": "दोस्तों के साथ खेलें",
+    "privateLobby": "निजी लॉबी",
+    "waitingForFriend": "आपके दोस्त की प्रतीक्षा...",
+    "friendJoined": "आपका दोस्त शामिल हुआ!",
+    "selectTimeControl": "समय नियंत्रण चुनें",
+    "startGame": "गेम शुरू करें",
+    "copyInviteLink": "निमंत्रण लिंक कॉपी करें",
+    "linkCopied": "लिंक कॉपी हो गया!",
+    "lobbyExpired": "लॉबी समाप्त हो गई",
+    "friendLeft": "आपका दोस्त चला गया",
+    "host": "होस्ट",
+    "playAgainWithFriend": "दोस्त के साथ फिर से खेलें"
   },
   "draw": {
     "offerDeclined": "आपका ड्रॉ ऑफर अस्वीकार कर दिया गया",

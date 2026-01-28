@@ -47,7 +47,10 @@
     "soundEffects": "Звукови ефекти",
     "disableSound": "Изключи звука",
     "enableSound": "Включи звука",
-    "pieceSet": "Комплект фигури"
+    "pieceSet": "Комплект фигури",
+    "account": "Акаунт",
+    "signIn": "Вход",
+    "guest": "Гост"
   },
   "themes": {
     "wood": "Класическо дърво",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Заявката за реванш изтече",
     "accept": "Приемам",
     "decline": "Отказвам",
-    "waitingForOpponent": "Изчакване на противник..."
+    "waitingForOpponent": "Изчакване на противник...",
+    "playWithFriends": "Играй с приятели",
+    "privateLobby": "Частна стая",
+    "waitingForFriend": "Изчакване на приятел...",
+    "friendJoined": "Приятелят ти се присъедини!",
+    "selectTimeControl": "Избери времеви контрол",
+    "startGame": "Започни играта",
+    "copyInviteLink": "Копирай линк за покана",
+    "linkCopied": "Линкът е копиран!",
+    "lobbyExpired": "Стаята изтече",
+    "friendLeft": "Приятелят ти напусна",
+    "host": "Домакин",
+    "playAgainWithFriend": "Играй отново с приятел"
   },
   "draw": {
     "offerDeclined": "Вашето предложение за реми беше отхвърлено",

@@ -13,8 +13,9 @@ import type { Dictionary } from '@/i18n/dictionaries';
 import type { Locale } from '@/i18n/config';
 import { useChessGame } from '@/hooks/useChessGame';
 import { useSettingsStore } from '@/stores/settingsStore';
-import { useMSNAudioSync } from '@/hooks/useSound';
 import { useGameOverModal } from '@/hooks/useGameOverModal';
+import { useGameLifecycle } from '@/hooks/useGameLifecycle';
+import { usePlatformUser } from '@/hooks/usePlatformUser';
 import { LoadingScreen, GameHeader, PlayerInfoCard, GameLayout } from '@/components/game';
 import GameControls from '@/components/GameControls/GameControls';
 import ChessBoard from '@/components/Board/ChessBoard';
@@ -40,9 +41,8 @@ export function GameClient({ dictPromise, locale }: GameClientProps) {
   // Game state
   const game = useChessGame();
   const { theme, pieceSet, showLegalMoves, animationSpeed } = useSettingsStore();
-
-  // Sync with MSN audio state
-  useMSNAudioSync();
+  const lifecycle = useGameLifecycle();
+  const { user: platformUser } = usePlatformUser();
 
   // Initialize game on mount
   useEffect(() => {
@@ -54,6 +54,41 @@ export function GameClient({ dictPromise, locale }: GameClientProps) {
 
   // Show game over modal when game ends
   useGameOverModal(game.isGameOver, isInitialized, setShowGameOver);
+
+  // Platform lifecycle: loading events
+  useEffect(() => {
+    if (!game.isEngineReady) {
+      lifecycle.signalLoadingStart();
+    } else {
+      lifecycle.signalLoadingStop();
+    }
+  }, [game.isEngineReady, lifecycle]);
+
+  // Platform lifecycle: gameplay start when initialized
+  useEffect(() => {
+    if (isInitialized) {
+      lifecycle.signalGameplayStart();
+    }
+  }, [isInitialized, lifecycle]);
+
+  // Platform lifecycle: gameplay stop on game over or unmount
+  useEffect(() => {
+    if (game.isGameOver && isInitialized) {
+      lifecycle.signalGameplayStop();
+      // Celebrate on win (checkmate as player)
+      if (game.result === 'win' && game.status === 'checkmate') {
+        lifecycle.signalHappyTime();
+      }
+    }
+  }, [game.isGameOver, game.result, game.status, isInitialized, lifecycle]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      lifecycle.signalGameplayStop();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Handlers
   const handleNewGame = () => {
@@ -119,7 +154,8 @@ export function GameClient({ dictPromise, locale }: GameClientProps) {
       playerInfo={
         <PlayerInfoCard
           avatarType="human"
-          name={dict.play.you}
+          avatarUrl={platformUser?.avatarUrl}
+          name={platformUser?.username || dict.play.you}
           subtitle={playerColor === 'w' ? dict.gameOptions.white : dict.gameOptions.black}
           isPlayer
           statusIndicator={

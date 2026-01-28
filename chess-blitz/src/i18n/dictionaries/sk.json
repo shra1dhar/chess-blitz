@@ -47,7 +47,10 @@
     "soundEffects": "Zvukové efekty",
     "disableSound": "Vypnúť zvuk",
     "enableSound": "Zapnúť zvuk",
-    "pieceSet": "Sada figúrok"
+    "pieceSet": "Sada figúrok",
+    "account": "Účet",
+    "signIn": "Prihlásiť sa",
+    "guest": "Hosť"
   },
   "themes": {
     "wood": "Klasické drevo",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Žiadosť o odvetu vypršala",
     "accept": "Prijať",
     "decline": "Odmietnuť",
-    "waitingForOpponent": "Čakám na súpera..."
+    "waitingForOpponent": "Čakám na súpera...",
+    "playWithFriends": "Hrať s priateľmi",
+    "privateLobby": "Súkromná miestnosť",
+    "waitingForFriend": "Čakám na kamaráta...",
+    "friendJoined": "Tvoj kamarát sa pripojil!",
+    "selectTimeControl": "Vyber časovú kontrolu",
+    "startGame": "Začať hru",
+    "copyInviteLink": "Kopírovať odkaz na pozvánku",
+    "linkCopied": "Odkaz skopírovaný!",
+    "lobbyExpired": "Miestnosť vypršala",
+    "friendLeft": "Tvoj kamarát odišiel",
+    "host": "Hostiteľ",
+    "playAgainWithFriend": "Hrať znova s kamarátom"
   },
   "draw": {
     "offerDeclined": "Vaša ponuka remízy bola odmietnutá",

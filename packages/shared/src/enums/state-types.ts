@@ -49,3 +49,14 @@ export enum DrawClaimType {
   FiftyMove = "fifty_move",
   ThreefoldRepetition = "threefold_repetition",
 }
+
+/**
+ * Private lobby status for "Play with Friends" feature
+ * Used by PrivateLobby durable object and frontend
+ */
+export enum LobbyStatus {
+  Waiting = "waiting", // Host is waiting for guest to join
+  Ready = "ready", // Both players connected, can start game
+  Starting = "starting", // Game is being created
+  Closed = "closed", // Lobby was closed (expired, cancelled, or game started)
+}

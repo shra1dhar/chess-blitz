@@ -23,10 +23,10 @@ importers:
         version: 0.7.4
       '@next/third-parties':
         specifier: ^16.1.1
-        version: 16.1.1(next@16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1))(react@19.2.3)
+        version: 16.1.1(next@16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(@playwright/test@1.58.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1))(react@19.2.3)
       '@opennextjs/cloudflare':
         specifier: ^1.14.7
-        version: 1.14.7(next@16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1))(wrangler@4.54.0)
+        version: 1.14.7(next@16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(@playwright/test@1.58.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1))(wrangler@4.54.0)
       chess.js:
         specifier: ^1.0.0
         version: 1.4.0
@@ -38,7 +38,7 @@ importers:
         version: 1.0.0
       next:
         specifier: 16.1.1
-        version: 16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1)
+        version: 16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(@playwright/test@1.58.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1)
       react:
         specifier: 19.2.3
         version: 19.2.3
@@ -61,6 +61,9 @@ importers:
       '@eslint/eslintrc':
         specifier: ^3
         version: 3.3.3
+      '@playwright/test':
+        specifier: ^1.58.0
+        version: 1.58.0
       '@types/negotiator':
         specifier: ^0.6.4
         version: 0.6.4
@@ -85,6 +88,9 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
         version: 7.0.1(eslint@9.39.2)
+      playwright:
+        specifier: ^1.58.0
+        version: 1.58.0
       sass:
         specifier: ^1.83.0
         version: 1.97.1
@@ -1471,6 +1477,11 @@ packages:
     resolution: {integrity: sha512-dfUnCxiN9H4ap84DvD2ubjw+3vUNpstxa0TneY/Paat8a3R4uQZDLSvWjmznAY/DoahqTHl9V46HF/Zs3F29pg==}
     engines: {node: '>= 10.0.0'}
 
+  '@playwright/test@1.58.0':
+    resolution: {integrity: sha512-fWza+Lpbj6SkQKCrU6si4iu+fD2dD3gxNHFhUPxsfXBPhnv3rRSQVd0NtBUT9Z/RhF/boCBcuUaMUSTRTopjZg==}
+    engines: {node: '>=18'}
+    hasBin: true
+
   '@poppinss/colors@4.1.6':
     resolution: {integrity: sha512-H9xkIdFswbS8n1d6vmRd8+c10t2Qe+rZITbbDHHkQixH5+2x1FDGmi/0K+WgWiqQFKPSlIYB7jlH6Kpfn6Fleg==}
 
@@ -2708,6 +2719,11 @@ packages:
   fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
 
+  fsevents@2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -3363,6 +3379,16 @@ packages:
   picomatch@4.0.3:
     resolution: {integrity: sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q==}
     engines: {node: '>=12'}
+
+  playwright-core@1.58.0:
+    resolution: {integrity: sha512-aaoB1RWrdNi3//rOeKuMiS65UCcgOVljU46At6eFcOFPFHWtd2weHRRow6z/n+Lec0Lvu0k9ZPKJSjPugikirw==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  playwright@1.58.0:
+    resolution: {integrity: sha512-2SVA0sbPktiIY/MCOPX8e86ehA/e+tDNq+e5Y8qjKYti2Z/JG7xnronT/TXTIkKbYGWlCbuucZ6dziEgkoEjQQ==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   possible-typed-array-names@1.1.0:
     resolution: {integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==}
@@ -5651,9 +5677,9 @@ snapshots:
   '@next/swc-win32-x64-msvc@16.1.1':
     optional: true
 
-  '@next/third-parties@16.1.1(next@16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1))(react@19.2.3)':
+  '@next/third-parties@16.1.1(next@16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(@playwright/test@1.58.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1))(react@19.2.3)':
     dependencies:
-      next: 16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1)
+      next: 16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(@playwright/test@1.58.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1)
       react: 19.2.3
       third-party-capital: 1.0.20
 
@@ -5694,7 +5720,7 @@ snapshots:
 
   '@nolyfill/is-core-module@1.0.39': {}
 
-  '@opennextjs/aws@3.9.7(next@16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1))':
+  '@opennextjs/aws@3.9.7(next@16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(@playwright/test@1.58.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1))':
     dependencies:
       '@ast-grep/napi': 0.40.0
       '@aws-sdk/client-cloudfront': 3.398.0
@@ -5710,7 +5736,7 @@ snapshots:
       cookie: 1.1.1
       esbuild: 0.25.4
       express: 5.2.1
-      next: 16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1)
+      next: 16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(@playwright/test@1.58.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1)
       path-to-regexp: 6.3.0
       urlpattern-polyfill: 10.1.0
       yaml: 2.8.2
@@ -5718,15 +5744,15 @@ snapshots:
       - aws-crt
       - supports-color
 
-  '@opennextjs/cloudflare@1.14.7(next@16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1))(wrangler@4.54.0)':
+  '@opennextjs/cloudflare@1.14.7(next@16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(@playwright/test@1.58.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1))(wrangler@4.54.0)':
     dependencies:
       '@ast-grep/napi': 0.40.0
       '@dotenvx/dotenvx': 1.31.0
-      '@opennextjs/aws': 3.9.7(next@16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1))
+      '@opennextjs/aws': 3.9.7(next@16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(@playwright/test@1.58.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1))
       cloudflare: 4.5.0
       enquirer: 2.4.1
       glob: 12.0.0
-      next: 16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1)
+      next: 16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(@playwright/test@1.58.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1)
       ts-tqdm: 0.8.6
       wrangler: 4.54.0
       yargs: 18.0.0
@@ -5795,6 +5821,10 @@ snapshots:
       '@parcel/watcher-win32-ia32': 2.5.1
       '@parcel/watcher-win32-x64': 2.5.1
     optional: true
+
+  '@playwright/test@1.58.0':
+    dependencies:
+      playwright: 1.58.0
 
   '@poppinss/colors@4.1.6':
     dependencies:
@@ -7477,6 +7507,9 @@ snapshots:
 
   fs.realpath@1.0.0: {}
 
+  fsevents@2.3.2:
+    optional: true
+
   fsevents@2.3.3:
     optional: true
 
@@ -7939,7 +7972,7 @@ snapshots:
 
   negotiator@1.0.0: {}
 
-  next@16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1):
+  next@16.1.1(patch_hash=780fe3d0e875c3c651ec6263f74fbeef69cbcf5a541e70c601f1df4a59e3cc15)(@babel/core@7.28.5)(@playwright/test@1.58.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.97.1):
     dependencies:
       '@next/env': 16.1.1
       '@swc/helpers': 0.5.15
@@ -7958,6 +7991,7 @@ snapshots:
       '@next/swc-linux-x64-musl': 16.1.1
       '@next/swc-win32-arm64-msvc': 16.1.1
       '@next/swc-win32-x64-msvc': 16.1.1
+      '@playwright/test': 1.58.0
       sass: 1.97.1
       sharp: 0.34.5
     transitivePeerDependencies:
@@ -8095,6 +8129,14 @@ snapshots:
   picomatch@2.3.1: {}
 
   picomatch@4.0.3: {}
+
+  playwright-core@1.58.0: {}
+
+  playwright@1.58.0:
+    dependencies:
+      playwright-core: 1.58.0
+    optionalDependencies:
+      fsevents: 2.3.2
 
   possible-typed-array-names@1.1.0: {}
 

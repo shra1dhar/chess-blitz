@@ -47,7 +47,10 @@
     "soundEffects": "المؤثرات الصوتية",
     "disableSound": "إيقاف الصوت",
     "enableSound": "تشغيل الصوت",
-    "pieceSet": "مجموعة القطع"
+    "pieceSet": "مجموعة القطع",
+    "account": "الحساب",
+    "signIn": "تسجيل الدخول",
+    "guest": "زائر"
   },
   "themes": {
     "wood": "خشب كلاسيكي",
@@ -157,7 +160,19 @@
     "rematchTimeout": "انتهت مهلة طلب الإعادة",
     "accept": "قبول",
     "decline": "رفض",
-    "waitingForOpponent": "في انتظار الخصم..."
+    "waitingForOpponent": "في انتظار الخصم...",
+    "playWithFriends": "العب مع الأصدقاء",
+    "privateLobby": "غرفة خاصة",
+    "waitingForFriend": "في انتظار صديقك للانضمام...",
+    "friendJoined": "انضم صديقك!",
+    "selectTimeControl": "اختر التحكم بالوقت",
+    "startGame": "ابدأ اللعبة",
+    "copyInviteLink": "نسخ رابط الدعوة",
+    "linkCopied": "تم نسخ الرابط!",
+    "lobbyExpired": "انتهت صلاحية الغرفة",
+    "friendLeft": "غادر صديقك",
+    "host": "المضيف",
+    "playAgainWithFriend": "العب مرة أخرى مع صديق"
   },
   "draw": {
     "offerDeclined": "تم رفض عرض التعادل",

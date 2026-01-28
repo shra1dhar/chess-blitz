@@ -47,7 +47,10 @@
     "soundEffects": "Efecte sonore",
     "disableSound": "Dezactivează sunetul",
     "enableSound": "Activează sunetul",
-    "pieceSet": "Set de piese"
+    "pieceSet": "Set de piese",
+    "account": "Cont",
+    "signIn": "Autentificare",
+    "guest": "Oaspete"
   },
   "themes": {
     "wood": "Lemn clasic",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Cererea de revanșă a expirat",
     "accept": "Acceptă",
     "decline": "Refuză",
-    "waitingForOpponent": "Se așteaptă adversarul..."
+    "waitingForOpponent": "Se așteaptă adversarul...",
+    "playWithFriends": "Joacă cu prietenii",
+    "privateLobby": "Lobby privat",
+    "waitingForFriend": "Se așteaptă prietenul tău...",
+    "friendJoined": "Prietenul tău s-a alăturat!",
+    "selectTimeControl": "Selectează controlul timpului",
+    "startGame": "Începe jocul",
+    "copyInviteLink": "Copiază linkul de invitație",
+    "linkCopied": "Link copiat!",
+    "lobbyExpired": "Lobby-ul a expirat",
+    "friendLeft": "Prietenul tău a plecat",
+    "host": "Gazdă",
+    "playAgainWithFriend": "Joacă din nou cu un prieten"
   },
   "draw": {
     "offerDeclined": "Oferta ta de remiză a fost refuzată",

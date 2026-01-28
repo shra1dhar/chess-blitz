@@ -47,7 +47,10 @@
     "soundEffects": "Efectos de sonido",
     "disableSound": "Desactivar sonido",
     "enableSound": "Activar sonido",
-    "pieceSet": "Conjunto de piezas"
+    "pieceSet": "Conjunto de piezas",
+    "account": "Cuenta",
+    "signIn": "Iniciar sesión",
+    "guest": "Invitado"
   },
   "themes": {
     "wood": "Madera clásica",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Solicitud de revancha expirada",
     "accept": "Aceptar",
     "decline": "Rechazar",
-    "waitingForOpponent": "Esperando al oponente..."
+    "waitingForOpponent": "Esperando al oponente...",
+    "playWithFriends": "Jugar con amigos",
+    "privateLobby": "Sala privada",
+    "waitingForFriend": "Esperando a un amigo...",
+    "friendJoined": "¡Tu amigo se ha unido!",
+    "selectTimeControl": "Seleccionar control de tiempo",
+    "startGame": "Iniciar partida",
+    "copyInviteLink": "Copiar enlace de invitación",
+    "linkCopied": "¡Enlace copiado!",
+    "lobbyExpired": "La sala ha expirado",
+    "friendLeft": "Tu amigo ha abandonado la sala",
+    "host": "Anfitrión",
+    "playAgainWithFriend": "Jugar de nuevo con amigo"
   },
   "draw": {
     "offerDeclined": "Tu oferta de tablas fue rechazada",

@@ -47,7 +47,10 @@
     "soundEffects": "Äänitehosteet",
     "disableSound": "Poista äänet",
     "enableSound": "Ota äänet käyttöön",
-    "pieceSet": "Nappulasarja"
+    "pieceSet": "Nappulasarja",
+    "account": "Tili",
+    "signIn": "Kirjaudu",
+    "guest": "Vieras"
   },
   "themes": {
     "wood": "Klassinen puu",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Uusintaottelupyyntö vanheni",
     "accept": "Hyväksy",
     "decline": "Hylkää",
-    "waitingForOpponent": "Odotetaan vastustajaa..."
+    "waitingForOpponent": "Odotetaan vastustajaa...",
+    "playWithFriends": "Pelaa kavereiden kanssa",
+    "privateLobby": "Yksityinen aula",
+    "waitingForFriend": "Odotetaan kaveriasi...",
+    "friendJoined": "Kaverisi liittyi!",
+    "selectTimeControl": "Valitse aikakontrolli",
+    "startGame": "Aloita peli",
+    "copyInviteLink": "Kopioi kutsulinkki",
+    "linkCopied": "Linkki kopioitu!",
+    "lobbyExpired": "Aula vanheni",
+    "friendLeft": "Kaverisi poistui",
+    "host": "Isäntä",
+    "playAgainWithFriend": "Pelaa uudelleen kaverin kanssa"
   },
   "draw": {
     "offerDeclined": "Tasapelitarjouksesi hylättiin",

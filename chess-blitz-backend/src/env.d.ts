@@ -5,6 +5,7 @@ export interface Env {
   // Durable Objects
   MATCHMAKING_QUEUE: DurableObjectNamespace;
   GAME_ROOM: DurableObjectNamespace;
+  PRIVATE_LOBBY: DurableObjectNamespace;
 
   // Static assets
   ASSETS: Fetcher;

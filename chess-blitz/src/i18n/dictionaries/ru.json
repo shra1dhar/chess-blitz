@@ -47,7 +47,10 @@
     "soundEffects": "Звуковые эффекты",
     "disableSound": "Выключить звук",
     "enableSound": "Включить звук",
-    "pieceSet": "Набор фигур"
+    "pieceSet": "Набор фигур",
+    "account": "Аккаунт",
+    "signIn": "Войти",
+    "guest": "Гость"
   },
   "themes": {
     "wood": "Классическое дерево",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Запрос на реванш истёк",
     "accept": "Принять",
     "decline": "Отклонить",
-    "waitingForOpponent": "Ожидание соперника..."
+    "waitingForOpponent": "Ожидание соперника...",
+    "playWithFriends": "Играть с друзьями",
+    "privateLobby": "Приватное лобби",
+    "waitingForFriend": "Ожидание друга...",
+    "friendJoined": "Друг присоединился!",
+    "selectTimeControl": "Выбрать контроль времени",
+    "startGame": "Начать игру",
+    "copyInviteLink": "Копировать ссылку",
+    "linkCopied": "Ссылка скопирована!",
+    "lobbyExpired": "Лобби истекло",
+    "friendLeft": "Друг покинул лобби",
+    "host": "Хост",
+    "playAgainWithFriend": "Сыграть снова с другом"
   },
   "draw": {
     "offerDeclined": "Ваше предложение ничьей отклонено",

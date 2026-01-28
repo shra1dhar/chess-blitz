@@ -47,7 +47,10 @@
     "soundEffects": "Ovoz effektlari",
     "disableSound": "Ovozni o'chirish",
     "enableSound": "Ovozni yoqish",
-    "pieceSet": "Donalar toʻplami"
+    "pieceSet": "Donalar toʻplami",
+    "account": "Hisob",
+    "signIn": "Kirish",
+    "guest": "Mehmon"
   },
   "themes": {
     "wood": "Klassik yog'och",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Qayta o'yin so'rovi muddati tugadi",
     "accept": "Qabul qilish",
     "decline": "Rad etish",
-    "waitingForOpponent": "Raqib kutilmoqda..."
+    "waitingForOpponent": "Raqib kutilmoqda...",
+    "playWithFriends": "Do'stlar bilan o'ynash",
+    "privateLobby": "Shaxsiy lobbi",
+    "waitingForFriend": "Do'stingiz kutilmoqda...",
+    "friendJoined": "Do'stingiz qo'shildi!",
+    "selectTimeControl": "Vaqt nazoratini tanlang",
+    "startGame": "O'yinni boshlash",
+    "copyInviteLink": "Taklif havolasini nusxalash",
+    "linkCopied": "Havola nusxalandi!",
+    "lobbyExpired": "Lobbi muddati tugadi",
+    "friendLeft": "Do'stingiz chiqib ketdi",
+    "host": "Mezbon",
+    "playAgainWithFriend": "Do'st bilan yana o'ynash"
   },
   "draw": {
     "offerDeclined": "Durang taklifingiz rad etildi",

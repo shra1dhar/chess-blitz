@@ -5,7 +5,7 @@
 // Handles multiplayer game after matchmaking navigation
 // ==============================================
 
-import { useEffect, useState, useCallback, use } from 'react';
+import { useEffect, useState, useCallback, use, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Chess } from 'chess.js';
 import type { Square } from 'chess.js';
@@ -14,9 +14,10 @@ import type { Locale } from '@/i18n/config';
 import { useMultiplayer, MatchState } from '@/hooks/useMultiplayer';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useMultiplayerStore } from '@/stores/multiplayerStore';
-import { useMSNAudioSync } from '@/hooks/useSound';
 import { useGameClock } from '@/hooks/useGameClock';
 import { useGameOverModal, useGameOverEscapeKey } from '@/hooks/useGameOverModal';
+import { useGameLifecycle } from '@/hooks/useGameLifecycle';
+import { usePlatformUser } from '@/hooks/usePlatformUser';
 import { parseMovesFromPgn, getPlayerResult, getGameStatusFromReason } from '@/utils/moves';
 import { LoadingScreen, GameHeader, PlayerInfoCard, GameLayout } from '@/components/game';
 import GameInfo from '@/components/GameInfo/GameInfo';
@@ -28,6 +29,9 @@ import { ReconnectingOverlay } from '@/components/Multiplayer/ReconnectingOverla
 import { SidebarControls } from '@/components/Multiplayer/SidebarControls';
 import { MobileGameControls } from '@/components/Multiplayer/MobileGameControls';
 import { MatchmakingOverlay } from '@/components/Tournament/MatchmakingOverlay';
+
+// Delay before showing reconnecting overlay (allows quick reconnects without flashing)
+const RECONNECT_OVERLAY_DELAY_MS = 2000;
 
 interface MultiplayerGameClientProps {
   gameId: string;
@@ -41,6 +45,8 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
   const [showGameOver, setShowGameOver] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
   const [chess] = useState(() => new Chess());
+  const [showReconnectOverlay, setShowReconnectOverlay] = useState(false);
+  const reconnectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const { theme, pieceSet, showLegalMoves, animationSpeed } = useSettingsStore();
 
@@ -48,9 +54,9 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
   const token = useMultiplayerStore((s) => s.token);
   const currentGameId = useMultiplayerStore((s) => s.currentGameId);
   const initializeSession = useMultiplayerStore((s) => s.initializeSession);
-
-  // Sync with MSN audio state
-  useMSNAudioSync();
+  const isPrivateLobbyGame = useMultiplayerStore((s) => s.isPrivateLobbyGame);
+  const privateLobbyId = useMultiplayerStore((s) => s.privateLobbyId);
+  const clearPrivateLobbyGame = useMultiplayerStore((s) => s.clearPrivateLobbyGame);
 
   // Multiplayer state from hook
   const multiplayer = useMultiplayer({
@@ -72,6 +78,12 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
     lastMoveAt: multiplayer.gameState?.lastMoveAt ?? 0,
     isPlaying: multiplayer.matchState === MatchState.Playing,
   });
+
+  // Platform game lifecycle
+  const lifecycle = useGameLifecycle();
+
+  // Platform user info (username, avatar)
+  const { user: platformUser } = usePlatformUser();
 
   // Initialize session on mount - restores token from localStorage for reconnection
   useEffect(() => {
@@ -123,6 +135,77 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
     }
   }, [multiplayer.matchState, multiplayer.gameId, gameId, router, locale]);
 
+  // Platform lifecycle: loading events
+  useEffect(() => {
+    if (!multiplayer.gameState) {
+      lifecycle.signalLoadingStart();
+    } else {
+      lifecycle.signalLoadingStop();
+    }
+  }, [multiplayer.gameState, lifecycle]);
+
+  // Platform lifecycle: gameplay start when playing
+  useEffect(() => {
+    if (multiplayer.matchState === MatchState.Playing) {
+      lifecycle.signalGameplayStart();
+    }
+  }, [multiplayer.matchState, lifecycle]);
+
+  // Platform lifecycle: gameplay stop on game end
+  useEffect(() => {
+    if (multiplayer.matchState === MatchState.Ended) {
+      lifecycle.signalGameplayStop();
+      // Celebrate on win (result is in PGN format: '1-0' = white wins, '0-1' = black wins)
+      if (multiplayer.result) {
+        const playerWon =
+          (multiplayer.playerColor === 'w' && multiplayer.result === '1-0') ||
+          (multiplayer.playerColor === 'b' && multiplayer.result === '0-1');
+        if (playerWon) {
+          lifecycle.signalHappyTime();
+        }
+      }
+    }
+  }, [multiplayer.matchState, multiplayer.result, multiplayer.playerColor, lifecycle]);
+
+  // Platform lifecycle: cleanup on unmount
+  useEffect(() => {
+    return () => {
+      lifecycle.signalGameplayStop();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Check if this is a bot game
+  const isBotGame = gameId.startsWith('bot-');
+  const isPlaying = multiplayer.matchState === MatchState.Playing;
+
+  // Delayed reconnecting overlay - only show after connection lost for a bit
+  // This prevents flashing during quick reconnections
+  useEffect(() => {
+    const shouldShowReconnect = !isBotGame && multiplayer.connectionStatus === 'disconnected' && isPlaying && !!multiplayer.gameState;
+
+    if (shouldShowReconnect) {
+      // Start timer to show overlay after delay
+      reconnectTimerRef.current = setTimeout(() => {
+        setShowReconnectOverlay(true);
+      }, RECONNECT_OVERLAY_DELAY_MS);
+    } else {
+      // Connection restored or not playing - hide overlay immediately
+      if (reconnectTimerRef.current) {
+        clearTimeout(reconnectTimerRef.current);
+        reconnectTimerRef.current = null;
+      }
+      setShowReconnectOverlay(false);
+    }
+
+    return () => {
+      if (reconnectTimerRef.current) {
+        clearTimeout(reconnectTimerRef.current);
+        reconnectTimerRef.current = null;
+      }
+    };
+  }, [isBotGame, multiplayer.connectionStatus, isPlaying, multiplayer.gameState]);
+
   // Get legal moves for a square
   const getLegalMoves = useCallback(
     (square: Square): Square[] => {
@@ -173,8 +256,12 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
     router.push(`/${locale}/tournament`);
   }, [multiplayer.reset, router, locale]);
 
-  // Check if this is a bot game
-  const isBotGame = gameId.startsWith('bot-');
+  // Handle return to lobby with friend (for private lobby games)
+  const handleReturnToLobby = useCallback(() => {
+    multiplayer.reset();
+    // Navigate back to tournament page with lobbyId param to reopen private lobby
+    router.push(`/${locale}/tournament?returnToLobby=${privateLobbyId}`);
+  }, [multiplayer.reset, router, locale, privateLobbyId]);
 
   // Loading state
   if (!multiplayer.gameState) {
@@ -201,7 +288,6 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
     );
   }
 
-  const isPlaying = multiplayer.matchState === MatchState.Playing;
   const isCheck = chess.isCheck();
   const parsedMoves = parseMovesFromPgn(multiplayer.gameState.pgn);
   const gameResult = getPlayerResult(multiplayer.result, multiplayer.playerColor || 'w');
@@ -264,7 +350,8 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
       opponentInfo={
         <PlayerInfoCard
           avatarType={multiplayer.opponent?.isBot ? 'bot' : 'human'}
-          name={multiplayer.opponent?.displayName || 'Opponent'}
+          avatarUrl={multiplayer.opponent?.platformAvatarUrl}
+          name={multiplayer.opponent?.platformUsername || multiplayer.opponent?.displayName || 'Opponent'}
           subtitle={opponentSubtitle.subtitle}
           statusIndicator={
             opponentSubtitle.isDisconnected
@@ -296,7 +383,8 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
       playerInfo={
         <PlayerInfoCard
           avatarType="human"
-          name={dict.play.you}
+          avatarUrl={platformUser?.avatarUrl}
+          name={platformUser?.username || dict.play.you}
           subtitle={playerSubtitle.subtitle}
           isPlayer
           statusIndicator={
@@ -347,7 +435,7 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
             dict={dict}
           />
           <ReconnectingOverlay
-            isVisible={!isBotGame && multiplayer.connectionStatus === 'disconnected' && isPlaying}
+            isVisible={showReconnectOverlay}
             dict={dict}
           />
           <MatchmakingOverlay
@@ -395,6 +483,8 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
               onRequestRematch={multiplayer.requestRematch}
               onAcceptRematch={multiplayer.acceptRematch}
               onDeclineRematch={multiplayer.declineRematch}
+              isPrivateLobbyGame={isPrivateLobbyGame}
+              onReturnToLobby={handleReturnToLobby}
             />
           )}
         </>

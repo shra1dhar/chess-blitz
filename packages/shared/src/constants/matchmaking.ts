@@ -15,6 +15,6 @@ export const MATCHMAKING = {
 // ELO constants
 export const ELO = {
   K_FACTOR: 32,
-  STARTING: 900,
+  STARTING: 800,
   FLOOR: 100,
 } as const;

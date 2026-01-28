@@ -1,13 +1,13 @@
 import type { Metadata, Viewport } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import '../globals.scss';
-import { AppInitializer } from '@/components/AppInitializer';
 import { ToastProvider } from '@/components/Toast/ToastProvider';
 import OfflineIndicator from '@/components/OfflineIndicator/OfflineIndicator';
 import { JsonLd } from '@/components/JsonLd';
 import { locales, isRtl, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
 import { getDisplayFont } from '@/styles/fonts';
+import { IntegrationProvider } from '@/components/IntegrationProvider';
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || 'https://chess-blitz.zoony.io';
@@ -117,7 +117,7 @@ export default async function LocaleLayout({
         />
       </head>
       <body>
-        <AppInitializer />
+        <IntegrationProvider />
         <OfflineIndicator />
         <div className="app-container">{children}</div>
         <ToastProvider />

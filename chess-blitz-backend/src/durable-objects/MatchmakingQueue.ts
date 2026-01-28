@@ -35,6 +35,10 @@ interface MatchmakingAttachment {
   joinedAt?: number;
   currentEloRange?: number;
   recentOpponents?: string[];
+  /** CrazyGames platform username (if logged in) */
+  platformUsername?: string;
+  /** CrazyGames platform avatar URL (if logged in) */
+  platformAvatarUrl?: string;
 }
 
 /**
@@ -91,6 +95,8 @@ export class MatchmakingQueue extends DurableObject<Env> {
               message: createRateLimitState(),
               join: createRateLimitState(),
             },
+            platformUsername: attachment.platformUsername,
+            platformAvatarUrl: attachment.platformAvatarUrl,
           };
           (ws as any).state = state;
 
@@ -103,6 +109,8 @@ export class MatchmakingQueue extends DurableObject<Env> {
               joinedAt: attachment.joinedAt || Date.now(), // Fallback if missing
               currentEloRange: attachment.currentEloRange || MATCHMAKING.INITIAL_ELO_RANGE,
               recentOpponents: attachment.recentOpponents || [],
+              platformUsername: attachment.platformUsername,
+              platformAvatarUrl: attachment.platformAvatarUrl,
               ws,
             };
             this.queue.set(attachment.playerId, entry);
@@ -264,6 +272,9 @@ export class MatchmakingQueue extends DurableObject<Env> {
     const playerId = url.searchParams.get("playerId");
     const displayName = url.searchParams.get("displayName");
     const eloParam = url.searchParams.get("elo");
+    // CrazyGames platform user info (optional)
+    const platformUsername = url.searchParams.get("platformUsername") || undefined;
+    const platformAvatarUrl = url.searchParams.get("platformAvatarUrl") || undefined;
 
     if (!playerId || !displayName) {
       return new Response("Missing player info", { status: 400 });
@@ -289,6 +300,8 @@ export class MatchmakingQueue extends DurableObject<Env> {
       displayName,
       elo: parseInt(eloParam || "1200", 10),
       inQueue: false,
+      platformUsername,
+      platformAvatarUrl,
     };
     server.serializeAttachment(attachment);
 
@@ -302,6 +315,8 @@ export class MatchmakingQueue extends DurableObject<Env> {
         message: createRateLimitState(),
         join: createRateLimitState(),
       },
+      platformUsername,
+      platformAvatarUrl,
     };
     (server as any).state = connectionState;
 
@@ -447,6 +462,8 @@ export class MatchmakingQueue extends DurableObject<Env> {
       joinedAt: now,
       currentEloRange: MATCHMAKING.INITIAL_ELO_RANGE,
       recentOpponents,
+      platformUsername: state.platformUsername,
+      platformAvatarUrl: state.platformAvatarUrl,
       ws,
     };
 
@@ -712,14 +729,28 @@ export class MatchmakingQueue extends DurableObject<Env> {
     safeSend(white.ws, {
       type: ServerMessageType.MatchFound,
       gameId,
-      opponent: { id: black.playerId, displayName: black.displayName, elo: black.elo, isBot: false },
+      opponent: {
+        id: black.playerId,
+        displayName: black.displayName,
+        elo: black.elo,
+        isBot: false,
+        platformUsername: black.platformUsername,
+        platformAvatarUrl: black.platformAvatarUrl,
+      },
       color: "white",
     });
 
     safeSend(black.ws, {
       type: ServerMessageType.MatchFound,
       gameId,
-      opponent: { id: white.playerId, displayName: white.displayName, elo: white.elo, isBot: false },
+      opponent: {
+        id: white.playerId,
+        displayName: white.displayName,
+        elo: white.elo,
+        isBot: false,
+        platformUsername: white.platformUsername,
+        platformAvatarUrl: white.platformAvatarUrl,
+      },
       color: "black",
     });
 

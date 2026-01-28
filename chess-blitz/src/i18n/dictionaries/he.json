@@ -47,7 +47,10 @@
     "soundEffects": "אפקטים קוליים",
     "disableSound": "השתק צליל",
     "enableSound": "הפעל צליל",
-    "pieceSet": "ערכת כלים"
+    "pieceSet": "ערכת כלים",
+    "account": "חשבון",
+    "signIn": "התחבר",
+    "guest": "אורח"
   },
   "themes": {
     "wood": "עץ קלאסי",
@@ -157,7 +160,19 @@
     "rematchTimeout": "פג תוקף הבקשה למשחק חוזר",
     "accept": "קבל",
     "decline": "דחה",
-    "waitingForOpponent": "ממתין ליריב..."
+    "waitingForOpponent": "ממתין ליריב...",
+    "playWithFriends": "שחק עם חברים",
+    "privateLobby": "לובי פרטי",
+    "waitingForFriend": "ממתין לחבר שלך...",
+    "friendJoined": "החבר שלך הצטרף!",
+    "selectTimeControl": "בחר שליטת זמן",
+    "startGame": "התחל משחק",
+    "copyInviteLink": "העתק קישור הזמנה",
+    "linkCopied": "הקישור הועתק!",
+    "lobbyExpired": "פג תוקף הלובי",
+    "friendLeft": "החבר שלך עזב",
+    "host": "מארח",
+    "playAgainWithFriend": "שחק שוב עם חבר"
   },
   "draw": {
     "offerDeclined": "הצעת התיקו שלך נדחתה",

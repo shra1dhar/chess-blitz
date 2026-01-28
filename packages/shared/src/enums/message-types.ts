@@ -18,6 +18,10 @@ export enum ClientMessageType {
   OfferRematch = "offer_rematch",
   AcceptRematch = "accept_rematch",
   DeclineRematch = "decline_rematch",
+  // Private Lobby (CrazyGames "Play with Friends")
+  SetLobbyTournamentType = "set_lobby_tournament_type",
+  StartPrivateGame = "start_private_game",
+  LeaveLobby = "leave_lobby",
   // Utility
   Ping = "ping",
 }
@@ -58,6 +62,11 @@ export enum ServerMessageType {
   FiftyMoveWarning = "fifty_move_warning",
   // First-move timeout
   FirstMoveWarning = "first_move_warning",
+  // Private Lobby (CrazyGames "Play with Friends")
+  LobbyState = "lobby_state",
+  LobbyPlayerJoined = "lobby_player_joined",
+  LobbyPlayerLeft = "lobby_player_left",
+  LobbyClosed = "lobby_closed",
 }
 
 /**

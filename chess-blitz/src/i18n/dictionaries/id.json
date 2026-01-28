@@ -47,7 +47,10 @@
     "soundEffects": "Efek Suara",
     "disableSound": "Matikan suara",
     "enableSound": "Aktifkan suara",
-    "pieceSet": "Set Bidak"
+    "pieceSet": "Set Bidak",
+    "account": "Akun",
+    "signIn": "Masuk",
+    "guest": "Tamu"
   },
   "themes": {
     "wood": "Kayu Klasik",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Permintaan tanding ulang habis waktu",
     "accept": "Terima",
     "decline": "Tolak",
-    "waitingForOpponent": "Menunggu lawan..."
+    "waitingForOpponent": "Menunggu lawan...",
+    "playWithFriends": "Main dengan Teman",
+    "privateLobby": "Lobi Pribadi",
+    "waitingForFriend": "Menunggu temanmu...",
+    "friendJoined": "Temanmu telah bergabung!",
+    "selectTimeControl": "Pilih kontrol waktu",
+    "startGame": "Mulai Permainan",
+    "copyInviteLink": "Salin link undangan",
+    "linkCopied": "Link disalin!",
+    "lobbyExpired": "Lobi kedaluwarsa",
+    "friendLeft": "Temanmu keluar",
+    "host": "Host",
+    "playAgainWithFriend": "Main lagi dengan teman"
   },
   "draw": {
     "offerDeclined": "Tawaran seri Anda ditolak",

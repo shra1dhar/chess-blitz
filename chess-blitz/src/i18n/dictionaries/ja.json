@@ -47,7 +47,10 @@
     "soundEffects": "効果音",
     "disableSound": "音を消す",
     "enableSound": "音を出す",
-    "pieceSet": "駒セット"
+    "pieceSet": "駒セット",
+    "account": "アカウント",
+    "signIn": "ログイン",
+    "guest": "ゲスト"
   },
   "themes": {
     "wood": "クラシックウッド",
@@ -157,7 +160,19 @@
     "rematchTimeout": "再戦リクエストがタイムアウトしました",
     "accept": "承諾",
     "decline": "拒否",
-    "waitingForOpponent": "相手を待っています..."
+    "waitingForOpponent": "相手を待っています...",
+    "playWithFriends": "友達と対戦",
+    "privateLobby": "プライベートロビー",
+    "waitingForFriend": "友達の参加を待っています...",
+    "friendJoined": "友達が参加しました！",
+    "selectTimeControl": "持ち時間を選択",
+    "startGame": "ゲーム開始",
+    "copyInviteLink": "招待リンクをコピー",
+    "linkCopied": "リンクをコピーしました！",
+    "lobbyExpired": "ロビーの有効期限が切れました",
+    "friendLeft": "友達が退出しました",
+    "host": "ホスト",
+    "playAgainWithFriend": "友達ともう一度プレイ"
   },
   "draw": {
     "offerDeclined": "ドローの申し出は拒否されました",

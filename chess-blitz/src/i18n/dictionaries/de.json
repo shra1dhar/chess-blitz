@@ -47,7 +47,10 @@
     "soundEffects": "Soundeffekte",
     "disableSound": "Ton deaktivieren",
     "enableSound": "Ton aktivieren",
-    "pieceSet": "Figurensatz"
+    "pieceSet": "Figurensatz",
+    "account": "Konto",
+    "signIn": "Anmelden",
+    "guest": "Gast"
   },
   "themes": {
     "wood": "Klassisches Holz",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Revanche-Anfrage abgelaufen",
     "accept": "Akzeptieren",
     "decline": "Ablehnen",
-    "waitingForOpponent": "Warte auf Gegner..."
+    "waitingForOpponent": "Warte auf Gegner...",
+    "playWithFriends": "Mit Freunden spielen",
+    "privateLobby": "Private Lobby",
+    "waitingForFriend": "Warte auf Freund...",
+    "friendJoined": "Freund ist beigetreten!",
+    "selectTimeControl": "Zeitkontrolle wählen",
+    "startGame": "Spiel starten",
+    "copyInviteLink": "Einladungslink kopieren",
+    "linkCopied": "Link kopiert!",
+    "lobbyExpired": "Lobby abgelaufen",
+    "friendLeft": "Freund hat die Lobby verlassen",
+    "host": "Gastgeber",
+    "playAgainWithFriend": "Nochmal mit Freund spielen"
   },
   "draw": {
     "offerDeclined": "Dein Remisangebot wurde abgelehnt",

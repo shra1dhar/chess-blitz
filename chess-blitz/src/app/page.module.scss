@@ -1181,6 +1181,51 @@
 }
 
 // ==============================================
+// Account Sign In Button
+// ==============================================
+
+.signInButton {
+  padding: $spacing-xs $spacing-sm;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  color: white;
+  background-color: $brand-accent;
+  border: none;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  -webkit-transition: background-color $transition-fast, opacity $transition-fast;
+  transition: background-color $transition-fast, opacity $transition-fast;
+
+  &:hover:not(:disabled) {
+    background-color: color.adjust($brand-accent, $lightness: -10%);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+}
+
+.userAvatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-inline-end: $spacing-xs;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.userName {
+  font-size: $font-size-sm;
+  color: var(--ui-text-secondary);
+}
+
+// ==============================================
 // Responsive Adjustments
 // ==============================================
 

@@ -47,7 +47,10 @@
     "soundEffects": "Efekty dźwiękowe",
     "disableSound": "Wyłącz dźwięk",
     "enableSound": "Włącz dźwięk",
-    "pieceSet": "Zestaw figur"
+    "pieceSet": "Zestaw figur",
+    "account": "Konto",
+    "signIn": "Zaloguj się",
+    "guest": "Gość"
   },
   "themes": {
     "wood": "Klasyczne drewno",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Prośba o rewanż wygasła",
     "accept": "Akceptuj",
     "decline": "Odrzuć",
-    "waitingForOpponent": "Czekanie na przeciwnika..."
+    "waitingForOpponent": "Czekanie na przeciwnika...",
+    "playWithFriends": "Graj z przyjaciółmi",
+    "privateLobby": "Prywatne lobby",
+    "waitingForFriend": "Czekanie na znajomego...",
+    "friendJoined": "Twój znajomy dołączył!",
+    "selectTimeControl": "Wybierz kontrolę czasu",
+    "startGame": "Rozpocznij grę",
+    "copyInviteLink": "Kopiuj link zaproszenia",
+    "linkCopied": "Link skopiowany!",
+    "lobbyExpired": "Lobby wygasło",
+    "friendLeft": "Twój znajomy wyszedł",
+    "host": "Gospodarz",
+    "playAgainWithFriend": "Zagraj ponownie ze znajomym"
   },
   "draw": {
     "offerDeclined": "Twoja oferta remisu została odrzucona",

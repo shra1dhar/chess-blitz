@@ -47,7 +47,10 @@
     "soundEffects": "Geluidseffecten",
     "disableSound": "Geluid uit",
     "enableSound": "Geluid aan",
-    "pieceSet": "Stukkenset"
+    "pieceSet": "Stukkenset",
+    "account": "Account",
+    "signIn": "Inloggen",
+    "guest": "Gast"
   },
   "themes": {
     "wood": "Klassiek hout",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Herkansingsverzoek verlopen",
     "accept": "Accepteren",
     "decline": "Weigeren",
-    "waitingForOpponent": "Wachten op tegenstander..."
+    "waitingForOpponent": "Wachten op tegenstander...",
+    "playWithFriends": "Speel met vrienden",
+    "privateLobby": "Privé lobby",
+    "waitingForFriend": "Wachten op vriend...",
+    "friendJoined": "Je vriend is toegetreden!",
+    "selectTimeControl": "Selecteer tijdcontrole",
+    "startGame": "Start spel",
+    "copyInviteLink": "Kopieer uitnodigingslink",
+    "linkCopied": "Link gekopieerd!",
+    "lobbyExpired": "Lobby verlopen",
+    "friendLeft": "Je vriend heeft de lobby verlaten",
+    "host": "Gastheer",
+    "playAgainWithFriend": "Opnieuw spelen met vriend"
   },
   "draw": {
     "offerDeclined": "Je remise-aanbod is afgewezen",

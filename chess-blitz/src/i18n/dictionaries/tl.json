@@ -47,7 +47,10 @@
     "soundEffects": "Sound Effects",
     "disableSound": "I-off ang tunog",
     "enableSound": "I-on ang tunog",
-    "pieceSet": "Set ng Piraso"
+    "pieceSet": "Set ng Piraso",
+    "account": "Account",
+    "signIn": "Mag-sign in",
+    "guest": "Bisita"
   },
   "themes": {
     "wood": "Klasikong Kahoy",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Nag-expire ang kahilingan para sa rematch",
     "accept": "Tanggapin",
     "decline": "Tanggihan",
-    "waitingForOpponent": "Naghihintay sa kalaban..."
+    "waitingForOpponent": "Naghihintay sa kalaban...",
+    "playWithFriends": "Maglaro kasama ang mga kaibigan",
+    "privateLobby": "Pribadong lobby",
+    "waitingForFriend": "Naghihintay sa kaibigan mo...",
+    "friendJoined": "Sumali na ang kaibigan mo!",
+    "selectTimeControl": "Pumili ng kontrol sa oras",
+    "startGame": "Simulan ang laro",
+    "copyInviteLink": "Kopyahin ang link ng imbitasyon",
+    "linkCopied": "Nakopya ang link!",
+    "lobbyExpired": "Nag-expire ang lobby",
+    "friendLeft": "Umalis na ang kaibigan mo",
+    "host": "Host",
+    "playAgainWithFriend": "Maglaro ulit kasama ang kaibigan"
   },
   "draw": {
     "offerDeclined": "Tinanggihan ang iyong alok ng draw",

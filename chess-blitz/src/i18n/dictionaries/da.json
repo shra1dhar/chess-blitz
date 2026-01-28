@@ -47,7 +47,10 @@
     "soundEffects": "Lydeffekter",
     "disableSound": "Slå lyd fra",
     "enableSound": "Slå lyd til",
-    "pieceSet": "Brikker"
+    "pieceSet": "Brikker",
+    "account": "Konto",
+    "signIn": "Log ind",
+    "guest": "Gæst"
   },
   "themes": {
     "wood": "Klassisk træ",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Anmodning om omkamp udløbet",
     "accept": "Accepter",
     "decline": "Afvis",
-    "waitingForOpponent": "Venter på modstander..."
+    "waitingForOpponent": "Venter på modstander...",
+    "playWithFriends": "Spil med venner",
+    "privateLobby": "Privat lobby",
+    "waitingForFriend": "Venter på din ven...",
+    "friendJoined": "Din ven er tilsluttet!",
+    "selectTimeControl": "Vælg tidskontrol",
+    "startGame": "Start spil",
+    "copyInviteLink": "Kopier invitationslink",
+    "linkCopied": "Link kopieret!",
+    "lobbyExpired": "Lobbyen er udløbet",
+    "friendLeft": "Din ven forlod",
+    "host": "Vært",
+    "playAgainWithFriend": "Spil igen med ven"
   },
   "draw": {
     "offerDeclined": "Dit tilbud om remis blev afvist",

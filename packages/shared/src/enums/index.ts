@@ -5,4 +5,5 @@ export {
   GameRoomStatus,
   WebSocketStatus,
   DrawClaimType,
+  LobbyStatus,
 } from "./state-types";

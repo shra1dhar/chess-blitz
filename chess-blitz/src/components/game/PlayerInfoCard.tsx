@@ -5,6 +5,7 @@
 // Displays player avatar, name, level/ELO, and status indicators
 // ==============================================
 
+import { useState } from 'react';
 import { RobotIcon, HumanIcon } from '@/components/icons';
 import { formatTime, isLowTime } from '@/utils/clock';
 import styles from '@/styles/play.module.scss';
@@ -19,6 +20,8 @@ type StatusIndicator =
 
 interface PlayerInfoCardProps {
   avatarType: 'bot' | 'human';
+  /** Optional avatar image URL (e.g., from CrazyGames) */
+  avatarUrl?: string;
   name: string;
   subtitle: string;
   isPlayer?: boolean;
@@ -27,12 +30,30 @@ interface PlayerInfoCardProps {
 
 export function PlayerInfoCard({
   avatarType,
+  avatarUrl,
   name,
   subtitle,
   isPlayer = false,
   statusIndicator,
 }: PlayerInfoCardProps) {
+  const [imageError, setImageError] = useState(false);
   const AvatarIcon = avatarType === 'bot' ? RobotIcon : HumanIcon;
+
+  // Render avatar: image URL if provided and valid, otherwise icon
+  const renderAvatar = () => {
+    if (avatarUrl && !imageError) {
+      return (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={avatarUrl}
+          alt={name}
+          className={styles.avatarImage}
+          onError={() => setImageError(true)}
+        />
+      );
+    }
+    return <AvatarIcon />;
+  };
 
   // Render the appropriate subtitle or warning
   const renderSubtitle = () => {
@@ -95,7 +116,7 @@ export function PlayerInfoCard({
   return (
     <div className={styles.playerInfo}>
       <div className={`${styles.playerAvatar} ${isPlayer ? styles.playerAvatarHuman : ''}`}>
-        <AvatarIcon />
+        {renderAvatar()}
       </div>
       <div className={styles.playerDetails}>
         <span className={styles.playerName}>{name}</span>

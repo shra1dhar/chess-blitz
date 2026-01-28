@@ -47,7 +47,10 @@
     "soundEffects": "Звучни ефекти",
     "disableSound": "Искључи звук",
     "enableSound": "Укључи звук",
-    "pieceSet": "Сет фигура"
+    "pieceSet": "Сет фигура",
+    "account": "Налог",
+    "signIn": "Пријави се",
+    "guest": "Гост"
   },
   "themes": {
     "wood": "Класично дрво",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Захтев за реванш је истекао",
     "accept": "Прихвати",
     "decline": "Одбиј",
-    "waitingForOpponent": "Чекање противника..."
+    "waitingForOpponent": "Чекање противника...",
+    "playWithFriends": "Играј са пријатељима",
+    "privateLobby": "Приватни лоби",
+    "waitingForFriend": "Чекање пријатеља...",
+    "friendJoined": "Твој пријатељ се придружио!",
+    "selectTimeControl": "Изабери контролу времена",
+    "startGame": "Започни игру",
+    "copyInviteLink": "Копирај линк за позивницу",
+    "linkCopied": "Линк копиран!",
+    "lobbyExpired": "Лоби је истекао",
+    "friendLeft": "Твој пријатељ је отишао",
+    "host": "Домаћин",
+    "playAgainWithFriend": "Играј поново са пријатељем"
   },
   "draw": {
     "offerDeclined": "Ваша понуда за реми је одбијена",

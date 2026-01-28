@@ -47,7 +47,10 @@
     "soundEffects": "শব্দ প্রভাব",
     "disableSound": "শব্দ বন্ধ করুন",
     "enableSound": "শব্দ চালু করুন",
-    "pieceSet": "পিস সেট"
+    "pieceSet": "পিস সেট",
+    "account": "অ্যাকাউন্ট",
+    "signIn": "সাইন ইন",
+    "guest": "অতিথি"
   },
   "themes": {
     "wood": "ক্লাসিক কাঠ",
@@ -157,7 +160,19 @@
     "rematchTimeout": "রিম্যাচ অনুরোধের সময় শেষ",
     "accept": "গ্রহণ",
     "decline": "প্রত্যাখ্যান",
-    "waitingForOpponent": "প্রতিপক্ষের জন্য অপেক্ষা করা হচ্ছে..."
+    "waitingForOpponent": "প্রতিপক্ষের জন্য অপেক্ষা করা হচ্ছে...",
+    "playWithFriends": "বন্ধুদের সাথে খেলুন",
+    "privateLobby": "প্রাইভেট লবি",
+    "waitingForFriend": "বন্ধুর জন্য অপেক্ষা করা হচ্ছে...",
+    "friendJoined": "আপনার বন্ধু যোগ দিয়েছে!",
+    "selectTimeControl": "সময় নিয়ন্ত্রণ নির্বাচন করুন",
+    "startGame": "খেলা শুরু করুন",
+    "copyInviteLink": "আমন্ত্রণ লিঙ্ক কপি করুন",
+    "linkCopied": "লিঙ্ক কপি হয়েছে!",
+    "lobbyExpired": "লবির মেয়াদ শেষ",
+    "friendLeft": "আপনার বন্ধু চলে গেছে",
+    "host": "হোস্ট",
+    "playAgainWithFriend": "বন্ধুর সাথে আবার খেলুন"
   },
   "draw": {
     "offerDeclined": "আপনার ড্র অফার প্রত্যাখ্যান করা হয়েছে",

@@ -47,7 +47,10 @@
     "soundEffects": "Звукові ефекти",
     "disableSound": "Вимкнути звук",
     "enableSound": "Увімкнути звук",
-    "pieceSet": "Набір фігур"
+    "pieceSet": "Набір фігур",
+    "account": "Обліковий запис",
+    "signIn": "Увійти",
+    "guest": "Гість"
   },
   "themes": {
     "wood": "Класичне дерево",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Час запиту на реванш минув",
     "accept": "Прийняти",
     "decline": "Відхилити",
-    "waitingForOpponent": "Очікування суперника..."
+    "waitingForOpponent": "Очікування суперника...",
+    "playWithFriends": "Грати з друзями",
+    "privateLobby": "Приватне лобі",
+    "waitingForFriend": "Очікування друга...",
+    "friendJoined": "Ваш друг приєднався!",
+    "selectTimeControl": "Оберіть контроль часу",
+    "startGame": "Почати гру",
+    "copyInviteLink": "Копіювати посилання",
+    "linkCopied": "Посилання скопійовано!",
+    "lobbyExpired": "Час лобі минув",
+    "friendLeft": "Ваш друг пішов",
+    "host": "Хост",
+    "playAgainWithFriend": "Грати знову з другом"
   },
   "draw": {
     "offerDeclined": "Вашу пропозицію нічиєї відхилено",

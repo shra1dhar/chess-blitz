@@ -36,6 +36,10 @@ export type ClientMessage =
   | { type: ClientMessageType.OfferRematch }
   | { type: ClientMessageType.AcceptRematch }
   | { type: ClientMessageType.DeclineRematch }
+  // Private Lobby (CrazyGames "Play with Friends")
+  | { type: ClientMessageType.SetLobbyTournamentType; tournamentType: TournamentType }
+  | { type: ClientMessageType.StartPrivateGame }
+  | { type: ClientMessageType.LeaveLobby }
   // Utility
   | { type: ClientMessageType.Ping };
 
@@ -84,7 +88,12 @@ export type ServerMessage =
   | { type: ServerMessageType.LowTimeWarning; player: Color; timeMs: number }
   | { type: ServerMessageType.FiftyMoveWarning; halfMoves: number }
   // First-move timeout warning
-  | { type: ServerMessageType.FirstMoveWarning; player: Color; remainingMs: number };
+  | { type: ServerMessageType.FirstMoveWarning; player: Color; remainingMs: number }
+  // Private Lobby (CrazyGames "Play with Friends")
+  | { type: ServerMessageType.LobbyState; lobby: LobbyStateInfo }
+  | { type: ServerMessageType.LobbyPlayerJoined; player: LobbyPlayerInfo }
+  | { type: ServerMessageType.LobbyPlayerLeft }
+  | { type: ServerMessageType.LobbyClosed; reason: string };
 
 // ============================================
 // Supporting Types
@@ -96,6 +105,10 @@ export interface OpponentInfo {
   elo: number;
   isBot: boolean;
   botLevel?: BotDifficulty;
+  /** CrazyGames platform username (if logged in) */
+  platformUsername?: string;
+  /** CrazyGames platform avatar URL (if logged in) */
+  platformAvatarUrl?: string;
 }
 
 // Sync info sent on reconnection
@@ -103,6 +116,26 @@ export interface ReconnectionSyncInfo {
   isReconnection: boolean;
   missedMoveCount: number;
   clockPaused: boolean;
+}
+
+// Private Lobby Types
+export interface LobbyPlayerInfo {
+  id: string;
+  displayName: string;
+  elo: number;
+  /** CrazyGames platform username (if available) */
+  platformUsername?: string;
+  /** CrazyGames platform avatar URL (if available) */
+  platformAvatarUrl?: string;
+}
+
+export interface LobbyStateInfo {
+  lobbyId: string;
+  host: LobbyPlayerInfo;
+  guest: LobbyPlayerInfo | null;
+  tournamentType: TournamentType;
+  status: 'waiting' | 'ready' | 'starting';
+  createdAt: number;
 }
 
 // ErrorCode is re-exported from @chess-blitz/shared above
@@ -118,6 +151,10 @@ export interface QueuedPlayer {
   joinedAt: number;
   currentEloRange: number;
   recentOpponents: string[];
+  /** CrazyGames platform username (if logged in) */
+  platformUsername?: string;
+  /** CrazyGames platform avatar URL (if logged in) */
+  platformAvatarUrl?: string;
 }
 
 import type { RateLimitState } from "../utils/rate-limiter";
@@ -131,4 +168,8 @@ export interface MatchmakingConnectionState {
     message: RateLimitState;
     join: RateLimitState;
   };
+  /** CrazyGames platform username (if logged in) */
+  platformUsername?: string;
+  /** CrazyGames platform avatar URL (if logged in) */
+  platformAvatarUrl?: string;
 }

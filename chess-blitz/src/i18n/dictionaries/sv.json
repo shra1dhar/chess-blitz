@@ -47,7 +47,10 @@
     "soundEffects": "Ljudeffekter",
     "disableSound": "Stäng av ljud",
     "enableSound": "Slå på ljud",
-    "pieceSet": "Pjäsuppsättning"
+    "pieceSet": "Pjäsuppsättning",
+    "account": "Konto",
+    "signIn": "Logga in",
+    "guest": "Gäst"
   },
   "themes": {
     "wood": "Klassiskt trä",
@@ -157,7 +160,19 @@
     "rematchTimeout": "Förfrågan om returmatch löpte ut",
     "accept": "Acceptera",
     "decline": "Avböj",
-    "waitingForOpponent": "Väntar på motståndare..."
+    "waitingForOpponent": "Väntar på motståndare...",
+    "playWithFriends": "Spela med vänner",
+    "privateLobby": "Privat lobby",
+    "waitingForFriend": "Väntar på din vän...",
+    "friendJoined": "Din vän har gått med!",
+    "selectTimeControl": "Välj tidskontroll",
+    "startGame": "Starta spel",
+    "copyInviteLink": "Kopiera inbjudningslänk",
+    "linkCopied": "Länk kopierad!",
+    "lobbyExpired": "Lobbyn har gått ut",
+    "friendLeft": "Din vän har lämnat",
+    "host": "Värd",
+    "playAgainWithFriend": "Spela igen med vän"
   },
   "draw": {
     "offerDeclined": "Ditt remierbjudande avslogs",
