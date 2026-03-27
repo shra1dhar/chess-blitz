@@ -167,12 +167,17 @@
     "friendJoined": "আপনার বন্ধু যোগ দিয়েছে!",
     "selectTimeControl": "সময় নিয়ন্ত্রণ নির্বাচন করুন",
     "startGame": "খেলা শুরু করুন",
+    "waitingForHostToStart": "হোস্ট শুরু করার জন্য অপেক্ষা করা হচ্ছে...",
     "copyInviteLink": "আমন্ত্রণ লিঙ্ক কপি করুন",
     "linkCopied": "লিঙ্ক কপি হয়েছে!",
     "lobbyExpired": "লবির মেয়াদ শেষ",
     "friendLeft": "আপনার বন্ধু চলে গেছে",
     "host": "হোস্ট",
-    "playAgainWithFriend": "বন্ধুর সাথে আবার খেলুন"
+    "playAgainWithFriend": "বন্ধুর সাথে আবার খেলুন",
+    "vs": "VS",
+    "waitingForPlayer": "খেলোয়াড়ের জন্য অপেক্ষা করছে...",
+    "connectingToLobby": "লবিতে সংযোগ করা হচ্ছে...",
+    "timeControlSetByHost": "হোস্ট দ্বারা নির্ধারিত"
   },
   "draw": {
     "offerDeclined": "আপনার ড্র অফার প্রত্যাখ্যান করা হয়েছে",

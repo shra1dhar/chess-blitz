@@ -8,6 +8,7 @@ import { locales, isRtl, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
 import { getDisplayFont } from '@/styles/fonts';
 import { IntegrationProvider } from '@/components/IntegrationProvider';
+import { PrivateLobbyWrapper } from '@/components/Multiplayer/PrivateLobbyWrapper';
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || 'https://chess-blitz.zoony.io';
@@ -96,7 +97,8 @@ export default async function LocaleLayout({
   const { lang } = await params;
   const locale = lang as Locale;
   const dir = isRtl(locale) ? 'rtl' : 'ltr';
-  const dict = await getDictionary(locale);
+  const dictPromise = getDictionary(locale);
+  const dict = await dictPromise;
 
   // Get the appropriate font for this locale
   const displayFont = getDisplayFont(locale);
@@ -118,6 +120,7 @@ export default async function LocaleLayout({
       </head>
       <body>
         <IntegrationProvider />
+        <PrivateLobbyWrapper locale={locale} dictPromise={dictPromise} />
         <OfflineIndicator />
         <div className="app-container">{children}</div>
         <ToastProvider />

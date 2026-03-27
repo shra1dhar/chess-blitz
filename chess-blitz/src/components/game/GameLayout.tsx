@@ -6,11 +6,18 @@
 // ==============================================
 
 import type { ReactNode } from 'react';
+import { BackArrowIcon } from '@/components/icons';
 import styles from '@/styles/play.module.scss';
+
+interface FloatingBackButtonProps {
+  label: string;
+  onBack: () => void;
+}
 
 interface GameLayoutProps {
   theme: string;
-  header: ReactNode;
+  header?: ReactNode;
+  floatingBackButton?: FloatingBackButtonProps;
   opponentInfo: ReactNode;
   board: ReactNode;
   playerInfo: ReactNode;
@@ -22,6 +29,7 @@ interface GameLayoutProps {
 export function GameLayout({
   theme,
   header,
+  floatingBackButton,
   opponentInfo,
   board,
   playerInfo,
@@ -32,6 +40,14 @@ export function GameLayout({
   return (
     <div className={styles.game} data-theme={theme}>
       {header}
+
+      {/* Floating back button - shown when no header */}
+      {floatingBackButton && (
+        <button className={styles.floatingBackButton} onClick={floatingBackButton.onBack}>
+          <BackArrowIcon />
+          <span>{floatingBackButton.label}</span>
+        </button>
+      )}
 
       <main className={styles.main}>
         <div className={styles.gameLayout}>

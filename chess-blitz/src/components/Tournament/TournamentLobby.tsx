@@ -4,14 +4,13 @@
 
 'use client';
 
-import { useCallback, useEffect, useRef, use, useState } from 'react';
+import { useCallback, useEffect, useRef, use } from 'react';
 import { useRouter, useParams, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useMultiplayerStore } from '@/stores/multiplayerStore';
 import { useIntegrationStore } from '@/stores/integrationStore';
 import { useMultiplayer, MatchState } from '@/hooks/useMultiplayer';
 import { MatchmakingOverlay } from './MatchmakingOverlay';
-import { PrivateLobbyOverlay } from '@/components/Multiplayer/PrivateLobbyOverlay';
 import { BackArrowIcon } from '@/components/icons/GameIcons';
 import { IntegrationType } from '@/types/integration';
 import type { TournamentType } from '@/types/multiplayer';
@@ -113,12 +112,8 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
 
   // Integration state for CrazyGames multiplayer
   const integrationType = useIntegrationStore((s) => s.integrationType);
-  const isInstantMultiplayer = useIntegrationStore((s) => s.isInstantMultiplayer);
-  const inviteRoomId = useIntegrationStore((s) => s.inviteRoomId);
-  const clearMultiplayerState = useIntegrationStore((s) => s.clearMultiplayerState);
-  const [showPrivateLobby, setShowPrivateLobby] = useState(false);
-  // Capture inviteRoomId BEFORE clearing state (fixes join bug)
-  const [pendingInviteRoomId, setPendingInviteRoomId] = useState<string | null>(null);
+  const setShowPrivateLobby = useIntegrationStore((s) => s.setShowPrivateLobby);
+  const setInviteRoomId = useIntegrationStore((s) => s.setInviteRoomId);
 
   // Handle return to lobby after private game (via URL params)
   const searchParams = useSearchParams();
@@ -158,27 +153,16 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
     }
   }, [sessionError, clearSessionError]);
 
-  // Handle CrazyGames multiplayer entry points
-  useEffect(() => {
-    if (isInstantMultiplayer || inviteRoomId) {
-      // Capture inviteRoomId BEFORE clearing (fixes join bug)
-      if (inviteRoomId) {
-        setPendingInviteRoomId(inviteRoomId);
-      }
-      setShowPrivateLobby(true);
-      clearMultiplayerState();
-    }
-  }, [isInstantMultiplayer, inviteRoomId, clearMultiplayerState]);
-
   // Handle return to lobby after private game ends
   useEffect(() => {
     if (returnToLobbyId) {
-      setPendingInviteRoomId(returnToLobbyId);
+      // Set invite room ID in global store to trigger private lobby
+      setInviteRoomId(returnToLobbyId);
       setShowPrivateLobby(true);
       // Clear URL param to prevent re-opening on refresh
       router.replace(`/${locale}/tournament`);
     }
-  }, [returnToLobbyId, router, locale]);
+  }, [returnToLobbyId, router, locale, setInviteRoomId, setShowPrivateLobby]);
 
   // Multiplayer state
   const {
@@ -292,11 +276,14 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
         ))}
       </div>
 
-      {/* Play with Friends button */}
+      {/* Play with Friends button - triggers global private lobby overlay */}
       {integrationType === IntegrationType.CrazyGames && (
         <button
           className={styles.playWithFriendsButton}
-          onClick={() => setShowPrivateLobby(true)}
+          onClick={() => {
+            // Opens the global private lobby overlay (handled by PrivateLobbyWrapper)
+            setShowPrivateLobby(true);
+          }}
           disabled={matchState !== MatchState.Idle || isInitializing}
         >
           <UsersIcon />
@@ -332,19 +319,7 @@ export function TournamentLobby({ dictPromise, onGameStart }: TournamentLobbyPro
         />
       )}
 
-      {/* Private lobby overlay - shown when creating/joining a private lobby */}
-      {showPrivateLobby && (
-        <PrivateLobbyOverlay
-          integrationType={integrationType}
-          initialInviteRoomId={pendingInviteRoomId}
-          onClose={() => {
-            setShowPrivateLobby(false);
-            setPendingInviteRoomId(null);
-          }}
-          dict={dict}
-          locale={locale}
-        />
-      )}
+      {/* Private lobby is now handled globally by PrivateLobbyWrapper in layout */}
     </div>
   );
 }

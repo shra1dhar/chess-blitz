@@ -167,12 +167,17 @@
     "friendJoined": "Twój znajomy dołączył!",
     "selectTimeControl": "Wybierz kontrolę czasu",
     "startGame": "Rozpocznij grę",
+    "waitingForHostToStart": "Czekanie na start...",
     "copyInviteLink": "Kopiuj link zaproszenia",
     "linkCopied": "Link skopiowany!",
     "lobbyExpired": "Lobby wygasło",
     "friendLeft": "Twój znajomy wyszedł",
     "host": "Gospodarz",
-    "playAgainWithFriend": "Zagraj ponownie ze znajomym"
+    "playAgainWithFriend": "Zagraj ponownie ze znajomym",
+    "vs": "VS",
+    "waitingForPlayer": "Oczekiwanie na gracza...",
+    "connectingToLobby": "Łączenie z lobby...",
+    "timeControlSetByHost": "Ustawione przez gospodarza"
   },
   "draw": {
     "offerDeclined": "Twoja oferta remisu została odrzucona",

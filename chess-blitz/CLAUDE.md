@@ -245,6 +245,58 @@ setRematchState('requested');
    - All messages use snake_case (e.g., `join_queue`, `match_found`, `game_over`)
    - See `src/types/multiplayer.ts` for full message type definitions
 
+### Platform Integration (CrazyGames, MSN)
+
+1. **Integration Detection**
+   - URL param `?integration=crazygames` or `?integration=msn` triggers SDK loading
+   - `IntegrationProvider` (server component) loads SDK script via `next/script`
+   - `IntegrationProviderClient` initializes service and stores type in Zustand
+   - Use `useIntegration()` hook to check current integration type
+
+2. **Game Lifecycle Events (CrazyGames Compliance)**
+
+   The `useGameLifecycle` hook provides platform lifecycle signals:
+
+   | Method | When to Call | Where Called |
+   |--------|--------------|--------------|
+   | `loadingStart()` | Site starts loading | `IntegrationProviderClient.tsx` (after SDK init) |
+   | `loadingStop()` | App ready for interaction | `IntegrationProviderClient.tsx` (after cloud sync) |
+   | `gameplayStart()` | Player starts/resumes playing | `GameClient.tsx`, `MultiplayerGameClient.tsx` |
+   | `gameplayStop()` | Game ends, menu, pause | `GameClient.tsx`, `MultiplayerGameClient.tsx` |
+   | `happyTime()` | Player wins by checkmate | `GameClient.tsx`, `MultiplayerGameClient.tsx` |
+
+   **Important:** CrazyGames SDK v3 requires `SDK.init()` before any other SDK calls.
+   Always call `await service.initialize()` before lifecycle methods.
+
+3. **Platform User Data**
+   - Use `usePlatformUser()` hook to get CrazyGames username/avatar
+   - Pass to `PlayerInfoCard` component for display
+   - Falls back to local display name if no platform user
+
+4. **Private Lobbies (CrazyGames "Play with Friends")**
+   - `isInstantMultiplayer()` - Detects if user clicked "Play with Friends"
+   - `getInviteRoomId()` - Extracts room ID from invite link
+   - `showInviteButton(roomId)` - Shows CrazyGames invite UI
+   - `hideInviteButton()` - Hides when room fills or game starts
+
+   Flow: `TournamentLobby` → `PrivateLobbyOverlay` → `usePrivateLobby` → Backend `PrivateLobby` DO
+
+5. **Integration Service Architecture**
+   ```
+   src/services/integration/
+   ├── index.ts                      # Factory: getIntegrationService()
+   ├── types.ts                      # IIntegrationService interface
+   ├── CrazyGamesIntegrationService.ts  # CrazyGames implementation
+   ├── MsnIntegrationService.ts      # MSN implementation
+   ├── NullIntegrationService.ts     # Dev/standalone fallback
+   └── cloudSync.ts                  # Settings/ELO cloud sync
+   ```
+
+6. **Cloud Saves**
+   - Settings and ELO ratings sync to platform cloud storage
+   - Handled by `cloudSync.ts` with debounced writes
+   - Falls back to localStorage in dev mode or unsupported platforms
+
 ### React 19.2 Patterns
 
 1. **Use `useEffectEvent` for event callbacks in Effects**
@@ -414,19 +466,31 @@ src/
 │   ├── GameOver/          # Game over modal
 │   ├── home/              # Homepage (GameLobby, ModeSelector, etc.)
 │   ├── icons/             # Centralized SVG icons (GameIcons.tsx)
-│   ├── Multiplayer/       # GameClock, DisconnectOverlay, DrawOfferBanner, etc.
+│   ├── IntegrationProvider/ # SDK loading and initialization
+│   ├── Multiplayer/       # GameClock, DisconnectOverlay, DrawOfferBanner, PrivateLobbyOverlay
 │   ├── play/              # GameClient, MultiplayerGameClient
 │   ├── Settings/          # Settings modal and preferences
 │   ├── Toast/             # ToastProvider
 │   ├── Tournament/        # TournamentLobby, MatchmakingOverlay
 │   └── UI/                # Reusable UI components
-├── hooks/                 # useChessGame, useMultiplayer, useWebSocket, useGameClock, useActivityAnimation, etc.
+├── hooks/                 # useChessGame, useMultiplayer, useWebSocket, useGameClock, useActivityAnimation
+│   ├── useGameLifecycle.ts    # Platform lifecycle signals (loadingStart, gameplayStart, etc.)
+│   ├── useIntegration.ts      # Integration type access
+│   ├── usePlatformUser.ts     # Platform user data (CrazyGames username/avatar)
+│   └── usePrivateLobby.ts     # Private lobby management
 ├── i18n/
 │   └── dictionaries/      # 34 language JSON files
 ├── middleware.ts          # Edge middleware for locale routing
 ├── server/                # Server-side utilities
-├── services/              # authService.ts, msStartSDK.ts, soundManager.ts
-├── stores/                # gameStore, multiplayerStore, settingsStore
+├── services/
+│   ├── integration/       # Platform service implementations (CrazyGames, MSN)
+│   ├── authService.ts
+│   └── soundManager.ts
+├── stores/
+│   ├── gameStore.ts
+│   ├── multiplayerStore.ts
+│   ├── settingsStore.ts
+│   └── integrationStore.ts  # Integration state (type, multiplayer flags)
 ├── styles/                # Global SCSS variables and mixins
 ├── types/                 # chess.ts, multiplayer.ts
 └── utils/                 # Utility functions (clock.ts, moves.ts)

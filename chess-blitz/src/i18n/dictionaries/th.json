@@ -167,12 +167,17 @@
     "friendJoined": "เพื่อนของคุณเข้าร่วมแล้ว!",
     "selectTimeControl": "เลือกการควบคุมเวลา",
     "startGame": "เริ่มเกม",
+    "waitingForHostToStart": "รอเจ้าภาพเริ่มเกม...",
     "copyInviteLink": "คัดลอกลิงก์เชิญ",
     "linkCopied": "คัดลอกลิงก์แล้ว!",
     "lobbyExpired": "ห้องหมดอายุ",
     "friendLeft": "เพื่อนของคุณออกไปแล้ว",
     "host": "เจ้าภาพ",
-    "playAgainWithFriend": "เล่นอีกครั้งกับเพื่อน"
+    "playAgainWithFriend": "เล่นอีกครั้งกับเพื่อน",
+    "vs": "VS",
+    "waitingForPlayer": "รอผู้เล่น...",
+    "connectingToLobby": "กำลังเชื่อมต่อกับล็อบบี้...",
+    "timeControlSetByHost": "ตั้งค่าโดยเจ้าภาพ"
   },
   "draw": {
     "offerDeclined": "ข้อเสนอเสมอของคุณถูกปฏิเสธ",

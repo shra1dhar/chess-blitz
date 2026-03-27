@@ -167,12 +167,17 @@
     "friendJoined": "Din vän har gått med!",
     "selectTimeControl": "Välj tidskontroll",
     "startGame": "Starta spel",
+    "waitingForHostToStart": "Väntar på att värden startar...",
     "copyInviteLink": "Kopiera inbjudningslänk",
     "linkCopied": "Länk kopierad!",
     "lobbyExpired": "Lobbyn har gått ut",
     "friendLeft": "Din vän har lämnat",
     "host": "Värd",
-    "playAgainWithFriend": "Spela igen med vän"
+    "playAgainWithFriend": "Spela igen med vän",
+    "vs": "VS",
+    "waitingForPlayer": "Väntar på spelare...",
+    "connectingToLobby": "Ansluter till lobbyn...",
+    "timeControlSetByHost": "Inställt av värden"
   },
   "draw": {
     "offerDeclined": "Ditt remierbjudande avslogs",

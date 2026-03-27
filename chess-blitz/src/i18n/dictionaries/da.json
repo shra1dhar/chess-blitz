@@ -167,12 +167,17 @@
     "friendJoined": "Din ven er tilsluttet!",
     "selectTimeControl": "Vælg tidskontrol",
     "startGame": "Start spil",
+    "waitingForHostToStart": "Venter på at værten starter...",
     "copyInviteLink": "Kopier invitationslink",
     "linkCopied": "Link kopieret!",
     "lobbyExpired": "Lobbyen er udløbet",
     "friendLeft": "Din ven forlod",
     "host": "Vært",
-    "playAgainWithFriend": "Spil igen med ven"
+    "playAgainWithFriend": "Spil igen med ven",
+    "vs": "VS",
+    "waitingForPlayer": "Venter på spiller...",
+    "connectingToLobby": "Forbinder til lobby...",
+    "timeControlSetByHost": "Sat af værten"
   },
   "draw": {
     "offerDeclined": "Dit tilbud om remis blev afvist",

@@ -4,7 +4,7 @@
 
 .languageSelector {
   position: relative;
-  z-index: 1000;
+  z-index: 100; // Match $z-dropdown scale - below modals ($z-modal: 400)
 }
 
 .trigger {

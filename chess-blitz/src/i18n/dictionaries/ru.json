@@ -167,12 +167,17 @@
     "friendJoined": "Друг присоединился!",
     "selectTimeControl": "Выбрать контроль времени",
     "startGame": "Начать игру",
+    "waitingForHostToStart": "Ожидание начала игры...",
     "copyInviteLink": "Копировать ссылку",
     "linkCopied": "Ссылка скопирована!",
     "lobbyExpired": "Лобби истекло",
     "friendLeft": "Друг покинул лобби",
     "host": "Хост",
-    "playAgainWithFriend": "Сыграть снова с другом"
+    "playAgainWithFriend": "Сыграть снова с другом",
+    "vs": "VS",
+    "waitingForPlayer": "Ожидание игрока...",
+    "connectingToLobby": "Подключение к лобби...",
+    "timeControlSetByHost": "Установлено хостом"
   },
   "draw": {
     "offerDeclined": "Ваше предложение ничьей отклонено",

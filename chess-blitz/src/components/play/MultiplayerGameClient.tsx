@@ -18,8 +18,9 @@ import { useGameClock } from '@/hooks/useGameClock';
 import { useGameOverModal, useGameOverEscapeKey } from '@/hooks/useGameOverModal';
 import { useGameLifecycle } from '@/hooks/useGameLifecycle';
 import { usePlatformUser } from '@/hooks/usePlatformUser';
+import { useResignConfirm } from '@/hooks/useResignConfirm';
 import { parseMovesFromPgn, getPlayerResult, getGameStatusFromReason } from '@/utils/moves';
-import { LoadingScreen, GameHeader, PlayerInfoCard, GameLayout } from '@/components/game';
+import { LoadingScreen, PlayerInfoCard, GameLayout } from '@/components/game';
 import GameInfo from '@/components/GameInfo/GameInfo';
 import ChessBoard from '@/components/Board/ChessBoard';
 import GameOverModal from '@/components/GameOver/GameOverModal';
@@ -28,6 +29,7 @@ import { DrawClaimBanner } from '@/components/Multiplayer/DrawClaimBanner';
 import { ReconnectingOverlay } from '@/components/Multiplayer/ReconnectingOverlay';
 import { SidebarControls } from '@/components/Multiplayer/SidebarControls';
 import { MobileGameControls } from '@/components/Multiplayer/MobileGameControls';
+import ResignConfirmModal from '@/components/Multiplayer/ResignConfirmModal';
 import { MatchmakingOverlay } from '@/components/Tournament/MatchmakingOverlay';
 
 // Delay before showing reconnecting overlay (allows quick reconnects without flashing)
@@ -175,8 +177,9 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Check if this is a bot game
-  const isBotGame = gameId.startsWith('bot-');
+  // Check if this is a bot game - use opponent.isBot rather than gameId prefix
+  // because backend may return UUID game IDs even for bot matches
+  const isBotGame = multiplayer.opponent?.isBot ?? gameId.startsWith('bot-');
   const isPlaying = multiplayer.matchState === MatchState.Playing;
 
   // Delayed reconnecting overlay - only show after connection lost for a bit
@@ -238,11 +241,8 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
   );
 
   // Handle resign
-  const handleResign = useCallback(() => {
-    if (window.confirm(dict.play.resignConfirm)) {
-      multiplayer.resign();
-    }
-  }, [multiplayer.resign, dict.play.resignConfirm]);
+  const { showResignConfirm, handleResign, handleResignConfirm, handleResignCancel } =
+    useResignConfirm(multiplayer.resign);
 
   // Handle back to lobby
   const handleBackToLobby = useCallback(() => {
@@ -344,9 +344,7 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
   return (
     <GameLayout
       theme={theme}
-      header={
-        <GameHeader title={dict.home.title} backLabel={dict.play.back} onBack={handleBackToLobby} />
-      }
+      floatingBackButton={{ label: dict.play.back, onBack: handleBackToLobby }}
       opponentInfo={
         <PlayerInfoCard
           avatarType={multiplayer.opponent?.isBot ? 'bot' : 'human'}
@@ -487,6 +485,12 @@ export function MultiplayerGameClient({ gameId, dictPromise, locale }: Multiplay
               onReturnToLobby={handleReturnToLobby}
             />
           )}
+          <ResignConfirmModal
+            isOpen={showResignConfirm}
+            onConfirm={handleResignConfirm}
+            onCancel={handleResignCancel}
+            dict={dict}
+          />
         </>
       }
     />

@@ -167,12 +167,17 @@
     "friendJoined": "Do'stingiz qo'shildi!",
     "selectTimeControl": "Vaqt nazoratini tanlang",
     "startGame": "O'yinni boshlash",
+    "waitingForHostToStart": "Mezbon boshlashini kutish...",
     "copyInviteLink": "Taklif havolasini nusxalash",
     "linkCopied": "Havola nusxalandi!",
     "lobbyExpired": "Lobbi muddati tugadi",
     "friendLeft": "Do'stingiz chiqib ketdi",
     "host": "Mezbon",
-    "playAgainWithFriend": "Do'st bilan yana o'ynash"
+    "playAgainWithFriend": "Do'st bilan yana o'ynash",
+    "vs": "VS",
+    "waitingForPlayer": "O'yinchi kutilmoqda...",
+    "connectingToLobby": "Lobbiga ulanmoqda...",
+    "timeControlSetByHost": "Mezbon tomonidan o'rnatilgan"
   },
   "draw": {
     "offerDeclined": "Durang taklifingiz rad etildi",

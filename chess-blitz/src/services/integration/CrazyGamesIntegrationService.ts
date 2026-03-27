@@ -371,8 +371,11 @@ export class CrazyGamesIntegrationService implements IIntegrationService {
     await this.initialize();
 
     const sdk = getCrazyGamesSDK();
+    console.log('[CrazyGames] saveGameState called, sdk:', !!sdk, 'env:', sdk?.environment);
+
     if (!sdk || sdk.environment === 'disabled') {
       // Dev mode: use localStorage
+      console.log('[CrazyGames] saveGameState using localStorage fallback');
       try {
         localStorage.setItem(`chess-blitz-${key}`, JSON.stringify(data));
         return true;
@@ -382,7 +385,9 @@ export class CrazyGamesIntegrationService implements IIntegrationService {
     }
 
     try {
+      console.log('[CrazyGames] saveGameState calling sdk.data.setItem for key:', key);
       sdk.data.setItem(key, JSON.stringify(data));
+      console.log('[CrazyGames] saveGameState success');
       return true;
     } catch (error) {
       console.warn('[CrazyGames] Failed to save game state:', error);
@@ -398,8 +403,11 @@ export class CrazyGamesIntegrationService implements IIntegrationService {
     await this.initialize();
 
     const sdk = getCrazyGamesSDK();
+    console.log('[CrazyGames] loadGameState called, sdk:', !!sdk, 'env:', sdk?.environment);
+
     if (!sdk || sdk.environment === 'disabled') {
       // Dev mode: use localStorage
+      console.log('[CrazyGames] loadGameState using localStorage fallback');
       try {
         const data = localStorage.getItem(`chess-blitz-${key}`);
         return data ? JSON.parse(data) : null;
@@ -409,7 +417,9 @@ export class CrazyGamesIntegrationService implements IIntegrationService {
     }
 
     try {
+      console.log('[CrazyGames] loadGameState calling sdk.data.getItem for key:', key);
       const data = sdk.data.getItem(key);
+      console.log('[CrazyGames] loadGameState result:', data ? 'found' : 'null');
       return data ? JSON.parse(data) : null;
     } catch (error) {
       console.warn('[CrazyGames] Failed to load game state:', error);
@@ -425,7 +435,10 @@ export class CrazyGamesIntegrationService implements IIntegrationService {
     await this.initialize();
 
     const sdk = getCrazyGamesSDK();
+    console.log('[CrazyGames] deleteGameState called, sdk:', !!sdk, 'env:', sdk?.environment);
+
     if (!sdk || sdk.environment === 'disabled') {
+      console.log('[CrazyGames] deleteGameState using localStorage fallback');
       try {
         localStorage.removeItem(`chess-blitz-${key}`);
         return true;
@@ -435,7 +448,9 @@ export class CrazyGamesIntegrationService implements IIntegrationService {
     }
 
     try {
+      console.log('[CrazyGames] deleteGameState calling sdk.data.removeItem for key:', key);
       sdk.data.removeItem(key);
+      console.log('[CrazyGames] deleteGameState success');
       return true;
     } catch (error) {
       console.warn('[CrazyGames] Failed to delete game state:', error);

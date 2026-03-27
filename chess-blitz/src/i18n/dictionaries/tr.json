@@ -167,12 +167,17 @@
     "friendJoined": "Arkadaşın katıldı!",
     "selectTimeControl": "Süre kontrolünü seç",
     "startGame": "Oyunu başlat",
+    "waitingForHostToStart": "Başlaması bekleniyor...",
     "copyInviteLink": "Davet linkini kopyala",
     "linkCopied": "Link kopyalandı!",
     "lobbyExpired": "Lobinin süresi doldu",
     "friendLeft": "Arkadaşın ayrıldı",
     "host": "Ev sahibi",
-    "playAgainWithFriend": "Arkadaşla tekrar oyna"
+    "playAgainWithFriend": "Arkadaşla tekrar oyna",
+    "vs": "VS",
+    "waitingForPlayer": "Oyuncu bekleniyor...",
+    "connectingToLobby": "Lobiye bağlanıyor...",
+    "timeControlSetByHost": "Ev sahibi tarafından ayarlandı"
   },
   "draw": {
     "offerDeclined": "Beraberlik teklifiniz reddedildi",

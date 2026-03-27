@@ -203,6 +203,13 @@ export function PrivateLobbyOverlay({
               </button>
             )}
 
+            {/* Guest waiting message */}
+            {!privateLobby.isHost && privateLobby.status === 'ready' && (
+              <div className={styles.waitingMessage}>
+                {dict.tournament.waitingForHostToStart || 'Waiting for host to start...'}
+              </div>
+            )}
+
             {privateLobby.inviteLink && (
               <button
                 className={styles.copyButton}

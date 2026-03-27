@@ -167,12 +167,17 @@
     "friendJoined": "Твој пријатељ се придружио!",
     "selectTimeControl": "Изабери контролу времена",
     "startGame": "Започни игру",
+    "waitingForHostToStart": "Чекање почетка игре...",
     "copyInviteLink": "Копирај линк за позивницу",
     "linkCopied": "Линк копиран!",
     "lobbyExpired": "Лоби је истекао",
     "friendLeft": "Твој пријатељ је отишао",
     "host": "Домаћин",
-    "playAgainWithFriend": "Играј поново са пријатељем"
+    "playAgainWithFriend": "Играј поново са пријатељем",
+    "vs": "VS",
+    "waitingForPlayer": "Чекање играча...",
+    "connectingToLobby": "Повезивање са лобијем...",
+    "timeControlSetByHost": "Поставио домаћин"
   },
   "draw": {
     "offerDeclined": "Ваша понуда за реми је одбијена",

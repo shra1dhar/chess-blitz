@@ -167,12 +167,17 @@
     "friendJoined": "친구가 참가했습니다!",
     "selectTimeControl": "시간 제어 선택",
     "startGame": "게임 시작",
+    "waitingForHostToStart": "호스트가 시작하기를 기다리는 중...",
     "copyInviteLink": "초대 링크 복사",
     "linkCopied": "링크 복사됨!",
     "lobbyExpired": "로비 만료됨",
     "friendLeft": "친구가 나갔습니다",
     "host": "호스트",
-    "playAgainWithFriend": "친구와 다시 플레이"
+    "playAgainWithFriend": "친구와 다시 플레이",
+    "vs": "VS",
+    "waitingForPlayer": "플레이어 대기 중...",
+    "connectingToLobby": "로비 연결 중...",
+    "timeControlSetByHost": "호스트가 설정"
   },
   "draw": {
     "offerDeclined": "무승부 제안이 거절되었습니다",

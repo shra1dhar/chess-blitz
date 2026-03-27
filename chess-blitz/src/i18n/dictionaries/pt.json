@@ -167,12 +167,17 @@
     "friendJoined": "Seu amigo entrou!",
     "selectTimeControl": "Selecionar controle de tempo",
     "startGame": "Iniciar partida",
+    "waitingForHostToStart": "Aguardando o anfitrião iniciar...",
     "copyInviteLink": "Copiar link de convite",
     "linkCopied": "Link copiado!",
     "lobbyExpired": "Sala expirou",
     "friendLeft": "Seu amigo saiu da sala",
     "host": "Anfitrião",
-    "playAgainWithFriend": "Jogar novamente com amigo"
+    "playAgainWithFriend": "Jogar novamente com amigo",
+    "vs": "VS",
+    "waitingForPlayer": "Aguardando jogador...",
+    "connectingToLobby": "Conectando ao lobby...",
+    "timeControlSetByHost": "Definido pelo anfitrião"
   },
   "draw": {
     "offerDeclined": "Sua oferta de empate foi recusada",

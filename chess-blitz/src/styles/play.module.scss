@@ -8,6 +8,7 @@
 @use './mixins' as *;
 
 .game {
+  position: relative; // For absolute positioning of floating back button
   height: 100vh;
   height: 100dvh; // Dynamic viewport height for mobile
   background-color: var(--ui-bg-primary);
@@ -1273,5 +1274,106 @@
   &:hover {
     color: $brand-secondary;
     border-color: rgba($brand-secondary, 0.4);
+  }
+}
+
+// Floating Back Button - positioned at top-left of the game screen
+.floatingBackButton {
+  position: absolute;
+  top: $spacing-sm;
+  left: $spacing-sm;
+  z-index: 10;
+  @include flex-row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: $spacing-xs $spacing-sm;
+  color: var(--ui-text-secondary);
+  background: var(--ui-bg-secondary);
+  border: 1px solid var(--ui-border);
+  border-radius: $radius-md;
+  -webkit-transition: all $transition-fast;
+  transition: all $transition-fast;
+  font-size: $font-size-sm;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  [dir="rtl"] & {
+    left: auto;
+    right: $spacing-sm;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    margin-inline-end: $spacing-xs;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+
+    // Flip arrow for RTL
+    [dir="rtl"] & {
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+    }
+  }
+
+  &:hover {
+    color: var(--ui-text-primary);
+    background-color: var(--ui-bg-tertiary);
+    border-color: var(--ui-text-muted);
+  }
+
+  &:active {
+    -webkit-transform: scale(0.95);
+    transform: scale(0.95);
+  }
+
+  @include mobile {
+    padding: $spacing-xs;
+    top: $spacing-xs;
+    left: $spacing-xs;
+
+    [dir="rtl"] & {
+      left: auto;
+      right: $spacing-xs;
+    }
+
+    // Hide text on mobile, show only icon
+    span {
+      display: none;
+    }
+
+    svg {
+      margin-inline-end: 0;
+    }
+  }
+
+  @include constrained-height {
+    padding: $spacing-xs;
+    top: $spacing-xs;
+    left: $spacing-xs;
+
+    [dir="rtl"] & {
+      left: auto;
+      right: $spacing-xs;
+    }
+  }
+
+  @include short-viewport {
+    padding: 2px $spacing-xs;
+    top: 2px;
+    left: 2px;
+    font-size: $font-size-xs;
+
+    [dir="rtl"] & {
+      left: auto;
+      right: 2px;
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
   }
 }

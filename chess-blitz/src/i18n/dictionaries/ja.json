@@ -167,12 +167,17 @@
     "friendJoined": "友達が参加しました！",
     "selectTimeControl": "持ち時間を選択",
     "startGame": "ゲーム開始",
+    "waitingForHostToStart": "ホストの開始を待っています...",
     "copyInviteLink": "招待リンクをコピー",
     "linkCopied": "リンクをコピーしました！",
     "lobbyExpired": "ロビーの有効期限が切れました",
     "friendLeft": "友達が退出しました",
     "host": "ホスト",
-    "playAgainWithFriend": "友達ともう一度プレイ"
+    "playAgainWithFriend": "友達ともう一度プレイ",
+    "vs": "VS",
+    "waitingForPlayer": "プレイヤーを待っています...",
+    "connectingToLobby": "ロビーに接続中...",
+    "timeControlSetByHost": "ホストが設定"
   },
   "draw": {
     "offerDeclined": "ドローの申し出は拒否されました",

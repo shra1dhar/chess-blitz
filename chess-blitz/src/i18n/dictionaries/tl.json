@@ -167,12 +167,17 @@
     "friendJoined": "Sumali na ang kaibigan mo!",
     "selectTimeControl": "Pumili ng kontrol sa oras",
     "startGame": "Simulan ang laro",
+    "waitingForHostToStart": "Naghihintay sa host na magsimula...",
     "copyInviteLink": "Kopyahin ang link ng imbitasyon",
     "linkCopied": "Nakopya ang link!",
     "lobbyExpired": "Nag-expire ang lobby",
     "friendLeft": "Umalis na ang kaibigan mo",
     "host": "Host",
-    "playAgainWithFriend": "Maglaro ulit kasama ang kaibigan"
+    "playAgainWithFriend": "Maglaro ulit kasama ang kaibigan",
+    "vs": "VS",
+    "waitingForPlayer": "Naghihintay ng manlalaro...",
+    "connectingToLobby": "Kumokonekta sa lobby...",
+    "timeControlSetByHost": "Itinakda ng host"
   },
   "draw": {
     "offerDeclined": "Tinanggihan ang iyong alok ng draw",

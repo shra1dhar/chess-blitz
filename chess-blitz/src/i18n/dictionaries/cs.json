@@ -167,12 +167,17 @@
     "friendJoined": "Tvůj kamarád se připojil!",
     "selectTimeControl": "Vyber časovou kontrolu",
     "startGame": "Zahájit hru",
+    "waitingForHostToStart": "Čekání na zahájení...",
     "copyInviteLink": "Kopírovat odkaz na pozvánku",
     "linkCopied": "Odkaz zkopírován!",
     "lobbyExpired": "Místnost vypršela",
     "friendLeft": "Tvůj kamarád odešel",
     "host": "Hostitel",
-    "playAgainWithFriend": "Hrát znovu s kamarádem"
+    "playAgainWithFriend": "Hrát znovu s kamarádem",
+    "vs": "VS",
+    "waitingForPlayer": "Čekání na hráče...",
+    "connectingToLobby": "Připojování k lobby...",
+    "timeControlSetByHost": "Nastaveno hostitelem"
   },
   "draw": {
     "offerDeclined": "Vaše nabídka remízy byla odmítnuta",

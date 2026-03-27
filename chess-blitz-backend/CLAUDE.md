@@ -17,7 +17,10 @@
 
 ```
 src/
-├── durable-objects/       # GameRoom, MatchmakingQueue Durable Objects
+├── durable-objects/       # Durable Objects
+│   ├── GameRoom.ts        # Active game management
+│   ├── MatchmakingQueue.ts # Player queue and matchmaking
+│   └── PrivateLobby.ts    # CrazyGames "Play with Friends" lobbies
 ├── env.d.ts               # Environment type definitions
 ├── index.ts               # Entry point, Hono app setup
 ├── middleware/            # Auth, CORS middleware
@@ -124,6 +127,16 @@ Note: `GameStatus` is an alias for `GameRoomStatus` for backwards compatibility 
    - Manages draw offers, resignations, timeouts
    - Handles disconnection/reconnection
 
+3. **PrivateLobby** (`src/durable-objects/PrivateLobby.ts`)
+   - Handles CrazyGames "Play with Friends" feature
+   - One instance per private lobby (UUID-based)
+   - **States:** `waiting` → `ready` → `starting` → `closed`
+   - Host creates lobby, guest joins via invite link
+   - Host selects tournament type and starts game
+   - Creates GameRoom when both players ready
+   - Auto-cleanup: 5-minute timeout if guest doesn't join
+   - **Platform data:** `platformUsername` and `platformAvatarUrl` passed via query params
+
 ### API Routes
 
 ```
@@ -133,6 +146,9 @@ POST /auth/update-elo     - Update player ELO after game
 
 GET  /ws/queue/:type      - WebSocket: Join matchmaking queue
 GET  /ws/game/:gameId     - WebSocket: Connect to game room
+GET  /ws/lobby/:lobbyId   - WebSocket: Private lobby (CrazyGames "Play with Friends")
+                            Query params: token, action (create/join), tournamentType,
+                            platformUsername, platformAvatarUrl
 ```
 
 ### WebSocket Message Types
@@ -173,6 +189,22 @@ GET  /ws/game/:gameId     - WebSocket: Connect to game room
 { type: 'rematch_requested' }
 { type: 'rematch_accepted', newGameId: string }
 { type: 'rematch_declined' }
+```
+
+**Private Lobby**
+```typescript
+// Client -> Server
+{ type: 'set_lobby_tournament_type', tournamentType: string }  // Host only
+{ type: 'start_private_game' }                                  // Host only
+{ type: 'leave_lobby' }
+
+// Server -> Client
+{ type: 'connected' }
+{ type: 'lobby_state', lobby: { lobbyId, host, guest, tournamentType, status } }
+{ type: 'lobby_player_joined', player: PlayerInfo }
+{ type: 'lobby_player_left' }
+{ type: 'lobby_closed' }
+{ type: 'match_found', gameId: string, opponent: PlayerInfo, color: 'w'|'b' }
 ```
 
 ---

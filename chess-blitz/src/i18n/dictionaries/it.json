@@ -167,12 +167,17 @@
     "friendJoined": "Il tuo amico si è unito!",
     "selectTimeControl": "Seleziona controllo tempo",
     "startGame": "Inizia partita",
+    "waitingForHostToStart": "In attesa dell'avvio...",
     "copyInviteLink": "Copia link invito",
     "linkCopied": "Link copiato!",
     "lobbyExpired": "Lobby scaduta",
     "friendLeft": "Il tuo amico ha lasciato la lobby",
     "host": "Host",
-    "playAgainWithFriend": "Gioca ancora con amico"
+    "playAgainWithFriend": "Gioca ancora con amico",
+    "vs": "VS",
+    "waitingForPlayer": "In attesa del giocatore...",
+    "connectingToLobby": "Connessione alla lobby...",
+    "timeControlSetByHost": "Impostato dall'host"
   },
   "draw": {
     "offerDeclined": "La tua offerta di patta è stata rifiutata",

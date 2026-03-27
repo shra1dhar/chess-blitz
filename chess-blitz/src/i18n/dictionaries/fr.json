@@ -167,12 +167,17 @@
     "friendJoined": "Votre ami a rejoint !",
     "selectTimeControl": "Sélectionner la cadence",
     "startGame": "Démarrer la partie",
+    "waitingForHostToStart": "En attente du démarrage...",
     "copyInviteLink": "Copier le lien d'invitation",
     "linkCopied": "Lien copié !",
     "lobbyExpired": "Le salon a expiré",
     "friendLeft": "Votre ami a quitté le salon",
     "host": "Hôte",
-    "playAgainWithFriend": "Rejouer avec un ami"
+    "playAgainWithFriend": "Rejouer avec un ami",
+    "vs": "VS",
+    "waitingForPlayer": "En attente d'un joueur...",
+    "connectingToLobby": "Connexion au lobby...",
+    "timeControlSetByHost": "Défini par l'hôte"
   },
   "draw": {
     "offerDeclined": "Votre offre de nulle a été refusée",

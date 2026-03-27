@@ -167,12 +167,17 @@
     "friendJoined": "A barátod csatlakozott!",
     "selectTimeControl": "Válassz időkontrollt",
     "startGame": "Játék indítása",
+    "waitingForHostToStart": "Várakozás az indításra...",
     "copyInviteLink": "Meghívó link másolása",
     "linkCopied": "Link másolva!",
     "lobbyExpired": "A lobby lejárt",
     "friendLeft": "A barátod kilépett",
     "host": "Házigazda",
-    "playAgainWithFriend": "Játék újra baráttal"
+    "playAgainWithFriend": "Játék újra baráttal",
+    "vs": "VS",
+    "waitingForPlayer": "Játékosra várakozás...",
+    "connectingToLobby": "Csatlakozás a lobbihoz...",
+    "timeControlSetByHost": "A házigazda állította be"
   },
   "draw": {
     "offerDeclined": "Döntetlen ajánlatodat elutasították",

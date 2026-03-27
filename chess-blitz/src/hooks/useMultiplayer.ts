@@ -865,6 +865,10 @@ export function useMultiplayer(options: UseMultiplayerOptions = {}): UseMultipla
         return;
       }
 
+      // Clear any previous private lobby state when starting a regular tournament queue
+      // This prevents stale state from affecting the new game
+      useMultiplayerStore.getState().clearPrivateLobbyGame();
+
       setMatchState(MatchState.Queued);
       setTournamentType(tournament);
       joinQueueTournamentRef.current = tournament;

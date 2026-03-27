@@ -369,6 +369,17 @@
   }
 }
 
+.waitingMessage {
+  text-align: center;
+  padding: $spacing-md;
+  background: linear-gradient(135deg, rgba($brand-primary, 0.08) 0%, rgba($brand-primary, 0.04) 100%);
+  border: 1px solid rgba($brand-primary, 0.15);
+  border-radius: $radius-lg;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $text-secondary;
+}
+
 // ==============================================
 // Loading Spinner
 // ==============================================

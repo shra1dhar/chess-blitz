@@ -167,12 +167,17 @@
     "friendJoined": "Ваш друг приєднався!",
     "selectTimeControl": "Оберіть контроль часу",
     "startGame": "Почати гру",
+    "waitingForHostToStart": "Очікування початку гри...",
     "copyInviteLink": "Копіювати посилання",
     "linkCopied": "Посилання скопійовано!",
     "lobbyExpired": "Час лобі минув",
     "friendLeft": "Ваш друг пішов",
     "host": "Хост",
-    "playAgainWithFriend": "Грати знову з другом"
+    "playAgainWithFriend": "Грати знову з другом",
+    "vs": "VS",
+    "waitingForPlayer": "Очікування гравця...",
+    "connectingToLobby": "Підключення до лобі...",
+    "timeControlSetByHost": "Встановлено хостом"
   },
   "draw": {
     "offerDeclined": "Вашу пропозицію нічиєї відхилено",

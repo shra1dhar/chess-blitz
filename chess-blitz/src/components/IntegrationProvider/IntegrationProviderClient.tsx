@@ -38,7 +38,14 @@ interface IntegrationProviderClientProps {
 export function IntegrationProviderClient({
   integrationType,
 }: IntegrationProviderClientProps) {
-  // No window check needed - integrationType comes from server!
+  // Auto-detect CrazyGames SDK (platform injects SDK into iframe)
+  // This handles the case where game runs on CrazyGames.com without ?integration param
+  const effectiveIntegrationType =
+    integrationType === IntegrationType.None &&
+    typeof window !== 'undefined' &&
+    window.CrazyGames?.SDK
+      ? IntegrationType.CrazyGames
+      : integrationType;
 
   const initializeSession = useMultiplayerStore(
     (state) => state.initializeSession
@@ -48,11 +55,11 @@ export function IntegrationProviderClient({
 
   const { setIntegrationType: setStoreIntegrationType } = useIntegrationStore();
 
-  // Set integration type in store on mount
+  // Set integration type in store on mount (using auto-detected type)
   useEffect(() => {
-    setStoreIntegrationType(integrationType);
-    console.log(`[Integration] Type set to: ${integrationType}`);
-  }, [integrationType, setStoreIntegrationType]);
+    setStoreIntegrationType(effectiveIntegrationType);
+    console.log(`[Integration] Type set to: ${effectiveIntegrationType}`);
+  }, [effectiveIntegrationType, setStoreIntegrationType]);
 
   // Rehydrate Zustand stores after React hydration completes
   useEffect(() => {
@@ -113,7 +120,7 @@ export function IntegrationProviderClient({
 
     async function initCloudSync() {
       // Initialize the integration service (required for CrazyGames SDK)
-      const service = getIntegrationService(integrationType);
+      const service = getIntegrationService(effectiveIntegrationType);
 
       // SDK must be initialized first before any other SDK calls
       await service.initialize();
@@ -152,7 +159,16 @@ export function IntegrationProviderClient({
       }
 
       // Load settings from cloud and merge with local
-      const cloudSettings = await loadSettingsFromCloud(integrationType);
+      const cloudSettings = await loadSettingsFromCloud(effectiveIntegrationType);
+
+      // Apply CrazyGames default theme for first-time users
+      // Only if: 1) CrazyGames integration, 2) No cloud settings exist (first-time user)
+      if (effectiveIntegrationType === IntegrationType.CrazyGames && !cloudSettings) {
+        const store = useSettingsStore.getState();
+        console.log('[IntegrationProvider] First-time CrazyGames user, applying purple theme');
+        store.setTheme('purple');
+      }
+
       if (cloudSettings) {
         const store = useSettingsStore.getState();
         // Cloud settings take precedence
@@ -174,7 +190,7 @@ export function IntegrationProviderClient({
       }
 
       // Load ELO from cloud and merge with local (after auth is ready)
-      const cloudElo = await loadEloFromCloud(integrationType);
+      const cloudElo = await loadEloFromCloud(effectiveIntegrationType);
       if (cloudElo) {
         const multiplayerStore = useMultiplayerStore.getState();
         // Only update if we have valid ELO values
@@ -196,22 +212,22 @@ export function IntegrationProviderClient({
     initCloudSync().catch((error) => {
       console.warn('[IntegrationProvider] Cloud sync initialization failed:', error);
       // Still signal loading stop on error so the game doesn't hang
-      const service = getIntegrationService(integrationType);
+      const service = getIntegrationService(effectiveIntegrationType);
       if (service.capabilities.hasGameLifecycle && service.loadingStop) {
         service.loadingStop();
       }
     });
-  }, [integrationType]);
+  }, [effectiveIntegrationType]);
 
   // Subscribe to settings changes and sync to cloud
   useEffect(() => {
-    const service = getIntegrationService(integrationType);
+    const service = getIntegrationService(effectiveIntegrationType);
     if (!service.capabilities.hasCloudSaves) {
       return;
     }
 
     const unsubscribe = useSettingsStore.subscribe((state) => {
-      syncSettingsToCloud(integrationType, {
+      syncSettingsToCloud(effectiveIntegrationType, {
         theme: state.theme,
         pieceSet: state.pieceSet,
         soundEnabled: state.soundEnabled,
@@ -223,11 +239,11 @@ export function IntegrationProviderClient({
     });
 
     return unsubscribe;
-  }, [integrationType]);
+  }, [effectiveIntegrationType]);
 
   // Subscribe to ELO changes and sync to cloud
   useEffect(() => {
-    const service = getIntegrationService(integrationType);
+    const service = getIntegrationService(effectiveIntegrationType);
     if (!service.capabilities.hasCloudSaves) {
       return;
     }
@@ -239,12 +255,12 @@ export function IntegrationProviderClient({
       // Only sync if ELO actually changed
       if (state.elo !== prevElo) {
         prevElo = state.elo;
-        syncEloToCloud(integrationType, state.elo);
+        syncEloToCloud(effectiveIntegrationType, state.elo);
       }
     });
 
     return unsubscribe;
-  }, [integrationType]);
+  }, [effectiveIntegrationType]);
 
   // Cleanup pending syncs on unmount
   useEffect(() => {

@@ -167,12 +167,17 @@
     "friendJoined": "Je vriend is toegetreden!",
     "selectTimeControl": "Selecteer tijdcontrole",
     "startGame": "Start spel",
+    "waitingForHostToStart": "Wachten op start...",
     "copyInviteLink": "Kopieer uitnodigingslink",
     "linkCopied": "Link gekopieerd!",
     "lobbyExpired": "Lobby verlopen",
     "friendLeft": "Je vriend heeft de lobby verlaten",
     "host": "Gastheer",
-    "playAgainWithFriend": "Opnieuw spelen met vriend"
+    "playAgainWithFriend": "Opnieuw spelen met vriend",
+    "vs": "VS",
+    "waitingForPlayer": "Wachten op speler...",
+    "connectingToLobby": "Verbinden met lobby...",
+    "timeControlSetByHost": "Ingesteld door gastheer"
   },
   "draw": {
     "offerDeclined": "Je remise-aanbod is afgewezen",

@@ -16,11 +16,13 @@ import { useSettingsStore } from '@/stores/settingsStore';
 import { useGameOverModal } from '@/hooks/useGameOverModal';
 import { useGameLifecycle } from '@/hooks/useGameLifecycle';
 import { usePlatformUser } from '@/hooks/usePlatformUser';
-import { LoadingScreen, GameHeader, PlayerInfoCard, GameLayout } from '@/components/game';
+import { useResignConfirm } from '@/hooks/useResignConfirm';
+import { LoadingScreen, PlayerInfoCard, GameLayout } from '@/components/game';
 import GameControls from '@/components/GameControls/GameControls';
 import ChessBoard from '@/components/Board/ChessBoard';
 import GameInfo from '@/components/GameInfo/GameInfo';
 import GameOverModal from '@/components/GameOver/GameOverModal';
+import ResignConfirmModal from '@/components/Multiplayer/ResignConfirmModal';
 
 interface GameClientProps {
   dictPromise: Promise<Dictionary>;
@@ -33,7 +35,6 @@ export function GameClient({ dictPromise, locale }: GameClientProps) {
   const router = useRouter();
   const [isInitialized, setIsInitialized] = useState(false);
   const [showGameOver, setShowGameOver] = useState(false);
-
   // Parse URL params
   const playerColor = (searchParams.get('color') as Color) || 'w';
   const difficulty = (searchParams.get('difficulty') as Difficulty) || 'medium';
@@ -100,11 +101,8 @@ export function GameClient({ dictPromise, locale }: GameClientProps) {
     router.push(`/${locale}`);
   };
 
-  const handleResign = () => {
-    if (window.confirm(dict.play.resignConfirm)) {
-      game.resign();
-    }
-  };
+  const { showResignConfirm, handleResign, handleResignConfirm, handleResignCancel } =
+    useResignConfirm(game.resign);
 
   // Loading state - show chess-themed screen while Stockfish loads
   if (!game.isEngineReady) {
@@ -122,13 +120,7 @@ export function GameClient({ dictPromise, locale }: GameClientProps) {
   return (
     <GameLayout
       theme={theme}
-      header={
-        <GameHeader
-          title={dict.home.title}
-          backLabel={dict.play.back}
-          onBack={handleBackToLobby}
-        />
-      }
+      floatingBackButton={{ label: dict.play.back, onBack: handleBackToLobby }}
       opponentInfo={
         <PlayerInfoCard
           avatarType="bot"
@@ -195,16 +187,24 @@ export function GameClient({ dictPromise, locale }: GameClientProps) {
         </>
       }
       overlays={
-        showGameOver && (
-          <GameOverModal
-            result={game.result}
-            status={game.status}
-            playerColor={playerColor}
-            onPlayAgain={handleNewGame}
-            onBackToLobby={handleBackToLobby}
+        <>
+          {showGameOver && (
+            <GameOverModal
+              result={game.result}
+              status={game.status}
+              playerColor={playerColor}
+              onPlayAgain={handleNewGame}
+              onBackToLobby={handleBackToLobby}
+              dict={dict}
+            />
+          )}
+          <ResignConfirmModal
+            isOpen={showResignConfirm}
+            onConfirm={handleResignConfirm}
+            onCancel={handleResignCancel}
             dict={dict}
           />
-        )
+        </>
       }
     />
   );

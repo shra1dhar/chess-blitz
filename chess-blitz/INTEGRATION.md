@@ -12,7 +12,7 @@ This document describes the platform integration system for Chess Blitz, enablin
 
 ## Current Status
 
-**SDK loading is implemented.** Platform-specific service initialization (ads, leaderboards, cloud saves, audio sync) will be added incrementally.
+**Fully implemented.** SDK loading, platform services (ads, cloud saves, audio sync), and game lifecycle events are all active.
 
 ## Architecture
 
@@ -59,26 +59,40 @@ src/
 │   ├── integration.ts          # IntegrationType enum, SDK URLs
 │   └── global.d.ts             # MSNStartSDK & CrazyGamesSDK type declarations
 ├── stores/
-│   └── integrationStore.ts     # Zustand store (just integrationType)
+│   └── integrationStore.ts     # Zustand store (type, multiplayer flags)
 ├── hooks/
-│   └── useIntegration.ts       # Hook to access integrationType
+│   ├── useIntegration.ts       # Hook to access integrationType
+│   ├── useGameLifecycle.ts     # Game lifecycle signals (loadingStart, gameplayStart, etc.)
+│   ├── usePlatformUser.ts      # Platform user data (username, avatar)
+│   └── usePrivateLobby.ts      # Private lobby management
 ├── components/IntegrationProvider/
 │   ├── index.ts                # Re-exports
 │   ├── IntegrationProvider.tsx      # Server component (loads SDK)
-│   └── IntegrationProviderClient.tsx # Client component (app init)
+│   └── IntegrationProviderClient.tsx # Client component (SDK init, lifecycle)
+├── services/integration/       # Platform service implementations
 └── middleware.ts               # Sets x-url header for server components
 ```
 
-### Deferred (for future use)
+### Platform Services (Active)
 
 ```
-src/services/integration/        # NOT YET ACTIVE
-├── index.ts                     # Factory function
+src/services/integration/        # ACTIVE - Platform integrations
+├── index.ts                     # Factory: getIntegrationService()
 ├── types.ts                     # IIntegrationService interface
-├── NullIntegrationService.ts    # Dev fallback
-├── MsnIntegrationService.ts     # MSN platform implementation
-└── CrazyGamesIntegrationService.ts  # CrazyGames implementation
+├── NullIntegrationService.ts    # Dev/standalone fallback
+├── MsnIntegrationService.ts     # MSN platform (audio sync, ads)
+├── CrazyGamesIntegrationService.ts  # CrazyGames (lifecycle, ads, cloud saves, multiplayer)
+└── cloudSync.ts                 # Settings/ELO cloud synchronization
 ```
+
+**Key service methods:**
+- `initialize()` - Initialize SDK (required before other calls)
+- `loadingStart()` / `loadingStop()` - Game loading signals
+- `gameplayStart()` / `gameplayStop()` - Gameplay signals
+- `happyTime()` - Achievement celebration
+- `showInterstitialAd()` / `showRewardedAd()` - Ad display
+- `getUser()` - Platform user data (username, avatar)
+- `saveGameState()` / `loadGameState()` - Cloud saves
 
 ## How It Works
 

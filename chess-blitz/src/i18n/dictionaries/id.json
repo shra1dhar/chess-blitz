@@ -167,12 +167,17 @@
     "friendJoined": "Temanmu telah bergabung!",
     "selectTimeControl": "Pilih kontrol waktu",
     "startGame": "Mulai Permainan",
+    "waitingForHostToStart": "Menunggu host memulai...",
     "copyInviteLink": "Salin link undangan",
     "linkCopied": "Link disalin!",
     "lobbyExpired": "Lobi kedaluwarsa",
     "friendLeft": "Temanmu keluar",
     "host": "Host",
-    "playAgainWithFriend": "Main lagi dengan teman"
+    "playAgainWithFriend": "Main lagi dengan teman",
+    "vs": "VS",
+    "waitingForPlayer": "Menunggu pemain...",
+    "connectingToLobby": "Menghubungkan ke lobi...",
+    "timeControlSetByHost": "Diatur oleh host"
   },
   "draw": {
     "offerDeclined": "Tawaran seri Anda ditolak",

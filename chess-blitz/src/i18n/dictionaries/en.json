@@ -173,12 +173,17 @@
     "friendJoined": "Friend joined!",
     "selectTimeControl": "Select time control",
     "startGame": "Start Game",
+    "waitingForHostToStart": "Waiting for host to start...",
     "copyInviteLink": "Copy invite link",
     "linkCopied": "Link copied!",
     "lobbyExpired": "Lobby expired",
     "friendLeft": "Friend left the lobby",
     "host": "Host",
-    "playAgainWithFriend": "Play Again with Friend"
+    "playAgainWithFriend": "Play Again with Friend",
+    "vs": "VS",
+    "waitingForPlayer": "Waiting for player...",
+    "connectingToLobby": "Connecting to lobby...",
+    "timeControlSetByHost": "Set by host"
   },
   "draw": {
     "offerDeclined": "Your draw offer was declined",

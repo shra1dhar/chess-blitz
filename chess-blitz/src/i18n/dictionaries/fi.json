@@ -167,12 +167,17 @@
     "friendJoined": "Kaverisi liittyi!",
     "selectTimeControl": "Valitse aikakontrolli",
     "startGame": "Aloita peli",
+    "waitingForHostToStart": "Odotetaan isännän aloitusta...",
     "copyInviteLink": "Kopioi kutsulinkki",
     "linkCopied": "Linkki kopioitu!",
     "lobbyExpired": "Aula vanheni",
     "friendLeft": "Kaverisi poistui",
     "host": "Isäntä",
-    "playAgainWithFriend": "Pelaa uudelleen kaverin kanssa"
+    "playAgainWithFriend": "Pelaa uudelleen kaverin kanssa",
+    "vs": "VS",
+    "waitingForPlayer": "Odotetaan pelaajaa...",
+    "connectingToLobby": "Yhdistetään aulaan...",
+    "timeControlSetByHost": "Isännän asettama"
   },
   "draw": {
     "offerDeclined": "Tasapelitarjouksesi hylättiin",

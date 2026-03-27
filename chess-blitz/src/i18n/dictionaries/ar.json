@@ -167,12 +167,17 @@
     "friendJoined": "انضم صديقك!",
     "selectTimeControl": "اختر التحكم بالوقت",
     "startGame": "ابدأ اللعبة",
+    "waitingForHostToStart": "في انتظار بدء اللعبة...",
     "copyInviteLink": "نسخ رابط الدعوة",
     "linkCopied": "تم نسخ الرابط!",
     "lobbyExpired": "انتهت صلاحية الغرفة",
     "friendLeft": "غادر صديقك",
     "host": "المضيف",
-    "playAgainWithFriend": "العب مرة أخرى مع صديق"
+    "playAgainWithFriend": "العب مرة أخرى مع صديق",
+    "vs": "VS",
+    "waitingForPlayer": "في انتظار اللاعب...",
+    "connectingToLobby": "جاري الاتصال...",
+    "timeControlSetByHost": "تم تعيينه بواسطة المضيف"
   },
   "draw": {
     "offerDeclined": "تم رفض عرض التعادل",

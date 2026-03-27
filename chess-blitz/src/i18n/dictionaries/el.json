@@ -167,12 +167,17 @@
     "friendJoined": "Ο φίλος σου μπήκε!",
     "selectTimeControl": "Επίλεξε έλεγχο χρόνου",
     "startGame": "Έναρξη παιχνιδιού",
+    "waitingForHostToStart": "Αναμονή για έναρξη...",
     "copyInviteLink": "Αντιγραφή συνδέσμου πρόσκλησης",
     "linkCopied": "Ο σύνδεσμος αντιγράφηκε!",
     "lobbyExpired": "Το lobby έληξε",
     "friendLeft": "Ο φίλος σου έφυγε",
     "host": "Οικοδεσπότης",
-    "playAgainWithFriend": "Παίξε ξανά με φίλο"
+    "playAgainWithFriend": "Παίξε ξανά με φίλο",
+    "vs": "VS",
+    "waitingForPlayer": "Αναμονή για παίκτη...",
+    "connectingToLobby": "Σύνδεση στο lobby...",
+    "timeControlSetByHost": "Ορίζεται από τον οικοδεσπότη"
   },
   "draw": {
     "offerDeclined": "Η πρόταση ισοπαλίας απορρίφθηκε",

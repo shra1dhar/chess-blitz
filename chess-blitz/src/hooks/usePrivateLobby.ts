@@ -11,7 +11,7 @@ import type { WebSocketStatus } from '@/types/multiplayer';
 
 export type PrivateLobbyStatus = 'idle' | 'creating' | 'waiting' | 'ready' | 'starting';
 
-interface LobbyPlayerInfo {
+export interface LobbyPlayerInfo {
   id: string;
   displayName: string;
   elo: number;
@@ -77,6 +77,12 @@ export function usePrivateLobby(integrationType: IntegrationType): UsePrivateLob
       const link = integrationService.showInviteButton(lobbyId);
       setInviteLink(link);
       console.log('[PrivateLobby] Invite button shown');
+
+      // Also call inviteLink() to satisfy CrazyGames SDK tracking
+      if (integrationService.getInviteLink) {
+        integrationService.getInviteLink(lobbyId);
+        console.log('[PrivateLobby] Invite link generated for SDK tracking');
+      }
     } else if ((status === 'ready' || status === 'starting' || status === 'idle') &&
                integrationService.hideInviteButton) {
       integrationService.hideInviteButton();
@@ -184,6 +190,36 @@ export function usePrivateLobby(integrationType: IntegrationType): UsePrivateLob
     sendMessageRef.current = sendMessage;
   }, [sendMessage]);
 
+  // Build lobby WebSocket URL with platform user info
+  const buildLobbyUrl = useCallback(async (lobbyId: string, action: string, extraParams?: Record<string, string>) => {
+    // Fetch platform user info if not cached
+    if (!platformUserRef.current && integrationService.getUser) {
+      try {
+        platformUserRef.current = await integrationService.getUser();
+      } catch (error) {
+        console.warn('[PrivateLobby] Failed to get platform user:', error);
+      }
+    }
+
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL?.replace(/^http/, 'ws');
+    let url = `${backendUrl}/ws/lobby/${lobbyId}?token=${token}&action=${action}`;
+
+    if (extraParams) {
+      for (const [key, value] of Object.entries(extraParams)) {
+        url += `&${key}=${encodeURIComponent(value)}`;
+      }
+    }
+
+    if (platformUserRef.current?.username) {
+      url += `&platformUsername=${encodeURIComponent(platformUserRef.current.username)}`;
+    }
+    if (platformUserRef.current?.avatarUrl) {
+      url += `&platformAvatarUrl=${encodeURIComponent(platformUserRef.current.avatarUrl)}`;
+    }
+
+    return url;
+  }, [token, integrationService]);
+
   const createLobby = useCallback(async (type: TournamentType = 'blitz') => {
     const newLobbyId = crypto.randomUUID();
     setLobbyId(newLobbyId);
@@ -191,58 +227,20 @@ export function usePrivateLobby(integrationType: IntegrationType): UsePrivateLob
     setTournamentTypeState(type);
     setStatus('creating');
 
-    // Fetch platform user info (CrazyGames username/avatar)
-    if (!platformUserRef.current && integrationService.getUser) {
-      try {
-        platformUserRef.current = await integrationService.getUser();
-      } catch (error) {
-        console.warn('[PrivateLobby] Failed to get platform user:', error);
-      }
-    }
-
-    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL?.replace(/^http/, 'ws');
-    let url = `${backendUrl}/ws/lobby/${newLobbyId}?token=${token}&action=create&tournamentType=${type}`;
-
-    // Add platform user info to URL if available
-    if (platformUserRef.current?.username) {
-      url += `&platformUsername=${encodeURIComponent(platformUserRef.current.username)}`;
-    }
-    if (platformUserRef.current?.avatarUrl) {
-      url += `&platformAvatarUrl=${encodeURIComponent(platformUserRef.current.avatarUrl)}`;
-    }
-
+    const url = await buildLobbyUrl(newLobbyId, 'create', { tournamentType: type });
     setWsUrl(url);
     console.log('[PrivateLobby] Creating lobby:', newLobbyId);
-  }, [token, integrationService]);
+  }, [buildLobbyUrl]);
 
   const joinLobby = useCallback(async (id: string) => {
     setLobbyId(id);
     setIsHost(false);
     setStatus('creating');
 
-    // Fetch platform user info (CrazyGames username/avatar)
-    if (!platformUserRef.current && integrationService.getUser) {
-      try {
-        platformUserRef.current = await integrationService.getUser();
-      } catch (error) {
-        console.warn('[PrivateLobby] Failed to get platform user:', error);
-      }
-    }
-
-    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL?.replace(/^http/, 'ws');
-    let url = `${backendUrl}/ws/lobby/${id}?token=${token}&action=join`;
-
-    // Add platform user info to URL if available
-    if (platformUserRef.current?.username) {
-      url += `&platformUsername=${encodeURIComponent(platformUserRef.current.username)}`;
-    }
-    if (platformUserRef.current?.avatarUrl) {
-      url += `&platformAvatarUrl=${encodeURIComponent(platformUserRef.current.avatarUrl)}`;
-    }
-
+    const url = await buildLobbyUrl(id, 'join');
     setWsUrl(url);
     console.log('[PrivateLobby] Joining lobby:', id);
-  }, [token, integrationService]);
+  }, [buildLobbyUrl]);
 
   const setTournamentType = useCallback((type: TournamentType) => {
     setTournamentTypeState(type);

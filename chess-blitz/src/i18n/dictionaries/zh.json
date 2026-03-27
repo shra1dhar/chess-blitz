@@ -167,12 +167,17 @@
     "friendJoined": "好友已加入！",
     "selectTimeControl": "选择时间控制",
     "startGame": "开始游戏",
+    "waitingForHostToStart": "等待房主开始游戏...",
     "copyInviteLink": "复制邀请链接",
     "linkCopied": "链接已复制！",
     "lobbyExpired": "房间已过期",
     "friendLeft": "好友已离开",
     "host": "房主",
-    "playAgainWithFriend": "与好友再来一局"
+    "playAgainWithFriend": "与好友再来一局",
+    "vs": "VS",
+    "waitingForPlayer": "等待玩家...",
+    "connectingToLobby": "正在连接大厅...",
+    "timeControlSetByHost": "由房主设置"
   },
   "draw": {
     "offerDeclined": "您的和棋提议被拒绝",

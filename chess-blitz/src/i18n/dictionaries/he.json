@@ -167,12 +167,17 @@
     "friendJoined": "החבר שלך הצטרף!",
     "selectTimeControl": "בחר שליטת זמן",
     "startGame": "התחל משחק",
+    "waitingForHostToStart": "ממתין שהמארח יתחיל...",
     "copyInviteLink": "העתק קישור הזמנה",
     "linkCopied": "הקישור הועתק!",
     "lobbyExpired": "פג תוקף הלובי",
     "friendLeft": "החבר שלך עזב",
     "host": "מארח",
-    "playAgainWithFriend": "שחק שוב עם חבר"
+    "playAgainWithFriend": "שחק שוב עם חבר",
+    "vs": "VS",
+    "waitingForPlayer": "ממתין לשחקן...",
+    "connectingToLobby": "מתחבר ללובי...",
+    "timeControlSetByHost": "נקבע על ידי המארח"
   },
   "draw": {
     "offerDeclined": "הצעת התיקו שלך נדחתה",

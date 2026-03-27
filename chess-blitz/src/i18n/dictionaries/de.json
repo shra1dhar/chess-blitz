@@ -167,12 +167,17 @@
     "friendJoined": "Freund ist beigetreten!",
     "selectTimeControl": "Zeitkontrolle wählen",
     "startGame": "Spiel starten",
+    "waitingForHostToStart": "Warte auf Spielstart...",
     "copyInviteLink": "Einladungslink kopieren",
     "linkCopied": "Link kopiert!",
     "lobbyExpired": "Lobby abgelaufen",
     "friendLeft": "Freund hat die Lobby verlassen",
     "host": "Gastgeber",
-    "playAgainWithFriend": "Nochmal mit Freund spielen"
+    "playAgainWithFriend": "Nochmal mit Freund spielen",
+    "vs": "VS",
+    "waitingForPlayer": "Warten auf Spieler...",
+    "connectingToLobby": "Verbinde zur Lobby...",
+    "timeControlSetByHost": "Vom Gastgeber festgelegt"
   },
   "draw": {
     "offerDeclined": "Dein Remisangebot wurde abgelehnt",
