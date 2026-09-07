@@ -123,9 +123,10 @@ setRematchState('requested');
    - Replace `darken($color, 10%)` with `color.adjust($color, $lightness: -10%)`
    - Replace `lighten($color, 5%)` with `color.adjust($color, $lightness: 5%)`
 
-2. **Avoid CSS Grid and `gap` property for older browser support**
-   - Do NOT use `display: grid` or `gap` property
-   - Use flexbox with margin for spacing instead:
+2. **Avoid CSS Grid and `gap` for older browser support**
+   - The asm.js Stockfish fallback exists so IE 11 and old mobile browsers can play; those browsers lack `display: grid` and `gap`
+   - Use flexbox with margin for spacing instead
+   - Existing `gap:` uses in `TournamentLobby.module.scss`, `EngineStatusIndicator.module.scss`, and `PrivateLobbyOverlay.module.scss` predate enforcement; fix them or drop this rule
    ```scss
    // BAD - not supported in older browsers
    .container {
@@ -193,7 +194,8 @@ setRematchState('requested');
    - classical: 10 minutes
 
 2. **Adding new tournament types requires updates in:**
-   - `src/types/multiplayer.ts` - Add to `TournamentType` union and `TOURNAMENT_TIME_MS`
+   - `packages/shared/src/types/tournament.ts` - Add to `TOURNAMENT_TYPES` (the `TournamentType` union derives from it) and `TIME_CONTROLS`
+   - `src/types/multiplayer.ts` - Add to `TOURNAMENT_TIME_MS`
    - `src/stores/multiplayerStore.ts` - Add default elo in initial state
    - `src/components/Tournament/TournamentLobby.tsx` - Add to TOURNAMENTS array
    - `src/i18n/dictionaries/*.json` - Add translations for all 34 languages
@@ -208,9 +210,9 @@ setRematchState('requested');
 
 2. **Self-hosted files** in `public/stockfish/`:
    ```
-   stockfish-17-wasm.js              # WASM loader (21KB)
-   stockfish-17.1-lite-single-*.wasm # WASM binary (7.3MB)
-   stockfish-10-asm.js               # asm.js fallback (1.6MB)
+   stockfish-17-wasm.js     # WASM loader
+   stockfish-17-wasm.wasm   # WASM binary
+   stockfish-10-asm.js      # asm.js fallback
    ```
 
 3. **Browser compatibility**:
@@ -387,9 +389,6 @@ setRematchState('requested');
    }
    ```
 
-6. **Don't overuse `useEffect`** 
-Sometimes simple solutions can be implemented with server side based architecture or otherwise with good practices.
-
 
 ### Code Splitting
 
@@ -502,7 +501,7 @@ src/
 pnpm dev          # Start dev server (Turbopack)
 pnpm build        # Build for production
 pnpm deploy       # Build and deploy to Cloudflare
-pnpm typecheck    # Run TypeScript type checking (via tsc --noEmit)
+npx tsc --noEmit  # TypeScript type checking (this package has no typecheck script)
 ```
 
 ## Deployment

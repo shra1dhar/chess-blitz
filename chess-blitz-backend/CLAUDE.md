@@ -153,59 +153,11 @@ GET  /ws/lobby/:lobbyId   - WebSocket: Private lobby (CrazyGames "Play with Frie
 
 ### WebSocket Message Types
 
-**Matchmaking (Queue)**
-```typescript
-// Client -> Server
-{ type: 'join_queue', token: string }
-{ type: 'leave_queue' }
-
-// Server -> Client
-{ type: 'queue_joined', position: number }
-{ type: 'match_found', gameId: string, color: 'w'|'b', opponent: PlayerInfo }
-{ type: 'queue_left' }
-```
-
-**Game Room**
-```typescript
-// Client -> Server
-{ type: 'join_game', token: string, color: 'w'|'b' }
-{ type: 'move', from: string, to: string, promotion?: string }
-{ type: 'resign' }
-{ type: 'offer_draw' }
-{ type: 'accept_draw' }
-{ type: 'decline_draw' }
-{ type: 'request_rematch' }
-{ type: 'accept_rematch' }
-{ type: 'decline_rematch' }
-
-// Server -> Client
-{ type: 'game_state', fen: string, pgn: string, turn: 'w'|'b', ... }
-{ type: 'move_made', from: string, to: string, fen: string, ... }
-{ type: 'game_over', result: '1-0'|'0-1'|'1/2-1/2', reason: string }
-{ type: 'draw_offered' }
-{ type: 'draw_declined' }
-{ type: 'opponent_disconnected' }
-{ type: 'opponent_reconnected' }
-{ type: 'rematch_requested' }
-{ type: 'rematch_accepted', newGameId: string }
-{ type: 'rematch_declined' }
-```
-
-**Private Lobby**
-```typescript
-// Client -> Server
-{ type: 'set_lobby_tournament_type', tournamentType: string }  // Host only
-{ type: 'start_private_game' }                                  // Host only
-{ type: 'leave_lobby' }
-
-// Server -> Client
-{ type: 'connected' }
-{ type: 'lobby_state', lobby: { lobbyId, host, guest, tournamentType, status } }
-{ type: 'lobby_player_joined', player: PlayerInfo }
-{ type: 'lobby_player_left' }
-{ type: 'lobby_closed' }
-{ type: 'match_found', gameId: string, opponent: PlayerInfo, color: 'w'|'b' }
-```
+The wire names live in `ClientMessageType` / `ServerMessageType` in
+`packages/shared/src/enums/message-types.ts`; the payload shapes are the
+`ClientMessage` / `ServerMessage` unions in `src/types/messages.ts`. Those two
+files are the source of truth - add new messages there, not here.
+Auth is the `token` query param on the WebSocket URL, not a message field.
 
 ---
 
